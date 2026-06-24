@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase Gratuita · SEN6</title>
+  <meta name="description" content="Anotate a la clase gratuita en vivo del 12 de julio y aprendé a construir un canal de YouTube faceless con IA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF8F5;
+      --ink: #1A1A1A;
+      --muted: #555555;
+      --faint: #999999;
+      --lighter: #AAAAAA;
+      --accent: #D4450A;
+      --accent-hover: #B83A08;
+      --border: #DDDDDD;
+      --max: 560px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 56px;
+      gap: 0;
+    }
+
+    /* ── LOGO ── */
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+      margin-bottom: 40px;
+      display: block;
+    }
+    .logo:hover { color: var(--accent); }
+
+    /* ── CONTENEDOR CENTRAL ── */
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .eyebrow-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── TÍTULO ── */
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 8vw, 62px);
+      line-height: 1.0;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+
+    /* ── SUBTÍTULO ── */
+    .subtitle {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 42ch;
+      text-wrap: pretty;
+    }
+
+    /* ── BULLETS ── */
+    .bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+      text-align: left;
+      width: 100%;
+      max-width: 400px;
+    }
+    .bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .bullet-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--accent);
+    }
+
+    /* ── FORMULARIO ── */
+    .form-wrap {
+      width: 100%;
+      max-width: 480px;
+      margin-bottom: 14px;
+    }
+
+    /* Overrides para AWeber */
+    .form-wrap .AW-Form-558694236,
+    .form-wrap form {
+      background: transparent !important;
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .form-wrap input[type="text"],
+    .form-wrap input[type="email"],
+    .form-wrap input[type="tel"] {
+      width: 100% !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      padding: 12px 14px !important;
+      font-size: 16px !important;
+      font-family: 'Inter', sans-serif !important;
+      background: #fff !important;
+      color: var(--ink) !important;
+      margin-bottom: 12px !important;
+      box-shadow: none !important;
+      outline-offset: 2px;
+    }
+    .form-wrap input[type="text"]:focus,
+    .form-wrap input[type="email"]:focus {
+      outline: 2px solid var(--accent) !important;
+      border-color: var(--accent) !important;
+    }
+    .form-wrap input[type="submit"],
+    .form-wrap button[type="submit"] {
+      width: 100% !important;
+      background: var(--accent) !important;
+      color: #fff !important;
+      font-family: 'Bebas Neue', sans-serif !important;
+      font-size: 20px !important;
+      letter-spacing: 0.06em !important;
+      text-transform: uppercase !important;
+      padding: 14px 32px !important;
+      border-radius: 4px !important;
+      border: none !important;
+      cursor: pointer !important;
+      transition: background .18s ease !important;
+      box-shadow: 0 8px 24px -10px rgba(212,69,10,0.6) !important;
+    }
+    .form-wrap input[type="submit"]:hover,
+    .form-wrap button[type="submit"]:hover {
+      background: var(--accent-hover) !important;
+    }
+    /* Ocultar logo/branding AWeber */
+    .form-wrap .aw-optins-bot-field,
+    .form-wrap img[src*="aweber"],
+    .form-wrap a[href*="aweber"],
+    .form-wrap .powered,
+    .form-wrap .aw-form-footer {
+      display: none !important;
+    }
+    .form-wrap label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: left;
+      margin-bottom: 6px;
+    }
+
+    /* ── TEXTO BAJO FORM ── */
+    .form-note {
+      font-size: 13px;
+      color: var(--faint);
+      margin-bottom: 40px;
+    }
+
+    /* ── SEPARADOR ── */
+    .sep {
+      width: 48px;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 28px;
+    }
+
+    /* ── PRUEBA SOCIAL ── */
+    .social-proof {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 48px;
+      max-width: 36ch;
+      text-wrap: balance;
+    }
+
+    /* ── PIE ── */
+    .foot {
+      font-size: 12px;
+      color: var(--lighter);
+    }
+    .foot a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .foot a:hover { color: var(--accent); }
+
+    @media (min-width: 600px) {
+      body { padding: 60px 32px 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <a href="https://sen6.online" class="logo" aria-label="SEN6 — inicio">SEN6</a>
+
+  <div class="wrap">
+
+    <!-- EYEBROW -->
+    <span class="eyebrow">
+      <span class="eyebrow-dot" aria-hidden="true"></span>
+      Clase gratuita en vivo &nbsp;·&nbsp; Domingo 12 de julio
+    </span>
+
+    <!-- TÍTULO -->
+    <h1>Cómo construir un canal de YouTube Faceless con IA y vivir de él</h1>
+
+    <!-- SUBTÍTULO -->
+    <p class="subtitle">
+      El método que usaron nuestros alumnos para monetizar sin mostrar la cara, sin experiencia previa y sin depender de un jefe.
+    </p>
+
+    <!-- BULLETS -->
+    <ul class="bullets">
+      <li>
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
+          <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Cómo elegir un nicho que el algoritmo ya quiere mostrar</span>
+      </li>
+      <li>
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
+          <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>El sistema de producción con IA que reduce el trabajo al mínimo</span>
+      </li>
+      <li>
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
+          <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Cómo pasar de 0 a monetizado en el menor tiempo posible</span>
+      </li>
+    </ul>
+
+    <!-- FORMULARIO AWEBER -->
+    <div class="form-wrap">
+      <div class="AW-Form-558694236"></div>
+      <script type="text/javascript">(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//forms.aweber.com/form/36/558694236.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, "script", "aweber-wjs-liq7gpy2a"));</script>
+    </div>
+
+    <!-- NOTA BAJO FORM -->
+    <p class="form-note">Sin spam. Solo el link de la clase y un recordatorio.</p>
+
+    <!-- SEPARADOR -->
+    <div class="sep" role="separator" aria-hidden="true"></div>
+
+    <!-- PRUEBA SOCIAL -->
+    <p class="social-proof">"Más de 200 alumnos ya construyeron su canal con este método."</p>
+
+    <!-- PIE -->
+    <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
+
+  </div>
+
+</body>
+</html>
