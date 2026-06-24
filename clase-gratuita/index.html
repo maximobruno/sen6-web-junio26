@@ -59,6 +59,33 @@
       font-size: 15px; line-height: 1.5; color: var(--muted);
     }
     .bullet-icon { flex-shrink: 0; margin-top: 2px; }
+
+    /* ── PASOS ── */
+    .steps-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--faint);
+      margin-bottom: 16px; align-self: flex-start;
+    }
+    .steps {
+      list-style: none; display: flex; flex-direction: column; gap: 0;
+      margin-bottom: 32px; text-align: left; width: 100%; max-width: 480px;
+    }
+    .steps li {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-size: 12px;
+      font-weight: 600; display: flex; align-items: center;
+      justify-content: center; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; line-height: 1.6; color: var(--muted); }
+    .step-text strong { color: var(--ink); font-weight: 600; }
+
+    /* ── FORM ── */
     .form-wrap { width: 100%; max-width: 480px; margin-bottom: 14px; }
     .form-wrap .AW-Form-558694236,
     .form-wrap form {
@@ -105,39 +132,6 @@
     .foot a { color: inherit; text-decoration: none; }
     .foot a:hover { color: var(--accent); }
     @media (min-width: 600px) { body { padding: 60px 32px 72px; } }
-
-    /* ── POPUP ── */
-    .popup-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5); z-index: 999;
-      align-items: center; justify-content: center; padding: 24px;
-    }
-    .popup-overlay.visible { display: flex; }
-    .popup {
-      background: var(--bg); border-radius: 8px; padding: 40px 32px;
-      max-width: 400px; width: 100%; text-align: center;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-    }
-    .popup-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(212,69,10,0.10);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .popup h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 38px; color: var(--ink); line-height: 1;
-    }
-    .popup p {
-      font-size: 15px; line-height: 1.7; color: var(--muted);
-    }
-    .popup-btn {
-      width: 100%; background: var(--accent); color: #fff;
-      font-family: 'Bebas Neue', sans-serif; font-size: 18px;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 13px 24px; border-radius: 4px; border: none;
-      cursor: pointer; margin-top: 6px; transition: background .18s ease;
-    }
-    .popup-btn:hover { background: var(--accent-hover); }
   </style>
 </head>
 <body>
@@ -145,6 +139,7 @@
   <a href="https://sen6.online" class="logo">SEN6</a>
 
   <div class="wrap">
+
     <span class="eyebrow">
       <span class="eyebrow-dot"></span>
       Clase gratuita en vivo &nbsp;·&nbsp; Domingo 12 de julio
@@ -180,7 +175,25 @@
       </li>
     </ul>
 
-    <div class="form-wrap" id="form-wrap">
+    <!-- PASOS -->
+    <p class="steps-label">Cómo funciona</p>
+    <ul class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <span class="step-text">Completá tu nombre y email en el formulario y hacé click en <strong>Confirmar mi lugar</strong>.</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span class="step-text">Revisá tu bandeja de entrada — te enviamos un email para <strong>confirmar tu participación</strong>. Sin esa confirmación no podremos mandarte el link.</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span class="step-text">Los días previos a la clase te enviamos un recordatorio y el <strong>link para entrar al vivo</strong> el domingo 12 de julio.</span>
+      </li>
+    </ul>
+
+    <!-- FORM AWEBER -->
+    <div class="form-wrap">
       <div class="AW-Form-558694236"></div>
       <script type="text/javascript">(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -191,46 +204,12 @@
       }(document, "script", "aweber-wjs-liq7gpy2a"));</script>
     </div>
 
-    <p class="form-note">Sin spam. Solo el link de la clase y un recordatorio.</p>
+    <p class="form-note">Sin spam. Solo el link de la clase y los recordatorios.</p>
     <div class="sep"></div>
     <p class="social-proof">"Más de 200 alumnos ya construyeron su canal con este método."</p>
     <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
-  </div>
 
-  <!-- POPUP -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup">
-      <div class="popup-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path d="M6 14l5.5 5.5 10.5-10.5" stroke="#D4450A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h2>¡Te anotaste!</h2>
-      <p>Tu lugar para la clase del <strong>domingo 12 de julio</strong> está reservado. En los próximos minutos vas a recibir un email de confirmación con todos los detalles.</p>
-      <button class="popup-btn" onclick="document.getElementById('popup').classList.remove('visible')">Perfecto</button>
-    </div>
   </div>
-
-  <script>
-    // Mostrar popup cuando hacen click en el botón de AWeber
-    function attachListener() {
-      var wrap = document.getElementById('form-wrap');
-      var btn = wrap && (wrap.querySelector('input[type="submit"]') || wrap.querySelector('button[type="submit"]'));
-      if (btn) {
-        btn.addEventListener('click', function() {
-          setTimeout(function() {
-            document.getElementById('popup').classList.add('visible');
-          }, 400);
-        });
-      } else {
-        setTimeout(attachListener, 500);
-      }
-    }
-    window.addEventListener('load', function() { setTimeout(attachListener, 1000); });
-    document.getElementById('popup').addEventListener('click', function(e) {
-      if (e.target === this) this.classList.remove('visible');
-    });
-  </script>
 
 </body>
 </html>
