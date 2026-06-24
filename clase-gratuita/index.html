@@ -11,345 +11,168 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #FAF8F5;
-      --ink: #1A1A1A;
-      --muted: #555555;
-      --faint: #999999;
-      --lighter: #AAAAAA;
-      --accent: #D4450A;
-      --accent-hover: #B83A08;
-      --border: #DDDDDD;
-      --max: 560px;
+      --bg: #FAF8F5; --ink: #1A1A1A; --muted: #555555; --faint: #999999;
+      --lighter: #AAAAAA; --accent: #D4450A; --accent-hover: #B83A08;
+      --border: #DDDDDD; --max: 560px;
     }
-
     html { font-size: 16px; }
     body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Inter', sans-serif;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 20px 56px;
-      gap: 0;
+      background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif;
+      min-height: 100svh; display: flex; flex-direction: column;
+      align-items: center; padding: 48px 20px 56px;
     }
-
-    /* ── LOGO ── */
     .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      text-decoration: none;
-      margin-bottom: 40px;
-      display: block;
+      font-family: 'Bebas Neue', sans-serif; font-size: 28px;
+      letter-spacing: 0.04em; color: var(--ink); text-decoration: none;
+      margin-bottom: 40px; display: block;
     }
     .logo:hover { color: var(--accent); }
-
-    /* ── CONTENEDOR CENTRAL ── */
     .wrap {
-      width: 100%;
-      max-width: var(--max);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      width: 100%; max-width: var(--max); display: flex;
+      flex-direction: column; align-items: center; text-align: center;
     }
-
-    /* ── EYEBROW ── */
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 6px; font-size: 11px;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 18px;
     }
     .eyebrow-dot {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+      display: inline-block; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--accent); flex-shrink: 0;
     }
-
-    /* ── TÍTULO ── */
     h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 8vw, 62px);
-      line-height: 1.0;
-      letter-spacing: 0.01em;
-      color: var(--ink);
-      margin-bottom: 20px;
-      text-wrap: balance;
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 8vw, 62px);
+      line-height: 1.0; letter-spacing: 0.01em; color: var(--ink);
+      margin-bottom: 20px; text-wrap: balance;
     }
-
-    /* ── SUBTÍTULO ── */
     .subtitle {
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--muted);
-      margin-bottom: 32px;
-      max-width: 42ch;
-      text-wrap: pretty;
+      font-size: 17px; line-height: 1.6; color: var(--muted);
+      margin-bottom: 32px; max-width: 42ch; text-wrap: pretty;
     }
-
-    /* ── BULLETS ── */
     .bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 40px;
-      text-align: left;
-      width: 100%;
-      max-width: 400px;
+      list-style: none; display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 40px; text-align: left; width: 100%; max-width: 400px;
     }
     .bullets li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--muted);
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 15px; line-height: 1.5; color: var(--muted);
     }
-    .bullet-icon {
-      flex-shrink: 0;
-      margin-top: 2px;
-      color: var(--accent);
-    }
-
-    /* ── FORMULARIO ── */
-    .form-wrap {
-      width: 100%;
-      max-width: 480px;
-      margin-bottom: 14px;
-    }
-
-    /* Overrides para AWeber */
+    .bullet-icon { flex-shrink: 0; margin-top: 2px; }
+    .form-wrap { width: 100%; max-width: 480px; margin-bottom: 14px; }
     .form-wrap .AW-Form-558694236,
     .form-wrap form {
-      background: transparent !important;
-      padding: 0 !important;
-      border: none !important;
-      box-shadow: none !important;
+      background: transparent !important; padding: 0 !important;
+      border: none !important; box-shadow: none !important;
     }
     .form-wrap input[type="text"],
     .form-wrap input[type="email"],
     .form-wrap input[type="tel"] {
-      width: 100% !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 4px !important;
-      padding: 12px 14px !important;
-      font-size: 16px !important;
-      font-family: 'Inter', sans-serif !important;
-      background: #fff !important;
-      color: var(--ink) !important;
-      margin-bottom: 12px !important;
-      box-shadow: none !important;
-      outline-offset: 2px;
-    }
-    .form-wrap input[type="text"]:focus,
-    .form-wrap input[type="email"]:focus {
-      outline: 2px solid var(--accent) !important;
-      border-color: var(--accent) !important;
+      width: 100% !important; border: 1px solid var(--border) !important;
+      border-radius: 4px !important; padding: 12px 14px !important;
+      font-size: 16px !important; font-family: 'Inter', sans-serif !important;
+      background: #fff !important; color: var(--ink) !important;
+      margin-bottom: 12px !important; box-shadow: none !important;
     }
     .form-wrap input[type="submit"],
     .form-wrap button[type="submit"] {
-      width: 100% !important;
-      background: var(--accent) !important;
-      color: #fff !important;
-      font-family: 'Bebas Neue', sans-serif !important;
-      font-size: 20px !important;
-      letter-spacing: 0.06em !important;
-      text-transform: uppercase !important;
-      padding: 14px 32px !important;
-      border-radius: 4px !important;
-      border: none !important;
-      cursor: pointer !important;
-      transition: background .18s ease !important;
+      width: 100% !important; background: var(--accent) !important;
+      color: #fff !important; font-family: 'Bebas Neue', sans-serif !important;
+      font-size: 20px !important; letter-spacing: 0.06em !important;
+      text-transform: uppercase !important; padding: 14px 32px !important;
+      border-radius: 4px !important; border: none !important;
+      cursor: pointer !important; transition: background .18s ease !important;
       box-shadow: 0 8px 24px -10px rgba(212,69,10,0.6) !important;
     }
     .form-wrap input[type="submit"]:hover,
-    .form-wrap button[type="submit"]:hover {
-      background: var(--accent-hover) !important;
-    }
-    /* Ocultar logo/branding AWeber */
+    .form-wrap button[type="submit"]:hover { background: var(--accent-hover) !important; }
     .form-wrap .aw-optins-bot-field,
     .form-wrap img[src*="aweber"],
     .form-wrap a[href*="aweber"],
     .form-wrap .powered,
-    .form-wrap .aw-form-footer {
-      display: none !important;
-    }
+    .form-wrap .aw-form-footer { display: none !important; }
     .form-wrap label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      text-align: left;
-      margin-bottom: 6px;
+      display: block; font-size: 13px; font-weight: 500;
+      color: var(--muted); text-align: left; margin-bottom: 6px;
     }
-
-    /* ── TEXTO BAJO FORM ── */
-    .form-note {
-      font-size: 13px;
-      color: var(--faint);
-      margin-bottom: 40px;
-    }
-
-    /* ── SEPARADOR ── */
-    .sep {
-      width: 48px;
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 28px;
-    }
-
-    /* ── PRUEBA SOCIAL ── */
+    .form-note { font-size: 13px; color: var(--faint); margin-bottom: 40px; }
+    .sep { width: 48px; height: 1px; background: var(--border); margin-bottom: 28px; }
     .social-proof {
-      font-size: 15px;
-      font-style: italic;
-      color: var(--muted);
-      margin-bottom: 48px;
-      max-width: 36ch;
-      text-wrap: balance;
+      font-size: 15px; font-style: italic; color: var(--muted);
+      margin-bottom: 48px; max-width: 36ch; text-wrap: balance;
     }
-
-    /* ── PIE ── */
-    .foot {
-      font-size: 12px;
-      color: var(--lighter);
-    }
-    .foot a {
-      color: inherit;
-      text-decoration: none;
-    }
+    .foot { font-size: 12px; color: var(--lighter); }
+    .foot a { color: inherit; text-decoration: none; }
     .foot a:hover { color: var(--accent); }
+    @media (min-width: 600px) { body { padding: 60px 32px 72px; } }
 
-    @media (min-width: 600px) {
-      body { padding: 60px 32px 72px; }
+    /* ── POPUP ── */
+    .popup-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 999;
+      align-items: center; justify-content: center; padding: 24px;
     }
-
-    /* ── CONFIRMACIÓN ── */
-    .confirm {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 20px;
-      padding: 48px 24px;
-      width: 100%;
-      max-width: var(--max);
+    .popup-overlay.visible { display: flex; }
+    .popup {
+      background: var(--bg); border-radius: 8px; padding: 40px 32px;
+      max-width: 400px; width: 100%; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
     }
-    .confirm.visible { display: flex; }
-    .confirm-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
+    .popup-icon {
+      width: 56px; height: 56px; border-radius: 50%;
       background: rgba(212,69,10,0.10);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
     }
-    .confirm h2 {
+    .popup h2 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 6vw, 42px);
-      line-height: 1.05;
-      color: var(--ink);
+      font-size: 38px; color: var(--ink); line-height: 1;
     }
-    .confirm-body {
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 38ch;
+    .popup p {
+      font-size: 15px; line-height: 1.7; color: var(--muted);
     }
-    .confirm-steps {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      text-align: left;
-      width: 100%;
-      max-width: 380px;
-      margin-top: 8px;
+    .popup-btn {
+      width: 100%; background: var(--accent); color: #fff;
+      font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 13px 24px; border-radius: 4px; border: none;
+      cursor: pointer; margin-top: 6px; transition: background .18s ease;
     }
-    .confirm-steps li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-    .step-num {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
-    .confirm-note {
-      font-size: 13px;
-      color: var(--faint);
-      font-style: italic;
-    }
+    .popup-btn:hover { background: var(--accent-hover); }
   </style>
 </head>
 <body>
 
-  <!-- LOGO -->
-  <a href="https://sen6.online" class="logo" aria-label="SEN6 — inicio">SEN6</a>
+  <a href="https://sen6.online" class="logo">SEN6</a>
 
   <div class="wrap">
-
-    <!-- EYEBROW -->
     <span class="eyebrow">
-      <span class="eyebrow-dot" aria-hidden="true"></span>
+      <span class="eyebrow-dot"></span>
       Clase gratuita en vivo &nbsp;·&nbsp; Domingo 12 de julio
     </span>
 
-    <!-- TÍTULO -->
     <h1>Cómo construir un canal de YouTube Faceless con IA y vivir de él</h1>
 
-    <!-- SUBTÍTULO -->
     <p class="subtitle">
       El método que usaron nuestros alumnos para monetizar sin mostrar la cara, sin experiencia previa y sin depender de un jefe.
     </p>
 
-    <!-- BULLETS -->
     <ul class="bullets">
       <li>
-        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none">
           <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
           <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span>Cómo elegir un nicho que el algoritmo ya quiere mostrar</span>
       </li>
       <li>
-        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none">
           <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
           <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span>El sistema de producción con IA que reduce el trabajo al mínimo</span>
       </li>
       <li>
-        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+        <svg class="bullet-icon" width="17" height="17" viewBox="0 0 17 17" fill="none">
           <circle cx="8.5" cy="8.5" r="8.5" fill="#D4450A" fill-opacity="0.12"/>
           <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#D4450A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -357,8 +180,7 @@
       </li>
     </ul>
 
-    <!-- FORMULARIO AWEBER -->
-    <div class="form-wrap">
+    <div class="form-wrap" id="form-wrap">
       <div class="AW-Form-558694236"></div>
       <script type="text/javascript">(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -369,66 +191,45 @@
       }(document, "script", "aweber-wjs-liq7gpy2a"));</script>
     </div>
 
-    <!-- NOTA BAJO FORM -->
     <p class="form-note">Sin spam. Solo el link de la clase y un recordatorio.</p>
-
-    <!-- SEPARADOR -->
-    <div class="sep" role="separator" aria-hidden="true"></div>
-
-    <!-- PRUEBA SOCIAL -->
+    <div class="sep"></div>
     <p class="social-proof">"Más de 200 alumnos ya construyeron su canal con este método."</p>
-
-    <!-- PIE -->
     <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
-
   </div>
 
-  <!-- MENSAJE DE CONFIRMACIÓN (se muestra cuando AWeber redirige con ?registrado=1) -->
-  <div class="confirm" id="confirm">
-    <div class="confirm-icon">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path d="M7 16l6 6 12-12" stroke="#D4450A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+  <!-- POPUP -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <div class="popup-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M6 14l5.5 5.5 10.5-10.5" stroke="#D4450A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>¡Te anotaste!</h2>
+      <p>Tu lugar para la clase del <strong>domingo 12 de julio</strong> está reservado. En los próximos minutos vas a recibir un email de confirmación con todos los detalles.</p>
+      <button class="popup-btn" onclick="document.getElementById('popup').classList.remove('visible')">Perfecto</button>
     </div>
-    <h2>¡Estás dentro!</h2>
-    <p class="confirm-body">
-      Tu lugar para la clase del domingo 12 de julio está reservado.
-    </p>
-    <ul class="confirm-steps">
-      <li>
-        <span class="step-num">1</span>
-        <span>Revisá tu email ahora — te llegará un mensaje para confirmar tu dirección. Sin esa confirmación no podremos enviarte el link de la clase.</span>
-      </li>
-      <li>
-        <span class="step-num">2</span>
-        <span>Una semana antes de la clase te enviamos un recordatorio con todos los detalles.</span>
-      </li>
-      <li>
-        <span class="step-num">3</span>
-        <span>El día anterior al evento te mandamos el link directo para entrar a la clase en vivo.</span>
-      </li>
-    </ul>
-    <p class="confirm-note">Si no ves el email en los próximos minutos, revisá tu carpeta de spam.</p>
-    <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
   </div>
 
   <script>
-    // Mostrar confirmación si AWeber redirige con ?registrado=1
-    // También funciona con ?thankYou o si AWeber usa su propia redirección
-    (function() {
-      var params = new URLSearchParams(window.location.search);
-      if (
-        params.has('registrado') ||
-        params.has('thankYou') ||
-        params.has('thank_you') ||
-        document.referrer.indexOf('aweber.com') !== -1
-      ) {
-        document.querySelector('.wrap').style.display = 'none';
-        document.getElementById('confirm').classList.add('visible');
-        // Scroll al top por si acaso
-        window.scrollTo(0, 0);
+    // Mostrar popup cuando hacen click en el botón de AWeber
+    function attachListener() {
+      var wrap = document.getElementById('form-wrap');
+      var btn = wrap && (wrap.querySelector('input[type="submit"]') || wrap.querySelector('button[type="submit"]'));
+      if (btn) {
+        btn.addEventListener('click', function() {
+          setTimeout(function() {
+            document.getElementById('popup').classList.add('visible');
+          }, 400);
+        });
+      } else {
+        setTimeout(attachListener, 500);
       }
-    })();
+    }
+    window.addEventListener('load', function() { setTimeout(attachListener, 1000); });
+    document.getElementById('popup').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('visible');
+    });
   </script>
 
 </body>
