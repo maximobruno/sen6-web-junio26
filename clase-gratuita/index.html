@@ -399,30 +399,41 @@
 
   <script>
     (function() {
-      var container = document.querySelector('.AW-Form-558694236');
-      if (!container) return;
       var redirected = false;
       function goToGracias() {
         if (redirected) return;
         redirected = true;
         window.location.href = 'gracias.html';
       }
-      // Observer: cuando AWeber reemplaza el form por el mensaje de éxito
-      var obs = new MutationObserver(function() {
-        var hasInputs = container.querySelector('input[type="email"], input[type="text"]');
-        if (!hasInputs && container.innerText.trim().length > 0) goToGracias();
-      });
-      obs.observe(container, { childList: true, subtree: true });
-      // Fallback: captura el submit del form cuando AWeber lo inyecte
-      var formObs = new MutationObserver(function(_, fo) {
-        var form = container.querySelector('form');
-        if (!form) return;
-        fo.disconnect();
+
+      function attachToForm(form) {
+        // Escucha submit en el form
         form.addEventListener('submit', function() {
-          setTimeout(goToGracias, 1800);
+          setTimeout(goToGracias, 900);
         }, { once: true });
-      });
-      formObs.observe(container, { childList: true, subtree: true });
+        // Escucha clic en el botón de submit (por si AWeber no dispara submit)
+        var btn = form.querySelector('input[type="submit"], button[type="submit"]');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            setTimeout(goToGracias, 900);
+          }, { once: true });
+        }
+      }
+
+      // Si el form ya está en el DOM, enganchamos directo
+      var existingForm = document.querySelector('.AW-Form-558694236 form');
+      if (existingForm) {
+        attachToForm(existingForm);
+      } else {
+        // Espera a que AWeber inyecte el form
+        var obs = new MutationObserver(function(_, o) {
+          var form = document.querySelector('.AW-Form-558694236 form');
+          if (!form) return;
+          o.disconnect();
+          attachToForm(form);
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+      }
     })();
   </script>
 
