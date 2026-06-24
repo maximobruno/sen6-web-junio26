@@ -237,6 +237,78 @@
     @media (min-width: 600px) {
       body { padding: 60px 32px 72px; }
     }
+
+    /* ── CONFIRMACIÓN ── */
+    .confirm {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+      padding: 48px 24px;
+      width: 100%;
+      max-width: var(--max);
+    }
+    .confirm.visible { display: flex; }
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(212,69,10,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .confirm h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 6vw, 42px);
+      line-height: 1.05;
+      color: var(--ink);
+    }
+    .confirm-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 38ch;
+    }
+    .confirm-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+      width: 100%;
+      max-width: 380px;
+      margin-top: 8px;
+    }
+    .confirm-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .confirm-note {
+      font-size: 13px;
+      color: var(--faint);
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -310,6 +382,54 @@
     <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
 
   </div>
+
+  <!-- MENSAJE DE CONFIRMACIÓN (se muestra cuando AWeber redirige con ?registrado=1) -->
+  <div class="confirm" id="confirm">
+    <div class="confirm-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M7 16l6 6 12-12" stroke="#D4450A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>¡Estás dentro!</h2>
+    <p class="confirm-body">
+      Tu lugar para la clase del domingo 12 de julio está reservado.
+    </p>
+    <ul class="confirm-steps">
+      <li>
+        <span class="step-num">1</span>
+        <span>Revisá tu email ahora — te llegará un mensaje para confirmar tu dirección. Sin esa confirmación no podremos enviarte el link de la clase.</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span>Una semana antes de la clase te enviamos un recordatorio con todos los detalles.</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span>El día anterior al evento te mandamos el link directo para entrar a la clase en vivo.</span>
+      </li>
+    </ul>
+    <p class="confirm-note">Si no ves el email en los próximos minutos, revisá tu carpeta de spam.</p>
+    <p class="foot">© 2026 SEN6 &nbsp;·&nbsp; <a href="https://sen6.online">sen6.online</a></p>
+  </div>
+
+  <script>
+    // Mostrar confirmación si AWeber redirige con ?registrado=1
+    // También funciona con ?thankYou o si AWeber usa su propia redirección
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (
+        params.has('registrado') ||
+        params.has('thankYou') ||
+        params.has('thank_you') ||
+        document.referrer.indexOf('aweber.com') !== -1
+      ) {
+        document.querySelector('.wrap').style.display = 'none';
+        document.getElementById('confirm').classList.add('visible');
+        // Scroll al top por si acaso
+        window.scrollTo(0, 0);
+      }
+    })();
+  </script>
 
 </body>
 </html>
