@@ -443,9 +443,12 @@
     .offer-benefits strong { color: #fff; }
     .offer-alt { margin-top: 34px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.09); }
     .offer-alt-note { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
-    .offer-btn-ghost { display:inline-flex; align-items:center; gap:9px; padding:14px 30px; border-radius:999px; border:1px solid rgba(255,255,255,0.28); color:#fff; text-decoration:none; font-size:14px; font-weight:600; transition:all .2s ease; }
-    .offer-btn-ghost:hover { border-color:#fff; background:rgba(255,255,255,0.06); }
+    .offer-btn-ghost { display:inline-flex; align-items:center; gap:10px; padding:16px 34px; border-radius:12px; border:none; background:var(--accent); color:#fff; text-decoration:none; font-family:'Bebas Neue', sans-serif; font-size:19px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; box-shadow:0 14px 36px -14px rgba(212,69,10,0.8); transition:background .2s, transform .2s; }
+    .offer-btn-ghost:hover { background:#bd3d09; transform:translateY(-2px); }
     .offer-alt-sub { font-size: 12.5px; color: var(--faint); margin-top: 12px; }
+    .news-ok { display:inline-flex; align-items:center; gap:10px; padding:16px 30px; border-radius:12px; background:var(--accent); font-size:14px; line-height:1.4; color:#fff; text-align:left; box-shadow:0 14px 36px -14px rgba(212,69,10,0.8); }
+    .news-ok strong { color:#fff; font-weight:600; }
+    .news-ok[hidden] { display:none; }
 
     /* ── FOOTER ── */
     .foot {
@@ -733,10 +736,14 @@
       <!-- CTA secundario · Newsletter -->
       <div class="offer-alt">
         <p class="offer-alt-note">¿Todavía no estás listo para entrar?</p>
-        <a href="https://forms.aweber.com/form/36/558694236.htm" class="offer-btn-ghost" target="_blank" rel="noopener noreferrer">
+        <button type="button" class="offer-btn-ghost" id="news-btn">
           Sumate a la Newsletter SEN6
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9m0 0l-3.5-3.5M12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+        </button>
+        <p class="news-ok" id="news-ok" hidden>
+          <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="7.5"/><path d="M6 9l2.2 2.2L12.5 6.5"/></svg>
+          <span><strong>¡Gracias, ya estás suscripto!</strong> Te enviaremos novedades.</span>
+        </p>
         <p class="offer-alt-sub">Estrategia de YouTube directo a tu email. Gratis.</p>
       </div>
 
@@ -995,6 +1002,16 @@
     }
 
     // ── SOCIAL TICKER ──
+    var newsBtn = document.getElementById('news-btn');
+    if (newsBtn) newsBtn.addEventListener('click', function() {
+      newsBtn.hidden = true;
+      var alt = document.querySelector('.offer-alt-note');
+      if (alt) alt.hidden = true;
+      var sub = document.querySelector('.offer-alt-sub');
+      if (sub) sub.hidden = true;
+      document.getElementById('news-ok').hidden = false;
+    });
+
     var tickerData = [
       { type: 'watch', count: 14, letter: '👁' },
       { type: 'watch', count: 21, letter: '👁' },
