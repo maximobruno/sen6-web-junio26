@@ -629,8 +629,8 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
 
   /* =====================================================================
      QUIZ — misma lógica que el formulario del sitio actual (5 pasos).
-     Envío: planilla de Google + AWeber, ambos con window.fetch (el script
-     de medición de Netlify intercepta window.fetch para contar leads).
+     Envío: planilla de Google + oficina SEN6 (que carga el lead en AWeber por
+     API y lo cuenta en la medición).
      NUEVO: resultado según capital → Silver (/silver), Silver Pro (/silver-pro) o Ether (Calendly).
      ===================================================================== */
   var SHEET_URL = "https://script.google.com/macros/s/AKfycbyTH84uTc2IFimK2EfzCsW82NM1F3t1_tI_nL7jjlbs1otV8eXsuvoD7Tt4NMUPvqN2/exec";
@@ -770,19 +770,19 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
       body: JSON.stringify(payload)
     }).catch(function(){}));
 
-    // 2 — AWeber (name + email)
+    // 2 — AWeber por la oficina (API): el formulario addlead.pl pedía captcha y no cargaba a nadie.
+    //     La oficina lo suma a SEN6 LEADS con la etiqueta sen6-leads (dispara la bienvenida) y cuenta el lead.
     if (emailStep.email) {
-      var fd = new FormData();
-      fd.append("listname", "sen6leads");
-      fd.append("redirect", window.location.href);
-      fd.append("meta_web_form_id", "558694236");
-      fd.append("name", emailStep.name || "");
-      fd.append("email", emailStep.email);
-      calls.push(window.fetch("https://www.aweber.com/scripts/addlead.pl", {
+      var fuente = "", vid = "";
+      try { fuente = sessionStorage.getItem('sen6_fuente') || ""; vid = localStorage.getItem('sen6_v') || ""; } catch (e) {}
+      calls.push(window.fetch("https://oficina-sen6.onrender.com/lead/web", {
         method: "POST",
-        mode: "no-cors",
-        body: fd
+        mode: "cors",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailStep.email, nombre: emailStep.name || "", plan: planName, capital: capital, fuente: fuente, v: vid })
       }).catch(function(){}));
+      try { if (window.gtag) window.gtag('event', 'generate_lead', { plan: planName || '', fuente: fuente }); } catch (e) {}
     }
     var all = Promise.all(calls);
     return Promise.race([all, new Promise(function(r){ setTimeout(r, 4000); })]);
