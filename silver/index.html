@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SEN6 Silver · Tu canal de YouTube sin mostrar la cara</title>
+<meta name="description" content="Silver de SEN6: método, clases en vivo todos los meses y una comunidad que te acompaña para armar tu canal de YouTube faceless con IA. US$49 por mes, cancelás cuando quieras.">
+<meta name="theme-color" content="#F5F3EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F3EF; --white:#FFFFFF; --sand:#EDEAE4; --ink:#111111;
+  --gray:#8A8680; --gray-ink:#5c584f; --line:rgba(17,17,17,.08);
+  --accent:#D4450A; --accent-ink:#B23A08; --glow:#F26A2E;
+  --r-lg:18px; --r-md:14px;
+  --shadow:0 1px 2px rgba(17,17,17,.04), 0 10px 30px -12px rgba(17,17,17,.12);
+  --shadow-lg:0 2px 4px rgba(17,17,17,.04), 0 30px 60px -24px rgba(17,17,17,.22);
+  --cta:"https://api.sen6.online/r/silver49";
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 20px}
+.narrow{max-width:720px}
+section{padding:72px 0}
+@media (min-width:900px){section{padding:112px 0}}
+
+/* type */
+h1,h2,h3{font-weight:900;letter-spacing:-.03em;line-height:1.04;margin:0}
+h1{font-size:clamp(2.35rem,8.4vw,4.6rem)}
+h2{font-size:clamp(1.9rem,6.2vw,3.2rem)}
+h3{font-size:1.25rem;letter-spacing:-.02em;line-height:1.2}
+.k{color:var(--accent)}
+p{margin:0 0 1em}
+.lead{font-size:1.12rem;color:var(--gray-ink);max-width:36em}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-ink);margin-bottom:18px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(212,69,10,.12)}
+.muted{color:var(--gray-ink)}
+.small{font-size:.9rem}
+
+/* logo / header */
+.logo{font-weight:900;letter-spacing:-.04em;font-size:1.45rem;text-decoration:none;color:var(--ink)}
+.logo span{color:var(--accent)}
+header.top{position:absolute;inset:0 0 auto 0;z-index:5}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.top-tag{font-size:.78rem;font-weight:600;color:var(--gray-ink);background:var(--white);border:1px solid var(--line);padding:7px 12px;border-radius:999px}
+
+/* button */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:14px;background:var(--accent);color:#fff;font-weight:800;font-size:1.02rem;letter-spacing:-.01em;text-decoration:none;box-shadow:0 10px 24px -10px rgba(212,69,10,.6), inset 0 1px 0 rgba(255,255,255,.18);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;text-align:center}
+.btn:hover{background:#C13E08;transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(212,69,10,.65), inset 0 1px 0 rgba(255,255,255,.18)}
+.btn:active{transform:translateY(0)}
+.btn svg{flex:none;transition:transform .2s ease}
+.btn:hover svg{transform:translateX(3px)}
+.btn-block{width:100%}
+@media (max-width:440px){
+  .hero .btn,.final .btn{width:100%}
+  .btn{padding:0 14px;font-size:.98rem}
+  .hero .btn svg,.final .btn svg{display:none}
+}
+.reassure{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.88rem;color:var(--gray-ink)}
+.reassure svg{color:var(--accent);flex:none}
+
+/* hero */
+.hero{padding:120px 0 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:620px;height:620px;right:-260px;top:-240px;background:radial-gradient(closest-side,rgba(242,106,46,.20),rgba(242,106,46,0));pointer-events:none}
+.hero h1{max-width:12.5em}
+.hero .lead{margin:22px 0 30px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chip{font-size:.82rem;font-weight:600;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:var(--ink)}
+@media (min-width:900px){.hero{padding:150px 0 56px}}
+
+/* video */
+.video-sec{padding:16px 0 24px}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#111;border:0}
+.player{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:#141210;box-shadow:var(--shadow-lg)}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(16px,3.5vw,32px);color:#fff;
+  background:
+   radial-gradient(120% 90% at 85% 10%, rgba(242,106,46,.45), rgba(242,106,46,0) 55%),
+   radial-gradient(90% 80% at 10% 100%, rgba(212,69,10,.25), rgba(212,69,10,0) 60%),
+   linear-gradient(160deg,#1d1a17,#0f0e0d)}
+.poster .big6{position:absolute;right:-2%;bottom:-24%;font-weight:900;font-size:clamp(200px,52vw,520px);line-height:1;letter-spacing:-.06em;color:rgba(255,255,255,.05);pointer-events:none}
+.poster-top{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.72)}
+.poster-mid{display:flex;align-items:center;gap:clamp(12px,3vw,22px)}
+.play{width:clamp(54px,11vw,84px);height:clamp(54px,11vw,84px);border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;backdrop-filter:blur(6px);flex:none}
+.play svg{margin-left:4px}
+.poster-title{font-weight:900;letter-spacing:-.03em;font-size:clamp(1.05rem,3.6vw,1.9rem);line-height:1.1}
+.poster-title small{display:block;font-size:.55em;font-weight:600;letter-spacing:0;color:rgba(255,255,255,.7);margin-top:6px}
+
+/* problem */
+.problem-grid{display:grid;gap:16px;margin-top:40px}
+@media (min-width:820px){.problem-grid{grid-template-columns:1.15fr 1fr;align-items:stretch}}
+.card{background:var(--white);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:26px}
+@media (min-width:820px){.card{padding:34px}}
+.ratio{display:flex;align-items:flex-end;gap:14px;margin-bottom:18px}
+.ratio .n{font-size:clamp(3.6rem,15vw,5.6rem);font-weight:900;letter-spacing:-.05em;line-height:.9}
+.ratio .n.k{color:var(--accent)}
+.ratio .arrow{font-size:1.6rem;color:var(--gray);padding-bottom:10px}
+.dots{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin:6px 0 18px;max-width:260px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--sand)}
+.dots i.on{background:var(--accent)}
+.quote-time{background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.quote-time p.q{font-size:clamp(1.45rem,4.6vw,2rem);font-weight:900;letter-spacing:-.03em;line-height:1.12;margin:0 0 22px}
+.quote-time p.q span{color:var(--glow)}
+.quote-time .muted{color:rgba(255,255,255,.72)}
+.pain-list{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.pain-list li{display:flex;gap:12px;align-items:flex-start}
+.pain-list li::before{content:"";flex:none;width:18px;height:2px;background:var(--accent);margin-top:.8em}
+
+/* story */
+.story{background:var(--white)}
+.story-grid{display:grid;gap:36px}
+@media (min-width:900px){.story-grid{grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}}
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--sand)}
+.timeline li{position:relative;padding:0 0 26px 44px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:4px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--white);border:3px solid var(--sand)}
+.timeline li.hot::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px rgba(212,69,10,.14)}
+.timeline .when{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-ink)}
+.timeline h3{margin:4px 0 6px}
+.timeline p{margin:0;color:var(--gray-ink)}
+.brands{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.brands span{font-size:.8rem;font-weight:700;padding:5px 11px;border-radius:8px;background:var(--cream);color:var(--ink)}
+.eight{display:inline-flex;align-items:baseline;gap:6px;margin-top:10px;padding:10px 14px;border-radius:12px;background:var(--cream)}
+.eight b{font-size:1.8rem;font-weight:900;letter-spacing:-.04em;color:var(--accent-ink)}
+
+/* rule of 6 */
+.rule{position:relative}
+.year{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:40px 0 18px}
+@media (min-width:640px){.year{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:960px){.year{grid-template-columns:repeat(6,1fr)}}
+.block{background:var(--white);border-radius:var(--r-md);padding:16px 16px 18px;box-shadow:var(--shadow);border:1px solid transparent;position:relative;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .4s ease}
+.block .num{font-size:2.2rem;font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--sand)}
+.block .months{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-ink)}
+.block .lbl{font-size:.88rem;font-weight:600;margin-top:4px}
+.block.win{background:var(--ink);color:#fff;box-shadow:0 20px 40px -18px rgba(212,69,10,.55)}
+.block.win .num{color:var(--glow)}
+.block.win .months{color:rgba(255,255,255,.7)}
+.block.win .tag{position:absolute;top:12px;right:12px;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:#fff;padding:4px 8px;border-radius:6px}
+.rule-foot{display:grid;gap:14px;margin-top:26px}
+@media (min-width:820px){.rule-foot{grid-template-columns:repeat(3,1fr)}}
+.mini{background:var(--sand);border-radius:var(--r-md);padding:18px 20px}
+.mini b{display:block;font-weight:800;margin-bottom:4px;letter-spacing:-.01em}
+.mini span{color:var(--gray-ink);font-size:.95rem}
+
+/* proof */
+.proof{background:var(--sand)}
+.proof-grid{display:grid;gap:16px;margin-top:40px}
+@media (min-width:900px){.proof-grid{grid-template-columns:1.35fr 1fr}}
+.case h3{font-size:1.5rem;margin-bottom:10px}
+.yt{position:relative;aspect-ratio:16/9;border-radius:var(--r-md);overflow:hidden;background:#1a1816;margin:18px 0 0;border:0;padding:0;width:100%;cursor:pointer;display:block;color:#fff;font:inherit}
+.yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .25s ease, transform .5s ease}
+.yt:hover img{opacity:1;transform:scale(1.02)}
+.yt .yt-play{position:absolute;inset:0;display:grid;place-items:center}
+.yt .yt-play span{display:inline-flex;align-items:center;gap:10px;background:rgba(17,17,17,.78);backdrop-filter:blur(6px);padding:12px 18px;border-radius:999px;font-weight:700;font-size:.92rem}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.steps-case{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.steps-case div{background:var(--cream);border-radius:10px;padding:10px 12px;font-size:.82rem;line-height:1.35}
+.steps-case div b{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-ink);margin-bottom:3px}
+.steps-case div.ok{background:var(--ink);color:#fff}
+.steps-case div.ok b{color:var(--glow)}
+.side-stack{display:grid;gap:16px}
+.cases{display:grid;gap:16px;margin-top:40px}
+@media (min-width:900px){.cases{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:899px){.cases{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:-16px;margin-right:-16px;padding:0 16px 10px;scrollbar-width:none}.cases::-webkit-scrollbar{display:none}.cases>.case{flex:0 0 86%;scroll-snap-align:start}}
+.case{display:flex;flex-direction:column}.case .yt{margin-top:auto}
+.case .res{margin:14px 0 16px;padding:12px 14px;border-radius:12px;background:var(--cream);font-size:.92rem;line-height:1.45}
+.case .res b{color:var(--accent)}
+.swipe{display:none;font-size:.8rem;color:var(--gray-ink);margin-top:6px}
+@media (max-width:899px){.swipe{display:block}}
+.ia-callout{display:flex;gap:12px;align-items:flex-start;background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;margin:0 0 22px}
+.ia-callout b{display:block;font-size:1.02rem;margin-bottom:3px}.ia-callout span{color:#d9d4cb;font-size:.9rem;line-height:1.45}
+.ia-callout .ic2{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:900}
+.rating-inline{display:flex;align-items:center;gap:10px;margin-top:28px}.rating-inline b{font-size:1.6rem;font-weight:900;letter-spacing:-.04em}
+.side-stack .card:last-child{display:flex;align-items:center}
+.hours{display:flex;align-items:center;gap:14px;margin:14px 0 6px}
+.hours .from{font-size:2.2rem;font-weight:900;letter-spacing:-.04em;color:var(--gray);text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:rgba(138,134,128,.6)}
+.hours .to{font-size:3.2rem;font-weight:900;letter-spacing:-.05em;color:var(--accent-ink)}
+.bar{height:10px;border-radius:99px;background:var(--sand);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;width:100%;background:var(--gray);border-radius:99px;transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.bar.short i{background:var(--accent);transform:scaleX(.18)}
+.bar-lbl{display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray-ink);margin-top:10px}
+.reviews{display:grid;gap:12px;margin-top:16px}
+@media (min-width:900px){.reviews{grid-template-columns:repeat(3,1fr)}}
+.review{background:var(--white);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow)}
+.review p{margin:0 0 12px;font-weight:500}
+.review footer{font-size:.85rem;color:var(--gray-ink);font-weight:600}
+.stars{display:flex;gap:2px;color:var(--accent);margin-bottom:10px}
+.rating{display:flex;align-items:center;gap:12px;margin-top:40px;flex-wrap:wrap}
+.rating b{font-size:2rem;font-weight:900;letter-spacing:-.04em}
+
+/* offer */
+.offer-card{background:var(--white);border-radius:24px;box-shadow:var(--shadow-lg);overflow:hidden;margin-top:40px;display:grid}
+@media (min-width:900px){.offer-card{grid-template-columns:1.25fr 1fr}}
+.offer-main{padding:28px 22px}
+@media (min-width:900px){.offer-main{padding:44px}}
+.offer-side{background:var(--ink);color:#fff;padding:28px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+@media (min-width:900px){.offer-side{padding:44px}}
+.offer-side::before{content:"";position:absolute;width:420px;height:420px;right:-180px;top:-180px;background:radial-gradient(closest-side,rgba(242,106,46,.42),rgba(242,106,46,0));pointer-events:none}
+.plan{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.price{display:flex;align-items:flex-start;gap:6px;margin:12px 0 4px;position:relative}
+.price .cur{font-size:1.1rem;font-weight:800;margin-top:12px}
+.price .amt{font-size:5.4rem;font-weight:900;letter-spacing:-.06em;line-height:1}
+.price .per{align-self:flex-end;margin-bottom:12px;color:rgba(255,255,255,.75);font-weight:600}
+.offer-side .terms{color:rgba(255,255,255,.78);font-size:.92rem;margin:4px 0 22px;position:relative}
+.offer-side .btn{position:relative}
+.offer-side .reassure{color:rgba(255,255,255,.75);position:relative}
+.offer-side .reassure svg{color:var(--glow)}
+.inc{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px}
+.inc li{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.inc .ic{width:36px;height:36px;border-radius:10px;background:var(--cream);display:grid;place-items:center;color:var(--accent)}
+.inc b{display:block;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+.inc span{color:var(--gray-ink);font-size:.94rem;line-height:1.45;display:block;margin-top:2px}
+.lives{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.lives em{font-style:normal;font-size:.78rem;font-weight:700;background:var(--sand);border-radius:7px;padding:4px 9px}
+
+/* objections */
+.faq{display:grid;gap:12px;margin-top:36px}
+details{background:var(--white);border-radius:var(--r-md);box-shadow:var(--shadow);overflow:hidden}
+summary{list-style:none;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;font-weight:800;font-size:1.08rem;letter-spacing:-.015em}
+summary::-webkit-details-marker{display:none}
+summary .pm{flex:none;width:32px;height:32px;border-radius:50%;background:var(--cream);display:grid;place-items:center;transition:transform .3s ease, background .3s ease}
+details[open] summary .pm{transform:rotate(45deg);background:var(--accent);color:#fff}
+.ans{padding:0 22px 22px;color:var(--gray-ink)}
+.ans p:last-child{margin:0}
+
+/* close */
+.close-sec{padding-bottom:96px}
+.paths{display:grid;gap:14px;margin:36px 0 34px}
+@media (min-width:820px){.paths{grid-template-columns:1fr 1fr}}
+.path{border-radius:var(--r-lg);padding:26px}
+.path.a{background:var(--sand)}
+.path.b{background:var(--white);box-shadow:var(--shadow-lg);outline:2px solid var(--accent);outline-offset:-2px}
+.path .pl{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-ink);margin-bottom:10px}
+.path.b .pl{color:var(--accent-ink)}
+.path h3{font-size:1.45rem;margin-bottom:8px}
+.path p{margin:0;color:var(--gray-ink)}
+.final{text-align:center;display:flex;flex-direction:column;align-items:center}
+.final .reassure{justify-content:center}
+.ps{margin-top:44px;background:var(--white);border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+.ps p{margin:0}
+.ps b{font-weight:900}
+
+/* footer */
+footer.site{padding:36px 0 120px;border-top:1px solid var(--line);font-size:.85rem;color:var(--gray-ink)}
+@media (min-width:900px){footer.site{padding-bottom:40px}}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between}
+footer.site nav{display:flex;gap:4px 18px;flex-wrap:wrap}
+footer.site nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-underline-offset:3px}
+
+/* sticky mobile cta */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(245,243,239,.9);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;gap:12px;transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.sticky.show{transform:translateY(0)}
+.sticky .s-txt{flex:none;line-height:1.15}
+.sticky .s-txt b{display:block;font-weight:900;letter-spacing:-.02em;font-size:1rem}
+.sticky .s-txt span{font-size:.74rem;color:var(--gray-ink)}
+.sticky .btn{flex:1;min-height:50px;padding:0 16px;font-size:.96rem}
+@media (min-width:900px){.sticky{display:none}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+.year .block.rv:nth-child(2){transition-delay:.06s}.year .block.rv:nth-child(3){transition-delay:.12s}
+.year .block.rv:nth-child(4){transition-delay:.18s}.year .block.rv:nth-child(5){transition-delay:.24s}.year .block.rv:nth-child(6){transition-delay:.3s}
+.no-js .rv{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .btn,.btn svg,.sticky,.yt img,.bar i,summary .pm{transition:none}
+}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js')</script>
+
+<header class="top">
+  <div class="wrap">
+    <span class="logo" aria-label="SEN6">SEN<span>6</span></span>
+    <span class="top-tag">Membresía Silver</span>
+  </div>
+</header>
+
+<main>
+<!-- 1. HERO -->
+<section class="hero" aria-labelledby="h-hero">
+  <div class="wrap">
+    <div class="eyebrow rv">YouTube faceless con IA</div>
+    <h1 id="h-hero" class="rv d1">Tu canal de YouTube sin mostrar la cara, con <span class="k">método</span> y gente que te acompaña.</h1>
+    <p class="lead rv d2">Dejá de juntar tutoriales sueltos. En Silver tenés un camino claro, clases en vivo todos los meses y una comunidad donde te responden de verdad, con nombre y apellido.</p>
+    <div class="rv d3">
+      <a class="btn cta" href="https://api.sen6.online/r/silver49">Quiero entrar a Silver · US$49/mes
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="reassure"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancelás cuando quieras · sin contratos</div>
+    </div>
+    <div class="hero-meta rv d3" aria-label="Qué incluye, en corto">
+      <span class="chip">YouTube + IA</span><span class="chip">79 clases</span><span class="chip">12 vivos por mes</span><span class="chip">Más de 400 miembros</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. VIDEO DE VENTA -->
+<section class="video-sec" aria-label="Video de presentación">
+  <div class="wrap">
+    <div class="player rv" id="video-venta">
+      <video controls playsinline preload="metadata" poster="video/poster-silver.jpg" title="SEN6 Silver: te lo explico yo mismo">
+        <source src="video/video-silver-web.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- 4. HISTORIA -->
+<section class="story" aria-labelledby="h-story">
+  <div class="wrap story-grid">
+    <div>
+      <div class="eyebrow rv">Quién te acompaña</div>
+      <h2 id="h-story" class="rv d1">Mi primer canal ganó <span class="k">8 dólares.</span></h2>
+      <p class="lead rv d2" style="margin-top:18px">Soy Máximo Bruno. Hice 14 formaciones y me sirvieron 3: aprender solo, a prueba y error, cuesta el doble. Y el tiempo es el único recurso que no vuelve. Por eso armé el método que a mí me hubiera ahorrado años.</p>
+    </div>
+    <ol class="timeline">
+      <li class="rv">
+        <div class="when">17 años</div>
+        <h3>Agencias de publicidad</h3>
+        <p>Campañas para marcas que se juegan millones en cada idea.</p>
+        <div class="brands"><span>PepsiCo</span><span>BBVA</span><span>Nike</span></div>
+      </li>
+      <li class="rv d1">
+        <div class="when">Canal 1</div>
+        <h3>Seis meses para monetizar</h3>
+        <p>Probando a ciegas, sin método. Cuando por fin llegó el primer pago:</p>
+        <div class="eight"><b>US$8</b><span class="muted small">en total</span></div>
+      </li>
+      <li class="rv d2 hot">
+        <div class="when">Con método</div>
+        <h3>16 canales</h3>
+        <p>Lo que cambió no fue la suerte: fue ordenar el proceso, elegir bien el nicho y medir cada intento.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. MECANISMO: REGLA DEL 6 -->
+<section class="rule" aria-labelledby="h-rule">
+  <div class="wrap">
+    <div class="eyebrow rv">El método</div>
+    <h2 id="h-rule" class="rv d1">La regla <span class="k">del 6.</span></h2>
+    <p class="lead rv d2" style="margin-top:18px">El año tiene 6 bloques de 2 meses. Cada bloque es un intento. No necesitás que salgan todos bien: <strong style="color:var(--ink)">si 2 salen bien, llegás a fin de año.</strong></p>
+    <div class="year" role="list" aria-label="Los 6 bloques del año">
+      <div class="block rv" role="listitem"><span class="num">01</span><div><div class="months">Ene · Feb</div><div class="lbl">Intento 1</div></div></div>
+      <div class="block win rv" role="listitem"><span class="tag">Sale</span><span class="num">02</span><div><div class="months">Mar · Abr</div><div class="lbl">Intento 2</div></div></div>
+      <div class="block rv" role="listitem"><span class="num">03</span><div><div class="months">May · Jun</div><div class="lbl">Intento 3</div></div></div>
+      <div class="block rv" role="listitem"><span class="num">04</span><div><div class="months">Jul · Ago</div><div class="lbl">Intento 4</div></div></div>
+      <div class="block win rv" role="listitem"><span class="tag">Sale</span><span class="num">05</span><div><div class="months">Sep · Oct</div><div class="lbl">Intento 5</div></div></div>
+      <div class="block rv" role="listitem"><span class="num">06</span><div><div class="months">Nov · Dic</div><div class="lbl">Intento 6</div></div></div>
+    </div>
+    <div class="rule-foot">
+      <div class="mini rv"><b>Un intento, no una apuesta</b><span>Dos meses alcanzan para saber si un nicho responde, sin quemar el año.</span></div>
+      <div class="mini rv d1"><b>Se mide, no se adivina</b><span>Elegís el nicho con más de 6 variables, no por corazonada.</span></div>
+      <div class="mini rv d2"><b>Lo que no sale, enseña</b><span>Cada bloque llega con lo que aprendiste en el anterior.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PRUEBA -->
+<section class="proof" aria-labelledby="h-proof">
+  <div class="wrap">
+    <div class="eyebrow rv">Gente real</div>
+    <h2 id="h-proof" class="rv d1">No lo digo yo. <span class="k">Lo cuentan ellos.</span></h2>
+    <div class="cases">
+      <article class="card case rv">
+        <div class="eyebrow" style="margin-bottom:10px">Barcelona</div>
+        <h3>Eloy y Tamara</h3>
+        <p class="muted" style="margin:0">Ya habían probado Amazon FBA, una agencia y multinivel. YouTube les rechazó la monetización la primera vez y lo resolvieron con acompañamiento.</p>
+        <p class="res"><b>Dos canales</b> con los requisitos de monetización.</p>
+        <button class="yt" type="button" data-yt="tS1RdWXQmOI" aria-label="Reproducir el video de Eloy y Tamara">
+          <img src="https://i.ytimg.com/vi/tS1RdWXQmOI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="yt-play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Ver su historia</span></span>
+        </button>
+      </article>
+      <article class="card case rv d1">
+        <div class="eyebrow" style="margin-bottom:10px">De la banca y el marketing</div>
+        <h3>Marcos</h3>
+        <p class="muted" style="margin:0">La edición era lo que más le costaba: al principio le llevaba entre 10 y 12 horas por video. Hoy, unas 2.</p>
+        <p class="res">En su video cuenta cómo <b>al mes y medio facturaba 2.000 euros.</b></p>
+        <button class="yt" type="button" data-yt="rRVqk8zTxnk" aria-label="Reproducir el video de Marcos">
+          <img src="https://i.ytimg.com/vi/rRVqk8zTxnk/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="yt-play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Ver su historia</span></span>
+        </button>
+      </article>
+      <article class="card case rv d2">
+        <div class="eyebrow" style="margin-bottom:10px">YouTube + IA · Argentina</div>
+        <h3>Emanuel Salazar</h3>
+        <p class="muted" style="margin:0">40 años, hace tomografías y le daba pánico salir en cámara. Monetizó su canal sin mostrarse y llevó lo que aprendió de IA a otros negocios.</p>
+        <p class="res">Ya superó los <b>US$3.000</b> entre YouTube, Facebook, spots publicitarios con IA para empresas y su propia plataforma de publicidad.</p>
+        <button class="yt" type="button" data-yt="YI8lypwbuy0" aria-label="Reproducir el video de Emanuel">
+          <img src="https://i.ytimg.com/vi/YI8lypwbuy0/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="yt-play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Ver su historia</span></span>
+        </button>
+      </article>
+    </div>
+    <p class="swipe" aria-hidden="true">Deslizá para ver los tres casos →</p>
+    <div class="rating-inline rv"><b>5,0</b><span class="small muted">de 8 reseñas en Skool</span></div>
+    <div class="reviews" style="margin-top:12px">
+      <blockquote class="review rv" style="margin:0"><p>“Esta comunidad tiene algo que ninguna te lo da, calidez humana y transparencia profesional.”</p><footer>Facundo Z. · Skool</footer></blockquote>
+      <blockquote class="review rv d1" style="margin:0"><p>“Gran comunidad, excelentes las clases, forma de explicar muy clara y didáctica.”</p><footer>Carlos M. · Skool</footer></blockquote>
+      <blockquote class="review rv d2" style="margin:0"><p>“Me vino genial para ordenar toda mi investigación de nichos.”</p><footer>Barbara P. · sobre la Bitácora de Nichos</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- 7. OFERTA -->
+<section id="silver" aria-labelledby="h-offer">
+  <div class="wrap">
+    <div class="eyebrow rv">La oferta</div>
+    <h2 id="h-offer" class="rv d1">Todo lo que tenés <span class="k">en Silver.</span></h2>
+    <div class="offer-card rv">
+      <div class="offer-main">
+        <div class="ia-callout"><span class="ic2" aria-hidden="true">IA</span><div><b>Aprendés YouTube y también IA.</b><span>Habilidades que podés vender aunque tu canal recién arranque, como hizo Emanuel.</span></div></div>
+        <ul class="inc">
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg></span>
+            <div><b>10 módulos, 79 clases</b><span>Actualizadas con las últimas políticas de YouTube.</span></div></li>
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M6.3 6.3a8 8 0 000 11.4M17.7 6.3a8 8 0 010 11.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div><b>Vivos todos los meses</b><span>Generación de contenidos: Instagram, Skool, videojuegos, webs, apps y más.</span>
+              <div class="lives"><em>4 de YouTube</em><em>4 de IA</em><em>4 de contenidos</em></div></div></li>
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 10.5V15c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5" stroke="currentColor" stroke-width="2"/></svg></span>
+            <div><b>Masterclasses</b><span>Temas puntuales, a fondo.</span></div></li>
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.2" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="10" r="2.6" stroke="currentColor" stroke-width="2"/><path d="M3.5 19c.8-3 3-4.5 5.5-4.5s4.7 1.5 5.5 4.5M15 15.2c2.6-.4 4.6.9 5.4 3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div><b>La comunidad en Skool</b><span>Más de 400 miembros. Te responden personalmente Máximo y Lautaro, socio y coach de YouTube, ex director creativo de agencias.</span></div></li>
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="2"/><path d="M5 20c.9-3.6 3.7-5.5 7-5.5s6.1 1.9 7 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div><b>1 sesión 1 a 1 con Lautaro, bonificada</b><span>Una sesión individual para revisar tu canal y tu plan con el coach de YouTube, sin costo extra.</span></div></li>
+          <li><span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+            <div><b>Método de elección de nichos</b><span>Más de 6 variables para decidir con datos dónde poner tu tiempo.</span></div></li>
+        </ul>
+      </div>
+      <div class="offer-side">
+        <div class="plan">Plan Silver</div>
+        <div class="price"><span class="cur">US$</span><span class="amt">49</span><span class="per">/ mes</span></div>
+        <p class="terms">Mensual. Cancelás cuando quieras, sin contratos ni permanencia.</p>
+        <a class="btn btn-block cta" href="https://api.sen6.online/r/silver49">Quiero entrar a Silver
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="reassure"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Membresía mensual en Skool</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. OBJECIONES -->
+<section style="padding-top:0" aria-labelledby="h-faq">
+  <div class="wrap narrow">
+    <div class="eyebrow rv">Antes de entrar</div>
+    <h2 id="h-faq" class="rv d1">Lo que <span class="k">seguro estás pensando.</span></h2>
+    <div class="faq">
+      <details class="rv">
+        <summary>“No tengo tiempo.”<span class="pm" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span></summary>
+        <div class="ans"><p>Con 5 a 10 horas por semana se avanza. Pablo monetizó trabajando y con dos hijos chicos. La clave no es tener más horas, es no gastarlas en lo que no sirve.</p></div>
+      </details>
+      <details class="rv d1">
+        <summary>“No sé editar.”<span class="pm" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span></summary>
+        <div class="ans"><p>Marcos tampoco: le llevaba 10 a 12 horas cada video y bajó a unas 2. Las clases van paso a paso y, si te trabás, preguntás en la comunidad.</p></div>
+      </details>
+      <details class="rv d2">
+        <summary>“No quiero mostrar la cara.”<span class="pm" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span></summary>
+        <div class="ans"><p>De eso se trata: canales faceless. Lo que hace funcionar un canal no es tu cara, es elegir bien el nicho y aportar valor en cada video.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CIERRE -->
+<section class="close-sec" style="padding-top:0" aria-labelledby="h-close">
+  <div class="wrap narrow">
+    <div class="eyebrow rv">Tu decisión</div>
+    <h2 id="h-close" class="rv d1">Dos <span class="k">caminos.</span></h2>
+    <div class="paths">
+      <div class="path a rv">
+        <div class="pl">Camino 1</div>
+        <h3>Seguir igual</h3>
+        <p>Otro tutorial, otro intento solo, otro bloque del año que se va sin saber qué falló.</p>
+      </div>
+      <div class="path b rv d1">
+        <div class="pl">Camino 2</div>
+        <h3>Probar un mes</h3>
+        <p>Entrás, seguís el método, preguntás todo en vivo. Si no es para vos, cancelás. Sin vueltas.</p>
+      </div>
+    </div>
+    <div class="final rv">
+      <a class="btn cta" href="https://api.sen6.online/r/silver49">Quiero entrar a Silver · US$49/mes
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="reassure"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancelás cuando quieras · sin contratos</div>
+    </div>
+    <div class="ps rv">
+      <p><b>P.D.</b> Acordate de la regla del 6: el año tiene seis bloques de dos meses. Si entrás hoy, este bloque ya cuenta como un intento. Y no necesitás que salgan los seis: con dos, llegás.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><span class="logo" style="font-size:1.1rem">SEN<span>6</span></span> &nbsp;© 2026 SEN6 · No afiliado a YouTube ni a Google</div>
+    <nav aria-label="Legales">
+      <a href="/terminos-y-condiciones">Términos</a>
+      <a href="/politica-de-privacidad">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="s-txt"><b>US$49<span style="font-weight:600;font-size:.8rem;color:var(--gray-ink)">/mes</span></b><span>Cancelás cuando quieras</span></div>
+  <a class="btn cta" href="https://api.sen6.online/r/silver49" tabindex="-1">Quiero entrar a Silver</a>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Aparición al hacer scroll
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window) || reduce) {
+    els.forEach(function(e){ e.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  // Barra de Marcos: la de "antes" arranca llena; la de "ahora" crece hasta 18%
+  var shortBar = document.querySelector('.bar.short i');
+  if (shortBar && !reduce && 'IntersectionObserver' in window) {
+    shortBar.style.transform = 'scaleX(0)';
+    var bo = new IntersectionObserver(function(en){
+      if (en[0].isIntersecting){ shortBar.style.transform = 'scaleX(.18)'; bo.disconnect(); }
+    }, {threshold:.5});
+    bo.observe(shortBar);
+  }
+
+  // Botón fijo en celular: aparece después del CTA del hero, se esconde en el cierre
+  var sticky = document.getElementById('sticky');
+  var heroCta = document.querySelector('.hero .btn');
+  var finalCta = document.querySelector('.final');
+  var offerSide = document.querySelector('.offer-side');
+  var state = {pastHero:false, nearCta:false};
+  function upd(){
+    var show = state.pastHero && !state.nearCta;
+    sticky.classList.toggle('show', show);
+    sticky.setAttribute('aria-hidden', show ? 'false' : 'true');
+    sticky.querySelector('a').setAttribute('tabindex', show ? '0' : '-1');
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(en){
+      var e = en[0]; state.pastHero = !e.isIntersecting && e.boundingClientRect.top < 0; upd();
+    }).observe(heroCta);
+    var visible = new Set();
+    var co = new IntersectionObserver(function(en){
+      en.forEach(function(e){ e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
+      state.nearCta = visible.size > 0; upd();
+    });
+    [finalCta, offerSide, document.querySelector('footer.site')].forEach(function(t){ if (t) co.observe(t); });
+  }
+
+  // Video de Eloy y Tamara: se carga recién al hacer clic (youtube-nocookie)
+  document.querySelectorAll('.yt[data-yt]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-yt');
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = 'Eloy y Tamara cuentan su experiencia en SEN6';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      var wrap = document.createElement('div');
+      wrap.className = 'yt'; wrap.style.cursor = 'default';
+      wrap.appendChild(f);
+      b.replaceWith(wrap);
+      f.focus();
+    });
+  });
+})();
+</script>
+<script>
+/* Conteo del video de venta en la Oficina SEN6: play, 25, 50, 75 y 100 % (sin datos personales). */
+(function(){
+  var vid=document.querySelector('#video-venta video'); if(!vid) return;
+  var URL_EV='https://oficina-sen6.onrender.com/evento', hechos={}, v='';
+  try{ v=localStorage.getItem('sen6_v')||''; }catch(e){}
+  function enviar(pct){
+    if(hechos[pct]) return; hechos[pct]=1;
+    try{ var b=JSON.stringify({t:'video',pct:pct,v:v,path:location.pathname});
+      if(!(navigator.sendBeacon&&navigator.sendBeacon(URL_EV,new Blob([b],{type:'text/plain'})))) fetch(URL_EV,{method:'POST',body:b,keepalive:true,mode:'cors'}); }catch(e){}
+  }
+  vid.addEventListener('play',function(){ enviar(0); });
+  vid.addEventListener('timeupdate',function(){ if(!vid.duration) return; var p=vid.currentTime/vid.duration*100;
+    [25,50,75].forEach(function(h){ if(p>=h) enviar(h); }); });
+  vid.addEventListener('ended',function(){ enviar(100); });
+})();
+</script>
+</body>
+</html>
