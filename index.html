@@ -489,10 +489,11 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
         <ul class="feat">
           <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5l3 3 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Todo Silver, de por vida</li>
           <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5l3 3 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin mensualidades</li>
+          <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5l3 3 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>1 sesión 1 a 1 con Lau bonificada</li>
           <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5l3 3 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Compra de horas 1:1</li>
           <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5l3 3 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Si pasás a Ether, tenemos en cuenta lo que invertiste</li>
         </ul>
-        <a class="btn go" href="https://pay.hotmart.com/X102339833K" target="_blank" rel="noopener noreferrer">Quiero Silver Pro
+        <a class="btn go" href="/silver-pro">Ver Silver Pro
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </article>
       <article class="plan ether rv d2">
@@ -630,10 +631,11 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
      QUIZ — misma lógica que el formulario del sitio actual (5 pasos).
      Envío: planilla de Google + AWeber, ambos con window.fetch (el script
      de medición de Netlify intercepta window.fetch para contar leads).
-     NUEVO: resultado según capital → Silver (/silver) o Ether (Calendly).
+     NUEVO: resultado según capital → Silver (/silver), Silver Pro (/silver-pro) o Ether (Calendly).
      ===================================================================== */
   var SHEET_URL = "https://script.google.com/macros/s/AKfycbyTH84uTc2IFimK2EfzCsW82NM1F3t1_tI_nL7jjlbs1otV8eXsuvoD7Tt4NMUPvqN2/exec";
   var SILVER_URL = "/silver";
+  var SILVERPRO_URL = "/silver-pro";
   var CALENDLY_URL = "https://calendly.com/d/dvzh-smm-n4d/sen6-ether-1-1";
   var REDIRECT_SECONDS = 6;
 
@@ -651,7 +653,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   /* Nombre del plan que viaja a la planilla (igual que hoy). */
   var PLAN_NAMES = ["Silver", "Silver Pro", "Ether"];
   /* Destino nuevo según capital: plan 0 y 1 → Silver; plan 2 → Ether. */
-  var DESTINO = ["silver", "silver", "ether"];
+  var DESTINO = ["silver", "silverpro", "ether"];
 
   var current = 0, answers = [], busy = false;
   var body = document.getElementById('q-body'), stepLbl = document.getElementById('q-step'),
@@ -789,6 +791,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   function showResult(allAnswers, sent){
     var money = allAnswers[4] || {}, who = (allAnswers[3] || {});
     var dest = DESTINO[money.plan] || "silver";
+    var destUrl = dest === "silverpro" ? SILVERPRO_URL : SILVER_URL;
     var h;
     if (dest === "ether") {
       h = '<div class="res-top"><span class="badge">Ether</span>' +
@@ -797,10 +800,12 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
           '<div class="cal" id="cal"><div class="cal-widget" id="cal-widget"></div></div>' +
           '<p class="countdown">¿No carga el calendario? <a href="' + CALENDLY_URL + '" target="_blank" rel="noopener noreferrer" style="font-weight:700;color:var(--accent-ink)">Abrilo en otra pestaña</a></p>';
     } else {
-      h = '<div class="res-top"><span class="badge">Silver</span>' +
-          '<h3 tabindex="-1">Tu plan ideal: <span class="k">Silver.</span></h3>' +
-          '<p>El método completo, clases en vivo todos los meses y la comunidad en Skool, por US$49 al mes. Sin contratos: cancelás cuando quieras.</p>' +
-          '<div class="res-actions"><a class="btn go" id="go-silver" href="' + SILVER_URL + '">Ver Silver' +
+      var pro = dest === "silverpro";
+      h = '<div class="res-top"><span class="badge">' + (pro ? 'Silver Pro' : 'Silver') + '</span>' +
+          '<h3 tabindex="-1">Tu plan ideal: <span class="k">' + (pro ? 'Silver Pro.' : 'Silver.') + '</span></h3>' +
+          (pro ? '<p>Todo Silver con acceso de por vida: el método, los vivos y la comunidad, más una sesión 1 a 1 con Lau. US$500 una vez, hasta en 3 pagos.</p>'
+               : '<p>El método completo, clases en vivo todos los meses y la comunidad en Skool, por US$49 al mes. Sin contratos: cancelás cuando quieras.</p>') +
+          '<div class="res-actions"><a class="btn go" id="go-silver" href="' + destUrl + '">' + (pro ? 'Ver Silver Pro' : 'Ver Silver') +
           '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>' +
           '<p class="countdown" id="cd" aria-live="polite">Te llevamos en <b id="cd-n">' + REDIRECT_SECONDS + '</b> s… <button type="button" id="cd-stop">Quedarme acá</button></p></div>';
     }
@@ -821,12 +826,12 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
         if (n <= 0) {
           clearInterval(t);
           // Espera a que terminen los envíos antes de salir de la página.
-          sent.then(function(){ if (!stopped) window.location.href = SILVER_URL; });
+          sent.then(function(){ if (!stopped) window.location.href = destUrl; });
         }
       }, 1000);
       document.getElementById('cd-stop').addEventListener('click', function(){
         stopped = true; clearInterval(t);
-        document.getElementById('cd').textContent = 'Listo, te quedás acá. Cuando quieras, tocá “Ver Silver”.';
+        document.getElementById('cd').textContent = 'Listo, te quedás acá. Cuando quieras, tocá el botón.';
       });
     }
   }
