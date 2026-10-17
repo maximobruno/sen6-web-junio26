@@ -91,7 +91,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 @media (min-width:900px){.hero{padding:150px 0 72px}.stat{padding:16px 12px}.stat b{font-size:1.6rem}.stat span{font-size:.82rem}}
 
 /* quiz */
-.quiz-sec{padding-top:8px}
+.quiz-sec{}
 .quiz{position:relative;background:var(--white);border-radius:24px;box-shadow:var(--shadow-lg), 0 0 0 1px rgba(17,17,17,.05);padding:24px 18px 26px;overflow:hidden}
 @media (min-width:600px){.quiz{padding:40px 44px 44px}}
 .quiz::before{content:"";position:absolute;left:50%;top:-110px;transform:translateX(-50%);width:80%;height:200px;border-radius:50%;background:radial-gradient(closest-side,rgba(212,69,10,.09),rgba(255,255,255,0));pointer-events:none}
@@ -322,27 +322,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   </div>
 </section>
 
-<!-- 2. QUIZ -->
-<section class="quiz-sec" id="quiz" aria-labelledby="h-quiz">
-  <div class="wrap narrow">
-    <div class="quiz rv" id="quiz-card">
-      <h2 id="h-quiz" class="q-title">Completá el quiz y conocé<br><span class="k">tu plan ideal en segundos</span></h2>
-      <div id="quiz-steps">
-        <div class="q-nav">
-          <span class="q-step" id="q-step">Paso 1 de 5</span>
-          <button type="button" class="q-back" id="q-back" hidden>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11.5 4L7 9l4.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Volver</button>
-        </div>
-        <div class="q-bar" aria-hidden="true"><div class="q-track"><i id="q-fill"></i></div><span class="q-pct" id="q-pct">20%</span></div>
-        <div class="q-body" id="q-body" aria-live="polite" style="margin-top:18px"></div>
-      </div>
-      <div id="quiz-result" hidden></div>
-    </div>
-    <p class="safe"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1L2 3.5v4C2 10.6 4.2 13 7 14c2.8-1 5-3.4 5-6.5v-4L7 1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Tus datos están seguros. Sin spam.</p>
-  </div>
-</section>
-
-<!-- 3. VIDEO DE MARCA -->
+<!-- 2. VIDEO DE MARCA -->
 <section class="video-sec" aria-labelledby="h-video">
   <div class="wrap">
     <div class="head center">
@@ -359,6 +339,26 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
       <div class="rv d1"><span><b>YouTube + IA:</b> voz, guion, imágenes y edición con herramientas de IA.</span></div>
       <div class="rv d2"><span><b>Acompañamiento real:</b> vivos todos los meses y una comunidad que responde.</span></div>
     </div>
+  </div>
+</section>
+
+<!-- 3. QUIZ -->
+<section class="quiz-sec" id="quiz" aria-labelledby="h-quiz">
+  <div class="wrap narrow">
+    <div class="quiz rv" id="quiz-card">
+      <h2 id="h-quiz" class="q-title">Completá el quiz y conocé<br><span class="k">tu plan ideal en segundos</span></h2>
+      <div id="quiz-steps">
+        <div class="q-nav">
+          <span class="q-step" id="q-step">Paso 1 de 5</span>
+          <button type="button" class="q-back" id="q-back" hidden>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11.5 4L7 9l4.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Volver</button>
+        </div>
+        <div class="q-bar" aria-hidden="true"><div class="q-track"><i id="q-fill"></i></div><span class="q-pct" id="q-pct">20%</span></div>
+        <div class="q-body" id="q-body" aria-live="polite" style="margin-top:18px"></div>
+      </div>
+      <div id="quiz-result" hidden></div>
+    </div>
+    <p class="safe"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1L2 3.5v4C2 10.6 4.2 13 7 14c2.8-1 5-3.4 5-6.5v-4L7 1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Tus datos están seguros. Sin spam.</p>
   </div>
 </section>
 
