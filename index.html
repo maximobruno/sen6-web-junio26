@@ -277,6 +277,21 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   .btn,.btn svg,.yt img,summary .pm,.q-body,.q-track i,.opt,.opt .ck,.dots-nav i{transition:none}
 }
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* carrusel de reseñas de Skool (se actualiza solo desde la oficina) */
+.rev-wrap{position:relative;margin-top:14px}
+.reviews{display:flex!important;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:4px 16px 14px;scroll-padding:0 16px}
+.reviews::-webkit-scrollbar{display:none}
+.reviews>.review{flex:0 0 min(84%,330px);scroll-snap-align:start;display:flex;flex-direction:column;margin:0}
+.review .stars{margin-bottom:8px}
+.review p{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
+.review footer{display:flex;align-items:center;gap:9px;margin-top:auto}
+.review footer img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex:none;background:var(--sand)}
+.rev-nav{display:none;gap:8px;justify-content:flex-end;margin-top:2px}
+.rev-nav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--ink);font-size:1.1rem;cursor:pointer;box-shadow:var(--shadow)}
+.rev-nav button:hover{border-color:var(--accent);color:var(--accent)}
+.rev-hint{font-size:.8rem;color:var(--gray-ink);margin:2px 0 0}
+@media (min-width:900px){.reviews{margin:0;padding:4px 0 14px;scroll-padding:0}.rev-nav{display:flex}.rev-hint{display:none}}
 </style>
 </head>
 <body class="no-js">
@@ -395,10 +410,10 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
       </span>
       <span class="small muted">en Skool</span>
     </div>
-    <div class="reviews">
-      <blockquote class="review rv"><p>“Esta comunidad tiene algo que ninguna te lo da, calidez humana y transparencia profesional.”</p><footer>Facundo Z. · Skool</footer></blockquote>
-      <blockquote class="review rv d1"><p>“Gran comunidad, excelentes las clases, forma de explicar muy clara y didáctica.”</p><footer>Carlos M. · Skool</footer></blockquote>
-      <blockquote class="review rv d2"><p>“Me vino genial para ordenar toda mi investigación de nichos.”</p><footer>Barbara P. · sobre la Bitácora de Nichos</footer></blockquote>
+    <div class="rev-wrap">
+      <div class="reviews" id="resenas" aria-label="Reseñas de alumnos en Skool"></div>
+      <div class="rev-nav"><button type="button" data-rev="-" aria-label="Reseñas anteriores">‹</button><button type="button" data-rev="+" aria-label="Más reseñas">›</button></div>
+      <p class="rev-hint" aria-hidden="true">Deslizá para ver más reseñas →</p>
     </div>
     <p class="disclaimer">Experiencias individuales contadas por cada alumno. Los resultados dependen del nicho, la constancia y el trabajo de cada persona.</p>
   </div>
@@ -854,6 +869,30 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   vid.addEventListener('timeupdate',function(){ if(!vid.duration) return; var p=vid.currentTime/vid.duration*100;
     [25,50,75].forEach(function(h){ if(p>=h) enviar(h); }); });
   vid.addEventListener('ended',function(){ enviar(100); });
+})();
+</script>
+<script>
+/* Reseñas de Skool: arranca con una copia y se actualiza sola desde la oficina (GET /skool/resenas, cache 1 h). */
+(function(){
+  var box=document.getElementById('resenas'); if(!box) return;
+  var SNAP={"total": 8, "promedio": 5, "resenas": [{"nombre": "Damián Enrique R.", "foto": "https://assets.skool.com/f/fb80ef9088ce478e8548023394002052/dd35a4ed661c4fba8e84c05c16adb2f27b0e24315c384c49b21717ddabff6d0e-sm.jpg", "estrellas": 5, "texto": "Excelentes profesores y contenido. \nMuy completo.", "fecha": "2026-10-13"}, {"nombre": "Adilson A.", "foto": "https://assets.skool.com/f/05aca9acb13d446eb9c654e8b106182c/5207b288df0642879c8e48d22afdd8b9f9cb6111172149968aa01b2d14ad8128-sm.jpg", "estrellas": 5, "texto": "Una comunidad increíble en la que se puede aprender y disfrutar mucho 🫶🏽🫶🏽", "fecha": "2026-10-12"}, {"nombre": "Barbara P.", "foto": "https://assets.skool.com/f/33122d42fd8a4e51acd8163b10bfae0a/d06910060d584ee0941d974a64a092576eb371818a854dbea4e9c223257e63ce-sm.jpg", "estrellas": 5, "texto": "Bitacora de Nichos! \nMiles de gracias por esta herramienta, me vino genial para ordenar toda mi investigacion de nichos. Estuve a mil las ultimas semanas con otros proyectos, les conté que doy clases de canto con mi novio y estuvimos preparando una muestra con nuestros alumnos, asi que muchas dedicacion y tiempo. Ahora retomé x aca nuevamente y ésto me ayudo muchisimo para recordar y actualizarme, sobre todo ordenar la info!!! gracias chicos!! Ya quiero crear un nuevo canal. jajaja vamos!!!", "fecha": "2026-10-08"}, {"nombre": "Carlos M.", "foto": "https://assets.skool.com/f/a2a4228742ce4b508f56b7260e989047/c599bb096a874204ace630f5fc7d2381e22336fe08a44affa72394c466a92001-sm.jpg", "estrellas": 5, "texto": "Gran comunidad, excelentes las clases, forma de explicar muy clara y didáctica. En fin...una gran formación, al menos para mí, que incluso vengo del universo del mkt digital. Aprendí (y sigo aprendiendo) un montón! Gracias", "fecha": "2026-10-02"}, {"nombre": "Facundo Z.", "foto": "https://assets.skool.com/f/f41213c7a44d41d6af33137f49ba12a0/bb3f3127fb1f434cbf931333127f792ffdd108e84f2a4d33a6d2205f26b634cd-sm.jpg", "estrellas": 5, "texto": "Esta comunidad tiene algo que ninguna te lo da, calidez humana y transparencia profesional. La calidad de informacion que dan Max y Lau todos los dias, no tiene comparacion, no es simplemente youtube, es edicion, creacion con AI, estrategia, marketing, y no menor.. aprender a llevar un negocio online mentalmente, que no mucha gente esta preparada. Gracias Sen6 por todo!", "fecha": "2026-09-28"}, {"nombre": "Ignacio D.", "foto": "https://assets.skool.com/f/abc0525639ef4ba0a2cd0fa56706c4bc/ec3e123f6e23470db87c3830ea5d1dda054d7ed1625a482daf2ac944fda042bd-sm.jpg", "estrellas": 5, "texto": "Excelente comunidad los profes geniales mucha paciencia y mucha docencia a la hora de explicar\nsiempre bien predispuestos con la última novedad buena onda y con ganas de seguir aprendiendo de los mejores. Éxitos 🔝🔝🏆🙌🙌", "fecha": "2026-09-13"}]};
+  var STAR='<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5-4.9-4.5 6.6-.8z"/></svg>';
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function pintar(d){
+    if(!d||!d.resenas||!d.resenas.length) return;
+    box.innerHTML=d.resenas.map(function(r){
+      var n=Math.max(1,Math.min(5,Math.round(r.estrellas||5)));
+      return '<blockquote class="review"><span class="stars" aria-label="'+n+' de 5 estrellas">'+new Array(n+1).join(STAR)+'</span>'+
+        '<p>“'+esc(r.texto)+'”</p><footer>'+(r.foto?'<img src="'+esc(r.foto)+'" alt="" width="30" height="30" loading="lazy">':'')+
+        '<span>'+esc(r.nombre)+' · Skool</span></footer></blockquote>';
+    }).join('');
+    var c=document.getElementById('resenas-total'); if(c&&d.total) c.textContent='de '+d.total+' reseñas en Skool';
+    var p=document.getElementById('resenas-prom'); if(p&&d.promedio) p.textContent=Number(d.promedio).toFixed(1).replace('.',',');
+  }
+  pintar(SNAP);
+  try{ fetch('https://oficina-sen6.onrender.com/skool/resenas').then(function(r){return r.ok?r.json():null;}).then(pintar).catch(function(){}); }catch(e){}
+  document.querySelectorAll('[data-rev]').forEach(function(b){ b.addEventListener('click',function(){
+    box.scrollBy({left:(b.getAttribute('data-rev')==='+'?1:-1)*Math.min(box.clientWidth*.9,680),behavior:'smooth'}); }); });
 })();
 </script>
 </body>
