@@ -268,7 +268,7 @@ button{font:inherit;color:inherit}
   <div class="marca">Expedición <em>SEN6</em><small>De cero a monetizar, campamento por campamento</small></div>
   <div class="chips">
     <div class="chip" id="chipExp" title="Regla del 6M: el año tiene 6 expediciones de 2 meses. Si esta no hace cumbre, volvés al campamento base con lo aprendido.">Expedición <b>1</b> de 6</div>
-    <button class="chip extra chip-reto" id="chipReto" type="button" hidden title="El reto: monetizá en 3 meses y ganás Silver Pro para siempre"></button>
+    <button class="chip extra chip-reto" id="chipReto" type="button" hidden title="El reto: monetizá en 3 meses y ganás Silver Pro para siempre. Si tardás más, tu expedición sigue igual."></button>
     <div class="chip extra" id="chipProgreso"></div>
     <button class="chip sonido" id="sonido" type="button" aria-pressed="true"></button>
     <button class="chip ayuda" id="ayuda" type="button" aria-label="Ver el recorrido guiado" title="Ver el recorrido guiado">?</button>
@@ -289,7 +289,7 @@ button{font:inherit;color:inherit}
   <div>
     <div class="kick">De cero a monetizar</div>
     <h1>Expedición <em>SEN6</em></h1>
-    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Y el reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre.</p>
+    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Y el reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre. La expedición es tuya para siempre, tardes lo que tardes.</p>
     <form id="acceso" novalidate>
       <input id="accEmail" type="email" placeholder="El email con el que compraste" autocomplete="username" aria-label="Tu email de compra">
       <div class="acc-paso" id="accPaso" hidden></div>
@@ -739,8 +739,8 @@ function diasReto(){ if (!FICHA.retoHasta) return null; return Math.ceil((Date.p
 function textoReto(){
   var d = diasReto();
   if (d === null) return 'El reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre (valor US$500).';
-  return d > 0 ? 'El reto: te quedan <b>' + d + (d === 1 ? ' día' : ' días') + '</b> para monetizar y ganar SEN6 Silver Pro para siempre (valor US$500).'
-               : 'El plazo del reto (3 meses) ya pasó, pero la cumbre sigue esperándote.';
+  return d > 0 ? 'El reto: te quedan <b>' + d + (d === 1 ? ' día' : ' días') + '</b> para monetizar y ganar SEN6 Silver Pro para siempre (valor US$500). Si tardás más, no pasa nada: tu expedición sigue, solo cambia el premio.'
+               : 'El plazo del reto (3 meses) ya pasó, pero tu expedición sigue igual: es tuya para siempre. Seguí subiendo a tu ritmo y hacé cumbre cuando tu canal monetice.';
 }
 function textoCumbre(ec){
   return ec === 'revision' ? '<b>En revisión.</b> Revisamos tu canal con NexLev cada hora. Cuando esté aprobado, la cumbre se abre sola la próxima vez que entres.'
@@ -856,7 +856,7 @@ var TOURS = {
     { el:'#radio', tit:'Radio de la base', txt:'Si te trabás, prendé la radio y escribí tu duda. Te responde con lo que ya contestaron Max y Lau a cientos de alumnos.' },
     { el:'#guia', tit:'Las luces doradas', txt:'Son los alumnos de la comunidad de Skool: suben con guía, vivos todos los meses y la comunidad. Si querés acompañamiento, desde acá te sumás.' },
     { el:'#sonido', tit:'Sonido', txt:'La expedición tiene música, ambiente y narración. Si estás en un lugar sin auriculares, la apagás acá.' },
-    { el:'#ayuda', tit:'Listo, a subir', txt:'Acordate del reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre. Si querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
+    { el:'#ayuda', tit:'Listo, a subir', txt:'Acordate del reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre. Si tardás más, la expedición sigue igual: es tuya. Si querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
   ],
   campamento: [
     { el:'#lecs', tit:'Las clases del campamento', txt:'Miralas en orden. Cada una dura pocos minutos y va directo a lo que tenés que hacer.' },
