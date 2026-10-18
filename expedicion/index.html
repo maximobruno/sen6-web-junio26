@@ -476,12 +476,9 @@ footer a{margin:0 10px;color:var(--dim)}
 
 <script>
 /* Link de pago de Stripe: cuando esté creado, va acá. Al pagar, Stripe vuelve a entrar/?compra={CHECKOUT_SESSION_ID} */
-var PAGO_STRIPE = '';
-(function(){
-  var b = document.getElementById('pagar');
-  if (PAGO_STRIPE) { b.href = PAGO_STRIPE; }
-  else b.addEventListener('click', function(e){ e.preventDefault(); alert('El pago se habilita en un momento.'); });
-})();
+var PAGO_STRIPE = 'https://buy.stripe.com/bJefZi8yWdX52Fz6co9oc0r';
+/* todos los botones de compra van directo al pago */
+document.querySelectorAll('a.pagar').forEach(function(a){ a.href = PAGO_STRIPE; });
 
 /* música de fondo (la de la app): arranca con el primer toque o clic; el botón de arriba la silencia y se recuerda */
 (function(){
@@ -504,7 +501,7 @@ var PAGO_STRIPE = '';
   });
   document.addEventListener('visibilitychange', function(){ if (document.hidden){ if (!m.paused) m.pause(); } else if (on && iniciada) m.play().catch(function(){}); });
   // al ir a pagar, la música se apaga suave
-  document.querySelectorAll('#pagar').forEach(function(a){ a.addEventListener('click', function(){ if (!m.paused) fundir(0, 400); }); });
+  document.querySelectorAll('a.pagar').forEach(function(a){ a.addEventListener('click', function(){ if (!m.paused) fundir(0, 400); }); });
   pintar();
 })();
 
