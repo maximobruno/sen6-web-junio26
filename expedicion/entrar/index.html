@@ -908,10 +908,16 @@ document.getElementById('demoNota').hidden = !DEMO;
 (function(){
   var cap = DEMO && (location.search.match(/[?&]captura=(\w+)/) || [])[1]; if (!cap) return;
   SND.on = false; ponerLS(claveTour(), JSON.stringify({ mapa:true, campamento:true }));
+  var sin = document.createElement('style'); sin.textContent = '*{animation:none!important;transition:none!important}'; document.head.appendChild(sin);
   document.getElementById('intro').style.display = 'none'; document.getElementById('demoNota').hidden = true;
   PROG.campo = 3; [0, 1, 2].forEach(function(i){ lecsDe(CAMPOS[i]).forEach(function(l){ PROG.vistas[l.id] = true; }); }); PROG.vistas[lecsDe(CAMPOS[3])[0].id] = true;
   sel = 3; refrescar();
   if (cap === 'campo' || cap === 'radio') { abrirCamp(3); document.getElementById('camp').style.transition = 'none'; }
+  if (cap === 'intro') { document.getElementById('intro').style.display = ''; DEMO = false; TOKEN = null; pasoAcceso('email'); $('accYo').textContent = 'Con sonido · usá auriculares para la experiencia completa'; }
+  if (cap === 'tour') { setTimeout(function(){ arrancarTour('mapa'); tour.i = 2; pintarPaso(); }, 300); }
+  if (cap === 'visor') { abrirCamp(3); document.getElementById('camp').style.transition = 'none'; setTimeout(function(){ verLec(lecsDe(CAMPOS[3])[0]); $('pant').innerHTML = '<img src="https://cdn.loom.com/sessions/thumbnails/6fe7cca0d5534ffebce3bce0bc71181f-ec4b41911fa6dd5b.gif" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">'; }, 200); }
+  if (cap === 'cartel') { FICHA.canal = null; abrirCamp(2); document.getElementById('camp').style.transition = 'none'; setTimeout(function(){ cartelCanal(); $('cartelUrl').value = 'youtube.com/@micanal'; }, 200); }
+  if (cap === 'festejo') { FICHA.cumbre = { estado:'aprobado' }; sel = 6; PROG.campo = 6; refrescar(); setTimeout(function(){ festejoCumbre(); }, 200); }
   if (cap === 'radio') { var b = RESPUESTAS.filter(function(e){ return e.modulo === 'M5' && e.video; })[0]; if (b) { $('radioQ').value = b.pregunta; mostrar(b); } setTimeout(function(){ $('radioBox').scrollIntoView({ block:'center' }); }, 50); }
 })();
 pintarAcceso();

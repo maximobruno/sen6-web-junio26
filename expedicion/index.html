@@ -279,6 +279,34 @@ footer a{margin:0 10px;color:var(--dim)}
 .op ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;font-size:15px;color:var(--dim)}
 .op li::before{content:"·";color:var(--glow);font-weight:800;margin-right:8px}
 .op.yo li{color:var(--cream)}
+/* carrusel de capturas */
+.galeria{padding:110px 0 120px;overflow:hidden;background:var(--ink2);border-bottom:1px solid var(--line)}
+.gal-cab{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.flechas{display:flex;gap:10px}
+.flechas button{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:rgba(245,243,239,.05);color:var(--cream);cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.flechas button:hover{background:rgba(242,106,46,.18);border-color:var(--glow)}
+.flechas button:disabled{opacity:.3;cursor:default;background:none;border-color:var(--line)}
+.flechas svg{width:20px;height:20px}
+.pista{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:44px max(22px,calc((100vw - 1180px)/2 + 22px)) 10px;cursor:grab;-webkit-overflow-scrolling:touch}
+.pista::-webkit-scrollbar{display:none}
+.pista.arrastrando{cursor:grabbing;scroll-snap-type:none}
+.pista.arrastrando img{pointer-events:none}
+.slide{flex:0 0 min(900px,84vw);scroll-snap-align:center;margin:0}
+.slide .marco{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000;box-shadow:0 50px 100px -40px rgba(0,0,0,.95);transform:scale(.94);opacity:.55;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.slide.activa .marco{transform:none;opacity:1}
+.slide .barra-v{display:flex;gap:6px;padding:10px 14px;background:#15181E;border-bottom:1px solid rgba(255,255,255,.06)}
+.slide .barra-v i{width:10px;height:10px;border-radius:50%;background:#2B2F38}
+.slide img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;user-select:none;-webkit-user-drag:none}
+.slide figcaption{display:flex;gap:16px;align-items:flex-start;padding:20px 6px 0;opacity:.4;transition:opacity .5s}
+.slide.activa figcaption{opacity:1}
+.slide .num{font:600 14px Oswald;letter-spacing:.1em;color:var(--glow);padding-top:3px;flex:none}
+.slide figcaption b{display:block;font:600 22px Oswald;text-transform:uppercase;letter-spacing:.03em}
+.slide figcaption span{color:var(--dim);font-size:15px}
+.puntos-g{display:flex;justify-content:center;gap:8px;margin-top:30px}
+.puntos-g button{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:rgba(245,243,239,.22);cursor:pointer;transition:width .3s,background .3s}
+.puntos-g button.on{width:26px;background:var(--glow)}
+@media (max-width:560px){.slide{flex-basis:88vw}.slide figcaption b{font-size:19px}.flechas{display:none}}
+
 /* el reto */
 .reto{position:relative;overflow:hidden;isolation:isolate;border-top:1px solid rgba(232,194,122,.25);border-bottom:1px solid rgba(232,194,122,.25)}
 .reto .fondo{position:absolute;inset:0;z-index:-2;background:url(entrar/img/cumbre.jpg) center 35%/cover;animation:respira 30s ease-in-out infinite alternate}
@@ -384,6 +412,16 @@ footer a{margin:0 10px;color:var(--dim)}
   </div>
 </section>
 
+<!-- POR DENTRO: carrusel -->
+<section class="galeria" id="por-dentro">
+  <div class="wrap gal-cab">
+    <div><div class="eb rv">Por dentro</div><h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.6vw,56px)">Mirá lo que <em>te llevás.</em></h2></div>
+    <div class="flechas rv"><button type="button" id="galAnt" aria-label="Captura anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="galSig" aria-label="Captura siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+  <div class="pista" id="pista" tabindex="0" aria-label="Capturas de la plataforma, deslizá para ver más"></div>
+  <div class="puntos-g" id="galPuntos"></div>
+</section>
+
 <!-- PRECIO -->
 <section class="sec precio" id="precio">
   <div class="fondo"></div>
@@ -427,6 +465,50 @@ var PAGO_STRIPE = '';
   else b.addEventListener('click', function(e){ e.preventDefault(); alert('El pago se habilita en un momento.'); });
 })();
 
+/* carrusel de capturas de la plataforma */
+(function(){
+  var S = [
+    ['intro', 'Entrás con tu email', 'Pagás, entrás con el mismo email y creás tu contraseña. Tu expedición queda guardada en cualquier dispositivo.'],
+    ['mapa', 'Tu montaña', 'Ves dónde estás, tu altura, lo que falta y a los que van subiendo con vos.'],
+    ['tour', 'Un recorrido te muestra todo', 'La primera vez, un recorrido guiado te explica para qué sirve cada cosa.'],
+    ['campo', 'Cada campamento por dentro', 'Las clases en orden, tu avance y videos de refuerzo de Max en YouTube.'],
+    ['visor', 'Clases cortas con Max', 'Videos de pocos minutos que van directo a lo que tenés que hacer en tu canal.'],
+    ['pdf', 'El PDF de cada clase', 'El resumen con las ideas clave y espacio para tus notas, para tenerlo a mano.'],
+    ['radio', 'La radio responde', 'Preguntás en qué te trabaste y te contesta con lo que Max y Lau ya respondieron.'],
+    ['cartel', 'Registrás tu canal', 'Cuando lo abrís, queda guardado como el canal que vas a llevar hasta la cumbre.'],
+    ['festejo', 'La cumbre y el premio', 'Si tu canal monetiza, hiciste cumbre: entrás a SEN6 Silver Pro para siempre.']
+  ];
+  var pista = document.getElementById('pista'), puntos = document.getElementById('galPuntos');
+  pista.innerHTML = S.map(function(x, i){
+    return '<figure class="slide' + (i ? '' : ' activa') + '"><div class="marco"><div class="barra-v"><i></i><i></i><i></i></div><img src="fotos/app-' + x[0] + '.jpg" alt="' + x[1] + '" loading="lazy" draggable="false"></div>' +
+      '<figcaption><span class="num">' + String(i + 1).padStart(2, '0') + ' / ' + String(S.length).padStart(2, '0') + '</span><div><b>' + x[1] + '</b><span>' + x[2] + '</span></div></figcaption></figure>';
+  }).join('');
+  puntos.innerHTML = S.map(function(x, i){ return '<button type="button" aria-label="Ir a ' + x[1] + '"' + (i ? '' : ' class="on"') + '></button>'; }).join('');
+  var slides = pista.children, actual = 0;
+  function pintar(m){ actual = m; for (var j = 0; j < slides.length; j++){ slides[j].classList.toggle('activa', j === m); puntos.children[j].classList.toggle('on', j === m); } document.getElementById('galAnt').disabled = m === 0; document.getElementById('galSig').disabled = m === S.length - 1; }
+  var yendo = 0;
+  function ir(i){ i = Math.max(0, Math.min(S.length - 1, i)); pintar(i); yendo = Date.now(); var sl = slides[i]; pista.scrollTo({ left: sl.offsetLeft - (pista.clientWidth - sl.clientWidth) / 2, behavior:'smooth' }); }
+  function marcar(){
+    if (Date.now() - yendo < 700) return;
+    var c = pista.scrollLeft + pista.clientWidth / 2, mejor = 0, d = 1e9;
+    for (var i = 0; i < slides.length; i++){ var m = slides[i].offsetLeft + slides[i].clientWidth / 2, dd = Math.abs(m - c); if (dd < d){ d = dd; mejor = i; } }
+    if (mejor === actual && slides[mejor].classList.contains('activa')) return;
+    pintar(mejor);
+  }
+  var t; pista.addEventListener('scroll', function(){ cancelAnimationFrame(t); t = requestAnimationFrame(marcar); }, { passive:true });
+  document.getElementById('galAnt').onclick = function(){ ir(actual - 1); };
+  document.getElementById('galSig').onclick = function(){ ir(actual + 1); };
+  puntos.onclick = function(e){ var b = e.target.closest('button'); if (b) ir([].indexOf.call(puntos.children, b)); };
+  pista.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight'){ e.preventDefault(); ir(actual + 1); } if (e.key === 'ArrowLeft'){ e.preventDefault(); ir(actual - 1); } });
+  // arrastrar con el mouse en la compu
+  var abajo = false, x0 = 0, s0 = 0, movio = false;
+  pista.addEventListener('pointerdown', function(e){ if (e.pointerType !== 'mouse') return; abajo = true; movio = false; x0 = e.clientX; s0 = pista.scrollLeft; pista.classList.add('arrastrando'); });
+  addEventListener('pointermove', function(e){ if (!abajo) return; var dx = e.clientX - x0; if (Math.abs(dx) > 4) movio = true; pista.scrollLeft = s0 - dx; });
+  addEventListener('pointerup', function(){ if (!abajo) return; abajo = false; pista.classList.remove('arrastrando'); yendo = 0; marcar(); ir(actual); });
+  pista.addEventListener('click', function(e){ if (movio){ e.preventDefault(); return; } var f = e.target.closest('.slide'); if (f) ir([].indexOf.call(slides, f)); });
+  marcar();
+})();
+
 var CAMPOS = [
   { nombre:'Campamento Base', alt:'5.300 m', img:'campamento-base', txt:'Mentalidad y el negocio de YouTube.', n:4 },
   { nombre:'Campo 1 · El mapa', alt:'5.900 m', img:'campo1-mapa', txt:'Elegir el nicho con datos, no a ciegas.', n:4 },
@@ -446,7 +528,8 @@ var barra = document.getElementById('top'), alti = document.getElementById('alti
 function alScroll(){
   var y = scrollY, h = document.documentElement.scrollHeight - innerHeight, p = h > 0 ? Math.min(1, y / h) : 0;
   barra.classList.toggle('solida', y > 40);
-  alti.classList.toggle('on', y > innerHeight * .55);
+  var g = document.getElementById('por-dentro').getBoundingClientRect();
+  alti.classList.toggle('on', y > innerHeight * .55 && !(g.top < innerHeight * .7 && g.bottom > innerHeight * .3));
   document.getElementById('altiNum').textContent = Math.round(5300 + (8611 - 5300) * p).toLocaleString('es-AR');
   document.getElementById('altiBarra').style.height = (p * 100).toFixed(1) + '%';
   var r = precio.getBoundingClientRect();
