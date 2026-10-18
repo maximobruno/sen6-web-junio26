@@ -230,6 +230,8 @@ button{font:inherit;color:inherit}
 .estado-cumbre.rechazado{background:rgba(242,106,46,.14)}
 
 /* ---------- recorrido guiado ---------- */
+.chip-reto{border-color:rgba(232,194,122,.55);background:rgba(232,194,122,.14);color:#FFE3A6;cursor:pointer;font-weight:700}
+.chip-reto[hidden]{display:none}
 .chip.ayuda{cursor:pointer;width:34px;padding:8px 0;text-align:center;font-weight:800}
 #tour{position:fixed;inset:0;z-index:80;display:none}
 #tour.activo{display:block}
@@ -266,6 +268,7 @@ button{font:inherit;color:inherit}
   <div class="marca">Expedición <em>SEN6</em><small>De cero a monetizar, campamento por campamento</small></div>
   <div class="chips">
     <div class="chip" id="chipExp" title="Regla del 6M: el año tiene 6 expediciones de 2 meses. Si esta no hace cumbre, volvés al campamento base con lo aprendido.">Expedición <b>1</b> de 6</div>
+    <button class="chip extra chip-reto" id="chipReto" type="button" hidden title="El reto: monetizá en 3 meses y ganás Silver Pro para siempre"></button>
     <div class="chip extra" id="chipProgreso"></div>
     <button class="chip sonido" id="sonido" type="button" aria-pressed="true"></button>
     <button class="chip ayuda" id="ayuda" type="button" aria-label="Ver el recorrido guiado" title="Ver el recorrido guiado">?</button>
@@ -286,7 +289,7 @@ button{font:inherit;color:inherit}
   <div>
     <div class="kick">De cero a monetizar</div>
     <h1>Expedición <em>SEN6</em></h1>
-    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Y arriba te espera el premio del reto: si tu canal monetiza, entrás a SEN6 Silver Pro para siempre.</p>
+    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Y el reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre.</p>
     <form id="acceso" novalidate>
       <input id="accEmail" type="email" placeholder="El email con el que compraste" autocomplete="username" aria-label="Tu email de compra">
       <div class="acc-paso" id="accPaso" hidden></div>
@@ -378,12 +381,12 @@ function api(metodo, ruta, datos){
     .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ j.status = r.status; return j; }); });
 }
 /* canal registrado y pedido de cumbre (los guarda la oficina; la cumbre la aprueba la revisión con NexLev) */
-var FICHA = { canal:null, cumbre:null };
-if (DEMO) FICHA = { canal:{ url:'https://www.youtube.com/@ejemplo' }, cumbre:null };
+var FICHA = { canal:null, cumbre:null, retoHasta:null };
+if (DEMO) FICHA = { canal:{ url:'https://www.youtube.com/@ejemplo' }, cumbre:null, retoHasta: new Date(Date.now() + 74 * 864e5).toISOString() };
 function tomarFicha(r){
   if (!r || !('canal' in r)) return;
   var antes = FICHA.cumbre && FICHA.cumbre.estado;
-  FICHA = { canal:r.canal, cumbre:r.cumbre };
+  FICHA = { canal:r.canal, cumbre:r.cumbre, retoHasta:r.retoHasta || null };
   if (FICHA.cumbre && FICHA.cumbre.estado === 'aprobado'){
     PROG.campo = CAMPOS.length - 1; ponerLS(CLAVE, JSON.stringify(PROG));
     if (antes !== 'aprobado' && leerLS('expedicion_sen6_cumbre_' + leerLS(CLAVE_EMAIL)) !== '1'){ ponerLS('expedicion_sen6_cumbre_' + leerLS(CLAVE_EMAIL), '1'); setTimeout(festejoCumbre, 900); }
@@ -479,7 +482,7 @@ function panel(){
   var gente = GENTE[sel] + ' expedicionarios en este campamento' + (SILVER[sel] ? ' · ' + SILVER[sel] + ' con guía' : '');
   if (c.meta){
     lis = ''; var ec = FICHA.cumbre && FICHA.cumbre.estado, hecha = ec === 'aprobado' || e === 'actual' && DEMO && PROG.cumbre;
-    gente = hecha ? 'Hiciste cumbre. Tu canal está monetizado y ganaste el premio: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.' : '<b style="color:var(--oro)">El premio del reto: SEN6 Silver Pro para siempre (valor US$500).</b> Acá llegás cuando tu canal está monetizado: al terminar el Ataque a cumbre mandás el link y lo revisamos con NexLev.';
+    gente = hecha ? (FICHA.cumbre && FICHA.cumbre.conPremio === false ? 'Hiciste cumbre. Tu canal está monetizado.' : 'Hiciste cumbre. Tu canal está monetizado y ganaste el premio: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.') : '<span style="color:var(--oro)">' + textoReto() + '</span><br>Acá llegás cuando tu canal está monetizado: al terminar el Ataque a cumbre mandás el link y lo revisamos con NexLev.';
     if (!hecha && ec) gente += '<div class="estado-cumbre ' + ec + '">' + textoCumbre(ec) + '</div>';
     var listo = PROG.campo >= CAMPOS.length - 2 && lecsDe(CAMPOS[CAMPOS.length - 2]).every(function(l){ return PROG.vistas[l.id]; });
     var btnM = hecha ? '<button class="cta" type="button">Volver a escuchar la cumbre</button>'
@@ -505,6 +508,8 @@ function hud(){
   var hechas = 0;
   CAMPOS.forEach(function(c, i){ hechas += i < YO.campo ? c.clases.length : i === YO.campo ? hechasDe(c) : 0; });
   document.getElementById('chipProgreso').innerHTML = '<b>' + hechas + '</b> de ' + TOTAL_CLASES + ' clases';
+  var dr = diasReto(), cr = document.getElementById('chipReto'), apro = FICHA.cumbre && FICHA.cumbre.estado === 'aprobado';
+  cr.hidden = dr === null || dr <= 0 || apro; if (!cr.hidden) cr.innerHTML = 'Reto · <b>' + dr + '</b> ' + (dr === 1 ? 'día' : 'días');
   var c = CAMPOS[YO.campo], prev = YO.campo ? CAMPOS[YO.campo - 1].alt : 4800;
   var alt = c.meta ? c.alt : Math.round(prev + (c.alt - prev) * (hechasDe(c) / c.clases.length));
   document.getElementById('altNum').innerHTML = alt.toLocaleString('es-AR') + '<small>METROS</small>';
@@ -725,9 +730,17 @@ function festejoCumbre(){
   fx('impacto', .6); fx('rafaga', .8);
   $('festejo').querySelector('.kick').textContent = '8.611 metros';
   $('festejoTit').textContent = '¡Cumbre!';
-  $('festejoSub').textContent = 'Revisamos tu canal con NexLev: está monetizado. Ganaste el premio del reto: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.';
+  $('festejoSub').textContent = 'Revisamos tu canal con NexLev: está monetizado.' + (FICHA.cumbre && FICHA.cumbre.conPremio === false ? ' Hiciste cumbre.' : ' Ganaste el premio del reto: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.');
   $('festejoBtn').textContent = 'Ver la cumbre';
   $('festejo').classList.add('abierto');
+}
+/* días que le quedan del reto (3 meses desde que entró) */
+function diasReto(){ if (!FICHA.retoHasta) return null; return Math.ceil((Date.parse(FICHA.retoHasta) - Date.now()) / 864e5); }
+function textoReto(){
+  var d = diasReto();
+  if (d === null) return 'El reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre (valor US$500).';
+  return d > 0 ? 'El reto: te quedan <b>' + d + (d === 1 ? ' día' : ' días') + '</b> para monetizar y ganar SEN6 Silver Pro para siempre (valor US$500).'
+               : 'El plazo del reto (3 meses) ya pasó, pero la cumbre sigue esperándote.';
 }
 function textoCumbre(ec){
   return ec === 'revision' ? '<b>En revisión.</b> Revisamos tu canal con NexLev cada hora. Cuando esté aprobado, la cumbre se abre sola la próxima vez que entres.'
@@ -748,7 +761,7 @@ $('cartelCerrar').onclick = cerrarCartel;
 function cartelCanal(fin){
   fx('radio', .4);
   abrirCartel({ modo:'canal', fin:fin, pide:true, kick:'Antes de seguir subiendo', tit:'Registrá tu canal',
-    txt:'Pegá el link del canal que acabás de abrir. Es el que vas a llevar hasta la cumbre: al final lo revisamos con NexLev para confirmar que está monetizado y darte el premio (Silver Pro para siempre), así que tiene que ser este mismo.',
+    txt:'Pegá el link del canal que acabás de abrir. Es el que vas a llevar hasta la cumbre: al final lo revisamos con NexLev para confirmar que está monetizado y, si lo lográs en los primeros 3 meses, darte el premio (Silver Pro para siempre). Tiene que ser este mismo.',
     valor: FICHA.canal ? FICHA.canal.url : '', ok:'Registrar mi canal' });
 }
 function cartelCumbre(){
@@ -757,7 +770,7 @@ function cartelCumbre(){
   if (ec === 'revision' || ec === 'distinto'){ abrirCartel({ modo:'info', kick:'Cumbre', tit:'Tu canal está en revisión', txt:textoCumbre(ec), ok:'Entendido', cerrar:'Cerrar' }); return; }
   fx('radio', .4);
   abrirCartel({ modo:'cumbre', pide:true, kick:'Último paso · 8.611 m', tit:'¿Tu canal ya está monetizado?',
-    txt:'Pegá el link de tu canal monetizado. Lo revisamos con NexLev y comprobamos que sea el mismo que registraste al abrirlo: <b>' + esc(FICHA.canal.titulo || FICHA.canal.url.replace('https://www.youtube.com/', '')) + '</b>. Si está todo bien, hacés cumbre y ganás el premio del reto: <b>SEN6 Silver Pro para siempre</b>.',
+    txt:'Pegá el link de tu canal monetizado. Lo revisamos con NexLev y comprobamos que sea el mismo que registraste al abrirlo: <b>' + esc(FICHA.canal.titulo || FICHA.canal.url.replace('https://www.youtube.com/', '')) + '</b>. Si está todo bien, hacés cumbre' + (diasReto() === null || diasReto() > 0 ? ' y ganás el premio del reto: <b>SEN6 Silver Pro para siempre</b>' : '') + '.',
     ok:'Mandar a revisión' });
 }
 $('cartelForm').onsubmit = function(ev){
@@ -843,7 +856,7 @@ var TOURS = {
     { el:'#radio', tit:'Radio de la base', txt:'Si te trabás, prendé la radio y escribí tu duda. Te responde con lo que ya contestaron Max y Lau a cientos de alumnos.' },
     { el:'#guia', tit:'Las luces doradas', txt:'Son los alumnos de la comunidad de Skool: suben con guía, vivos todos los meses y la comunidad. Si querés acompañamiento, desde acá te sumás.' },
     { el:'#sonido', tit:'Sonido', txt:'La expedición tiene música, ambiente y narración. Si estás en un lugar sin auriculares, la apagás acá.' },
-    { el:'#ayuda', tit:'Listo, a subir', txt:'Acordate del reto: si tu canal monetiza, entrás a SEN6 Silver Pro para siempre. Si querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
+    { el:'#ayuda', tit:'Listo, a subir', txt:'Acordate del reto: si tu canal monetiza en los primeros 3 meses, entrás a SEN6 Silver Pro para siempre. Si querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
   ],
   campamento: [
     { el:'#lecs', tit:'Las clases del campamento', txt:'Miralas en orden. Cada una dura pocos minutos y va directo a lo que tenés que hacer.' },
@@ -899,6 +912,7 @@ $('tourAtras').onclick = function(){ if (tour.i){ tour.i--; pintarPaso(); } };
 $('tourSaltar').onclick = cerrarTour;
 addEventListener('keydown', function(e){ if (!tour) return; if (e.key === 'Escape') cerrarTour(); if (e.key === 'ArrowRight' || e.key === 'Enter') $('tourSig').click(); if (e.key === 'ArrowLeft') $('tourAtras').click(); });
 addEventListener('resize', function(){ if (tour) pintarPaso(); });
+document.getElementById('chipReto').onclick = function(){ sel = CAMPOS.length - 1; dibujar(); panel(); encuadrar(); };
 $('ayuda').onclick = function(){ if (abierto >= 0) arrancarTour('campamento'); else arrancarTour('mapa'); };
 
 addEventListener('resize', encuadrar);
