@@ -571,10 +571,18 @@ function pasoAcceso(paso, email){
   c.autocomplete = paso === 'crear' ? 'new-password' : 'current-password';
   c.placeholder = paso === 'crear' ? 'Creá tu contraseña (mínimo 6)' : 'Tu contraseña';
   t.innerHTML = paso === 'crear' ? 'Encontramos tu compra, <b>' + esc(acc.email) + '</b>. Es tu primera vez: creá una contraseña para tu expedición. · <button type="button" data-otro>Cambiar email</button>'
-    : paso === 'clave' ? 'Hola de nuevo, <b>' + esc(acc.email) + '</b>. ¿Te la olvidaste? Pedile a soporte de SEN6 que te la resetee. · <button type="button" data-otro>Cambiar email</button>' : '';
+    : paso === 'clave' ? 'Hola de nuevo, <b>' + esc(acc.email) + '</b>. · <button type="button" data-olvide>¿Te la olvidaste?</button> · <button type="button" data-otro>Cambiar email</button>' : '';
   btn.textContent = paso === 'email' ? 'Continuar' : paso === 'crear' ? 'Crear contraseña y empezar' : 'Entrar a la expedición';
   var o = t.querySelector('[data-otro]'); if (o) o.onclick = function(){ $('accErr').textContent = ''; pasoAcceso('email'); e.focus(); };
+  var ol = t.querySelector('[data-olvide]'); if (ol) ol.onclick = olvide;
   if (paso !== 'email') setTimeout(function(){ c.focus(); }, 50);
+}
+/* «¿Te la olvidaste?»: aviso a la oficina + mail a info@maximobruno.io con asunto «clave» desde el correo del alumno */
+function olvide(){
+  var email = acc.email;
+  api('POST', '/olvide', { email:email }).catch(function(){});
+  $('accErr').innerHTML = '<span style="color:var(--cream)">Listo, le avisamos al equipo. Se abrió tu correo con el mensaje armado: tocá <b>Enviar</b>. Cuando te la reseteen, entrás con tu email y creás una nueva.</span>';
+  location.href = 'mailto:info@maximobruno.io?subject=' + encodeURIComponent('clave') + '&body=' + encodeURIComponent('Hola, me olvidé la contraseña de la Expedición SEN6.\n\nMi email de compra: ' + email + '\n\nGracias.');
 }
 document.getElementById('acceso').onsubmit = function(ev){
   ev.preventDefault();
@@ -613,7 +621,7 @@ document.getElementById('acceso').onsubmit = function(ev){
     }
     else if (r.paso) { pasoAcceso(r.paso); err.textContent = r.paso === 'crear' ? 'Tu contraseña fue reseteada: creá una nueva.' : 'Ya tenías contraseña: escribila.'; }
     else if (r.error === 'clave') err.textContent = 'Contraseña incorrecta.';
-    else if (r.error === 'espera' || r.status === 429) err.textContent = 'Muchos intentos fallidos. Esperá 15 minutos o pedile a soporte que te la resetee.';
+    else if (r.error === 'espera' || r.status === 429) err.textContent = 'Muchos intentos fallidos. Esperá 15 minutos o tocá «¿Te la olvidaste?».';
     else if (r.error === 'corta') err.textContent = 'La contraseña tiene que tener al menos 6 caracteres.';
     else err.textContent = 'No pudimos entrar. Probá de nuevo.';
   }).catch(caida);
