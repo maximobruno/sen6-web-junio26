@@ -938,7 +938,7 @@ pintarAcceso();
 /* si ya entró antes, trae el progreso guardado en la base (por si sube desde otro dispositivo) */
 if (TOKEN) api('GET', '/progreso').then(function(r){
   if (r.ok){ PROG = unir(PROG, r.progreso); tomarFicha(r); sel = PROG.campo; ponerLS(CLAVE, JSON.stringify(PROG)); refrescar(); }
-  else if (r.status === 401){ TOKEN = null; ponerLS(CLAVE_TOKEN, null); pintarAcceso(); }
+  else if (r.status === 401){ TOKEN = null; ponerLS(CLAVE_TOKEN, null); ponerLS(CLAVE, null); PROG = { campo:0, vistas:{} }; sel = 0; refrescar(); pintarAcceso(); }
 }).catch(function(){});
 </script>
 </body>
