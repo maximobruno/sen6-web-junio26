@@ -230,6 +230,11 @@ footer a{margin:0 10px;color:var(--dim)}
   .sec{padding:96px 0}
 }
 @media (max-width:560px){
+  .marca{font-size:15px;letter-spacing:.1em;white-space:nowrap}
+  .top{padding:12px 14px}
+  .top nav{gap:10px}
+  .top .cta{white-space:nowrap}
+  .son{width:36px;height:36px}
   .top .cta small{display:none}
   .top .cta{padding:10px 14px}
   .hero .velo{background:linear-gradient(0deg,var(--ink) 8%,rgba(7,9,13,.55) 55%,rgba(7,9,13,.25))}
@@ -279,6 +284,17 @@ footer a{margin:0 10px;color:var(--dim)}
 .op ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;font-size:15px;color:var(--dim)}
 .op li::before{content:"·";color:var(--glow);font-weight:800;margin-right:8px}
 .op.yo li{color:var(--cream)}
+/* música de fondo */
+.son{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(11,13,18,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background .2s}
+.son:hover{border-color:var(--glow)}
+.son svg{width:18px;height:18px}
+.son .ondas{transition:opacity .2s}
+.son[aria-pressed="false"] .ondas{opacity:0}
+.son[aria-pressed="false"] .tacha{opacity:1}
+.son .tacha{opacity:0;transition:opacity .2s}
+.son.sonando .ondas{animation:late 1.6s ease-in-out infinite}
+@keyframes late{50%{opacity:.35}}
+
 /* carrusel de capturas */
 .galeria{padding:110px 0 120px;overflow:hidden;background:var(--ink2);border-bottom:1px solid var(--line)}
 .gal-cab{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
@@ -336,7 +352,7 @@ footer a{margin:0 10px;color:var(--dim)}
 
 <header class="top" id="top">
   <a class="marca" href="#">Expedición <em>SEN6</em></a>
-  <nav><a class="ent" href="entrar/">¿Ya compraste? Entrá</a><a class="cta pagar" href="#precio">Quiero la mía <small>US$27</small></a></nav>
+  <nav><button class="son" id="son" type="button" aria-pressed="true" aria-label="Silenciar la música" title="Música"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><path class="ondas" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="tacha" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button><a class="ent" href="entrar/">¿Ya compraste? Entrá</a><a class="cta pagar" href="#precio">Quiero la mía <small>US$27</small></a></nav>
 </header>
 
 <div class="alti" id="alti" aria-hidden="true"><b id="altiNum">5.300</b><small>METROS</small><div class="tubo"><i id="altiBarra"></i></div><small>BASE</small></div>
@@ -463,6 +479,31 @@ var PAGO_STRIPE = '';
   var b = document.getElementById('pagar');
   if (PAGO_STRIPE) { b.href = PAGO_STRIPE; }
   else b.addEventListener('click', function(e){ e.preventDefault(); alert('El pago se habilita en un momento.'); });
+})();
+
+/* música de fondo (la de la app): arranca con el primer toque o clic; el botón de arriba la silencia y se recuerda */
+(function(){
+  var btn = document.getElementById('son'), m = new Audio('entrar/audio/musica-long-road.mp3'), VOL = .28, fade = null, iniciada = false;
+  m.loop = true; m.preload = 'none'; m.volume = 0;
+  var on = true; try { on = localStorage.getItem('expedicion_landing_musica') !== '0'; } catch(e){}
+  function fundir(a, ms, fin){ clearInterval(fade); var v0 = m.volume, t0 = Date.now(); fade = setInterval(function(){ var k = Math.min(1, (Date.now() - t0) / ms); m.volume = v0 + (a - v0) * k; if (k === 1){ clearInterval(fade); if (fin) fin(); } }, 40); }
+  function pintar(){ btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Silenciar la música' : 'Activar la música'); btn.classList.toggle('sonando', on && iniciada && !m.paused); }
+  function sonar(){ if (!on) return; m.play().then(function(){ iniciada = true; fundir(VOL, 2500); pintar(); }).catch(function(){}); }
+  function callar(){ fundir(0, 600, function(){ m.pause(); pintar(); }); }
+  function primerGesto(e){
+    if (e.target.closest && e.target.closest('#son')) return;
+    ['pointerdown', 'keydown', 'touchstart'].forEach(function(t){ removeEventListener(t, primerGesto, true); });
+    if (on && !iniciada) sonar();
+  }
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function(t){ addEventListener(t, primerGesto, true); });
+  btn.addEventListener('click', function(){
+    on = !on; try { localStorage.setItem('expedicion_landing_musica', on ? '1' : '0'); } catch(e){}
+    if (on) sonar(); else callar(); pintar();
+  });
+  document.addEventListener('visibilitychange', function(){ if (document.hidden){ if (!m.paused) m.pause(); } else if (on && iniciada) m.play().catch(function(){}); });
+  // al ir a pagar, la música se apaga suave
+  document.querySelectorAll('#pagar').forEach(function(a){ a.addEventListener('click', function(){ if (!m.paused) fundir(0, 400); }); });
+  pintar();
 })();
 
 /* carrusel de capturas de la plataforma */
