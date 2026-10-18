@@ -279,6 +279,27 @@ footer a{margin:0 10px;color:var(--dim)}
 .op ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;font-size:15px;color:var(--dim)}
 .op li::before{content:"·";color:var(--glow);font-weight:800;margin-right:8px}
 .op.yo li{color:var(--cream)}
+/* el reto */
+.reto{position:relative;overflow:hidden;isolation:isolate;border-top:1px solid rgba(232,194,122,.25);border-bottom:1px solid rgba(232,194,122,.25)}
+.reto .fondo{position:absolute;inset:0;z-index:-2;background:url(entrar/img/cumbre.jpg) center 35%/cover;animation:respira 30s ease-in-out infinite alternate}
+.reto::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,9,13,.94) 0%,rgba(7,9,13,.78) 50%,rgba(7,9,13,.35) 100%),linear-gradient(0deg,var(--ink),transparent 30%,transparent 70%,var(--ink))}
+.reto-g{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.reto .eb{color:var(--oro)}
+.reto h2 em{color:var(--oro)}
+.premio{justify-self:center;width:min(360px,100%);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;position:relative;
+  background:radial-gradient(circle at 50% 35%,rgba(232,194,122,.28),rgba(11,13,18,.85) 65%);border:1.5px solid rgba(232,194,122,.6);box-shadow:0 0 0 14px rgba(232,194,122,.07),0 0 0 30px rgba(232,194,122,.035),0 0 90px rgba(232,194,122,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.premio::before{content:"";position:absolute;inset:16px;border-radius:50%;border:1px dashed rgba(232,194,122,.45);animation:gira 60s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.premio .k{font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--oro)}
+.premio b{display:block;font:700 clamp(64px,8vw,92px)/1 Oswald;color:#FFE3A6;text-shadow:0 0 40px rgba(232,194,122,.6);margin:8px 0 4px}
+.premio span{font:600 18px Oswald;text-transform:uppercase;letter-spacing:.06em}
+.premio small{display:block;color:var(--dim);font-size:13px;margin-top:6px}
+.reto .pasos{margin-top:28px}
+.reto .paso::before{border-color:var(--oro);color:var(--oro)}
+.badge-reto{display:inline-flex;align-items:center;gap:10px;margin-top:22px;border:1px solid rgba(232,194,122,.55);background:rgba(232,194,122,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:9px 16px 9px 10px;font-size:14px;font-weight:600;text-decoration:none;color:var(--cream)}
+.badge-reto i{font-style:normal;background:var(--oro);color:#1b1408;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;letter-spacing:.12em}
+.badge-reto b{color:#FFE3A6}
+@media (max-width:900px){.reto-g{grid-template-columns:1fr}.premio{width:min(300px,100%)}}
 @media (max-width:900px){.grilla-c{grid-template-columns:1fr 1fr}.lado{grid-template-columns:1fr;gap:40px}.vs{grid-template-columns:1fr}}
 @media (max-width:560px){.grilla-c{grid-template-columns:1fr}.tile{aspect-ratio:16/10}}
 </style>
@@ -301,6 +322,7 @@ footer a{margin:0 10px;color:var(--dim)}
     <div class="eb rv on">Para los que ya nos siguen</div>
     <h1 class="rv on d1" style="margin-top:16px">La ruta completa.<br><em>US$27.</em> Para siempre.</h1>
     <p class="lead rv on d2">Ya conocés SEN6. Si hoy no podés pagar una mensualidad, esto es para vos: las 18 clases fundamentales, en un camino directo y simple para que llegues a tu canal monetizado. Con la radio de la base para cuando te trabás. Pagás una vez y es tuya.</p>
+    <a class="badge-reto rv on d2" href="#reto"><i>EL RETO</i>Si monetizás, ganás <b>Silver Pro para siempre</b> · US$500</a>
     <div class="acciones rv on d3">
       <a class="cta pagar" href="#precio">Quiero mi expedición <small>US$27</small></a>
       <div class="cta-nota">
@@ -321,7 +343,24 @@ footer a{margin:0 10px;color:var(--dim)}
       <h2 class="rv d1" style="margin-top:14px">Seis campamentos.<br><em>De cero a monetizado.</em></h2>
     </div>
     <div class="grilla-c" id="grilla"></div>
-    <div class="cumbre-linea rv">Arriba de todo, a <b>8.611 m</b>, está la cumbre: revisamos tu canal con NexLev y, si está monetizado, hiciste cumbre.</div>
+  </div>
+</section>
+
+<!-- EL RETO -->
+<section class="sec reto" id="reto">
+  <div class="fondo"></div>
+  <div class="wrap reto-g">
+    <div>
+      <div class="eb rv">El reto · 8.611 m</div>
+      <h2 class="rv d1" style="margin-top:14px">Monetizá tu canal.<br><em>Ganate Silver Pro para siempre.</em></h2>
+      <p class="lead rv d2" style="margin-top:18px">La Expedición es un reto. El que hace cumbre, con su canal monetizado de verdad, entra por invitación a SEN6 Silver Pro en Skool. De por vida.</p>
+      <div class="pasos">
+        <div class="paso rv"><div><b>Registrás tu canal</b><span>Cuando lo abrís, en el Campo 2, queda guardado como el canal de tu expedición.</span></div></div>
+        <div class="paso rv d1"><div><b>Lo llevás hasta la monetización</b><span>Campamento por campamento, con las 18 clases y la radio de la base.</span></div></div>
+        <div class="paso rv d2"><div><b>Lo verificamos con NexLev y te invitamos</b><span>Si es el mismo canal y está monetizado, hiciste cumbre: entrás a Silver Pro para siempre.</span></div></div>
+      </div>
+    </div>
+    <div class="premio rv d1"><div><div class="k">El premio</div><b>US$500</b><span>Silver Pro</span><small>para siempre, por invitación</small></div></div>
   </div>
 </section>
 
@@ -359,12 +398,14 @@ footer a{margin:0 10px;color:var(--dim)}
         <li>La radio de la base: 383 respuestas de Max y Lau</li>
         <li>Videos de refuerzo de Max para cada etapa</li>
         <li>Tu progreso guardado en cualquier dispositivo</li>
+        <li><b style="color:#FFE3A6">El reto:</b> si tu canal monetiza, entrás a Silver Pro para siempre (valor US$500)</li>
       </ul>
       <a class="cta pagar" id="pagar" href="#" rel="noopener">Quiero mi expedición <small>US$27</small></a>
       <div class="pago-seguro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con <b style="color:var(--cream)">Stripe</b> · tarjeta de crédito o débito</div>
     </div>
     <div class="faq" style="margin-top:44px">
       <details class="rv"><summary>¿Es para siempre de verdad?</summary><p>Sí. Pagás US$27 una sola vez, sin mensualidad, y la expedición queda tuya.</p></details>
+      <details class="rv"><summary>¿Cómo funciona el reto?</summary><p>Registrás tu canal cuando lo abrís (Campo 2) y, cuando monetiza, mandás el link desde la cumbre. Lo revisamos con NexLev: si es el mismo canal y está monetizado, te invitamos a SEN6 Silver Pro en Skool, para siempre.</p></details>
       <details class="rv"><summary>¿Cómo entro después de pagar?</summary><p>Apenas pagás te lleva directo a la expedición. Entrás con el mismo email del pago y creás tu contraseña. También te llega un mail con el acceso.</p></details>
     </div>
   </div>

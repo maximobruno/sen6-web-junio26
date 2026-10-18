@@ -286,7 +286,7 @@ button{font:inherit;color:inherit}
   <div>
     <div class="kick">De cero a monetizar</div>
     <h1>Expedición <em>SEN6</em></h1>
-    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Si esta expedición no llega arriba, volvés a la base con lo aprendido y salís de nuevo: tenés seis por año.</p>
+    <p>Monetizar un canal es hacer cumbre. Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. Y arriba te espera el premio del reto: si tu canal monetiza, entrás a SEN6 Silver Pro para siempre.</p>
     <form id="acceso" novalidate>
       <input id="accEmail" type="email" placeholder="El email con el que compraste" autocomplete="username" aria-label="Tu email de compra">
       <div class="acc-paso" id="accPaso" hidden></div>
@@ -479,7 +479,7 @@ function panel(){
   var gente = GENTE[sel] + ' expedicionarios en este campamento' + (SILVER[sel] ? ' · ' + SILVER[sel] + ' con guía' : '');
   if (c.meta){
     lis = ''; var ec = FICHA.cumbre && FICHA.cumbre.estado, hecha = ec === 'aprobado' || e === 'actual' && DEMO && PROG.cumbre;
-    gente = hecha ? 'Hiciste cumbre. Tu canal está monetizado.' : 'Acá llegás cuando tu canal está monetizado: al terminar el Ataque a cumbre mandás el link y lo revisamos con NexLev.';
+    gente = hecha ? 'Hiciste cumbre. Tu canal está monetizado y ganaste el premio: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.' : '<b style="color:var(--oro)">El premio del reto: SEN6 Silver Pro para siempre (valor US$500).</b> Acá llegás cuando tu canal está monetizado: al terminar el Ataque a cumbre mandás el link y lo revisamos con NexLev.';
     if (!hecha && ec) gente += '<div class="estado-cumbre ' + ec + '">' + textoCumbre(ec) + '</div>';
     var listo = PROG.campo >= CAMPOS.length - 2 && lecsDe(CAMPOS[CAMPOS.length - 2]).every(function(l){ return PROG.vistas[l.id]; });
     var btnM = hecha ? '<button class="cta" type="button">Volver a escuchar la cumbre</button>'
@@ -725,7 +725,7 @@ function festejoCumbre(){
   fx('impacto', .6); fx('rafaga', .8);
   $('festejo').querySelector('.kick').textContent = '8.611 metros';
   $('festejoTit').textContent = '¡Cumbre!';
-  $('festejoSub').textContent = 'Revisamos tu canal con NexLev: está monetizado. Hiciste cumbre.';
+  $('festejoSub').textContent = 'Revisamos tu canal con NexLev: está monetizado. Ganaste el premio del reto: SEN6 Silver Pro para siempre. Te llega la invitación a Skool a tu email.';
   $('festejoBtn').textContent = 'Ver la cumbre';
   $('festejo').classList.add('abierto');
 }
@@ -748,7 +748,7 @@ $('cartelCerrar').onclick = cerrarCartel;
 function cartelCanal(fin){
   fx('radio', .4);
   abrirCartel({ modo:'canal', fin:fin, pide:true, kick:'Antes de seguir subiendo', tit:'Registrá tu canal',
-    txt:'Pegá el link del canal que acabás de abrir. Es el que vas a llevar hasta la cumbre: al final lo revisamos con NexLev para confirmar que está monetizado, así que tiene que ser este mismo.',
+    txt:'Pegá el link del canal que acabás de abrir. Es el que vas a llevar hasta la cumbre: al final lo revisamos con NexLev para confirmar que está monetizado y darte el premio (Silver Pro para siempre), así que tiene que ser este mismo.',
     valor: FICHA.canal ? FICHA.canal.url : '', ok:'Registrar mi canal' });
 }
 function cartelCumbre(){
@@ -757,7 +757,7 @@ function cartelCumbre(){
   if (ec === 'revision' || ec === 'distinto'){ abrirCartel({ modo:'info', kick:'Cumbre', tit:'Tu canal está en revisión', txt:textoCumbre(ec), ok:'Entendido', cerrar:'Cerrar' }); return; }
   fx('radio', .4);
   abrirCartel({ modo:'cumbre', pide:true, kick:'Último paso · 8.611 m', tit:'¿Tu canal ya está monetizado?',
-    txt:'Pegá el link de tu canal monetizado. Lo revisamos con NexLev y comprobamos que sea el mismo que registraste al abrirlo: <b>' + esc(FICHA.canal.titulo || FICHA.canal.url.replace('https://www.youtube.com/', '')) + '</b>. Si está todo bien, la cumbre se abre sola.',
+    txt:'Pegá el link de tu canal monetizado. Lo revisamos con NexLev y comprobamos que sea el mismo que registraste al abrirlo: <b>' + esc(FICHA.canal.titulo || FICHA.canal.url.replace('https://www.youtube.com/', '')) + '</b>. Si está todo bien, hacés cumbre y ganás el premio del reto: <b>SEN6 Silver Pro para siempre</b>.',
     ok:'Mandar a revisión' });
 }
 $('cartelForm').onsubmit = function(ev){
@@ -843,7 +843,7 @@ var TOURS = {
     { el:'#radio', tit:'Radio de la base', txt:'Si te trabás, prendé la radio y escribí tu duda. Te responde con lo que ya contestaron Max y Lau a cientos de alumnos.' },
     { el:'#guia', tit:'Las luces doradas', txt:'Son los alumnos de la comunidad de Skool: suben con guía, vivos todos los meses y la comunidad. Si querés acompañamiento, desde acá te sumás.' },
     { el:'#sonido', tit:'Sonido', txt:'La expedición tiene música, ambiente y narración. Si estás en un lugar sin auriculares, la apagás acá.' },
-    { el:'#ayuda', tit:'Listo, a subir', txt:'Si alguna vez querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
+    { el:'#ayuda', tit:'Listo, a subir', txt:'Acordate del reto: si tu canal monetiza, entrás a SEN6 Silver Pro para siempre. Si querés ver este recorrido de nuevo, tocá este botón. Ahora entrá a tu primer campamento.' }
   ],
   campamento: [
     { el:'#lecs', tit:'Las clases del campamento', txt:'Miralas en orden. Cada una dura pocos minutos y va directo a lo que tenés que hacer.' },
