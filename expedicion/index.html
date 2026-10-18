@@ -246,13 +246,48 @@ footer a{margin:0 10px;color:var(--dim)}
   *{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none}
 }
+
+/* versión corta */
+.grilla-c{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.tile{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line);isolation:isolate}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.06)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(7,9,13,.94) 8%,rgba(7,9,13,.15) 65%)}
+.tile .t{position:absolute;left:18px;right:18px;bottom:16px}
+.tile .alt{font:600 12px Oswald;letter-spacing:.14em;color:var(--glow)}
+.tile h3{font-size:26px;margin-top:4px}
+.tile p{margin:6px 0 0;font-size:13.5px;color:rgba(245,243,239,.8)}
+.tile .cnt{position:absolute;top:14px;right:14px;font-size:12px;font-weight:700;background:rgba(11,13,18,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+.cumbre-linea{margin-top:18px;display:flex;gap:12px;align-items:center;justify-content:center;color:var(--dim);font-size:15px;text-align:center}
+.cumbre-linea b{color:var(--oro)}
+.lado{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+.lado .escena{margin:0}
+.lista{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:18px}
+.lista li{display:flex;gap:14px;align-items:flex-start}
+.lista .ic{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;background:rgba(242,106,46,.14)}
+.lista .ic svg{width:22px;height:22px;stroke:var(--glow)}
+.lista b{display:block;font-size:16px}
+.lista span{color:var(--dim);font-size:14.5px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:44px auto 0}
+.op{border:1px solid var(--line);border-radius:22px;padding:28px 26px;background:var(--ink2)}
+.op.yo{border-color:rgba(242,106,46,.55);background:linear-gradient(180deg,rgba(242,106,46,.14),rgba(242,106,46,.03));box-shadow:0 40px 90px -40px rgba(242,106,46,.6)}
+.op .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;border-radius:999px;padding:5px 10px;background:rgba(245,243,239,.08);color:var(--dim)}
+.op.yo .tag{background:var(--glow);color:#fff}
+.op h3{font-size:30px;margin-top:14px}
+.op .pr{font:700 40px/1 Oswald;margin-top:10px}
+.op .pr small{font:600 15px Inter;color:var(--dim);margin-left:6px}
+.op ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;font-size:15px;color:var(--dim)}
+.op li::before{content:"·";color:var(--glow);font-weight:800;margin-right:8px}
+.op.yo li{color:var(--cream)}
+@media (max-width:900px){.grilla-c{grid-template-columns:1fr 1fr}.lado{grid-template-columns:1fr;gap:40px}.vs{grid-template-columns:1fr}}
+@media (max-width:560px){.grilla-c{grid-template-columns:1fr}.tile{aspect-ratio:16/10}}
 </style>
 </head>
 <body>
 
 <header class="top" id="top">
   <a class="marca" href="#">Expedición <em>SEN6</em></a>
-  <nav><a class="ent" href="entrar/">¿Ya compraste? Entrá</a><a class="cta pagar" href="#precio">Empezar <small>US$27</small></a></nav>
+  <nav><a class="ent" href="entrar/">¿Ya compraste? Entrá</a><a class="cta pagar" href="#precio">Quiero la mía <small>US$27</small></a></nav>
 </header>
 
 <div class="alti" id="alti" aria-hidden="true"><b id="altiNum">5.300</b><small>METROS</small><div class="tubo"><i id="altiBarra"></i></div><small>BASE</small></div>
@@ -263,117 +298,66 @@ footer a{margin:0 10px;color:var(--dim)}
   <canvas class="nieve" id="nieve" aria-hidden="true"></canvas>
   <div class="velo"></div>
   <div class="txt">
-    <div class="eb rv on">De cero a canal monetizado</div>
-    <h1 class="rv on d1" style="margin-top:16px">Monetizar un canal es hacer <em>cumbre.</em></h1>
-    <p class="lead rv on d2">Seis campamentos, dieciocho clases y una radio en la base que te responde cuando te trabás. La ruta que usamos en SEN6, campamento por campamento, para llevar tu canal de YouTube de cero a monetizado.</p>
+    <div class="eb rv on">Para los que ya nos siguen</div>
+    <h1 class="rv on d1" style="margin-top:16px">La ruta completa.<br><em>US$27.</em> Para siempre.</h1>
+    <p class="lead rv on d2">Ya conocés SEN6. Si hoy no podés pagar una mensualidad, esto es para vos: las 18 clases que llevan un canal de cero a monetizado, en orden, con la radio de la base para cuando te trabás. Pagás una vez y es tuya.</p>
     <div class="acciones rv on d3">
-      <a class="cta pagar" href="#precio">Empezar mi expedición <small>US$27</small></a>
+      <a class="cta pagar" href="#precio">Quiero mi expedición <small>US$27</small></a>
       <div class="cta-nota">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pago único</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Acceso inmediato</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pagás seguro con Stripe</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Un solo pago</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sin mensualidad</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Acceso para siempre</span>
       </div>
     </div>
-    <div class="chips rv on d3">
-      <div class="chip"><b>6</b>campamentos</div><div class="chip"><b>18</b>clases cortas</div><div class="chip"><b>383</b>respuestas en la radio</div><div class="chip"><b>8.611</b>metros hasta la cumbre</div>
-    </div>
   </div>
-  <a class="bajar" href="#historia">La ruta<i></i></a>
+  <a class="bajar" href="#ruta-sec">Qué incluye<i></i></a>
 </section>
 
-<!-- HISTORIA -->
-<section class="sec" id="historia">
-  <div class="wrap historia">
-    <div>
-      <div class="eb rv">Por qué una expedición</div>
-      <div class="cita rv d1" style="margin-top:18px">Mi primer canal tardó seis meses en monetizar y me pagó <span class="num">8</span> dólares.</div>
-      <p class="rv d2">No fue por falta de trabajo. Fue por <b>subir sin mapa</b>: elegir el nicho a ciegas, abrir el canal de cualquier forma y publicar esperando que algo pegue.</p>
-      <p class="rv d2">La Expedición es el orden que me hubiera gustado tener ese día. <b>Cada campamento tiene un solo objetivo</b>, y no subís al siguiente hasta terminarlo.</p>
-    </div>
-    <div class="contraste">
-      <div class="fila mal rv"><div class="ic">✕</div><div><b>Subir a ciegas</b><span>Cientos de videos sueltos, cada uno dice otra cosa, y no sabés qué va primero.</span></div></div>
-      <div class="fila mal rv d1"><div class="ic">✕</div><div><b>Trabarte y abandonar</b><span>Una duda chica te frena una semana porque no tenés a quién preguntarle.</span></div></div>
-      <div class="fila bien rv d2"><div class="ic">✓</div><div><b>Una ruta con orden</b><span>Seis campamentos, en el orden correcto, con clases cortas que van directo a lo que tenés que hacer.</span></div></div>
-      <div class="fila bien rv d3"><div class="ic">✓</div><div><b>La radio de la base</b><span>Escribís en qué te trabaste y te responde con lo que Max y Lau ya contestaron a cientos de alumnos.</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- LA RUTA -->
-<section class="sec" id="ruta-sec" style="padding-top:40px">
-  <div class="wrap">
-    <div class="cab-ruta">
-      <div class="eb rv">La ruta</div>
-      <h2 class="rv d1" style="margin-top:14px">Seis campamentos.<br><em>Una cumbre.</em></h2>
-      <p class="lead rv d2">Cada campamento es una etapa real de tu canal. Lo superás cuando terminás sus clases, y recién ahí se abre el siguiente.</p>
-    </div>
-    <div class="campos" id="campos"></div>
-  </div>
-</section>
-
-<!-- POR DENTRO -->
-<section class="sec dentro" id="dentro">
+<!-- LO QUE TE LLEVÁS -->
+<section class="sec" id="ruta-sec">
   <div class="wrap">
     <div class="cab-ruta" style="margin-bottom:0">
-      <div class="eb rv">Así se ve por dentro</div>
-      <h2 class="rv d1" style="margin-top:14px">No es un curso más.<br><em>Es una expedición.</em></h2>
-      <p class="lead rv d2">Una montaña que subís de verdad: con tu altura, tu campamento, música, la narración de cada etapa y los que van subiendo con vos. En la compu o en el celular.</p>
+      <div class="eb rv">Lo que te llevás</div>
+      <h2 class="rv d1" style="margin-top:14px">Seis campamentos.<br><em>De cero a monetizado.</em></h2>
     </div>
+    <div class="grilla-c" id="grilla"></div>
+    <div class="cumbre-linea rv">Arriba de todo, a <b>8.611 m</b>, está la cumbre: revisamos tu canal con NexLev y, si está monetizado, hiciste cumbre.</div>
+  </div>
+</section>
+
+<!-- CÓMO SE VE -->
+<section class="sec dentro">
+  <div class="wrap lado">
     <div class="escena rv">
-      <div class="laptop"><div class="pant"><img src="fotos/app-mapa.jpg" alt="El mapa de la Expedición SEN6: la montaña con los seis campamentos y la ruta del alumno" loading="lazy"></div></div>
+      <div class="laptop"><div class="pant"><img src="fotos/app-mapa.jpg" alt="El mapa de la Expedición SEN6 con los campamentos y la ruta" loading="lazy"></div></div>
       <div class="telefono"><img src="fotos/app-movil.jpg" alt="La Expedición SEN6 en el celular" loading="lazy"></div>
     </div>
-    <div class="rasgos">
-      <div class="rasgo rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></div><h3>18 clases cortas</h3><p>En orden, de pocos minutos, directo a lo que tenés que hacer en tu canal.</p></div>
-      <div class="rasgo rv d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg></div><h3>PDF de cada clase</h3><p>El resumen con las ideas clave y espacio para tus notas, para tenerlo a mano mientras trabajás.</p></div>
-      <div class="rasgo rv d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1"/><path d="M12 13v8"/></svg></div><h3>Radio de la base</h3><p>383 respuestas de Max y Lau a las dudas reales de los alumnos, a un mensaje de distancia.</p></div>
-      <div class="rasgo rv d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 18H3z"/><path d="M9 15l3-3 3 3"/></svg></div><h3>Tu altura, en vivo</h3><p>Cada clase que ves te sube. Sabés siempre dónde estás y cuánto falta.</p></div>
-    </div>
-    <div class="duo">
-      <figure class="captura rv" style="margin:0"><img src="fotos/app-campo.jpg" alt="Un campamento por dentro: las clases con Ver clase, PDF y La vi" loading="lazy"><figcaption><b>Cada campamento por dentro</b>Las clases en orden, el PDF de cada una y videos de refuerzo de Max en YouTube.</figcaption></figure>
-      <figure class="captura rv d1" style="margin:0"><img src="fotos/app-radio.jpg" alt="La radio de la base respondiendo una duda" loading="lazy"><figcaption><b>La radio responde</b>Preguntás en qué te trabaste y te contesta al instante, con la clase donde se ve y un video de refuerzo.</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- CUMBRE VERIFICADA -->
-<section class="sec">
-  <div class="wrap verif">
-    <div class="sello rv"><img src="entrar/img/cumbre.jpg" alt="La cumbre al amanecer" loading="lazy"><div class="marca-s"><b>8.611 M</b><span>Cumbre verificada</span></div></div>
     <div>
-      <div class="eb rv">La cumbre no se regala</div>
-      <h2 class="rv d1" style="margin-top:14px">Hacés cumbre cuando tu canal <em>está monetizado.</em></h2>
-      <p class="lead rv d2" style="margin-top:18px">No alcanza con mirar videos. La expedición termina cuando tu canal cobra.</p>
-      <div class="pasos">
-        <div class="paso rv"><div><b>Registrás tu canal</b><span>Cuando lo abrís, en el Campo 2, queda guardado como el canal de tu expedición.</span></div></div>
-        <div class="paso rv d1"><div><b>Lo llevás hasta arriba</b><span>Guion, producción, miniaturas y lanzamiento, campamento por campamento.</span></div></div>
-        <div class="paso rv d2"><div><b>Lo revisamos con NexLev</b><span>Al final mandás tu canal: comprobamos que sea el mismo y que esté monetizado. Ahí hacés cumbre.</span></div></div>
-      </div>
+      <div class="eb rv">Cómo se ve</div>
+      <h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.4vw,54px)">Una montaña que <em>subís de verdad.</em></h2>
+      <ul class="lista">
+        <li class="rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></div><div><b>18 clases cortas, en orden</b><span>Directo a lo que tenés que hacer en tu canal.</span></div></li>
+        <li class="rv d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg></div><div><b>El PDF de cada clase</b><span>Para tenerlo a mano mientras trabajás.</span></div></li>
+        <li class="rv d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1"/><path d="M12 13v8"/></svg></div><div><b>La radio de la base</b><span>383 respuestas de Max y Lau a las dudas reales de los alumnos.</span></div></li>
+        <li class="rv d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 18H3z"/><path d="M9 15l3-3 3 3"/></svg></div><div><b>En la compu o el celular</b><span>Tu progreso se guarda: seguís donde la dejaste.</span></div></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- REGLA 6M -->
-<section class="sec seis" style="padding-top:20px">
+<!-- SILVER O EXPEDICIÓN -->
+<section class="sec">
   <div class="wrap">
-    <div class="eb rv">La regla del 6M</div>
-    <h2 class="rv d1" style="margin-top:14px">Si no llegás arriba,<br><em>salís de nuevo.</em></h2>
-    <p class="lead rv d2">El año tiene seis expediciones de dos meses. Si esta no hace cumbre, volvés a la base con todo lo aprendido y arrancás la siguiente. No hace falta que salgan todas: hace falta seguir subiendo.</p>
-    <div class="anio">
-      <div class="exp uno rv"><b>1</b><span>Ene · Feb</span></div><div class="exp rv d1"><b>2</b><span>Mar · Abr</span></div><div class="exp rv d1"><b>3</b><span>May · Jun</span></div>
-      <div class="exp rv d2"><b>4</b><span>Jul · Ago</span></div><div class="exp rv d2"><b>5</b><span>Sep · Oct</span></div><div class="exp rv d3"><b>6</b><span>Nov · Dic</span></div>
+    <div class="cab-ruta" style="margin-bottom:0">
+      <div class="eb rv">¿Cuál es para vos hoy?</div>
+      <h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.6vw,56px)">Misma montaña. <em>Otra forma de subir.</em></h2>
     </div>
-  </div>
-</section>
-
-<!-- RESEÑAS -->
-<section class="sec" style="padding-top:30px">
-  <div class="wrap">
-    <div class="rese-cab">
-      <div><div class="eb rv">Lo que dicen en la comunidad</div><h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.6vw,56px)">La gente de <em>SEN6</em></h2></div>
-      <div class="prom rv"><b id="resenas-prom">5,0</b><div><div class="estrellas">★★★★★</div><span class="small" style="color:var(--dim);font-size:13px" id="resenas-total">reseñas en Skool</span></div></div>
+    <div class="vs">
+      <div class="op rv"><span class="tag">Con guía</span><h3>SEN6 Silver</h3><div class="pr">US$49<small>por mes</small></div>
+        <ul><li>Todo el método completo</li><li>Vivos todos los meses</li><li>La comunidad y el acompañamiento de Max y Lau</li></ul></div>
+      <div class="op yo rv d1"><span class="tag">Por tu cuenta</span><h3>Expedición SEN6</h3><div class="pr">US$27<small>una vez</small></div>
+        <ul><li>La ruta de 18 clases, de cero a monetizado</li><li>La radio de la base y el PDF de cada clase</li><li>Sin mensualidad: es tuya para siempre</li></ul></div>
     </div>
-    <div class="reviews" id="resenas" aria-label="Reseñas de alumnos en Skool"></div>
   </div>
 </section>
 
@@ -384,46 +368,23 @@ footer a{margin:0 10px;color:var(--dim)}
     <div class="tarjeta rv">
       <div class="eb">Expedición SEN6</div>
       <div class="monto"><sup>US$</sup>27</div>
-      <div class="unico">Pago único · es tuya para siempre</div>
+      <div class="unico">Un solo pago · acceso para siempre</div>
       <ul>
-        <li>Los 6 campamentos con las 18 clases, de la mentalidad al lanzamiento</li>
+        <li>Los 6 campamentos con las 18 clases</li>
         <li>PDF descargable de cada clase</li>
         <li>La radio de la base: 383 respuestas de Max y Lau</li>
         <li>Videos de refuerzo de Max para cada etapa</li>
-        <li>Recorrido guiado, tu altura y tu progreso guardado en cualquier dispositivo</li>
-        <li>Cumbre verificada con NexLev cuando tu canal monetiza</li>
+        <li>Tu progreso guardado en cualquier dispositivo</li>
       </ul>
-      <a class="cta pagar" id="pagar" href="#" rel="noopener">Empezar mi expedición <small>US$27</small></a>
+      <a class="cta pagar" id="pagar" href="#" rel="noopener">Quiero mi expedición <small>US$27</small></a>
       <div class="pago-seguro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con <b style="color:var(--cream)">Stripe</b> · tarjeta de crédito o débito</div>
       <div class="extra">En el pago podés sumar, si querés, <b>la skill de automatización SEN6 para Claude</b> (US$17, opcional; necesita Claude Pro).</div>
     </div>
-  </div>
-</section>
-
-<!-- PREGUNTAS -->
-<section class="sec" style="padding-top:40px">
-  <div class="wrap">
-    <div class="cab-ruta" style="margin-bottom:0"><div class="eb rv">Preguntas</div><h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.6vw,56px)">Antes de salir</h2></div>
-    <div class="faq">
-      <details class="rv"><summary>¿Necesito experiencia o un canal abierto?</summary><p>No. La expedición arranca en el Campamento Base, desde cero: qué es un canal como activo, cómo elegir el nicho, cómo abrirlo y cómo calentarlo. Si ya tenés canal, igual te conviene hacer la ruta en orden.</p></details>
-      <details class="rv"><summary>¿Cómo entro después de pagar?</summary><p>Apenas pagás, te lleva directo a la expedición. Entrás con el mismo email que usaste para pagar y creás tu contraseña. También te llega un mail con el acceso.</p></details>
-      <details class="rv"><summary>¿Es un pago mensual?</summary><p>No. Son US$27 una sola vez y la expedición es tuya.</p></details>
-      <details class="rv"><summary>¿Qué pasa si me trabo?</summary><p>Prendés la radio de la base y escribís tu duda: te responde con lo que Max y Lau ya contestaron a los alumnos de SEN6, con la clase donde se ve y un video de refuerzo. Si querés acompañamiento en vivo y la comunidad, podés sumarte a Skool cuando quieras.</p></details>
-      <details class="rv"><summary>¿La puedo hacer desde el celular?</summary><p>Sí. Funciona en la compu y en el celular, y tu progreso se guarda: seguís donde la dejaste en cualquier dispositivo.</p></details>
-      <details class="rv"><summary>¿Qué diferencia hay con SEN6 Silver?</summary><p>La Expedición es la ruta, por tu cuenta. En Silver subís con guía: vivos todos los meses, la comunidad y el acompañamiento de Max y Lau. En la montaña los vas a ver como las luces doradas que van más arriba.</p></details>
+    <div class="faq" style="margin-top:44px">
+      <details class="rv"><summary>¿Es para siempre de verdad?</summary><p>Sí. Pagás US$27 una sola vez, sin mensualidad, y la expedición queda tuya.</p></details>
+      <details class="rv"><summary>¿Cómo entro después de pagar?</summary><p>Apenas pagás te lleva directo a la expedición. Entrás con el mismo email del pago y creás tu contraseña. También te llega un mail con el acceso.</p></details>
+      <details class="rv"><summary>¿Y si más adelante quiero pasar a Silver?</summary><p>Cuando puedas, te sumás a Silver y seguís subiendo con guía, vivos y la comunidad. Lo que hiciste en la expedición te sirve igual.</p></details>
     </div>
-  </div>
-</section>
-
-<!-- CIERRE -->
-<section class="cierre sec">
-  <div class="fondo"></div>
-  <div class="wrap">
-    <div class="eb rv">Campamento Base · 5.300 m</div>
-    <h2 class="rv d1" style="margin-top:16px">Nos vemos <em>arriba.</em></h2>
-    <p class="lead rv d2">La montaña no se mueve. Lo único que cambia es si empezás a subir hoy.</p>
-    <a class="cta pagar rv d3" href="#precio">Empezar mi expedición <small>US$27</small></a>
-    <div class="silver rv d3">¿Preferís subir con guía? <a href="/silver/">Conocé SEN6 Silver →</a></div>
   </div>
 </section>
 
@@ -432,7 +393,7 @@ footer a{margin:0 10px;color:var(--dim)}
   <div style="margin-top:10px"><a href="entrar/">Entrar a mi expedición</a><a href="/terminos-y-condiciones">Términos</a><a href="/politica-de-privacidad">Privacidad</a></div>
 </footer>
 
-<div class="fija" id="fija"><a class="cta pagar" href="#precio">Empezar mi expedición · US$27</a></div>
+<div class="fija" id="fija"><a class="cta pagar" href="#precio">Quiero mi expedición · US$27</a></div>
 
 <script>
 /* Link de pago de Stripe: cuando esté creado, va acá. Al pagar, Stripe vuelve a entrar/?compra={CHECKOUT_SESSION_ID} */
@@ -443,82 +404,39 @@ var PAGO_STRIPE = '';
   else b.addEventListener('click', function(e){ e.preventDefault(); alert('El pago se habilita en un momento.'); });
 })();
 
-/* los campamentos (mismos datos que la app) */
 var CAMPOS = [
-  { n:'01', nombre:'Campamento Base', alt:'5.300 m', img:'campamento-base', que:'Mentalidad y el negocio',
-    txt:'Antes de subir, entendés por qué YouTube y qué significa que un canal sea un activo. Y aprendés la regla que te sostiene cuando hace frío.',
-    clases:['Por qué YouTube faceless','La regla del 6M','Requisitos de monetización','Nicho vs. temática'] },
-  { n:'02', nombre:'Campo 1 · El mapa', alt:'5.900 m', img:'campo1-mapa', que:'Elegir el nicho: tu ruta',
-    txt:'Nadie sube sin mapa. Buscás a los que ya hicieron cumbre, leés su ruta y elegís un nicho con datos, no a ciegas.',
-    clases:['El método del SEN6','Requisitos del nicho ideal','Cuenta educada','Ejemplo con NexLev'] },
-  { n:'03', nombre:'Campo 2 · El equipo', alt:'6.400 m', img:'campo2-equipo', que:'Abrir y calentar el canal',
-    txt:'Con la ruta elegida, preparás el equipo: abrís tu canal bien desde el primer día y calentás la cuenta antes del ascenso.',
-    clases:['Abrir un canal','Calentamiento de cuenta'] },
-  { n:'04', nombre:'Campo 3 · La carga', alt:'6.900 m', img:'campo3-carga', que:'Guion, voz y edición con IA',
-    txt:'El tramo más pesado. Armás la carga de cada video con estructura e inteligencia artificial, para que pese menos y llegue más lejos.',
-    clases:['Guion master','Retención','Narración con IA','Edición'] },
-  { n:'05', nombre:'Campo 4 · La señal', alt:'7.400 m', img:'campo4-senal', que:'Miniatura y título: que te vean',
-    txt:'De nada sirve subir si nadie te ve. La miniatura y el título son tu bengala en la noche: lo que hace que alguien te elija.',
-    clases:['Miniaturas','Títulos'] },
-  { n:'06', nombre:'Ataque a cumbre', alt:'7.900 m', img:'ataque-cumbre', que:'Lanzamiento y primeros videos',
-    txt:'La noche del ataque. Lanzás tus primeros videos con la estrategia 3-2-1 y aprendés a leer lo que pasa sin entrar en pánico.',
-    clases:['Estrategia de subida 3-2-1','Mis primeros videos'] },
-  { n:'8.611', nombre:'Cumbre', alt:'8.611 m', img:'cumbre', que:'Canal monetizado', meta:true,
-    txt:'Mandás tu canal, lo revisamos con NexLev y, si está monetizado, hacés cumbre. Mirá hacia abajo: esa es la ruta que hiciste.',
-    clases:[] }
+  { nombre:'Campamento Base', alt:'5.300 m', img:'campamento-base', txt:'Mentalidad y el negocio de YouTube.', n:4 },
+  { nombre:'Campo 1 · El mapa', alt:'5.900 m', img:'campo1-mapa', txt:'Elegir el nicho con datos, no a ciegas.', n:4 },
+  { nombre:'Campo 2 · El equipo', alt:'6.400 m', img:'campo2-equipo', txt:'Abrir tu canal y calentar la cuenta.', n:2 },
+  { nombre:'Campo 3 · La carga', alt:'6.900 m', img:'campo3-carga', txt:'Guion, voz y edición con IA.', n:4 },
+  { nombre:'Campo 4 · La señal', alt:'7.400 m', img:'campo4-senal', txt:'Miniaturas y títulos que hacen clic.', n:2 },
+  { nombre:'Ataque a cumbre', alt:'7.900 m', img:'ataque-cumbre', txt:'Lanzamiento y primeros videos.', n:2 }
 ];
-document.getElementById('campos').innerHTML = CAMPOS.map(function(c){
-  return '<article class="campo' + (c.meta ? ' meta' : '') + '"><div class="foto-c rv"><img src="entrar/img/' + c.img + '.jpg" alt="' + c.nombre + '" loading="lazy"><span class="alt">' + c.alt + '</span></div>' +
-    '<div class="info-c rv d1"><div class="n">' + c.n + '</div><h3>' + c.nombre + '</h3><div class="que">' + c.que + '</div><p>' + c.txt + '</p>' +
-    (c.clases.length ? '<ul>' + c.clases.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul>' : '') + '</div></article>';
+document.getElementById('grilla').innerHTML = CAMPOS.map(function(c, i){
+  return '<div class="tile rv' + (i % 3 ? ' d' + (i % 3) : '') + '"><img src="entrar/img/' + c.img + '.jpg" alt="' + c.nombre + '" loading="lazy"><span class="cnt">' + c.n + ' clases</span><div class="t"><div class="alt">' + c.alt + '</div><h3>' + c.nombre + '</h3><p>' + c.txt + '</p></div></div>';
 }).join('');
 
-/* apariciones al hacer scroll */
-var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('on'); if (e.target.parentNode.classList.contains('campo')) e.target.parentNode.classList.add('visto'); io.unobserve(e.target); } }); }, { threshold:.16, rootMargin:'0px 0px -6% 0px' });
+var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } }); }, { threshold:.16, rootMargin:'0px 0px -6% 0px' });
 document.querySelectorAll('.rv:not(.on)').forEach(function(el){ io.observe(el); });
 
-/* barra sólida, altímetro y CTA fija según el scroll */
 var barra = document.getElementById('top'), alti = document.getElementById('alti'), fija = document.getElementById('fija'), precio = document.getElementById('precio');
 function alScroll(){
   var y = scrollY, h = document.documentElement.scrollHeight - innerHeight, p = h > 0 ? Math.min(1, y / h) : 0;
   barra.classList.toggle('solida', y > 40);
   alti.classList.toggle('on', y > innerHeight * .55);
-  var m = Math.round(5300 + (8611 - 5300) * p);
-  document.getElementById('altiNum').textContent = m.toLocaleString('es-AR');
+  document.getElementById('altiNum').textContent = Math.round(5300 + (8611 - 5300) * p).toLocaleString('es-AR');
   document.getElementById('altiBarra').style.height = (p * 100).toFixed(1) + '%';
   var r = precio.getBoundingClientRect();
   fija.classList.toggle('on', y > innerHeight * .8 && !(r.top < innerHeight && r.bottom > 0));
 }
 addEventListener('scroll', alScroll, { passive:true }); alScroll();
 
-/* nieve suave sobre el hero */
 (function(){
   var c = document.getElementById('nieve'), x = c.getContext('2d'), copos = [], W, H;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   function tam(){ W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; copos = Array.from({ length: Math.round(W / 14) }, function(){ return { x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + .4, v: Math.random() * .5 + .2, d: Math.random() * .6 - .3 }; }); }
   tam(); addEventListener('resize', tam);
   (function paso(){ x.clearRect(0, 0, W, H); x.fillStyle = 'rgba(255,255,255,.75)'; copos.forEach(function(p){ p.y += p.v; p.x += p.d; if (p.y > H) { p.y = -4; p.x = Math.random() * W; } x.beginPath(); x.arc(p.x, p.y, p.r, 0, 6.3); x.fill(); }); if (scrollY < innerHeight) requestAnimationFrame(paso); else setTimeout(function(){ requestAnimationFrame(paso); }, 400); })();
-})();
-
-/* reseñas de Skool: arranca con una copia y se actualiza sola desde la oficina */
-(function(){
-  var box = document.getElementById('resenas');
-  var SNAP = {"total":8,"promedio":5,"resenas":[
-    {"nombre":"Damián Enrique R.","foto":"https://assets.skool.com/f/fb80ef9088ce478e8548023394002052/dd35a4ed661c4fba8e84c05c16adb2f27b0e24315c384c49b21717ddabff6d0e-sm.jpg","texto":"Excelentes profesores y contenido. Muy completo."},
-    {"nombre":"Facundo Z.","foto":"https://assets.skool.com/f/f41213c7a44d41d6af33137f49ba12a0/bb3f3127fb1f434cbf931333127f792ffdd108e84f2a4d33a6d2205f26b634cd-sm.jpg","texto":"Esta comunidad tiene algo que ninguna te lo da, calidez humana y transparencia profesional. La calidad de informacion que dan Max y Lau todos los dias, no tiene comparacion."},
-    {"nombre":"Carlos M.","foto":"https://assets.skool.com/f/a2a4228742ce4b508f56b7260e989047/c599bb096a874204ace630f5fc7d2381e22336fe08a44affa72394c466a92001-sm.jpg","texto":"Gran comunidad, excelentes las clases, forma de explicar muy clara y didáctica. Aprendí (y sigo aprendiendo) un montón! Gracias"},
-    {"nombre":"Ignacio D.","foto":"https://assets.skool.com/f/abc0525639ef4ba0a2cd0fa56706c4bc/ec3e123f6e23470db87c3830ea5d1dda054d7ed1625a482daf2ac944fda042bd-sm.jpg","texto":"Excelente comunidad los profes geniales mucha paciencia y mucha docencia a la hora de explicar."}]};
-  function esc(t){ return String(t || '').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
-  function pintar(d){
-    if (!d || !d.resenas || !d.resenas.length) return;
-    box.innerHTML = d.resenas.map(function(r){
-      return '<div class="rev"><div class="q">' + (r.foto ? '<img src="' + esc(r.foto) + '" alt="" loading="lazy">' : '') + '<div><b>' + esc(r.nombre) + '</b><span class="estrellas" style="font-size:13px">★★★★★</span></div></div><p>' + esc(r.texto) + '</p></div>';
-    }).join('');
-    if (d.total) document.getElementById('resenas-total').textContent = d.total + ' reseñas en Skool';
-    if (d.promedio) document.getElementById('resenas-prom').textContent = Number(d.promedio).toFixed(1).replace('.', ',');
-  }
-  pintar(SNAP);
-  try { fetch('https://oficina-sen6.onrender.com/skool/resenas').then(function(r){ return r.ok ? r.json() : null; }).then(pintar).catch(function(){}); } catch(e){}
 })();
 </script>
 </body>
