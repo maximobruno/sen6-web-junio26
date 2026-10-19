@@ -20,6 +20,6 @@
     X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
-  for = "/cazadores/*"
+  for = "/cazadores/kit-5458c914/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
