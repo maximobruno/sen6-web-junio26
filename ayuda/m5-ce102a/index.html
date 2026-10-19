@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Te trabaste? · M5 · SEN6</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F3EF;--white:#fff;--sand:#EDEAE4;--ink:#111;--gray:#8A8680;--gray-ink:#5c584f;--line:rgba(17,17,17,.09);--accent:#D4450A;--glow:#F26A2E;
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px -12px rgba(17,17,17,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{font-weight:900;letter-spacing:.14em}.logo span{color:var(--accent)}
+header{padding:28px 0 8px}
+.cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.paso{font-size:12.5px;font-weight:700;color:var(--gray-ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.paso b{color:var(--accent)}
+h1{font-size:clamp(36px,6vw,58px);line-height:1;letter-spacing:-.03em;font-weight:900;margin:34px 0 0;text-align:center}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{text-align:center;color:var(--gray-ink);margin:10px auto 0;max-width:560px}
+
+/* buscador estilo YouTube */
+.busca{position:sticky;top:0;z-index:20;background:linear-gradient(var(--cream) 78%,rgba(245,243,239,0));padding:22px 0 14px}
+.barra{position:relative;max-width:720px;margin:0 auto;display:flex}
+.barra input{flex:1;min-width:0;height:54px;border:1.5px solid #d6d0c7;border-right:0;border-radius:999px 0 0 999px;padding:0 22px;font:inherit;font-size:17px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.barra input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.barra button.lupa{width:72px;height:54px;border:1.5px solid #d6d0c7;border-radius:0 999px 999px 0;background:var(--sand);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.barra button.lupa:hover{background:#e4e0d8}
+.barra .borrar{position:absolute;right:84px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:22px;color:var(--gray);cursor:pointer;display:none;padding:6px}
+.barra.con-texto .borrar{display:block}
+.sug{position:absolute;left:0;right:72px;top:58px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -12px rgba(17,17,17,.25);padding:8px 0;display:none;max-height:340px;overflow:auto}
+.sug.on{display:block}
+.sug button{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:9px 18px;font:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.sug button:hover,.sug button.sel{background:var(--sand)}
+.sug svg{flex:none;color:var(--gray)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:1100px;margin:14px auto 0;padding:2px 0}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;background:var(--sand);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--ink);color:var(--cream)}
+.estado{max-width:1100px;margin:6px auto 0;font-size:13.5px;color:var(--gray-ink)}
+
+/* tarjetas */
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;padding:10px 0 30px}
+.tarj{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tarj:hover{transform:translateY(-2px);border-color:rgba(212,69,10,.45);box-shadow:0 16px 34px -18px rgba(212,69,10,.55)}
+.tarj .tema{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.tarj b{font-size:16px;line-height:1.3}
+.tarj p{margin:0;font-size:13.5px;color:var(--gray-ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tarj .pie{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--gray);padding-top:4px}
+.tarj .yt{display:inline-flex;align-items:center;gap:5px;color:#c4302b;font-weight:700}
+mark{background:#FFE1CC;color:inherit;border-radius:3px;padding:0 1px}
+.vacio{text-align:center;padding:40px 10px;display:none}
+.vacio.on{display:block}
+.vacio h3{font-size:22px;margin:0}
+.vacio p{color:var(--gray-ink)}
+.botones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14.5px;border:1.5px solid rgba(242,106,46,.6);color:var(--ink);background:#FFF8F3;box-shadow:0 0 0 4px rgba(242,106,46,.10)}
+.btn.prim{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* respuesta abierta */
+.velo{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:40;display:none;align-items:flex-end;justify-content:center;padding:20px}
+.velo.on{display:flex}
+@media (min-width:700px){.velo{align-items:center}}
+.resp{background:var(--white);border-radius:22px;max-width:680px;width:100%;max-height:86vh;overflow:auto;padding:26px 26px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);animation:sube .25s ease}
+@keyframes sube{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.resp .tema{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.resp h2{font-size:24px;line-height:1.2;margin:6px 0 12px;letter-spacing:-.01em}
+.resp .txt{font-size:16px;line-height:1.65;color:#2a2826;white-space:pre-line}
+.resp .clase{margin-top:16px;background:var(--sand);border-radius:12px;padding:11px 14px;font-size:14px;color:var(--gray-ink)}
+.resp .clase b{color:var(--ink)}
+.resp a.video{margin-top:12px;display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;padding:8px}
+.resp a.video img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:9px;flex:none}
+.resp a.video span{font-size:14px;line-height:1.35}
+.resp a.video small{display:block;color:#c4302b;font-weight:700;font-size:12px;margin-bottom:2px}
+.resp .cerrar{float:right;border:0;background:var(--sand);border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;margin:-6px -6px 0 10px}
+.resp .relac{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.resp .relac h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.resp .relac button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink);border-bottom:1px solid var(--line)}
+.resp .relac button:hover{color:var(--accent)}
+.resp .nada{margin-top:16px;font-size:13.5px;color:var(--gray-ink)}
+.resp .nada a{color:var(--accent);font-weight:700}
+footer{text-align:center;color:var(--gray);font-size:13px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="cab"><span class="logo">SEN<span>6</span></span><span class="paso"><b>M5</b> · Guiones virales</span></div>
+  <h1>¿Te <em>trabaste?</em></h1>
+  <p class="sub">Escribí tu duda con tus palabras. Te mostramos lo que Max y Lau ya respondieron sobre estas clases.</p>
+</header>
+
+<div class="busca"><div class="wrap">
+  <form class="barra" id="barra" autocomplete="off" role="search">
+    <input id="q" type="search" placeholder="Buscar: por ejemplo «cuenta educada» o «cuántos suscriptores»" aria-label="Buscar tu duda">
+    <button class="borrar" type="button" id="borrar" aria-label="Borrar búsqueda">×</button>
+    <button class="lupa" type="submit" aria-label="Buscar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <div class="sug" id="sug" role="listbox"></div>
+  </form>
+  <div class="chips" id="chips"></div>
+  <div class="estado" id="estado"></div>
+</div></div>
+
+<main class="wrap">
+  <div class="grilla" id="grilla"></div>
+  <div class="vacio" id="vacio">
+    <h3>No encontramos esa duda.</h3>
+    <p>Probá con otras palabras, o preguntala: te responden Max, Lau y la comunidad.</p>
+    <div class="botones">
+      <a class="btn prim" href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntar en «Preguntas 🫂»</a>
+      <a class="btn" href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Llevarla al Q&amp;A con Lau</a>
+    </div>
+  </div>
+</main>
+
+<div class="velo" id="velo" role="dialog" aria-modal="true"><div class="resp" id="resp"></div></div>
+
+<footer><span class="logo">SEN<span>6</span></span> · ¿Te trabaste? · M5</footer>
+
+<script>
+var D = [{"id": "g4-011", "m": "M5", "c": "Guión Master", "q": "¿Puedo hacer todo el guion con IA?", "v": ["la ia puede escribir todo el guion", "youtube desmonetiza los guiones hechos con ia", "qué parte del guion tiene que ser mía", "el canal es en un idioma que no domino"], "r": "La IA sirve muchísimo para el análisis de estructura y patrones, pero todo el guion tiene que tener tu perspectiva y aportar valor. La parte de editorial personal escribila vos, sin vocabulario de IA, y guardá esos párrafos en un Word que subís al proyecto para que imite tu forma de escribir; solo si el canal es en un idioma que no dominás, dejá que la IA la escriba. YouTube necesita ver intervención humana; sin eso, lo toma como contenido de bajo valor. Esto lo ves en la clase «Guión Master».", "n": 4, "vid": null}, {"id": "g4-014", "m": "M5", "c": "Guión Master", "q": "¿Uso Claude o ChatGPT para escribir los guiones?", "v": ["cuál ia es mejor para guiones", "chatgpt sirve para guiones", "qué es poner human en el prompt", "deepseek sirve para guiones"], "r": "Para generar el guion, Máximo recomienda Claude por su calidad creativa. El análisis de estructura lo podés hacer con Claude o con GPT. Para corregir, DeepSeek es una buena alternativa gratuita. En Claude, arrancá el pedido con «human:» y adjuntá el guion maestro, por ejemplo: «human: crea un guion sobre [tema], con tono [misterioso, educativo…], siguiendo la estructura del archivo adjunto». Esto lo ves en la clase «Guión Master».", "n": 4, "vid": null}, {"id": "g4-001", "m": "M5", "c": "Guión Master", "q": "¿Qué es el guion maestro?", "v": ["qué es el guion master", "para qué sirve el guion maestro", "qué significa guion master", "cómo funciona lo del guion maestro"], "r": "Es un archivo con la estructura y los patrones que se repiten en los guiones más exitosos de tu canal de referencia. No es un guion para copiar: es el esqueleto que le das a la IA para que escriba tus guiones nuevos respetando lo que ya demostró que funciona. Lo guardás como documento (o .md) y lo subís a un proyecto en Claude. Esto lo ves en la clase «Guión Master».", "n": 3, "vid": {"id": "yIL5m3iBT2U", "titulo": "5 minutos con Claude AI: investigación de nicho y script para tu canal de Youtube Faceless", "url": "https://www.youtube.com/watch?v=yIL5m3iBT2U"}}, {"id": "g4-003", "m": "M5", "c": "Guión Master", "q": "¿Cuántos guiones tengo que analizar para armar el guion maestro?", "v": ["cuántos videos analizo", "qué videos elijo del canal de referencia", "cuántos guiones necesito", "de dónde saco los guiones para analizar"], "r": "Andá al canal de referencia, pestaña Videos, y ordenalos por Más populares. Tomá los 8 primeros; si el canal tiene menos, usá los que tenga, y como mínimo apuntá a 5. Son los videos que ya probaron que la audiencia los quiere, así que su estructura es la que te conviene estudiar. Esto lo ves en la clase «Guión Master».", "n": 3, "vid": null}, {"id": "g4-004", "m": "M5", "c": "Guión Master", "q": "¿Cómo saco la transcripción de un video de YouTube?", "v": ["cómo copio el texto de un video", "cómo extraigo el guion de un video ajeno", "herramienta para transcribir videos de youtube", "dónde está la transcripción en youtube"], "r": "La forma más simple y gratis es el botón de transcripción del propio YouTube, debajo del video. Antes de copiar, desactivá las marcas de tiempo desde los tres puntos del cuadro de la transcripción (en algunos videos se puede y en otros no), y pegás el texto en un doc o un txt. También podés usar el botón de NexLev en YouTube o TurboScribe. Esto lo ves en la clase «Guión Master».", "n": 3, "vid": null}, {"id": "g4-005", "m": "M5", "c": "Guión Master", "q": "¿Qué le pido a la IA para que saque la estructura de los guiones?", "v": ["qué prompt uso para el guion maestro", "cómo le pido a chatgpt que analice los guiones", "qué escribo para sacar la estructura", "prompt para analizar guiones"], "r": "Pegás las transcripciones y le pedís algo como: «Detecta la estructura exitosa de estos guiones; si son diferentes, dame las mejores prácticas y patrones». Te va a devolver el esqueleto, por ejemplo: del minuto 0 al 1 el gancho, del 1 al 3 el planteo del problema, y así. No es un prompt mágico fijo: son dos pasos, primero analizar la estructura y después generar guiones nuevos con ella. Esto lo ves en la clase «Guión Master».", "n": 3, "vid": {"id": "yIL5m3iBT2U", "titulo": "5 minutos con Claude AI: investigación de nicho y script para tu canal de Youtube Faceless", "url": "https://www.youtube.com/watch?v=yIL5m3iBT2U"}}, {"id": "g4-031", "m": "M5", "c": "Retención", "q": "¿En qué momento del video pongo el llamado a la acción?", "v": ["dónde pongo el cta", "cómo pido que se suscriban sin que se vayan", "el clásico dale like sirve", "cómo hago un cta que no moleste"], "r": "Justo después de entregar valor, no por marca de tiempo, y evitando los puntos donde la gente abandona. El típico «dale like y activá la campanita» hace que la gente se vaya; el llamado a la acción tiene que ir ligado a lo que estás contando para que sea orgánico. Por ejemplo, preguntarle al espectador su opinión sobre el tema del video. Esto lo ves en la clase «Retención».", "n": 3, "vid": null}, {"id": "g4-002", "m": "M5", "c": "Guión Master", "q": "¿Puedo copiar el guion de un video que funciona?", "v": ["puedo copiar el guion del canal de referencia", "usar canales de referencia es copiar", "youtube castiga si copio", "puedo traducir un guion exitoso"], "r": "No. En SEN6 no copiamos: validamos que haya audiencia y tomamos la estructura ganadora, no los elementos. Después cambiás todo el contenido y, sobre todo, el ángulo, que es lo que te convierte en un canal único y no en uno igual a los demás. Clonar un canal no funciona, ni para YouTube ni para la audiencia. Esto lo ves en la clase «Guión Master».", "n": 2, "vid": {"id": "yIL5m3iBT2U", "titulo": "5 minutos con Claude AI: investigación de nicho y script para tu canal de Youtube Faceless", "url": "https://www.youtube.com/watch?v=yIL5m3iBT2U"}}, {"id": "g4-009", "m": "M5", "c": "Guión Master", "q": "¿Cuántas palabras tiene que tener un guion de 10 minutos?", "v": ["cuántas palabras para un video de 10 minutos", "largo del guion", "cuántas palabras por minuto", "qué tan largo hago el guion"], "r": "Como referencia, 10 minutos son más o menos entre 1.250 y 1.500 palabras. Depende mucho de la voz: por ejemplo, una narración en inglés americano con ElevenLabs corre alrededor de 150 a 160 palabras por minuto. Por eso conviene probar con tu voz y ajustar la cantidad de palabras en las instrucciones del proyecto. Esto lo ves en la clase «Guión Master».", "n": 2, "vid": null}, {"id": "g4-012", "m": "M5", "c": "Guión Master", "q": "¿Cómo evito que mi guion suene a IA?", "v": ["mi guion suena robótico", "cómo hago que no parezca escrito por chatgpt", "frases típicas de ia", "cómo le doy mi estilo al guion"], "r": "El tono, la voz, los modismos y la marca tienen que ser tuyos; eso es lo que separa un canal de verdad de uno automatizado sin valor. Ojo con los clichés de redacción de IA, del tipo «esto me sorprende porque». Escribí vos la editorial personal y subí al proyecto un Word con párrafos tuyos para que la IA imite cómo escribís.", "n": 2, "vid": {"id": "6-YFJhREYcA", "titulo": "¿Por qué tus vídeos de Youtube no funcionan? (No es el algoritmo)", "url": "https://www.youtube.com/watch?v=6-YFJhREYcA"}}, {"id": "g4-013", "m": "M5", "c": "Guión Master", "q": "¿Para qué guardo los guiones que hago?", "v": ["tengo que guardar los guiones", "sirve guardar el proyecto de claude", "para qué sirven los guiones viejos", "qué muestro si me rechazan la monetización"], "r": "Guardar los guiones del proyecto te sirve como prueba si YouTube te rechaza la monetización y tenés que apelar: muestran que hay un proceso con intervención humana detrás de cada video. Por eso los guiones son fundamentales aunque te ayudes con IA. Esto lo ves en la clase «Guión Master».", "n": 2, "vid": null}, {"id": "g4-016", "m": "M5", "c": "Guión Master", "q": "Con la automatización todos mis videos me salen iguales, ¿qué hago?", "v": ["los guiones salen todos parecidos", "mis videos se repiten", "cómo evito que todo sea igual", "la ia me hace siempre el mismo guion"], "r": "A medida que avanzás, cargale a Claude la data de tu canal para que vaya modificando las estructuras y no te salgan todos los videos iguales. YouTube ve con malos ojos el contenido repetitivo, así que variar guiones, edición y miniaturas es parte de mostrar que hay una persona detrás.", "n": 2, "vid": null}, {"id": "g4-018", "m": "M5", "c": "Guión Master", "q": "¿Conviene cargarle a la IA libros o PDFs para que escriba mejores guiones?", "v": ["notebooklm para guiones", "subir pdfs de copywriting a la ia", "entrenar a la ia con libros", "base de documentos para guiones"], "r": "Como herramienta de análisis y auditoría está muy bien. El techo aparece si le delegás la parte creativa: un modelo de lenguaje calcula la palabra más probable, así que tiende a guiones promedio. Usalo como motor analítico y dejá la creatividad, el tono y la perspectiva de tu lado.", "n": 2, "vid": null}, {"id": "g4-019", "m": "M5", "c": "Retención", "q": "¿Conviene pedirle a la IA un guion para la edición, además del de locución?", "v": ["guion audiovisual", "guion a dos columnas", "cómo planifico qué imágenes poner", "tardo mucho buscando clips"], "r": "Sí, está muy recomendado. Lau propone un guion a dos columnas: de un lado el texto y del otro qué recurso va, así separás la búsqueda de material de la edición y trabajás por bloques. Te ahorra muchísimo tiempo. Y si producir te lleva demasiado, un video por semana bien hecho puede ser mejor que dos mediocres.", "n": 2, "vid": null}, {"id": "g4-022", "m": "M5", "c": "Retención", "q": "¿Qué retención es buena en los primeros 30 segundos?", "v": ["cuánto tiene que quedar al inicio", "porcentaje bueno de retención", "qué retención mínima necesito", "mi video pierde gente al principio es normal"], "r": "Los primeros 30 segundos (la zona gris de la gráfica) miden la promesa del video. En faceless conviene que queden arriba del 75-80%. Si está bastante por debajo, la promesa está floja o hubo clickbait: lo que prometiste en título y miniatura no aparece rápido. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-023", "m": "M5", "c": "Retención", "q": "¿Cuánta gente tiene que llegar al final del video?", "v": ["qué porcentaje tiene que llegar al final", "retención al final del video", "cuántos tienen que terminar el video", "para qué sirve que lleguen al final"], "r": "Apuntá a que al menos un 33% de la audiencia llegue al final. Ahí van las pantallas finales y las tarjetas que mandan a otro video, y eso alarga el tiempo de sesión, que es lo que YouTube valora. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-025", "m": "M5", "c": "Retención", "q": "La gente se va en los primeros segundos de mi video, ¿qué hago?", "v": ["me abandonan al principio", "cómo mejoro el arranque del video", "qué pongo al inicio del video", "el gancho no funciona"], "r": "Si la caída fuerte está en los primeros 30 segundos, el problema es el arranque. Sacá introducciones largas, saludos y el «en este video vamos a ver»: entrá directo al contenido que promete el título. Y chequeá que título, miniatura y contenido estén alineados, porque si el video no valida el clic, la gente se va. Esto lo ves en la clase «Retención».", "n": 2, "vid": {"id": "m1AJcNSuFKw", "titulo": "Deja de hacer esto si quieres crecer en Yotube (el tip 3 es el mejor)", "url": "https://www.youtube.com/watch?v=m1AJcNSuFKw"}}, {"id": "g4-026", "m": "M5", "c": "Retención", "q": "¿Qué es la satisfacción del espectador y el tiempo de sesión?", "v": ["qué es el tiempo de sesión", "qué mide youtube además de la retención", "por qué importa que vean otro video", "qué es session time"], "r": "Desde 2025 YouTube mide la satisfacción: si después de tu video la persona sigue en tu canal o en YouTube, el video se impulsa. No premia que produzcas más volumen, sino que te vean de forma secuencial. Por eso conviene pensar series de videos enlazados y no videos sueltos. Esto lo ves en la clase «Retención».", "n": 2, "vid": {"id": "6-YFJhREYcA", "titulo": "¿Por qué tus vídeos de Youtube no funcionan? (No es el algoritmo)", "url": "https://www.youtube.com/watch?v=6-YFJhREYcA"}}, {"id": "g4-028", "m": "M5", "c": "Retención", "q": "¿Cómo mejoro la retención desde la edición?", "v": ["cada cuánto cambio de imagen", "cuántas imágenes lleva un video", "imágenes acordes a cada frase o random", "cuántos clips necesito para 10 minutos"], "r": "La edición es la tercera capa de la retención. La referencia es hacer cortes de 3 a 5 segundos; un video de 10 minutos puede llevar entre 80 y 200 imágenes o clips. Y siempre mirá a tu competencia: la idea es igualarla o superarla, porque un canal mejor hecho retiene mejor. Lo que mejor funciona es que lo que se ve refuerce lo que se dice: poné primero el audio y buscá imágenes para cada parte. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-029", "m": "M5", "c": "Retención", "q": "¿Desde qué video pido que se suscriban?", "v": ["cuándo pido la suscripción", "pido suscripción en los primeros videos", "me quemo si pido que se suscriban", "cuándo empiezo con los llamados a la acción"], "r": "Desde el video uno. El miedo a quemarte es un mito: cualquiera de tus primeros videos puede ser amplificado, y si no hay un llamado a la acción desperdiciás suscriptores. Esos primeros suscriptores son tu audiencia semilla, la que YouTube usa para decidir si recomienda tus próximos videos. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-032", "m": "M5", "c": "Retención", "q": "¿Qué es un patrón de interrupción?", "v": ["qué son los patrones de interrupción", "cómo corto la monotonía del video", "cómo evito que se aburran a mitad del video", "para qué sirve un cambio de plano"], "r": "Es un cambio que le resetea la atención al espectador: un cambio de encuadre, un corte de audio fuerte, un b-roll. Si mirás tus gráficas de retención, la gente se va en los tramos monótonos; el patrón de interrupción lo reconecta justo antes. Van desde el primer video, igual que los llamados a la acción.", "n": 2, "vid": null}, {"id": "g4-033", "m": "M5", "c": "Retención", "q": "¿Los anuncios en el medio del video afectan la retención?", "v": ["dónde pongo los midrolls", "los anuncios hacen que se vayan", "puedo mover los anuncios", "qué son los midrolls"], "r": "Mientras no estés monetizado no los podés manejar. Cuando monetices, ubicalos en un momento donde vas a revelar o recompensar con información, porque ahí la persona se queda. Si lo ponés donde estás enganchando a la gente, puede ser la muerte de tu retención. Para encontrar esos momentos te podés ayudar con Claude y NexLev. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-034", "m": "M5", "c": "Retención", "q": "¿Conviene hacer series de videos conectados?", "v": ["cómo hago que vean otro video mío", "playlists y pantallas finales", "videos enlazados", "cómo armo una serie de videos"], "r": "Sí, porque YouTube premia que la persona siga mirando después de tu video. El orden es: primero tus temas grandes salen de analizar los outliers de tu nicho; cada video tiene que funcionar solo; y recién después los conectás con pantallas finales y playlists. No arranques por la arquitectura antes de tener videos que funcionen. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-036", "m": "M5", "c": "Retención", "q": "Tengo pocos videos y mi retención es baja, ¿ya puedo sacar conclusiones?", "v": ["con 10 videos ya sé si funciona", "mis métricas son malas con pocos videos", "cuándo analizo mis números", "mi ctr y retención cambian mucho"], "r": "Todavía no. Con pocas vistas, un solo usuario que entra y sale en 2 segundos te mueve el porcentaje un montón. En la formación aconsejamos no sacar conclusiones firmes hasta el video 30. Mientras, cuando pruebes algo, mové una sola variable a la vez y no lo midas con solo dos videos.", "n": 2, "vid": null}, {"id": "g4-037", "m": "M5", "c": "Retención", "q": "¿Cuánto tienen que durar mis videos?", "v": ["los videos de 5 minutos sirven", "qué duración conviene", "videos cortos o largos", "duración mínima del video"], "r": "Máximo recomienda apuntar a un mínimo de 8 minutos: YouTube cada vez impulsa más los videos largos, y con 5 minutos quedás por debajo de lo que conviene para monetizar. Igual, mirá cuánto duran los videos de tu canal de referencia y armá el guion con el largo que pide tu nicho.", "n": 2, "vid": {"id": "vl74Cg7QQLI", "titulo": "Cuánto Se Gana en YOUTUBE en 2026: El Nuevo Anuncio Que Paga Los Videos Cortos", "url": "https://www.youtube.com/watch?v=vl74Cg7QQLI"}}, {"id": "g4-038", "m": "M5", "c": "Retención", "q": "¿Cómo uso la IA para analizar mi retención?", "v": ["le paso la gráfica a claude", "cómo saco conclusiones de mis estadísticas", "sirve ask studio para analizar mi canal", "puedo usar las ideas de títulos de ask studio", "la ia puede leer mis métricas"], "r": "Sacá capturas de la retención y de la actividad detallada en YouTube Studio y pasáselas a Claude para que te ayude a sacar conclusiones. También podés usar Ask Studio, el asistente de YouTube Studio, y probar las ideas de videos, títulos y miniaturas que te sugiere a partir de tu canal. Eso sí, usalas con pensamiento crítico: no confíes ciegamente en lo que te devuelven. Esto lo ves en la clase «Retención».", "n": 2, "vid": null}, {"id": "g4-041", "m": "M5", "c": "Retención", "q": "¿Se puede saber si un video va a ser outlier?", "v": ["cómo hago un video viral", "puedo predecir si un video va a explotar", "qué tiene que tener un video para ser outlier", "cómo aumento las chances de un outlier", "¿Se puede predecir si un video va a ser un outlier?", "¿cómo hago un video viral?", "¿cómo sé si va a explotar?", "¿truco para outliers?", "¿cómo funciona el algoritmo a fondo?"], "r": "No se puede asegurar: depende de la idea, el título, la miniatura y sobre todo la retención. Un outlier aparece cuando la idea tiene demanda, la miniatura tiene alto CTR, la retención es altísima, la gente interactúa y sigue mirando después. Una pista: si la gráfica de vistas arranca por encima de tu promedio y la retención también, va bien. Esto lo vemos a fondo en Silver.", "n": 2, "vid": null}, {"id": "g4-006", "m": "M5", "c": "Guión Master", "q": "¿Qué hago si los guiones del canal de referencia tienen estructuras distintas?", "v": ["los videos no siguen la misma estructura", "cada guion es diferente qué hago", "no encuentro una estructura común", "las estructuras varían mucho"], "r": "Pasa seguido. En ese caso no buscás una estructura única sino los patrones comunes: por ejemplo, si todos generan curiosidad al inicio, si narran en primera persona, qué tipo de llamado a la acción usan. Por eso al pedírselo a la IA le agregás: «si son diferentes, dame las mejores prácticas y patrones». Ese resultado también es tu guion maestro. Esto lo ves en la clase «Guión Master».", "n": 1, "vid": null}, {"id": "g4-007", "m": "M5", "c": "Guión Master", "q": "¿Cómo armo el guion maestro con Claude Code y NexLev?", "v": ["forma recomendada del guion maestro", "cómo uso nexlev para estudiar guiones", "qué le digo a claude code para el guion master", "guion maestro automático"], "r": "Es la forma recomendada. En Claude Code escribís: «Usa NexLev para estudiar las estructuras exitosas de los mejores 8 guiones del canal» y pegás la URL del canal de referencia. Cuando termina, le pedís: «compila esta info en un archivo .md». Ese archivo es tu guion maestro, y armarlo así equivale a crear una skill. Si preferís, la forma manual con transcripciones también sirve. Esto lo ves en la clase «Guión Master».", "n": 1, "vid": null}, {"id": "g4-008", "m": "M5", "c": "Guión Master", "q": "¿Cómo armo el proyecto en Claude para que me escriba los guiones?", "v": ["qué instrucciones pongo en el proyecto de claude", "dónde subo el guion maestro", "el guion me sale con títulos y tiempos", "proyecto de claude para guiones"], "r": "Creás un proyecto en Claude, subís el archivo del guion maestro y en las instrucciones ponés algo como: «Haz guiones de X palabras siempre respetando la estructura de los documentos de archivo». Pedile también que te los entregue sin marcas de tiempo ni títulos, solo en párrafos. Después le vas pidiendo guiones por tema. Esto lo ves en la clase «Guión Master».", "n": 1, "vid": {"id": "MNNy0TB1v9g", "titulo": "Gané $1,000 por Video con Guiones Automáticos de YouTube (Así lo Hago)", "url": "https://www.youtube.com/watch?v=MNNy0TB1v9g"}}, {"id": "g4-015", "m": "M5", "c": "Guión Master", "q": "¿Puedo cambiar de tono o de ángulo entre un video y otro?", "v": ["puedo hacer un video serio y otro de humor", "mezclar estilos en el mismo canal", "probar distintos ángulos en el canal", "cambiar el tono de los guiones"], "r": "Cambiar el tono o el ángulo drásticamente en un mismo canal te tira para atrás, sobre todo si recién arrancás. El ángulo diferenciador lo definís al principio, frente a tus referencias, y después lo mantenés. Si un día saltás de lo técnico al humor, tu audiencia no hace clic, se cae el CTR, la retención y YouTube frena la recomendación.", "n": 1, "vid": {"id": "6-YFJhREYcA", "titulo": "¿Por qué tus vídeos de Youtube no funcionan? (No es el algoritmo)", "url": "https://www.youtube.com/watch?v=6-YFJhREYcA"}}, {"id": "g4-017", "m": "M5", "c": "Guión Master", "q": "El corrector de guiones me marca muchas cosas, ¿corrijo todo?", "v": ["qué corrijo del corrector", "tengo que cambiar todo lo amarillo", "el corrector marca rojo y amarillo", "cómo uso el corrector de guiones"], "r": "Para no perder tiempo: corregí todo lo rojo y, de lo amarillo, solo lo que esté muy al límite. Si son pequeñeces, Máximo no suele tocarlas. También podés pedirle que aplique todos los cambios directamente. La idea es que el corrector te ayude a pulir, no que te frene la producción.", "n": 1, "vid": null}, {"id": "g4-020", "m": "M5", "c": "Guión Master", "q": "Tuve un video que explotó, ¿cómo hago otros parecidos sin canibalizarlo?", "v": ["cómo aprovecho un outlier", "repetir un video que funcionó", "hago otro video igual al que pegó", "cuándo subo el siguiente después de un outlier"], "r": "Exprimir un formato exitoso es correcto porque indica demanda, aunque un outlier es una combinación de cosas. Mantené la estructura de la miniatura, la palabra clave y la estructura del título, y el guion; cambiá lo menos posible, pero cambiá la temática. Si no es tendencia, esperá a que las vistas por hora del outlier bajen durante un día antes de lanzar el siguiente. Si es tendencia, subí rápido.", "n": 1, "vid": null}, {"id": "g4-021", "m": "M5", "c": "Retención", "q": "¿Qué es la retención y dónde la veo?", "v": ["dónde veo la retención de mi video", "qué significa retención", "cómo veo cuánto miran mis videos", "dónde está la gráfica de retención"], "r": "La retención te muestra cuánta gente sigue mirando tu video segundo a segundo. La ves en YouTube Studio, en Analytics > Participación > Retención de público. Se construye en tres capas: la idea y la promesa (título, miniatura y primeros 30 segundos), el guion y la edición. Esto lo ves en la clase «Retención».", "n": 1, "vid": null}, {"id": "g4-024", "m": "M5", "c": "Retención", "q": "¿Cómo leo la curva de retención?", "v": ["qué significan las subidas en la gráfica", "por qué mi gráfica cae de golpe", "tipos de curva de retención", "cómo interpreto la gráfica de retención"], "r": "Hay cuatro formas: plana, que es lo ideal; descenso gradual, cuando van perdiendo interés; subidas, que aparecen por capítulos, repeticiones o porque compartieron el video con marca de tiempo; y caídas, cuando omiten o abandonan porque esa parte aburre. Mirá dónde están las caídas para saber qué tramo del guion o de la edición corregir. Esto lo ves en la clase «Retención».", "n": 1, "vid": null}, {"id": "g4-027", "m": "M5", "c": "Retención", "q": "¿Qué es la AVD?", "v": ["qué significa avd", "duración media de visualización", "cómo comparo videos de distinta duración", "qué es la duración promedio"], "r": "La AVD es la duración media de visualización, en minutos. Te sirve para comparar videos de duraciones distintas, porque el porcentaje solo puede engañar. En «ver más» de la retención también podés comparar con tus otros videos y ver la actividad detallada: cuántos empiezan y cuándo dejan de mirar. Esto lo ves en la clase «Retención».", "n": 1, "vid": null}, {"id": "g4-030", "m": "M5", "c": "Retención", "q": "¿Alcanza con el botón de suscripción automático de YouTube?", "v": ["la marca de agua alcanza", "las pantallas finales son suficientes", "hace falta pedir la suscripción con la voz", "cta de voz o botón automático"], "r": "No. La marca de agua del canal y las pantallas finales son elementos pasivos: mientras mira, el espectador deja de percibirlos. Un llamado a la acción activo, con tu voz pidiendo la suscripción y una animación, funciona mucho mejor y además corta la monotonía. Que sea breve y después de entregar valor.", "n": 1, "vid": null}, {"id": "g4-035", "m": "M5", "c": "Retención", "q": "¿Qué es un open loop y cómo lo uso en el guion?", "v": ["qué es un bucle abierto", "cómo dejo intriga en el guion", "técnicas para que no se vayan del video", "estructuras de guion avanzadas"], "r": "Un open loop es una herramienta de guion dentro de un mismo video: abrís una curiosidad y la cerrás más adelante, para que el espectador sienta la necesidad de quedarse hasta la resolución. No confundirlo con la estrategia de canal ni con las series de videos. Esto lo vemos a fondo en Silver.", "n": 1, "vid": {"id": "MNNy0TB1v9g", "titulo": "Gané $1,000 por Video con Guiones Automáticos de YouTube (Así lo Hago)", "url": "https://www.youtube.com/watch?v=MNNy0TB1v9g"}}, {"id": "g4-039", "m": "M5", "c": "Retención", "q": "¿Qué cambia que YouTube cuente las vistas desde el inicio del video?", "v": ["ahora las vistas cuentan desde el segundo cero", "cambió cómo cuenta las visualizaciones", "por qué cayó mi retención inicial", "nuevo conteo de vistas de youtube"], "r": "Con ese cambio, cualquier reproducción automática o clic de rebote suma una vista, así que la retención inicial puede mostrar una caída más fuerte y el contador pierde valor como análisis. Lau señala que pasan a ser críticos los primeros 15 segundos, el tiempo total de visualización y las interacciones. Máximo lo ve positivo: menos bots y más vistas para quien hace las cosas bien.", "n": 1, "vid": null}, {"id": "g4-040", "m": "M5", "c": "Retención", "q": "¿Subir Shorts ayuda a mi canal de videos largos?", "v": ["mezclo shorts con videos largos", "hago shorts para crecer", "los shorts suman suscriptores", "shorts y videos largos en el mismo canal"], "r": "Por ahora no lo recomendamos. El espectador de Shorts está en modo de consumo rápido: si no lo atrapás en segundos, pasa al siguiente. Al mezclarlo con videos largos te destruye la retención y el tiempo de sesión, y eso es una mala señal para el algoritmo.", "n": 1, "vid": {"id": "J9Ap9qyUr5I", "titulo": "¿Los YouTube Shorts están MATANDO tu canal Faceless?", "url": "https://www.youtube.com/watch?v=J9Ap9qyUr5I"}}];
+var $ = function(id){ return document.getElementById(id); };
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+
+/* ---------- buscador: normaliza, saca palabras vacías, une sinónimos y compara raíces ---------- */
+var STOP = {}; 'que como cual cuales para con por los las una uno unos unas del sin mas pero hay hago puedo tengo esta este estos esas eso esto donde cuando cuanto cuanta cuantos cuantas me mi mis tu tus se lo la el de en y o a es si no ya al le les su sus son ser hacer tiene tener muy tambien'.split(' ').forEach(function(w){ STOP[w] = 1; });
+var SIN = { cobrar:'monetizar', plata:'monetizar', pagan:'monetizar', ganar:'monetizar', dinero:'monetizar', monetizacion:'monetizar', monetizado:'monetizar',
+  subs:'suscriptores', suscriptor:'suscriptores', seguidores:'suscriptores', vistas:'visualizaciones', views:'visualizaciones', reproducciones:'visualizaciones',
+  tema:'nicho', temas:'nicho', nichos:'nicho', tematica:'nicho', referente:'referencia', modelo:'referencia',
+  gmail:'cuenta', mail:'cuenta', correo:'cuenta', educar:'educada', entrenar:'educada', entrenada:'educada',
+  nexlev:'nexlev', vidiq:'vidiq', idioma:'idioma', ingles:'ingles', espanol:'espanol', competidor:'competencia', competidores:'competencia' };
+function norm(t){ return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ñ ]/g, ' '); }
+function raiz(w){ w = SIN[w] || w; return w.length > 6 ? w.slice(0, 6) : w; }
+function tok(t){ return norm(t).split(/\s+/).filter(function(w){ return w.length > 1 && !STOP[w]; }); }
+var IDX = D.map(function(e){
+  var fuerte = tok(e.q + ' ' + e.v.join(' ') + ' ' + e.c).map(raiz), debil = tok(e.r).map(raiz);
+  return { f: fuerte, d: debil };
+});
+function puntaje(i, qs){
+  var x = IDX[i], s = 0, todas = true;
+  qs.forEach(function(q, k){
+    var ultima = k === qs.length - 1, r = raiz(q), hit = 0;
+    // la última palabra puede estar a medio escribir: vale como prefijo
+    var igual = function(w){ return w === r || (ultima && q.length >= 3 && w.indexOf(q.slice(0, 6)) === 0); };
+    if (x.f.some(igual)) hit = 3; else if (x.d.some(igual)) hit = 1;
+    if (!hit) todas = false; s += hit;
+  });
+  return todas ? s + D[i].n * 0.05 : (s >= 3 && qs.length > 2 ? s * 0.5 : 0);
+}
+function resaltar(texto, qs){
+  var t = esc(texto); if (!qs.length) return t;
+  var pals = texto.split(/(\s+)/);
+  return pals.map(function(p){ if (/^\s+$/.test(p)) return p; var n = raiz(norm(p).trim());
+    var ok = n && qs.some(function(q){ var r = raiz(q); return n === r || (q.length >= 3 && n.indexOf(q.slice(0, 6)) === 0); });
+    return ok ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
+}
+
+/* ---------- temas (chips) ---------- */
+var TEMAS = []; D.forEach(function(e){ if (TEMAS.indexOf(e.c) < 0) TEMAS.push(e.c); });
+var tema = '';
+$('chips').innerHTML = '<button type="button" class="on" data-t="">Todas</button>' + TEMAS.map(function(t){ return '<button type="button" data-t="' + esc(t) + '">' + esc(t) + '</button>'; }).join('');
+$('chips').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; tema = b.dataset.t;
+  [].forEach.call(this.children, function(x){ x.classList.toggle('on', x === b); }); pintar(); };
+
+/* ---------- grilla ---------- */
+function resultados(){
+  var qs = tok($('q').value);
+  var lista = D.map(function(e, i){ return { e:e, i:i, s: qs.length ? puntaje(i, qs) : 1 + e.n * 0.05 }; })
+    .filter(function(x){ return x.s > 0 && (!tema || x.e.c === tema); });
+  lista.sort(function(a, b){ return b.s - a.s; });
+  return { qs:qs, lista:lista };
+}
+function pintar(){
+  var r = resultados(), qs = r.qs;
+  $('barra').classList.toggle('con-texto', !!$('q').value);
+  $('grilla').innerHTML = r.lista.map(function(x){ var e = x.e;
+    return '<button class="tarj" type="button" data-i="' + x.i + '"><span class="tema">' + esc(e.c) + '</span><b>' + resaltar(e.q, qs) + '</b><p>' + esc(e.r) + '</p>' +
+      '<span class="pie"><span>' + esc(e.m) + '</span>' + (e.vid ? '<span class="yt"><svg width="14" height="10" viewBox="0 0 24 17" fill="currentColor"><path d="M23.5 2.5A3 3 0 0 0 21.4.4C19.5 0 12 0 12 0S4.5 0 2.6.4A3 3 0 0 0 .5 2.5C0 4.4 0 8.5 0 8.5s0 4.1.5 6A3 3 0 0 0 2.6 16.6C4.5 17 12 17 12 17s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1C24 12.6 24 8.5 24 8.5s0-4.1-.5-6zM9.5 12V5l6.5 3.5L9.5 12z"/></svg>con video</span>' : '') + '</span></button>';
+  }).join('');
+  $('vacio').classList.toggle('on', !r.lista.length);
+  $('estado').textContent = qs.length ? r.lista.length + (r.lista.length === 1 ? ' respuesta' : ' respuestas') + ' para «' + $('q').value.trim() + '»'
+    : (tema ? r.lista.length + ' respuestas de «' + tema + '»' : 'Las ' + r.lista.length + ' dudas de estas clases, de las más preguntadas a las menos');
+}
+
+/* ---------- sugerencias mientras escribís (como YouTube) ---------- */
+var selSug = -1;
+function sugerir(){
+  var r = resultados(), q = $('q').value.trim();
+  if (!q){ $('sug').classList.remove('on'); return; }
+  var top = r.lista.slice(0, 6); selSug = -1;
+  $('sug').innerHTML = top.map(function(x){ return '<button type="button" data-i="' + x.i + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>' + resaltar(x.e.q, r.qs) + '</span></button>'; }).join('');
+  $('sug').classList.toggle('on', top.length > 0);
+}
+$('q').addEventListener('input', function(){ pintar(); sugerir(); });
+$('q').addEventListener('keydown', function(e){
+  var bs = $('sug').querySelectorAll('button'); if (!bs.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); selSug = (selSug + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length; [].forEach.call(bs, function(b, k){ b.classList.toggle('sel', k === selSug); }); }
+  if (e.key === 'Enter' && selSug >= 0){ e.preventDefault(); abrir(+bs[selSug].dataset.i); }
+  if (e.key === 'Escape') $('sug').classList.remove('on');
+});
+$('sug').onclick = function(e){ var b = e.target.closest('button'); if (b) abrir(+b.dataset.i); };
+$('barra').onsubmit = function(e){ e.preventDefault(); $('sug').classList.remove('on'); $('q').blur(); window.scrollTo({ top: $('grilla').offsetTop - 160, behavior:'smooth' }); };
+$('borrar').onclick = function(){ $('q').value = ''; pintar(); sugerir(); $('q').focus(); };
+document.addEventListener('click', function(e){ if (!e.target.closest('.barra')) $('sug').classList.remove('on'); });
+
+/* ---------- respuesta ---------- */
+function abrir(i){
+  var e = D[i]; $('sug').classList.remove('on');
+  var rel = D.map(function(x, k){ return { k:k, x:x }; }).filter(function(o){ return o.k !== i && o.x.c === e.c; }).slice(0, 3);
+  $('resp').innerHTML = '<button class="cerrar" type="button" aria-label="Cerrar">×</button><div class="tema">' + esc(e.c) + '</div><h2>' + esc(e.q) + '</h2><div class="txt">' + esc(e.r) + '</div>' +
+    '<div class="clase">Lo ves completo en la clase <b>«' + esc(e.c) + '»</b> · ' + esc(e.m) + '</div>' +
+    (e.vid ? '<a class="video" href="' + esc(e.vid.url) + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + esc(e.vid.id) + '/mqdefault.jpg" alt="" loading="lazy"><span><small>Refuerzo en YouTube</small>' + esc(e.vid.titulo) + '</span></a>' : '') +
+    (rel.length ? '<div class="relac"><h4>También te puede servir</h4>' + rel.map(function(o){ return '<button type="button" data-i="' + o.k + '">' + esc(o.x.q) + '</button>'; }).join('') + '</div>' : '') +
+    '<div class="nada">¿No era esto? <a href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntalo en la comunidad</a> o llevalo al <a href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Q&amp;A con Lau</a>.</div>';
+  $('velo').classList.add('on'); $('resp').scrollTop = 0;
+}
+$('grilla').onclick = function(e){ var b = e.target.closest('.tarj'); if (b) abrir(+b.dataset.i); };
+$('velo').onclick = function(e){ if (e.target === this || e.target.closest('.cerrar')) this.classList.remove('on'); var b = e.target.closest('.relac button'); if (b) abrir(+b.dataset.i); };
+addEventListener('keydown', function(e){ if (e.key === 'Escape') $('velo').classList.remove('on'); });
+
+pintar();
+</script>
+</body>
+</html>

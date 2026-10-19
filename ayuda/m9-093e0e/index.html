@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Te trabaste? · M9 · SEN6</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F3EF;--white:#fff;--sand:#EDEAE4;--ink:#111;--gray:#8A8680;--gray-ink:#5c584f;--line:rgba(17,17,17,.09);--accent:#D4450A;--glow:#F26A2E;
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px -12px rgba(17,17,17,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{font-weight:900;letter-spacing:.14em}.logo span{color:var(--accent)}
+header{padding:28px 0 8px}
+.cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.paso{font-size:12.5px;font-weight:700;color:var(--gray-ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.paso b{color:var(--accent)}
+h1{font-size:clamp(36px,6vw,58px);line-height:1;letter-spacing:-.03em;font-weight:900;margin:34px 0 0;text-align:center}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{text-align:center;color:var(--gray-ink);margin:10px auto 0;max-width:560px}
+
+/* buscador estilo YouTube */
+.busca{position:sticky;top:0;z-index:20;background:linear-gradient(var(--cream) 78%,rgba(245,243,239,0));padding:22px 0 14px}
+.barra{position:relative;max-width:720px;margin:0 auto;display:flex}
+.barra input{flex:1;min-width:0;height:54px;border:1.5px solid #d6d0c7;border-right:0;border-radius:999px 0 0 999px;padding:0 22px;font:inherit;font-size:17px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.barra input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.barra button.lupa{width:72px;height:54px;border:1.5px solid #d6d0c7;border-radius:0 999px 999px 0;background:var(--sand);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.barra button.lupa:hover{background:#e4e0d8}
+.barra .borrar{position:absolute;right:84px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:22px;color:var(--gray);cursor:pointer;display:none;padding:6px}
+.barra.con-texto .borrar{display:block}
+.sug{position:absolute;left:0;right:72px;top:58px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -12px rgba(17,17,17,.25);padding:8px 0;display:none;max-height:340px;overflow:auto}
+.sug.on{display:block}
+.sug button{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:9px 18px;font:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.sug button:hover,.sug button.sel{background:var(--sand)}
+.sug svg{flex:none;color:var(--gray)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:1100px;margin:14px auto 0;padding:2px 0}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;background:var(--sand);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--ink);color:var(--cream)}
+.estado{max-width:1100px;margin:6px auto 0;font-size:13.5px;color:var(--gray-ink)}
+
+/* tarjetas */
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;padding:10px 0 30px}
+.tarj{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tarj:hover{transform:translateY(-2px);border-color:rgba(212,69,10,.45);box-shadow:0 16px 34px -18px rgba(212,69,10,.55)}
+.tarj .tema{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.tarj b{font-size:16px;line-height:1.3}
+.tarj p{margin:0;font-size:13.5px;color:var(--gray-ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tarj .pie{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--gray);padding-top:4px}
+.tarj .yt{display:inline-flex;align-items:center;gap:5px;color:#c4302b;font-weight:700}
+mark{background:#FFE1CC;color:inherit;border-radius:3px;padding:0 1px}
+.vacio{text-align:center;padding:40px 10px;display:none}
+.vacio.on{display:block}
+.vacio h3{font-size:22px;margin:0}
+.vacio p{color:var(--gray-ink)}
+.botones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14.5px;border:1.5px solid rgba(242,106,46,.6);color:var(--ink);background:#FFF8F3;box-shadow:0 0 0 4px rgba(242,106,46,.10)}
+.btn.prim{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* respuesta abierta */
+.velo{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:40;display:none;align-items:flex-end;justify-content:center;padding:20px}
+.velo.on{display:flex}
+@media (min-width:700px){.velo{align-items:center}}
+.resp{background:var(--white);border-radius:22px;max-width:680px;width:100%;max-height:86vh;overflow:auto;padding:26px 26px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);animation:sube .25s ease}
+@keyframes sube{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.resp .tema{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.resp h2{font-size:24px;line-height:1.2;margin:6px 0 12px;letter-spacing:-.01em}
+.resp .txt{font-size:16px;line-height:1.65;color:#2a2826;white-space:pre-line}
+.resp .clase{margin-top:16px;background:var(--sand);border-radius:12px;padding:11px 14px;font-size:14px;color:var(--gray-ink)}
+.resp .clase b{color:var(--ink)}
+.resp a.video{margin-top:12px;display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;padding:8px}
+.resp a.video img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:9px;flex:none}
+.resp a.video span{font-size:14px;line-height:1.35}
+.resp a.video small{display:block;color:#c4302b;font-weight:700;font-size:12px;margin-bottom:2px}
+.resp .cerrar{float:right;border:0;background:var(--sand);border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;margin:-6px -6px 0 10px}
+.resp .relac{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.resp .relac h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.resp .relac button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink);border-bottom:1px solid var(--line)}
+.resp .relac button:hover{color:var(--accent)}
+.resp .nada{margin-top:16px;font-size:13.5px;color:var(--gray-ink)}
+.resp .nada a{color:var(--accent);font-weight:700}
+footer{text-align:center;color:var(--gray);font-size:13px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="cab"><span class="logo">SEN<span>6</span></span><span class="paso"><b>M9</b> · Seguridad</span></div>
+  <h1>¿Te <em>trabaste?</em></h1>
+  <p class="sub">Escribí tu duda con tus palabras. Te mostramos lo que Max y Lau ya respondieron sobre estas clases.</p>
+</header>
+
+<div class="busca"><div class="wrap">
+  <form class="barra" id="barra" autocomplete="off" role="search">
+    <input id="q" type="search" placeholder="Buscar: por ejemplo «cuenta educada» o «cuántos suscriptores»" aria-label="Buscar tu duda">
+    <button class="borrar" type="button" id="borrar" aria-label="Borrar búsqueda">×</button>
+    <button class="lupa" type="submit" aria-label="Buscar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <div class="sug" id="sug" role="listbox"></div>
+  </form>
+  <div class="chips" id="chips"></div>
+  <div class="estado" id="estado"></div>
+</div></div>
+
+<main class="wrap">
+  <div class="grilla" id="grilla"></div>
+  <div class="vacio" id="vacio">
+    <h3>No encontramos esa duda.</h3>
+    <p>Probá con otras palabras, o preguntala: te responden Max, Lau y la comunidad.</p>
+    <div class="botones">
+      <a class="btn prim" href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntar en «Preguntas 🫂»</a>
+      <a class="btn" href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Llevarla al Q&amp;A con Lau</a>
+    </div>
+  </div>
+</main>
+
+<div class="velo" id="velo" role="dialog" aria-modal="true"><div class="resp" id="resp"></div></div>
+
+<footer><span class="logo">SEN<span>6</span></span> · ¿Te trabaste? · M9</footer>
+
+<script>
+var D = [{"id": "g6-001", "m": "M9", "c": "Contenido reutilizado", "q": "¿Qué es el contenido reutilizado y por qué desmonetizan por eso?", "v": ["qué significa contenido reutilizado", "me rechazaron por contenido reutilizado, qué es", "si no copié nada, por qué dicen reutilizado", "qué es contenido repetitivo para youtube"], "r": "Ojo con esto, porque confunde a muchos: no hace falta que hayas copiado material ajeno. YouTube también mete en esa bolsa el contenido de bajo esfuerzo o hecho en masa: plantillas idénticas, poca o nula intervención humana, guiones reciclados, voz robótica, miniaturas copiadas. Lo que quiere ver es que el video sea una creación tuya, que aporte algo y que no exista solo para juntar vistas. Igual, las políticas cambian: leé la versión oficial de YouTube seguido. Esto lo ves en la clase «Contenido reutilizado».", "n": 4, "vid": {"id": "zC2hfYjWdXI", "titulo": "Miles de CANALES AUTOMATIZADOS de Youtube están siendo eliminados", "url": "https://www.youtube.com/watch?v=zC2hfYjWdXI"}}, {"id": "g6-008", "m": "M9", "c": "Contenido reutilizado", "q": "¿La voz de IA me puede traer problemas para monetizar?", "v": ["puedo usar voz de elevenlabs", "voz robótica desmonetiza?", "uso voz artificial, está bien?", "qué voz uso para no tener problemas"], "r": "Se puede usar voz de IA, pero que no suene robótica. Max recomienda una voz de buena calidad y modificarle algún parámetro, como velocidad o expresividad, o directamente clonar o usar tu propia voz. La voz robótica aparece seguido en el perfil de los canales que vienen desmonetizando. Y acordate de marcar la casilla de contenido sintético al subir. Esto lo ves en la clase «Contenido reutilizado».", "n": 4, "vid": {"id": "QDI67WVg1OY", "titulo": "Esto es lo que está pasando en YouTube ahora I DESMONETIZADOS", "url": "https://www.youtube.com/watch?v=QDI67WVg1OY"}}, {"id": "g6-012", "m": "M9", "c": "Contenido reutilizado", "q": "Si uso IA solo para la voz o para algunas imágenes, ¿tengo que declararlo?", "v": ["tengo que marcar contenido sintético", "solo la voz es ia, lo declaro?", "declarar ia baja las vistas?", "marco que es contenido alterado"], "r": "Sí. Max y Lau coinciden: siempre que uses IA, en cualquier parte del proceso, marcá la casilla de contenido alterado o sintético al subir el video. Y tranquilo: según Max, eso no afecta en nada la distribución de tu canal. Esto lo ves en la clase «Contenido reutilizado».", "n": 4, "vid": {"id": "uIF68kQmaMg", "titulo": "SynthID: YouTube Automatizado te está marcando (y no lo sabes)", "url": "https://www.youtube.com/watch?v=uIF68kQmaMg"}}, {"id": "g6-014", "m": "M9", "c": "Contenido reutilizado", "q": "¿Por qué me dicen que guarde los proyectos y el material de cada video?", "v": ["para qué guardo los archivos", "tengo que guardar los proyectos de edición", "qué guardo por si me rechazan", "puedo editar en la nube"], "r": "Porque si te rechazan la monetización y apelás, tenés que poder mostrar que hay un proceso humano: guiones, proyectos de edición, cómo hacés las miniaturas. Max recomienda guardar todo el material en una carpeta y tener los proyectos originales en tu computadora; por eso desaconseja editores dentro de plataformas donde después no podés descargar el proyecto. Esto lo ves en la clase «Contenido reutilizado».", "n": 4, "vid": null}, {"id": "g6-015", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo usar una app de IA que arma el video entero por mí?", "v": ["hay una ia que hace todo el video?", "uso un editor automático con ia", "opus clip o apps que editan solas", "herramientas que editan por prompt"], "r": "Podés, pero bajo tu riesgo. Max advierte que si YouTube te manda a apelación y el video lo armó una IA, no tenés guiones ni proyectos para demostrar que no automatizaste, y eso es justo lo que YouTube no quiere. Si la usás, que sea parcialmente y que la herramienta te deje intervenir, guardar y descargar el proyecto. Esto lo ves en la clase «Contenido reutilizado».", "n": 4, "vid": {"id": "hxTpugOFcyw", "titulo": "El fin de los canales automatizados? Cómo sobrevivir a la nueva política de YOUTUBE", "url": "https://www.youtube.com/watch?v=hxTpugOFcyw"}}, {"id": "g6-042", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo usar fotos de internet o con derechos de autor si las modifico con IA?", "v": ["mejoro una foto con ia y la uso", "imágenes de google con copyright", "fair use cómo funciona", "si edito una foto ya es mía?"], "r": "Lau responde que no: si tomás una foto protegida y la mejorás o la expandís con IA, sigue siendo una obra derivada con los derechos del original. Max agrega que las fotos que dicen con licencia están prohibidas. Derechos de autor, Fair Use y dominio público son temas que vemos a fondo en Silver.", "n": 4, "vid": null}, {"id": "g6-002", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo usar clips e imágenes de bancos gratuitos en mis videos sin que me desmoneticen?", "v": ["puedo usar videos de pexels o pixabay", "se pueden usar clips de stock", "uso imágenes de bancos y me desmonetizan?", "está permitido usar material ajeno"], "r": "Sí, podés sacar clips e imágenes de bancos, siempre que les sumes valor humano. La política que comparte Max dice que si usás contenido ajeno tenés que modificarlo de forma significativa para que se considere tuyo. En la práctica: tu guion y tu voz en off le dan un sentido nuevo al material, y la edición es tuya. Se puede tomar la estructura de otros, nunca el contenido tal cual. Revisá siempre la licencia de cada banco. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": {"id": "zC2hfYjWdXI", "titulo": "Miles de CANALES AUTOMATIZADOS de Youtube están siendo eliminados", "url": "https://www.youtube.com/watch?v=zC2hfYjWdXI"}}, {"id": "g6-005", "m": "M9", "c": "Contenido reutilizado", "q": "¿La IA está prohibida en YouTube para monetizar?", "v": ["youtube desmonetiza todo lo hecho con ia?", "puedo usar ia y monetizar", "se puede monetizar contenido con ia", "youtube prohibió la ia"], "r": "No, la IA no está prohibida. Max y Lau lo explican así: es una herramienta más de producción; lo que se castiga es el contenido perezoso, repetitivo, de producción masiva y sin intervención humana, o el que vive del clickbait. Max cuenta que hay casos de canales hechos con IA que monetizaron. La clave es que se note la cabeza humana en el guion, la edición y la subida. Para el detalle fino, leé siempre la política oficial de YouTube. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": {"id": "zC2hfYjWdXI", "titulo": "Miles de CANALES AUTOMATIZADOS de Youtube están siendo eliminados", "url": "https://www.youtube.com/watch?v=zC2hfYjWdXI"}}, {"id": "g6-006", "m": "M9", "c": "Contenido reutilizado", "q": "¿Qué parte del video tiene que ser humana para que YouTube no lo tome como automatizado?", "v": ["qué tengo que hacer yo y qué la ia", "cómo demuestro que hay un humano detrás", "qué es intervención humana", "youtube detecta los videos hechos solo con ia?"], "r": "Sí, YouTube busca presencia humana en el proceso. Lo que marca Max: tené guiones (aunque te ayudes con IA, retocalos y sumá tu opinión), editá vos y no todos los videos iguales, que las miniaturas tengan un estilo pero no sean casi idénticas, y no uses voces robóticas. Si no, lo toma como contenido de bajo valor y no lo monetiza, o lo desmonetiza después. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": {"id": "hxTpugOFcyw", "titulo": "El fin de los canales automatizados? Cómo sobrevivir a la nueva política de YOUTUBE", "url": "https://www.youtube.com/watch?v=hxTpugOFcyw"}}, {"id": "g6-007", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo pegar el guion tal cual me lo da la IA?", "v": ["uso el guion de chatgpt directo", "el guion lo hace la ia, está mal?", "tengo que reescribir el guion de la ia", "guion con ia desmonetiza?"], "r": "Mejor que no. Max recomienda no pegar el guion directo de la IA: retocalo, agregá tu opinión, tu perspectiva. Lau suma que la IA está buenísima para analizar estructura y patrones narrativos, pero el tono, la voz, los modismos y la forma de hablar tienen que ser tuyos y únicos de tu canal. Eso es lo que separa un canal con valor de uno automatizado de relleno. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": null}, {"id": "g6-017", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo automatizar el contenido desde mi primer canal?", "v": ["arranco directo con automatización", "automatizar todo el canal se puede", "uso automatizaciones en lote", "automatización en el primer canal"], "r": "Max no lo recomienda para un primer canal, por dos motivos: no desarrollás habilidades de edición y proceso manual, y YouTube puede reconocer patrones de automatización y rechazar la monetización. Él aclara que lo hace corriendo riesgos y con cuentas viejas que ya tienen confianza ganada. Si en algún momento automatizás, que haya intervención tuya en guion, edición y subida. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": {"id": "hxTpugOFcyw", "titulo": "El fin de los canales automatizados? Cómo sobrevivir a la nueva política de YOUTUBE", "url": "https://www.youtube.com/watch?v=hxTpugOFcyw"}}, {"id": "g6-022", "m": "M9", "c": "Contenido reutilizado", "q": "¿Dónde consigo música de fondo sin problemas para monetizar?", "v": ["qué música uso en mis videos", "música sin copyright dónde", "biblioteca de audio de youtube cómo", "qué música es segura"], "r": "La más segura, según Max, es la Biblioteca de audio de YouTube, dentro de YouTube Studio: las pistas con licencia CC requieren que copies los créditos en la descripción. Lau, cuando el canal ya está monetizado, usa casi solo Epidemic Sound, que es pago. Ojo: gratis no siempre significa sin atribución, leé las condiciones de cada sitio. Max tampoco recomienda loopear la misma pista todo el video. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": null}, {"id": "g6-023", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo usar música hecha con IA, como Suno, en videos que quiero monetizar?", "v": ["música de suno se puede monetizar", "creo la música con ia", "música ia tiene copyright?", "canal de música con ia monetiza"], "r": "Se puede, pero suma riesgo. Max dice que la música con IA agrega bastante riesgo de desmonetización, aunque no siempre pase, y él prefiere la Biblioteca de YouTube o Epidemic Sound. Lau aclara que el derecho a usarla comercialmente depende del plan: con el gratuito no podés monetizarla. Y un canal que sea solo música de IA, sin guion, Max lo ve casi imposible de monetizar. Esto lo ves en la clase «Contenido reutilizado».", "n": 3, "vid": {"id": "R38vZH6BCsA", "titulo": "NO crees estos canales en YOUTUBE FACELESS", "url": "https://www.youtube.com/watch?v=R38vZH6BCsA"}}, {"id": "g6-044", "m": "M9", "c": "Cómo configurarlo", "q": "¿Necesito Multilogin o proxies para mis canales?", "v": ["tengo que instalar multilogin", "uso proxies para varios canales", "qué es multilogin", "multilogin antes del primer canal"], "r": "Para arrancar, no. Max aclara que no es necesario si no tenés canales desmonetizados, que va contra las normas de YouTube y es riesgoso a futuro; se usa como último recurso en casos extremos. Cuándo y cómo se usa lo vemos a fondo en Silver.", "n": 3, "vid": null}, {"id": "g6-010", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo hacer videos con una sola imagen con un leve movimiento?", "v": ["un video con una imagen fija sirve", "imagen estática con zoom desmonetiza?", "pocas imágenes en todo el video", "efecto ken burns en todo el video"], "r": "No te lo recomendamos. Lau describe el perfil de los canales desmonetizados: imagen estática en loop con efecto de zoom, voz robótica, sin transiciones, sin edición, misma música todo el tiempo, guiones reciclados. Max aclara que algunos canales que muestra en sus reels son para enseñar lo rentable que es YouTube, no siguen la metodología, y que el que había usado una sola imagen corrigió eso para seguir monetizado. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": {"id": "QDI67WVg1OY", "titulo": "Esto es lo que está pasando en YouTube ahora I DESMONETIZADOS", "url": "https://www.youtube.com/watch?v=QDI67WVg1OY"}}, {"id": "g6-013", "m": "M9", "c": "Contenido reutilizado", "q": "¿Dónde se declara que usé IA: en la descripción, en el video o en el canal?", "v": ["lo pongo en la descripción que es ia", "dónde aviso que usé inteligencia artificial", "basta con aclararlo en el video?", "dónde está la casilla de ia"], "r": "Lo único que vale ante YouTube es la casilla de contenido sintético que aparece al subir el video, en el recuadro debajo de la descripción y la miniatura. Lau lo aclara: podés mencionarlo también en el video o en la descripción, pero eso solo no cuenta como declaración. Ahí mismo marcá también si es o no contenido para niños. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": {"id": "uIF68kQmaMg", "titulo": "SynthID: YouTube Automatizado te está marcando (y no lo sabes)", "url": "https://www.youtube.com/watch?v=uIF68kQmaMg"}}, {"id": "g6-018", "m": "M9", "c": "Contenido reutilizado", "q": "Si uso canales de referencia, ¿YouTube me lo toma como copia?", "v": ["usar un canal de referencia es copiar?", "me van a desmonetizar por copiar otro canal", "clonar un canal funciona", "tomar la estructura de otro canal está bien"], "r": "Si copiás, sí te va a ir mal; pero el método no es copiar. Max lo explica: validás que haya audiencia, tomás la estructura ganadora y después cambiás todo el contenido, y sobre todo el ángulo. Eso es lo que te hace un canal único y no uno igual a los demás. Clonar canales nunca funcionó. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": {"id": "LbuKQhm7DfY", "titulo": "La Fórmula Para Hacer VIDEOS VIRALES EN YOUTUBE Antes De Que Sea Tarde (YouTube 2027)", "url": "https://www.youtube.com/watch?v=LbuKQhm7DfY"}}, {"id": "g6-020", "m": "M9", "c": "Contenido reutilizado", "q": "¿La música de CapCut es segura para videos de YouTube?", "v": ["puedo usar la música de capcut", "efectos de capcut tienen copyright", "me reclamaron por música de capcut", "sonidos de capcut en youtube"], "r": "No te la recomendamos. Lau explica que las licencias de la biblioteca de CapCut están pensadas para TikTok y uso personal; en YouTube pueden saltar reclamos de Content ID. Y Max suma que, como muchos creadores usan esa misma música, podés tener problemas de contenido reutilizado cuando quieras monetizar. Mejor usá bibliotecas pensadas para YouTube. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": null}, {"id": "g6-021", "m": "M9", "c": "Contenido reutilizado", "q": "¿Puedo sacar sonidos o música de otros videos de YouTube?", "v": ["bajo un sonido ambiente de otro video", "uso el audio de otro youtuber", "descargar sonidos de youtube", "sonido de fondo sacado de otro canal"], "r": "No te conviene. Lau lo dice directo: no lo descargues de otros videos de YouTube, porque te lo puede marcar como contenido duplicado. Usá bibliotecas gratuitas de efectos de sonido como Pixabay, FreeSound o SoundBible (leyendo si piden atribución), o la Biblioteca de audio de YouTube. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": null}, {"id": "g6-024", "m": "M9", "c": "Contenido reutilizado", "q": "Me salió un reclamo de Content ID por música, ¿es un strike? ¿Qué pasa con la monetización?", "v": ["me llegó un aviso de copyright por la música", "content id qué significa", "reclamo de derechos de autor en un video", "el video tiene copyright y no gana plata"], "r": "Tranquilo: un reclamo de Content ID no es un strike. Lau explica que significa que el dueño de la música identificó su pista: el video sigue público, pero los ingresos de ese video irían al titular, no a vos; no afecta al resto. Se puede resolver reemplazando, silenciando o recortando el tramo desde YouTube Studio. Max suma que un canal puede estar monetizado y aun así no ganar con los videos que tienen reclamos. Esto lo ves en la clase «Contenido reutilizado».", "n": 2, "vid": null}, {"id": "g6-025", "m": "M9", "c": "Cómo configurarlo", "q": "¿Cómo protejo mi canal y mi cuenta de AdSense de hackeos?", "v": ["seguridad de la cuenta de adsense", "cómo evito que me roben el canal", "verificación en dos pasos hace falta", "medidas de seguridad para el canal"], "r": "Lau marca un mínimo obligatorio: verificación en dos pasos en todas tus cuentas (YouTube ya la exige para entrar al Programa de Socios), mejor con app de autenticación, passkey o llave física que por SMS; un email único por canal; y un gestor de contraseñas con claves distintas. Nunca pongas como contacto público el email con el que creaste el canal: usá un correo aparte. Esto lo ves en la clase «Cómo configurarlo».", "n": 2, "vid": null}, {"id": "g6-003", "m": "M9", "c": "Contenido reutilizado", "q": "¿Cómo uso los videos cortos de Canva sin que me tomen el video como reutilizado?", "v": ["puedo usar videos de canva", "los clips de canva dan problema", "cómo modifico un clip de stock", "qué cambios le hago a los videos de canva"], "r": "Se puede, pero con cuidado, porque ese clip seguramente ya lo usó otro creador. Lo que recomienda Max: reencuadralo desde el inicio (zoom, recorte, otro encuadre), espejalo, sumale algún texto en algunos, y no armes todo solo con Canva: mezclalo con fotos, imágenes o videos de IA. Si usás voz de IA, cambiale algún parámetro como velocidad o expresividad, o usá tu propia voz. Con eso te alejás bastante de un rechazo. Esto lo ves en la clase «Contenido reutilizado».", "n": 1, "vid": null}, {"id": "g6-011", "m": "M9", "c": "Contenido reutilizado", "q": "¿Conviene ponerle subtítulos quemados a mis videos?", "v": ["pongo subtítulos en la edición?", "subtítulos en pantalla está bien", "cómo pongo subtítulos gratis", "los subtítulos ayudan a monetizar?"], "r": "Lau no lo recomienda para nada: hoy los subtítulos en la edición son uno de los elementos repetitivos más típicos de los canales faceless de baja calidad, y pueden leerse como contenido producido en masa. Lo que sí es obligatorio es subir los subtítulos nativos de YouTube (CC) en todos los videos, porque el algoritmo los usa para entender y categorizar tu contenido. Esto lo ves en la clase «Contenido reutilizado».", "n": 1, "vid": null}, {"id": "g6-041", "m": "M9", "c": "Contenido reutilizado", "q": "Un canal está copiando mis videos, ¿qué hago?", "v": ["me copiaron el canal", "denunciar un canal que me copia", "otro canal usa mis videos y mi voz", "canal clon de mi canal"], "r": "Lau recomienda moverse rápido: dejar vivo un canal clon es un error, porque compite por tus impresiones y puede confundir a los sistemas automáticos con contenido reutilizado. Si estás seguro de la copia, YouTube tiene herramientas de copyright para reclamar. El paso a paso de derechos de autor lo vemos a fondo en Silver.", "n": 1, "vid": null}, {"id": "g6-043", "m": "M9", "c": "Contenido reutilizado", "q": "YouTube me limitó un video por copyright, ¿lo borro?", "v": ["borro el video con copyright", "video limitado qué hago", "elimino o oculto el video", "resubí el video, borro el viejo?"], "r": "Max recomienda no borrarlo sino ponerlo como no listado desde YouTube Studio: Contenido, buscás el video, el lápiz y en visibilidad elegís no listado. Así no aparece en el buscador ni en tu feed. Cuándo conviene borrar, ocultar o dejar un video lo vemos a fondo en Silver.", "n": 1, "vid": null}];
+var $ = function(id){ return document.getElementById(id); };
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+
+/* ---------- buscador: normaliza, saca palabras vacías, une sinónimos y compara raíces ---------- */
+var STOP = {}; 'que como cual cuales para con por los las una uno unos unas del sin mas pero hay hago puedo tengo esta este estos esas eso esto donde cuando cuanto cuanta cuantos cuantas me mi mis tu tus se lo la el de en y o a es si no ya al le les su sus son ser hacer tiene tener muy tambien'.split(' ').forEach(function(w){ STOP[w] = 1; });
+var SIN = { cobrar:'monetizar', plata:'monetizar', pagan:'monetizar', ganar:'monetizar', dinero:'monetizar', monetizacion:'monetizar', monetizado:'monetizar',
+  subs:'suscriptores', suscriptor:'suscriptores', seguidores:'suscriptores', vistas:'visualizaciones', views:'visualizaciones', reproducciones:'visualizaciones',
+  tema:'nicho', temas:'nicho', nichos:'nicho', tematica:'nicho', referente:'referencia', modelo:'referencia',
+  gmail:'cuenta', mail:'cuenta', correo:'cuenta', educar:'educada', entrenar:'educada', entrenada:'educada',
+  nexlev:'nexlev', vidiq:'vidiq', idioma:'idioma', ingles:'ingles', espanol:'espanol', competidor:'competencia', competidores:'competencia' };
+function norm(t){ return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ñ ]/g, ' '); }
+function raiz(w){ w = SIN[w] || w; return w.length > 6 ? w.slice(0, 6) : w; }
+function tok(t){ return norm(t).split(/\s+/).filter(function(w){ return w.length > 1 && !STOP[w]; }); }
+var IDX = D.map(function(e){
+  var fuerte = tok(e.q + ' ' + e.v.join(' ') + ' ' + e.c).map(raiz), debil = tok(e.r).map(raiz);
+  return { f: fuerte, d: debil };
+});
+function puntaje(i, qs){
+  var x = IDX[i], s = 0, todas = true;
+  qs.forEach(function(q, k){
+    var ultima = k === qs.length - 1, r = raiz(q), hit = 0;
+    // la última palabra puede estar a medio escribir: vale como prefijo
+    var igual = function(w){ return w === r || (ultima && q.length >= 3 && w.indexOf(q.slice(0, 6)) === 0); };
+    if (x.f.some(igual)) hit = 3; else if (x.d.some(igual)) hit = 1;
+    if (!hit) todas = false; s += hit;
+  });
+  return todas ? s + D[i].n * 0.05 : (s >= 3 && qs.length > 2 ? s * 0.5 : 0);
+}
+function resaltar(texto, qs){
+  var t = esc(texto); if (!qs.length) return t;
+  var pals = texto.split(/(\s+)/);
+  return pals.map(function(p){ if (/^\s+$/.test(p)) return p; var n = raiz(norm(p).trim());
+    var ok = n && qs.some(function(q){ var r = raiz(q); return n === r || (q.length >= 3 && n.indexOf(q.slice(0, 6)) === 0); });
+    return ok ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
+}
+
+/* ---------- temas (chips) ---------- */
+var TEMAS = []; D.forEach(function(e){ if (TEMAS.indexOf(e.c) < 0) TEMAS.push(e.c); });
+var tema = '';
+$('chips').innerHTML = '<button type="button" class="on" data-t="">Todas</button>' + TEMAS.map(function(t){ return '<button type="button" data-t="' + esc(t) + '">' + esc(t) + '</button>'; }).join('');
+$('chips').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; tema = b.dataset.t;
+  [].forEach.call(this.children, function(x){ x.classList.toggle('on', x === b); }); pintar(); };
+
+/* ---------- grilla ---------- */
+function resultados(){
+  var qs = tok($('q').value);
+  var lista = D.map(function(e, i){ return { e:e, i:i, s: qs.length ? puntaje(i, qs) : 1 + e.n * 0.05 }; })
+    .filter(function(x){ return x.s > 0 && (!tema || x.e.c === tema); });
+  lista.sort(function(a, b){ return b.s - a.s; });
+  return { qs:qs, lista:lista };
+}
+function pintar(){
+  var r = resultados(), qs = r.qs;
+  $('barra').classList.toggle('con-texto', !!$('q').value);
+  $('grilla').innerHTML = r.lista.map(function(x){ var e = x.e;
+    return '<button class="tarj" type="button" data-i="' + x.i + '"><span class="tema">' + esc(e.c) + '</span><b>' + resaltar(e.q, qs) + '</b><p>' + esc(e.r) + '</p>' +
+      '<span class="pie"><span>' + esc(e.m) + '</span>' + (e.vid ? '<span class="yt"><svg width="14" height="10" viewBox="0 0 24 17" fill="currentColor"><path d="M23.5 2.5A3 3 0 0 0 21.4.4C19.5 0 12 0 12 0S4.5 0 2.6.4A3 3 0 0 0 .5 2.5C0 4.4 0 8.5 0 8.5s0 4.1.5 6A3 3 0 0 0 2.6 16.6C4.5 17 12 17 12 17s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1C24 12.6 24 8.5 24 8.5s0-4.1-.5-6zM9.5 12V5l6.5 3.5L9.5 12z"/></svg>con video</span>' : '') + '</span></button>';
+  }).join('');
+  $('vacio').classList.toggle('on', !r.lista.length);
+  $('estado').textContent = qs.length ? r.lista.length + (r.lista.length === 1 ? ' respuesta' : ' respuestas') + ' para «' + $('q').value.trim() + '»'
+    : (tema ? r.lista.length + ' respuestas de «' + tema + '»' : 'Las ' + r.lista.length + ' dudas de estas clases, de las más preguntadas a las menos');
+}
+
+/* ---------- sugerencias mientras escribís (como YouTube) ---------- */
+var selSug = -1;
+function sugerir(){
+  var r = resultados(), q = $('q').value.trim();
+  if (!q){ $('sug').classList.remove('on'); return; }
+  var top = r.lista.slice(0, 6); selSug = -1;
+  $('sug').innerHTML = top.map(function(x){ return '<button type="button" data-i="' + x.i + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>' + resaltar(x.e.q, r.qs) + '</span></button>'; }).join('');
+  $('sug').classList.toggle('on', top.length > 0);
+}
+$('q').addEventListener('input', function(){ pintar(); sugerir(); });
+$('q').addEventListener('keydown', function(e){
+  var bs = $('sug').querySelectorAll('button'); if (!bs.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); selSug = (selSug + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length; [].forEach.call(bs, function(b, k){ b.classList.toggle('sel', k === selSug); }); }
+  if (e.key === 'Enter' && selSug >= 0){ e.preventDefault(); abrir(+bs[selSug].dataset.i); }
+  if (e.key === 'Escape') $('sug').classList.remove('on');
+});
+$('sug').onclick = function(e){ var b = e.target.closest('button'); if (b) abrir(+b.dataset.i); };
+$('barra').onsubmit = function(e){ e.preventDefault(); $('sug').classList.remove('on'); $('q').blur(); window.scrollTo({ top: $('grilla').offsetTop - 160, behavior:'smooth' }); };
+$('borrar').onclick = function(){ $('q').value = ''; pintar(); sugerir(); $('q').focus(); };
+document.addEventListener('click', function(e){ if (!e.target.closest('.barra')) $('sug').classList.remove('on'); });
+
+/* ---------- respuesta ---------- */
+function abrir(i){
+  var e = D[i]; $('sug').classList.remove('on');
+  var rel = D.map(function(x, k){ return { k:k, x:x }; }).filter(function(o){ return o.k !== i && o.x.c === e.c; }).slice(0, 3);
+  $('resp').innerHTML = '<button class="cerrar" type="button" aria-label="Cerrar">×</button><div class="tema">' + esc(e.c) + '</div><h2>' + esc(e.q) + '</h2><div class="txt">' + esc(e.r) + '</div>' +
+    '<div class="clase">Lo ves completo en la clase <b>«' + esc(e.c) + '»</b> · ' + esc(e.m) + '</div>' +
+    (e.vid ? '<a class="video" href="' + esc(e.vid.url) + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + esc(e.vid.id) + '/mqdefault.jpg" alt="" loading="lazy"><span><small>Refuerzo en YouTube</small>' + esc(e.vid.titulo) + '</span></a>' : '') +
+    (rel.length ? '<div class="relac"><h4>También te puede servir</h4>' + rel.map(function(o){ return '<button type="button" data-i="' + o.k + '">' + esc(o.x.q) + '</button>'; }).join('') + '</div>' : '') +
+    '<div class="nada">¿No era esto? <a href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntalo en la comunidad</a> o llevalo al <a href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Q&amp;A con Lau</a>.</div>';
+  $('velo').classList.add('on'); $('resp').scrollTop = 0;
+}
+$('grilla').onclick = function(e){ var b = e.target.closest('.tarj'); if (b) abrir(+b.dataset.i); };
+$('velo').onclick = function(e){ if (e.target === this || e.target.closest('.cerrar')) this.classList.remove('on'); var b = e.target.closest('.relac button'); if (b) abrir(+b.dataset.i); };
+addEventListener('keydown', function(e){ if (e.key === 'Escape') $('velo').classList.remove('on'); });
+
+pintar();
+</script>
+</body>
+</html>

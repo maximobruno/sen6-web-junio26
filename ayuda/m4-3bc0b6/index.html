@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Te trabaste? · M4 · SEN6</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F3EF;--white:#fff;--sand:#EDEAE4;--ink:#111;--gray:#8A8680;--gray-ink:#5c584f;--line:rgba(17,17,17,.09);--accent:#D4450A;--glow:#F26A2E;
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px -12px rgba(17,17,17,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{font-weight:900;letter-spacing:.14em}.logo span{color:var(--accent)}
+header{padding:28px 0 8px}
+.cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.paso{font-size:12.5px;font-weight:700;color:var(--gray-ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.paso b{color:var(--accent)}
+h1{font-size:clamp(36px,6vw,58px);line-height:1;letter-spacing:-.03em;font-weight:900;margin:34px 0 0;text-align:center}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{text-align:center;color:var(--gray-ink);margin:10px auto 0;max-width:560px}
+
+/* buscador estilo YouTube */
+.busca{position:sticky;top:0;z-index:20;background:linear-gradient(var(--cream) 78%,rgba(245,243,239,0));padding:22px 0 14px}
+.barra{position:relative;max-width:720px;margin:0 auto;display:flex}
+.barra input{flex:1;min-width:0;height:54px;border:1.5px solid #d6d0c7;border-right:0;border-radius:999px 0 0 999px;padding:0 22px;font:inherit;font-size:17px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.barra input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.barra button.lupa{width:72px;height:54px;border:1.5px solid #d6d0c7;border-radius:0 999px 999px 0;background:var(--sand);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.barra button.lupa:hover{background:#e4e0d8}
+.barra .borrar{position:absolute;right:84px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:22px;color:var(--gray);cursor:pointer;display:none;padding:6px}
+.barra.con-texto .borrar{display:block}
+.sug{position:absolute;left:0;right:72px;top:58px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -12px rgba(17,17,17,.25);padding:8px 0;display:none;max-height:340px;overflow:auto}
+.sug.on{display:block}
+.sug button{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:9px 18px;font:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.sug button:hover,.sug button.sel{background:var(--sand)}
+.sug svg{flex:none;color:var(--gray)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:1100px;margin:14px auto 0;padding:2px 0}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;background:var(--sand);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--ink);color:var(--cream)}
+.estado{max-width:1100px;margin:6px auto 0;font-size:13.5px;color:var(--gray-ink)}
+
+/* tarjetas */
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;padding:10px 0 30px}
+.tarj{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tarj:hover{transform:translateY(-2px);border-color:rgba(212,69,10,.45);box-shadow:0 16px 34px -18px rgba(212,69,10,.55)}
+.tarj .tema{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.tarj b{font-size:16px;line-height:1.3}
+.tarj p{margin:0;font-size:13.5px;color:var(--gray-ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tarj .pie{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--gray);padding-top:4px}
+.tarj .yt{display:inline-flex;align-items:center;gap:5px;color:#c4302b;font-weight:700}
+mark{background:#FFE1CC;color:inherit;border-radius:3px;padding:0 1px}
+.vacio{text-align:center;padding:40px 10px;display:none}
+.vacio.on{display:block}
+.vacio h3{font-size:22px;margin:0}
+.vacio p{color:var(--gray-ink)}
+.botones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14.5px;border:1.5px solid rgba(242,106,46,.6);color:var(--ink);background:#FFF8F3;box-shadow:0 0 0 4px rgba(242,106,46,.10)}
+.btn.prim{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* respuesta abierta */
+.velo{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:40;display:none;align-items:flex-end;justify-content:center;padding:20px}
+.velo.on{display:flex}
+@media (min-width:700px){.velo{align-items:center}}
+.resp{background:var(--white);border-radius:22px;max-width:680px;width:100%;max-height:86vh;overflow:auto;padding:26px 26px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);animation:sube .25s ease}
+@keyframes sube{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.resp .tema{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.resp h2{font-size:24px;line-height:1.2;margin:6px 0 12px;letter-spacing:-.01em}
+.resp .txt{font-size:16px;line-height:1.65;color:#2a2826;white-space:pre-line}
+.resp .clase{margin-top:16px;background:var(--sand);border-radius:12px;padding:11px 14px;font-size:14px;color:var(--gray-ink)}
+.resp .clase b{color:var(--ink)}
+.resp a.video{margin-top:12px;display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;padding:8px}
+.resp a.video img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:9px;flex:none}
+.resp a.video span{font-size:14px;line-height:1.35}
+.resp a.video small{display:block;color:#c4302b;font-weight:700;font-size:12px;margin-bottom:2px}
+.resp .cerrar{float:right;border:0;background:var(--sand);border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;margin:-6px -6px 0 10px}
+.resp .relac{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.resp .relac h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.resp .relac button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink);border-bottom:1px solid var(--line)}
+.resp .relac button:hover{color:var(--accent)}
+.resp .nada{margin-top:16px;font-size:13.5px;color:var(--gray-ink)}
+.resp .nada a{color:var(--accent);font-weight:700}
+footer{text-align:center;color:var(--gray);font-size:13px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="cab"><span class="logo">SEN<span>6</span></span><span class="paso"><b>M4</b> · Preparación del canal</span></div>
+  <h1>¿Te <em>trabaste?</em></h1>
+  <p class="sub">Escribí tu duda con tus palabras. Te mostramos lo que Max y Lau ya respondieron sobre estas clases.</p>
+</header>
+
+<div class="busca"><div class="wrap">
+  <form class="barra" id="barra" autocomplete="off" role="search">
+    <input id="q" type="search" placeholder="Buscar: por ejemplo «cuenta educada» o «cuántos suscriptores»" aria-label="Buscar tu duda">
+    <button class="borrar" type="button" id="borrar" aria-label="Borrar búsqueda">×</button>
+    <button class="lupa" type="submit" aria-label="Buscar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <div class="sug" id="sug" role="listbox"></div>
+  </form>
+  <div class="chips" id="chips"></div>
+  <div class="estado" id="estado"></div>
+</div></div>
+
+<main class="wrap">
+  <div class="grilla" id="grilla"></div>
+  <div class="vacio" id="vacio">
+    <h3>No encontramos esa duda.</h3>
+    <p>Probá con otras palabras, o preguntala: te responden Max, Lau y la comunidad.</p>
+    <div class="botones">
+      <a class="btn prim" href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntar en «Preguntas 🫂»</a>
+      <a class="btn" href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Llevarla al Q&amp;A con Lau</a>
+    </div>
+  </div>
+</main>
+
+<div class="velo" id="velo" role="dialog" aria-modal="true"><div class="resp" id="resp"></div></div>
+
+<footer><span class="logo">SEN<span>6</span></span> · ¿Te trabaste? · M4</footer>
+
+<script>
+var D = [{"id": "g3-003", "m": "M4", "c": "Abrir un canal", "q": "¿Puedo tener varios canales con un mismo Gmail?", "v": ["¿un mail para todos mis canales?", "¿cuántos canales por cuenta de google?", "¿hago un correo por canal?", "¿puedo crear otro canal con el mismo correo?", "¿Puedo tener varios canales en el mismo Gmail?", "todos mis canales en una cuenta de google", "un correo para cada canal hace falta", "varios canales un solo mail", "riesgo de tener todo en un gmail"], "r": "Se puede técnicamente, pero la regla es una cuenta de correo por canal. Si un canal recibe una penalización grave o te hackean, todos los que cuelgan de ese mismo correo pueden caer juntos. Separarlos es proteger tu trabajo. Si ya creaste alguno en la misma cuenta no pasa nada, pero de acá en adelante, un Gmail para cada canal.", "n": 5, "vid": null}, {"id": "g3-001", "m": "M4", "c": "Abrir un canal", "q": "¿Qué cuenta de Gmail uso para abrir mi canal?", "v": ["¿con qué mail creo el canal?", "¿me hago un gmail nuevo o uso el mío?", "¿qué correo pongo para youtube?", "¿necesito un gmail especial para el canal?"], "r": "Para tu primer canal creá una cuenta de Gmail nueva, eligiendo la opción «para uso personal». Las cuentas más antiguas generan más confianza porque YouTube ya tiene tu historial, pero la recomendación es guardarlas como un tesoro para más adelante, cuando tengas experiencia y encuentres una oportunidad de oro. Ahora arrancá con una nueva y calentala bien antes de subir. Esto lo ves en la clase «Abrir un canal».", "n": 4, "vid": null}, {"id": "g3-002", "m": "M4", "c": "Abrir un canal", "q": "¿Puedo abrir el canal en mi cuenta personal de toda la vida?", "v": ["¿uso mi youtube personal para el canal?", "¿sirve mi cuenta vieja con historial?", "¿abro el canal en mi gmail de siempre?", "mi cuenta tiene años, ¿la aprovecho?"], "r": "Técnicamente podés, y una cuenta vieja con historial limpio da un piso de confianza. Pero ojo: no te asigna más impresiones por ser antigua; la distribución se gana video a video. Por eso Max y Lau recomiendan no quemar ese activo en tu primer canal: guardala para cuando domines el método y tengas un nicho que valga la pena. Para arrancar, cuenta nueva y bien calentada.", "n": 4, "vid": null}, {"id": "g3-004", "m": "M4", "c": "Abrir un canal", "q": "¿La cuenta educada y la cuenta del canal son la misma?", "v": ["¿subo videos en la cuenta educada?", "¿uso la cuenta de investigar para el canal?", "¿cuenta educada y canal van juntos?", "¿cuántos mails necesito?"], "r": "No, van separadas. La cuenta educada es solo para investigar nichos y no se toca. Cuando encontrás tu nicho, creás otro correo nuevo y ahí abrís el canal con el que vas a trabajar, que es el que después calentás. Si algún día hacés otro canal, otro correo. Siempre separados.", "n": 4, "vid": null}, {"id": "g3-009", "m": "M4", "c": "Abrir un canal", "q": "Mi número de teléfono ya está usado en otras cuentas, ¿cómo creo el Gmail nuevo?", "v": ["no me deja crear gmail con mi número", "me pide verificar con QR", "mi celular ya tiene muchas cuentas", "¿qué número pongo para el gmail?"], "r": "Tenés dos opciones: usar el teléfono de alguien de confianza (ese número no te lo vuelven a pedir) o un servicio de número temporal como SMS Virtual, que usan muchos en la comunidad. Si te vas a dedicar a esto a largo plazo, Max recomienda tener un teléfono usado cualquiera e ir sumando números, así no cansás a la familia.", "n": 4, "vid": null}, {"id": "g3-010", "m": "M4", "c": "Abrir un canal", "q": "¿Es obligatorio verificar el canal con un número de teléfono?", "v": ["¿tengo que poner mi celular en youtube?", "¿para qué verifico el teléfono?", "¿cuántos canales verifico con un número?", "¿hace falta verificar el canal?"], "r": "Sí, es obligatorio, y conviene dejarlo configurado bien antes de lanzar tus videos para que nada te corte el proceso. Con un mismo número podés verificar 2 canales al año. Si te dice que el número ya se usó, no insistas con ese: conseguí otro, porque insistir da señales de bot.", "n": 4, "vid": null}, {"id": "g3-012", "m": "M4", "c": "Abrir un canal", "q": "YouTube me dice que el número ya está usado o que lo intenté demasiadas veces, ¿qué hago?", "v": ["error al enviar el código de verificación", "me dice demasiados intentos", "no me llega el código de youtube", "el número ya fue utilizado"], "r": "No insistas con el mismo número, porque YouTube te puede bloquear el proceso por horas o días pensando que sos un bot. Dejá pasar un día y volvé a intentar; si sigue fallando, cambiá de número (el de un familiar o una app de número temporal). Si ya lo intentaste muchas veces, dale descanso varios días antes de probar otra vez.", "n": 4, "vid": null}, {"id": "g3-014", "m": "M4", "c": "Abrir un canal", "q": "¿Qué país pongo en la configuración del canal?", "v": ["¿pongo estados unidos para ganar más?", "¿qué país de residencia elijo?", "¿el país tiene que ser el de adsense?", "¿puedo cambiar el país después?", "vivo en un país y cobro en otro", "¿el país del canal importa?", "¿tiene que coincidir con adsense?"], "r": "Poné tu país real, el de la persona que va a recibir el dinero. Si todavía no tenés AdSense no pasa nada, pero la idea es que coincida con tu futura cuenta, porque con ese ajuste YouTube define si podés entrar al Programa de Socios y qué leyes locales aplican a tu canal. Elegir un país que no es el tuyo para «ganar más» te puede traer problemas después.", "n": 4, "vid": null}, {"id": "g3-016", "m": "M4", "c": "Abrir un canal", "q": "Ya tengo canales viejos que no uso, ¿los borro y creo uno nuevo?", "v": ["¿borro mis canales viejos?", "tengo canales vacíos, ¿qué hago?", "¿uso un canal que abrí hace tiempo?", "¿creo más canales o reutilizo?"], "r": "No los borres: reutilizalos. Esas cuentas antiguas te sirven para mostrarle a YouTube que sos humano. Tampoco crees canales que no vas a usar, porque muchos canales juntos pueden parecer un bot. Tomá uno, cambiale nombre, banner y logo, y acordate de calentar la cuenta antes de subir. Esto lo ves en la clase «Abrir un canal».", "n": 4, "vid": null}, {"id": "g3-017", "m": "M4", "c": "Abrir un canal", "q": "El canal que voy a reutilizar tiene videos o shorts personales viejos, ¿los borro?", "v": ["tengo videos viejos en el canal", "¿pongo en privado los shorts viejos?", "¿borro el contenido anterior?", "¿oculto los videos personales?"], "r": "No los borres. Podés dejarlos o pasarlos a no listado o privado, como prefieras. Que haya contenido personal es una buena señal de que sos humano. Si el canal viejo tiene muchos suscriptores y videos de otra temática, analizalo con más cuidado, porque esa audiencia no va a responder a tu nuevo nicho.", "n": 3, "vid": null}, {"id": "g3-018", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Qué es calentar la cuenta?", "v": ["¿qué significa calentar el canal?", "¿para qué sirve el calentamiento?", "calentar cuenta, ¿qué es?", "¿por qué hay que calentar la cuenta?"], "r": "Calentar la cuenta es, antes de subir tu primer video, usarla como un humano para que YouTube confíe en vos y no te confunda con un bot. Mirás videos de tu nicho completos y con volumen, das like, te suscribís, comentás y respondés comentarios. Es uno de los pasos fundamentales, Max dice que hoy es vital. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 3, "vid": null}, {"id": "g3-019", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Cuántos días tengo que calentar la cuenta?", "v": ["¿cuánto dura el calentamiento?", "¿cuántos días antes de subir?", "¿alcanza con una semana?", "¿cuándo puedo subir el primer video?"], "r": "Entre 8 y 15 días, y lo óptimo son 15. No subas videos antes de terminar ese período. No es tiempo perdido: mientras calentás, producís los videos que vas a necesitar para el lanzamiento. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 3, "vid": null}, {"id": "g3-020", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Qué tengo que hacer cada día durante el calentamiento?", "v": ["¿cuántos videos miro por día?", "¿cómo se calienta la cuenta paso a paso?", "¿qué hago en los 15 días?", "rutina de calentamiento"], "r": "Todos los días mirá al menos 5 videos de tu nicho completos, con volumen y viendo también el anuncio del principio. Dales like, suscribite y dejá comentarios elaborados y naturales; también respondé algún comentario de otro usuario. Sumá búsquedas del tema y mirá shorts del nicho. Repetí durante 15 días. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 3, "vid": null}, {"id": "g3-021", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Puedo dejar los videos corriendo con el volumen en cero mientras hago otra cosa?", "v": ["¿dejo videos en silencio?", "¿sirve poner videos y no mirarlos?", "¿puedo acelerar el calentamiento?", "¿vale reproducir en segundo plano?"], "r": "No. El calentamiento tiene que ser real: mirá los videos, no los dejes correr. Con volumen, completos, y comentando cosas relacionadas con lo que viste. La idea es justamente no parecer un bot, y dejar videos en silencio de fondo es lo que haría uno. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 3, "vid": null}, {"id": "g3-023", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Cuántos videos tengo que tener listos antes de terminar el calentamiento?", "v": ["¿cuántos videos produzco antes de lanzar?", "¿qué hago mientras caliento?", "¿necesito videos guardados?", "¿cuántos videos para empezar?"], "r": "Aprovechá los días de calentamiento para producir. La clase pide tener al menos 5 videos hechos (2 o 3 si son muy elaborados) para arrancar con la subida 3-2-1. Fijate que 3+2+1 son seis videos en los tres primeros días, así que cuantos más tengas listos, más tranquilo lanzás. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 3, "vid": null}, {"id": "g3-024", "m": "M4", "c": "Calentamiento de cuenta", "q": "Mi cuenta es vieja, ¿igual tengo que calentarla?", "v": ["¿una cuenta antigua necesita calentamiento?", "tengo un gmail de hace años, ¿caliento?", "¿las cuentas aged se calientan?", "¿si ya uso youtube tengo que calentar?"], "r": "Sí. Aunque la cuenta sea antigua, hay que calentarla: usarla como humano unos 15 días mirando, comentando y dando likes en videos del nicho que vas a trabajar. Si es tu cuenta personal y la usás seguido en YouTube, ya tenés parte del camino hecho, pero igual conviene orientarla a tu nicho antes de subir.", "n": 3, "vid": null}, {"id": "g3-006", "m": "M4", "c": "Abrir un canal", "q": "¿Pongo foto, logo y descripción cuando creo el canal?", "v": ["¿subo el logo al crear el canal?", "¿qué foto pongo en el canal?", "¿cuándo pongo el banner?", "¿lleno la descripción al abrirlo?"], "r": "No subas foto al crear el canal. El logo, el banner y la descripción van en la clase siguiente, donde los armás con IA con la herramienta que está debajo del video. Primero creás el canal limpio, con nombre e identificador, y después lo vestís. Esto lo ves en la clase «Abrir un canal».", "n": 2, "vid": null}, {"id": "g3-007", "m": "M4", "c": "Abrir un canal", "q": "¿Cómo elijo el nombre y el identificador del canal?", "v": ["¿qué nombre le pongo al canal?", "¿qué es el identificador?", "¿el @ va con arroba?", "¿cómo invento el nombre del canal?"], "r": "No crees el canal hasta ver la clase siguiente, porque el nombre y el identificador se eligen con IA. El identificador es tu @ único y se escribe sin la arroba, por ejemplo HormigaReyESP. Lau recomienda que sea simple y fácil de recordar, sin números raros ni combinaciones forzadas, porque así es como te van a buscar. Esto lo ves en la clase «Abrir un canal».", "n": 2, "vid": null}, {"id": "g3-008", "m": "M4", "c": "Abrir un canal", "q": "YouTube no me acepta el nombre del canal y me hace esperar 24 horas, ¿qué pasó?", "v": ["me rechaza el identificador", "no me deja crear el canal, espere 24 hs", "dice que el @ ya existe", "me bloqueó por intentar muchas veces"], "r": "Varios canales pueden llamarse igual, pero el identificador con @ es único: si ya lo tiene otro, te lo va a rechazar siempre. Y si insistís muchas veces seguidas, el sistema cree que sos un bot y te frena 24 horas. Respetá esa espera sin intentar nada y después probá con una variante distinta del identificador.", "n": 2, "vid": null}, {"id": "g3-011", "m": "M4", "c": "Abrir un canal", "q": "Verifiqué el teléfono pero no se habilitan las funciones, ¿qué hago?", "v": ["verifiqué el celular y no pasa nada", "¿cuánto tarda la verificación?", "¿cómo sé si el canal ya está verificado?", "dice verificado pero no se activa"], "r": "En general es instantánea, pero puede demorar unas horas. Para confirmarlo andá a YouTube Studio, Configuración, Canal, Elegibilidad de funciones: lo importante es que ahí aparezca en verde. A veces YouTube marca que ya está verificado y no es así; en ese caso borrá las cookies del navegador y verificá de nuevo.", "n": 2, "vid": null}, {"id": "g3-015", "m": "M4", "c": "Abrir un canal", "q": "¿Marco mis videos como contenido para niños?", "v": ["¿es contenido para niños o no?", "¿qué marco en audiencia?", "¿marcar para niños da más vistas?", "¿qué pongo en apto para menores?"], "r": "Si tu contenido no está hecho para chicos, marcá siempre que no es para niños, a nivel canal y en cada video. No es una preferencia para abarcar más público: es un requisito técnico, y si lo marcás como infantil YouTube te bloquea funciones clave y apaga anuncios. Leé las reglas de YouTube sobre contenido infantil para estar seguro.", "n": 2, "vid": null}, {"id": "g3-022", "m": "M4", "c": "Calentamiento de cuenta", "q": "Encontré mi nicho hoy, ¿igual tengo que esperar 15 días para publicar?", "v": ["¿puedo saltear el calentamiento?", "¿acorto los 15 días?", "quiero subir ya, ¿espero?", "¿calentar no me hace perder tiempo?"], "r": "Sí, esperá, pero no de brazos cruzados. Empezar rápido significa calentar la cuenta a la vez que producís los videos, porque para el lanzamiento los tenés que tener hechos. Así, cuando terminan los días de calentamiento, ya estás listo para la subida 3-2-1. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 2, "vid": null}, {"id": "g3-025", "m": "M4", "c": "Calentamiento de cuenta", "q": "¿Me conviene comprar una cuenta vieja de YouTube?", "v": ["¿compro una cuenta antigua?", "¿dónde compro cuentas aged?", "¿sirve comprar un canal viejo?", "¿comprar cuenta en vez de calentar?"], "r": "Es posible, pero no lo recomendamos. Al comprar una cuenta podés heredar un mal historial: infracciones, mala reputación o incluso que te la reclamen cuando ya armaste el canal. Si alguien igual decide hacerlo, en la clase se menciona agedfiles.com como una de las pocas opciones serias. Lo más sano es usar una cuenta tuya y calentarla bien. Esto lo ves en la clase «Calentamiento de cuenta».", "n": 2, "vid": null}, {"id": "g3-061", "m": "M4", "c": "Abrir un canal", "q": "¿Necesito Multilogin o proxies para abrir mi canal?", "v": ["¿qué es multilogin?", "¿uso proxies?", "¿cómo lanzo varios canales a la vez?", "¿tengo que instalar multilogin?"], "r": "Para tu primer canal no hace falta. Max lo considera de alto riesgo a futuro, porque va contra las normas de YouTube, y se usa solo como último recurso en casos puntuales. Lanzar varios canales a la vez parece conducta de granja de contenido: lo sano es un canal a la vez, cada uno con su cuenta. Esto lo vemos a fondo en Silver.", "n": 2, "vid": null}, {"id": "g3-005", "m": "M4", "c": "Abrir un canal", "q": "¿Cuáles son los pasos para crear el canal?", "v": ["¿cómo abro un canal de youtube?", "¿dónde toco para crear el canal?", "paso a paso para abrir el canal", "¿cómo hago el canal desde cero?"], "r": "Es simple: creá tu Gmail para uso personal, entrá a YouTube con esa cuenta (o agregala desde «cambiar de cuenta»), tocá «crear un canal», poné el nombre y el identificador que elegiste con IA y crealo sin foto. El logo, el banner y la descripción se suman después. Esto lo ves en la clase «Abrir un canal».", "n": 1, "vid": null}, {"id": "g3-013", "m": "M4", "c": "Abrir un canal", "q": "No puedo subir una miniatura propia, solo me deja elegir un fotograma, ¿por qué?", "v": ["no se guarda mi miniatura", "solo me deja poner fotogramas del video", "¿por qué no puedo cambiar la miniatura?", "no me aparece subir miniatura"], "r": "Casi siempre es porque todavía no completaste la configuración del canal: teléfono e identidad verificados. Sin eso YouTube solo te deja elegir fotogramas del video. Revisá que los pasos estén habilitados. Si ya está todo y aun así no se guarda, probá borrar las cookies (acordate tus contraseñas) o mandá comentarios a soporte.", "n": 1, "vid": null}];
+var $ = function(id){ return document.getElementById(id); };
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+
+/* ---------- buscador: normaliza, saca palabras vacías, une sinónimos y compara raíces ---------- */
+var STOP = {}; 'que como cual cuales para con por los las una uno unos unas del sin mas pero hay hago puedo tengo esta este estos esas eso esto donde cuando cuanto cuanta cuantos cuantas me mi mis tu tus se lo la el de en y o a es si no ya al le les su sus son ser hacer tiene tener muy tambien'.split(' ').forEach(function(w){ STOP[w] = 1; });
+var SIN = { cobrar:'monetizar', plata:'monetizar', pagan:'monetizar', ganar:'monetizar', dinero:'monetizar', monetizacion:'monetizar', monetizado:'monetizar',
+  subs:'suscriptores', suscriptor:'suscriptores', seguidores:'suscriptores', vistas:'visualizaciones', views:'visualizaciones', reproducciones:'visualizaciones',
+  tema:'nicho', temas:'nicho', nichos:'nicho', tematica:'nicho', referente:'referencia', modelo:'referencia',
+  gmail:'cuenta', mail:'cuenta', correo:'cuenta', educar:'educada', entrenar:'educada', entrenada:'educada',
+  nexlev:'nexlev', vidiq:'vidiq', idioma:'idioma', ingles:'ingles', espanol:'espanol', competidor:'competencia', competidores:'competencia' };
+function norm(t){ return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ñ ]/g, ' '); }
+function raiz(w){ w = SIN[w] || w; return w.length > 6 ? w.slice(0, 6) : w; }
+function tok(t){ return norm(t).split(/\s+/).filter(function(w){ return w.length > 1 && !STOP[w]; }); }
+var IDX = D.map(function(e){
+  var fuerte = tok(e.q + ' ' + e.v.join(' ') + ' ' + e.c).map(raiz), debil = tok(e.r).map(raiz);
+  return { f: fuerte, d: debil };
+});
+function puntaje(i, qs){
+  var x = IDX[i], s = 0, todas = true;
+  qs.forEach(function(q, k){
+    var ultima = k === qs.length - 1, r = raiz(q), hit = 0;
+    // la última palabra puede estar a medio escribir: vale como prefijo
+    var igual = function(w){ return w === r || (ultima && q.length >= 3 && w.indexOf(q.slice(0, 6)) === 0); };
+    if (x.f.some(igual)) hit = 3; else if (x.d.some(igual)) hit = 1;
+    if (!hit) todas = false; s += hit;
+  });
+  return todas ? s + D[i].n * 0.05 : (s >= 3 && qs.length > 2 ? s * 0.5 : 0);
+}
+function resaltar(texto, qs){
+  var t = esc(texto); if (!qs.length) return t;
+  var pals = texto.split(/(\s+)/);
+  return pals.map(function(p){ if (/^\s+$/.test(p)) return p; var n = raiz(norm(p).trim());
+    var ok = n && qs.some(function(q){ var r = raiz(q); return n === r || (q.length >= 3 && n.indexOf(q.slice(0, 6)) === 0); });
+    return ok ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
+}
+
+/* ---------- temas (chips) ---------- */
+var TEMAS = []; D.forEach(function(e){ if (TEMAS.indexOf(e.c) < 0) TEMAS.push(e.c); });
+var tema = '';
+$('chips').innerHTML = '<button type="button" class="on" data-t="">Todas</button>' + TEMAS.map(function(t){ return '<button type="button" data-t="' + esc(t) + '">' + esc(t) + '</button>'; }).join('');
+$('chips').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; tema = b.dataset.t;
+  [].forEach.call(this.children, function(x){ x.classList.toggle('on', x === b); }); pintar(); };
+
+/* ---------- grilla ---------- */
+function resultados(){
+  var qs = tok($('q').value);
+  var lista = D.map(function(e, i){ return { e:e, i:i, s: qs.length ? puntaje(i, qs) : 1 + e.n * 0.05 }; })
+    .filter(function(x){ return x.s > 0 && (!tema || x.e.c === tema); });
+  lista.sort(function(a, b){ return b.s - a.s; });
+  return { qs:qs, lista:lista };
+}
+function pintar(){
+  var r = resultados(), qs = r.qs;
+  $('barra').classList.toggle('con-texto', !!$('q').value);
+  $('grilla').innerHTML = r.lista.map(function(x){ var e = x.e;
+    return '<button class="tarj" type="button" data-i="' + x.i + '"><span class="tema">' + esc(e.c) + '</span><b>' + resaltar(e.q, qs) + '</b><p>' + esc(e.r) + '</p>' +
+      '<span class="pie"><span>' + esc(e.m) + '</span>' + (e.vid ? '<span class="yt"><svg width="14" height="10" viewBox="0 0 24 17" fill="currentColor"><path d="M23.5 2.5A3 3 0 0 0 21.4.4C19.5 0 12 0 12 0S4.5 0 2.6.4A3 3 0 0 0 .5 2.5C0 4.4 0 8.5 0 8.5s0 4.1.5 6A3 3 0 0 0 2.6 16.6C4.5 17 12 17 12 17s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1C24 12.6 24 8.5 24 8.5s0-4.1-.5-6zM9.5 12V5l6.5 3.5L9.5 12z"/></svg>con video</span>' : '') + '</span></button>';
+  }).join('');
+  $('vacio').classList.toggle('on', !r.lista.length);
+  $('estado').textContent = qs.length ? r.lista.length + (r.lista.length === 1 ? ' respuesta' : ' respuestas') + ' para «' + $('q').value.trim() + '»'
+    : (tema ? r.lista.length + ' respuestas de «' + tema + '»' : 'Las ' + r.lista.length + ' dudas de estas clases, de las más preguntadas a las menos');
+}
+
+/* ---------- sugerencias mientras escribís (como YouTube) ---------- */
+var selSug = -1;
+function sugerir(){
+  var r = resultados(), q = $('q').value.trim();
+  if (!q){ $('sug').classList.remove('on'); return; }
+  var top = r.lista.slice(0, 6); selSug = -1;
+  $('sug').innerHTML = top.map(function(x){ return '<button type="button" data-i="' + x.i + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>' + resaltar(x.e.q, r.qs) + '</span></button>'; }).join('');
+  $('sug').classList.toggle('on', top.length > 0);
+}
+$('q').addEventListener('input', function(){ pintar(); sugerir(); });
+$('q').addEventListener('keydown', function(e){
+  var bs = $('sug').querySelectorAll('button'); if (!bs.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); selSug = (selSug + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length; [].forEach.call(bs, function(b, k){ b.classList.toggle('sel', k === selSug); }); }
+  if (e.key === 'Enter' && selSug >= 0){ e.preventDefault(); abrir(+bs[selSug].dataset.i); }
+  if (e.key === 'Escape') $('sug').classList.remove('on');
+});
+$('sug').onclick = function(e){ var b = e.target.closest('button'); if (b) abrir(+b.dataset.i); };
+$('barra').onsubmit = function(e){ e.preventDefault(); $('sug').classList.remove('on'); $('q').blur(); window.scrollTo({ top: $('grilla').offsetTop - 160, behavior:'smooth' }); };
+$('borrar').onclick = function(){ $('q').value = ''; pintar(); sugerir(); $('q').focus(); };
+document.addEventListener('click', function(e){ if (!e.target.closest('.barra')) $('sug').classList.remove('on'); });
+
+/* ---------- respuesta ---------- */
+function abrir(i){
+  var e = D[i]; $('sug').classList.remove('on');
+  var rel = D.map(function(x, k){ return { k:k, x:x }; }).filter(function(o){ return o.k !== i && o.x.c === e.c; }).slice(0, 3);
+  $('resp').innerHTML = '<button class="cerrar" type="button" aria-label="Cerrar">×</button><div class="tema">' + esc(e.c) + '</div><h2>' + esc(e.q) + '</h2><div class="txt">' + esc(e.r) + '</div>' +
+    '<div class="clase">Lo ves completo en la clase <b>«' + esc(e.c) + '»</b> · ' + esc(e.m) + '</div>' +
+    (e.vid ? '<a class="video" href="' + esc(e.vid.url) + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + esc(e.vid.id) + '/mqdefault.jpg" alt="" loading="lazy"><span><small>Refuerzo en YouTube</small>' + esc(e.vid.titulo) + '</span></a>' : '') +
+    (rel.length ? '<div class="relac"><h4>También te puede servir</h4>' + rel.map(function(o){ return '<button type="button" data-i="' + o.k + '">' + esc(o.x.q) + '</button>'; }).join('') + '</div>' : '') +
+    '<div class="nada">¿No era esto? <a href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntalo en la comunidad</a> o llevalo al <a href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Q&amp;A con Lau</a>.</div>';
+  $('velo').classList.add('on'); $('resp').scrollTop = 0;
+}
+$('grilla').onclick = function(e){ var b = e.target.closest('.tarj'); if (b) abrir(+b.dataset.i); };
+$('velo').onclick = function(e){ if (e.target === this || e.target.closest('.cerrar')) this.classList.remove('on'); var b = e.target.closest('.relac button'); if (b) abrir(+b.dataset.i); };
+addEventListener('keydown', function(e){ if (e.key === 'Escape') $('velo').classList.remove('on'); });
+
+pintar();
+</script>
+</body>
+</html>

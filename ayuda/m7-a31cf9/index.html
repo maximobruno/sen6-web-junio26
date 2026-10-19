@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Te trabaste? · M7 · SEN6</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F3EF;--white:#fff;--sand:#EDEAE4;--ink:#111;--gray:#8A8680;--gray-ink:#5c584f;--line:rgba(17,17,17,.09);--accent:#D4450A;--glow:#F26A2E;
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px -12px rgba(17,17,17,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{font-weight:900;letter-spacing:.14em}.logo span{color:var(--accent)}
+header{padding:28px 0 8px}
+.cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.paso{font-size:12.5px;font-weight:700;color:var(--gray-ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.paso b{color:var(--accent)}
+h1{font-size:clamp(36px,6vw,58px);line-height:1;letter-spacing:-.03em;font-weight:900;margin:34px 0 0;text-align:center}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{text-align:center;color:var(--gray-ink);margin:10px auto 0;max-width:560px}
+
+/* buscador estilo YouTube */
+.busca{position:sticky;top:0;z-index:20;background:linear-gradient(var(--cream) 78%,rgba(245,243,239,0));padding:22px 0 14px}
+.barra{position:relative;max-width:720px;margin:0 auto;display:flex}
+.barra input{flex:1;min-width:0;height:54px;border:1.5px solid #d6d0c7;border-right:0;border-radius:999px 0 0 999px;padding:0 22px;font:inherit;font-size:17px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.barra input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.barra button.lupa{width:72px;height:54px;border:1.5px solid #d6d0c7;border-radius:0 999px 999px 0;background:var(--sand);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.barra button.lupa:hover{background:#e4e0d8}
+.barra .borrar{position:absolute;right:84px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:22px;color:var(--gray);cursor:pointer;display:none;padding:6px}
+.barra.con-texto .borrar{display:block}
+.sug{position:absolute;left:0;right:72px;top:58px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -12px rgba(17,17,17,.25);padding:8px 0;display:none;max-height:340px;overflow:auto}
+.sug.on{display:block}
+.sug button{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:9px 18px;font:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.sug button:hover,.sug button.sel{background:var(--sand)}
+.sug svg{flex:none;color:var(--gray)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:1100px;margin:14px auto 0;padding:2px 0}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;background:var(--sand);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--ink);color:var(--cream)}
+.estado{max-width:1100px;margin:6px auto 0;font-size:13.5px;color:var(--gray-ink)}
+
+/* tarjetas */
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;padding:10px 0 30px}
+.tarj{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tarj:hover{transform:translateY(-2px);border-color:rgba(212,69,10,.45);box-shadow:0 16px 34px -18px rgba(212,69,10,.55)}
+.tarj .tema{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.tarj b{font-size:16px;line-height:1.3}
+.tarj p{margin:0;font-size:13.5px;color:var(--gray-ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tarj .pie{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--gray);padding-top:4px}
+.tarj .yt{display:inline-flex;align-items:center;gap:5px;color:#c4302b;font-weight:700}
+mark{background:#FFE1CC;color:inherit;border-radius:3px;padding:0 1px}
+.vacio{text-align:center;padding:40px 10px;display:none}
+.vacio.on{display:block}
+.vacio h3{font-size:22px;margin:0}
+.vacio p{color:var(--gray-ink)}
+.botones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14.5px;border:1.5px solid rgba(242,106,46,.6);color:var(--ink);background:#FFF8F3;box-shadow:0 0 0 4px rgba(242,106,46,.10)}
+.btn.prim{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* respuesta abierta */
+.velo{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:40;display:none;align-items:flex-end;justify-content:center;padding:20px}
+.velo.on{display:flex}
+@media (min-width:700px){.velo{align-items:center}}
+.resp{background:var(--white);border-radius:22px;max-width:680px;width:100%;max-height:86vh;overflow:auto;padding:26px 26px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);animation:sube .25s ease}
+@keyframes sube{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.resp .tema{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.resp h2{font-size:24px;line-height:1.2;margin:6px 0 12px;letter-spacing:-.01em}
+.resp .txt{font-size:16px;line-height:1.65;color:#2a2826;white-space:pre-line}
+.resp .clase{margin-top:16px;background:var(--sand);border-radius:12px;padding:11px 14px;font-size:14px;color:var(--gray-ink)}
+.resp .clase b{color:var(--ink)}
+.resp a.video{margin-top:12px;display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;padding:8px}
+.resp a.video img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:9px;flex:none}
+.resp a.video span{font-size:14px;line-height:1.35}
+.resp a.video small{display:block;color:#c4302b;font-weight:700;font-size:12px;margin-bottom:2px}
+.resp .cerrar{float:right;border:0;background:var(--sand);border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;margin:-6px -6px 0 10px}
+.resp .relac{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.resp .relac h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.resp .relac button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink);border-bottom:1px solid var(--line)}
+.resp .relac button:hover{color:var(--accent)}
+.resp .nada{margin-top:16px;font-size:13.5px;color:var(--gray-ink)}
+.resp .nada a{color:var(--accent);font-weight:700}
+footer{text-align:center;color:var(--gray);font-size:13px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="cab"><span class="logo">SEN<span>6</span></span><span class="paso"><b>M7</b> · Miniaturas, títulos y SEO</span></div>
+  <h1>¿Te <em>trabaste?</em></h1>
+  <p class="sub">Escribí tu duda con tus palabras. Te mostramos lo que Max y Lau ya respondieron sobre estas clases.</p>
+</header>
+
+<div class="busca"><div class="wrap">
+  <form class="barra" id="barra" autocomplete="off" role="search">
+    <input id="q" type="search" placeholder="Buscar: por ejemplo «cuenta educada» o «cuántos suscriptores»" aria-label="Buscar tu duda">
+    <button class="borrar" type="button" id="borrar" aria-label="Borrar búsqueda">×</button>
+    <button class="lupa" type="submit" aria-label="Buscar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <div class="sug" id="sug" role="listbox"></div>
+  </form>
+  <div class="chips" id="chips"></div>
+  <div class="estado" id="estado"></div>
+</div></div>
+
+<main class="wrap">
+  <div class="grilla" id="grilla"></div>
+  <div class="vacio" id="vacio">
+    <h3>No encontramos esa duda.</h3>
+    <p>Probá con otras palabras, o preguntala: te responden Max, Lau y la comunidad.</p>
+    <div class="botones">
+      <a class="btn prim" href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntar en «Preguntas 🫂»</a>
+      <a class="btn" href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Llevarla al Q&amp;A con Lau</a>
+    </div>
+  </div>
+</main>
+
+<div class="velo" id="velo" role="dialog" aria-modal="true"><div class="resp" id="resp"></div></div>
+
+<footer><span class="logo">SEN<span>6</span></span> · ¿Te trabaste? · M7</footer>
+
+<script>
+var D = [{"id": "g4-044", "m": "M7", "c": "Miniaturas", "q": "¿Puedo usar la misma miniatura en todos mis videos?", "v": ["repetir la misma miniatura", "todas las miniaturas iguales", "uso una plantilla fija de miniatura", "pasa algo si copio la miniatura", "¿Puedo usar la misma miniatura o plantilla en todos mis videos?", "repito la misma miniatura siempre", "miniaturas todas iguales está mal?", "uso una plantilla para todas las miniaturas", "copiar miniatura en cada video"], "r": "Es uno de los errores graves: a veces YouTube deja de mostrarte y a veces desmonetiza. En faceless no hagas todas las miniaturas iguales (en marca personal sí conviene). Pueden tener un estilo, pero no ser todas muy parecidas, porque YouTube lo toma como contenido de bajo valor. Esto lo ves en la clase «Miniaturas».", "n": 4, "vid": {"id": "zC2hfYjWdXI", "titulo": "Miles de CANALES AUTOMATIZADOS de Youtube están siendo eliminados", "url": "https://www.youtube.com/watch?v=zC2hfYjWdXI"}}, {"id": "g4-051", "m": "M7", "c": "Títulos", "q": "¿Cómo combino el título con la miniatura?", "v": ["título y miniatura dicen lo mismo", "qué pongo en la miniatura y qué en el título", "la miniatura repite el título", "cómo evito el clickbait"], "r": "Título y miniatura tienen que complementarse, no repetirse: la miniatura suma un gancho de curiosidad que el título no dice. Y lo que prometen tiene que cumplirse en los primeros 30 segundos del video: si el contenido no valida el clic, la gente se va y es señal de clickbait. Esto lo ves en las clases «Títulos» y «Miniaturas».", "n": 4, "vid": {"id": "oAI1OdUMJM8", "titulo": "La Prueba A/B de YOUTUBE Está DESTROZANDO Tu Canal (haz esto!)", "url": "https://www.youtube.com/watch?v=oAI1OdUMJM8"}}, {"id": "g4-057", "m": "M7", "c": "Títulos", "q": "¿Qué tan importantes son las palabras clave?", "v": ["las keywords son lo más importante", "cómo hago seo en youtube", "importa la categoría del canal", "youtube entiende de qué trata mi video"], "r": "Son importantes, pero no lo principal: lo principal es tu contenido. YouTube es semántico y entiende tu canal por tus guiones, títulos y descripción, mucho más que por la categoría (elegí la más cercana a tu nicho, pero casi no incide). Hoy el SEO que importa es el que responde a la consulta real del usuario, y el algoritmo analiza todo el paquete del video. Esto lo ves en la clase «Títulos».", "n": 4, "vid": null}, {"id": "g4-060", "m": "M7", "c": "Títulos", "q": "¿Le pongo subtítulos al video en la edición?", "v": ["subtítulos quemados en el video", "pongo subtítulos en capcut", "el txt de youtube tapa mis subtítulos", "subtítulos en pantalla sí o no"], "r": "Hoy Lau no lo recomienda: los subtítulos en la edición son de lo más repetido en los canales faceless de baja calidad, y se superponen con los subtítulos nativos que YouTube muestra en el autoplay del inicio. Además, si quien mira activa los subtítulos de YouTube, te tapan los de CapCut. Lo que sí es obligatorio es subir los subtítulos nativos (CC) en todos tus videos.", "n": 3, "vid": null}, {"id": "g4-061", "m": "M7", "c": "Títulos", "q": "¿Para qué subo el guion como subtítulos a YouTube y dónde lo hago?", "v": ["dónde adjunto el guion", "subir transcripción a youtube", "cómo subo los subtítulos cc", "sirve subir el txt del guion"], "r": "Subirlo es obligatorio porque YouTube usa esa transcripción para entender y categorizar tu contenido. Primero marcá el idioma del video en la pantalla de subida, y después en la sección Subtítulos subís el texto. Podés pegar el guion en un .txt con el mismo nombre del video; sincroniza solo y después ajustás los bloques para que no queden líneas largas.", "n": 3, "vid": null}, {"id": "g4-064", "m": "M7", "c": "Retención", "q": "¿Cómo respondo los comentarios de mis videos?", "v": ["dónde veo los comentarios", "conviene responder comentarios", "cómo gestiono los comentarios", "qué le contesto a la gente"], "r": "Los gestionás en YouTube Studio, en la sección Comunidad de la barra izquierda. Un buen hábito es responder con una pregunta para que la conversación siga, porque la interacción es una de las cosas que hay que dominar. Esto lo vemos a fondo en Silver.", "n": 3, "vid": null}, {"id": "g4-042", "m": "M7", "c": "Miniaturas", "q": "¿Con qué hago las miniaturas?", "v": ["qué herramienta uso para miniaturas", "app para hacer miniaturas", "cómo hago una miniatura con ia", "nano banana para miniaturas"], "r": "Con Nano Banana es mucho más fácil: le adjuntás como referencia una miniatura que te guste y le vas pidiendo modificaciones. Lo recomendable es la imagen con IA, pero el texto y la exportación hacerlos a mano en Canva. Así, si tenés que apelar la monetización, podés mostrar intervención humana. Esto lo ves en la clase «Miniaturas».", "n": 2, "vid": null}, {"id": "g4-043", "m": "M7", "c": "Miniaturas", "q": "¿Puedo automatizar las miniaturas?", "v": ["hacer todas las miniaturas de un tirón", "sistema automático de miniaturas", "generar miniaturas en lote", "bot para miniaturas", "hay una app para hacer todas las miniaturas", "miniaturas automáticas sirve?", "hago las miniaturas con ia"], "r": "Ojo con eso. Si te mandan a apelación tenés que mostrar cómo hacés las miniaturas, y es mejor demostrar que las hacés a mano. Automatizar queda para después de monetizar. Mientras tanto: imagen con IA y texto y exportación manual en Canva.", "n": 2, "vid": null}, {"id": "g4-045", "m": "M7", "c": "Miniaturas", "q": "¿En qué me baso para diseñar mis primeras miniaturas?", "v": ["cómo sé qué miniatura funciona en mi nicho", "de dónde saco ideas de miniaturas", "dónde aprendo a hacer miniaturas", "qué estilo de miniatura uso"], "r": "Las miniaturas cambian según el nicho, por eso primero tenés que tener hecha la investigación. Arrancás tomando de base gráfica y conceptual los outliers de tus referentes y tu competencia, pero no te quedás a vivir ahí: cada audiencia responde distinto, así que vas iterando según tus métricas. Como base, que tenga un solo foco, alto contraste y pocas palabras. Esto lo ves en la clase «Miniaturas».", "n": 2, "vid": null}, {"id": "g4-046", "m": "M7", "c": "Miniaturas", "q": "¿Cómo pruebo qué estilo de miniatura funciona mejor?", "v": ["cambio el estilo de miniatura en cada video", "bloques de testeo de miniaturas", "cómo testeo miniaturas", "cuántos videos con un mismo estilo"], "r": "Armá bloques de testeo: por ejemplo, 5 videos con un estilo, 5 con otro, y así. Cuando llegues al video 30 vas a tener volumen real para comparar varios enfoques. La clave es aislar la variable: si cambiás el estilo en cada video, el resultado puede ser puro azar.", "n": 2, "vid": null}, {"id": "g4-047", "m": "M7", "c": "Miniaturas", "q": "Mi miniatura tiene CTR bajo, ¿cuándo la cambio?", "v": ["cuánto espero para cambiar la miniatura", "falla el título o la miniatura", "mi video no tiene clics", "cada cuánto cambio la miniatura"], "r": "El CTR de las primeras horas es el que define si YouTube muestra el video a más gente, así que lo ideal es cambiarla rápido, en un máximo de 5 días, como una prueba A/B, porque si no es un outlier el video muere rápido. Si las vistas por hora ya son muy bajas, no vale la pena cambiarla mucho después, porque casi nadie lo está viendo. Ojo: el CTR depende también del título. El cambio de miniatura hace efecto casi inmediato; si la cambiás y no varía nada, probablemente el que falla es el título.", "n": 2, "vid": {"id": "oAI1OdUMJM8", "titulo": "La Prueba A/B de YOUTUBE Está DESTROZANDO Tu Canal (haz esto!)", "url": "https://www.youtube.com/watch?v=oAI1OdUMJM8"}}, {"id": "g4-049", "m": "M7", "c": "Miniaturas", "q": "¿Por qué no me deja poner una miniatura personalizada?", "v": ["no se guarda la miniatura", "me pone un fotograma del video", "no puedo subir miniatura", "cambié la miniatura y sigue la vieja"], "r": "Revisá que tengas hechos los pasos de configuración del canal: número de teléfono e identidad verificados. Sin eso solo te deja usar fotogramas del video. Si ya está todo y sigue fallando, probá borrar las cookies (ojo, te borra accesos guardados) o mandá comentarios a soporte. Si la cambiaste y en el canal sigue la vieja, suele ser que YouTube tarda: mirala en incógnito o esperá unas horas.", "n": 2, "vid": null}, {"id": "g4-050", "m": "M7", "c": "Miniaturas", "q": "¿Qué CTR es bueno?", "v": ["cuál es un buen ctr", "qué porcentaje de clics necesito", "mi ctr es bajo", "qué es el ctr"], "r": "El CTR es el porcentaje de gente que hace clic cuando ve tu miniatura y tu título. Máximo considera bueno arriba de 6%. Igual, Lau aclara que los números de referencia son orientativos y dependen de cada caso, y con pocos videos el porcentaje se mueve mucho.", "n": 2, "vid": {"id": "oAI1OdUMJM8", "titulo": "La Prueba A/B de YOUTUBE Está DESTROZANDO Tu Canal (haz esto!)", "url": "https://www.youtube.com/watch?v=oAI1OdUMJM8"}}, {"id": "g4-055", "m": "M7", "c": "Títulos", "q": "¿Cómo pruebo distintos títulos?", "v": ["cuántos títulos escribo antes de elegir", "cómo testeo títulos", "cambio la estructura de títulos en cada video", "cuánto tiempo pruebo un formato de título"], "r": "Escribí de 3 a 5 variaciones antes de decidir. Y para testear, probá una sola variable a la vez: mantené una estructura de título durante 5 a 10 videos antes de sacar conclusiones. Si cambiás todo junto, no vas a saber qué funcionó. Esto lo ves en la clase «Títulos».", "n": 2, "vid": null}, {"id": "g4-056", "m": "M7", "c": "Títulos", "q": "¿Qué es Ask YouTube y cómo afecta a mis títulos?", "v": ["no me aparece ask youtube", "búsqueda conversacional en youtube", "qué es ask youtube", "ask youtube en latinoamérica"], "r": "Es la búsqueda conversacional de YouTube: la gente pregunta y YouTube responde con videos. Por eso conviene pensar el título como respuesta a una pregunta real. Según lo que compartió Lau, arrancó en beta en Estados Unidos y se va habilitando por etapas, así que si no te aparece, es normal. Esto lo ves en la clase «Títulos».", "n": 2, "vid": null}, {"id": "g4-059", "m": "M7", "c": "Títulos", "q": "¿Conviene pagar VidIQ para títulos y palabras clave?", "v": ["vale la pena vidiq", "vidiq para seo", "qué herramienta uso para keywords", "vidiq o nexlev"], "r": "No es necesario. Máximo no paga VidIQ: todos sus canales se hicieron sin él y prefiere Claude conectado a NexLev. Lau rescata que su investigación sirve para buscar ideas y palabras clave long tail, pero sus títulos no le convencen. Si lo tenés, bien; si no, no pasa nada.", "n": 2, "vid": null}, {"id": "g4-062", "m": "M7", "c": "Títulos", "q": "¿Cómo saco los capítulos y el archivo SRT exactos?", "v": ["los capítulos no coinciden con el video", "qué es un archivo srt", "subtítulos para videos largos", "cómo hago timestamps exactos"], "r": "Pedile a Claude Code que instale Whisper (lo hace solo). Whisper pasa el audio a texto sabiendo cuándo empieza y termina cada parte, así los capítulos te salen exactos y te puede bajar el archivo SRT, que es texto con marcas de tiempo. Ese SRT es el que subís cuando YouTube te da la opción de subtítulos sincronizados. Sirve para videos de cualquier duración.", "n": 2, "vid": null}, {"id": "g4-063", "m": "M7", "c": "Títulos", "q": "¿Cómo escribo la descripción del video?", "v": ["qué pongo en la descripción", "descripción para seo", "cuánto escribo en la descripción", "la descripción sirve para algo"], "r": "Lo básico: YouTube lee todo el paquete del video para entenderlo, y la descripción es parte junto con el título, la miniatura y la transcripción. Escribila como un humano, alineada con lo que busca tu audiencia y sin rellenar de palabras clave. Esto lo vemos a fondo en Silver.", "n": 2, "vid": null}, {"id": "g4-072", "m": "M7", "c": "Miniaturas", "q": "¿Hago la miniatura antes o después del video?", "v": ["cuándo hago la miniatura", "dejo la miniatura para el final", "orden para hacer la miniatura", "la miniatura va al final"], "r": "Antes. La recomendación es hacer la miniatura antes que el video, para no dejarla para el final. Y recordá que lo que promete la miniatura, junto con el título, tiene que cumplirse en los primeros 30 segundos del video, así que conviene tenerla clara mientras armás el guion. Esto lo ves en la clase «Miniaturas».", "n": 2, "vid": null}, {"id": "g4-048", "m": "M7", "c": "Miniaturas", "q": "¿Hago pruebas A/B de miniaturas desde el primer video?", "v": ["las pruebas a/b sirven al principio", "no se subieron las miniaturas de la prueba a/b", "cuándo uso el test de miniaturas", "prueba a/b con pocos videos"], "r": "Al principio son prácticamente irrelevantes. YouTube busca espectadores de distintas fuentes, cada una con comportamientos diferentes, y con pocas impresiones la prueba no te aporta demasiado. Fijate cuántos videos e impresiones tenés antes de preocuparte; mientras tanto, tu prioridad es seguir subiendo y probar estilos en bloques.", "n": 1, "vid": {"id": "oAI1OdUMJM8", "titulo": "La Prueba A/B de YOUTUBE Está DESTROZANDO Tu Canal (haz esto!)", "url": "https://www.youtube.com/watch?v=oAI1OdUMJM8"}}, {"id": "g4-052", "m": "M7", "c": "Títulos", "q": "¿Cómo escribo un buen título?", "v": ["estructura de un título", "cómo hago títulos que funcionen", "fórmula para títulos", "qué tiene que tener un título"], "r": "Una estructura sugerida: palabra clave + dos puntos + promesa o gancho. Escribí como un humano, porque YouTube es semántico y entiende la intención. Usá una sola palabra de poder y pensá el título como la respuesta a una pregunta real que se haría tu audiencia. Esto lo ves en la clase «Títulos».", "n": 1, "vid": null}, {"id": "g4-053", "m": "M7", "c": "Títulos", "q": "¿Dónde pongo la palabra clave y qué tan largo hago el título?", "v": ["largo ideal del título", "dónde va la keyword", "cuántos caracteres tiene que tener", "repito la palabra clave varias veces", "el título se corta en el celular"], "r": "Poné la palabra clave o long tail en los primeros 30 a 40 caracteres, por ejemplo arrancando con «Nepal:», y apuntá a 50-60 caracteres en total para que no se corte en el celular. No la repitas ni satures de palabras clave: YouTube es semántico y entiende la intención, así que evitá términos duplicados como edición/editar o tips/tutorial. Esto lo ves en la clase «Títulos».", "n": 1, "vid": null}, {"id": "g4-054", "m": "M7", "c": "Títulos", "q": "¿Qué palabras ayudan a que un título llame más la atención?", "v": ["palabras de poder", "pongo el año en el título", "qué números uso en el título", "le hablo a ustedes en el título", "qué es sin + objeción"], "r": "Usá una sola palabra de poder, no varias. Sirve el recurso «sin + objeción»: sin experiencia previa, sin software de pago. Sumá el año: desde agosto o septiembre ya conviene poner el siguiente. Si usás números, que sean impares, y evitá los redondos o las mitades (5, 25, 50, 500). Y hablale a una persona: yo, tú o vos, nunca «ustedes». Esto lo ves en la clase «Títulos».", "n": 1, "vid": null}, {"id": "g4-058", "m": "M7", "c": "Títulos", "q": "Las vistas que vienen de búsqueda bajan, ¿está mal?", "v": ["tráfico de búsqueda bajando", "de dónde vienen mis vistas", "qué es exploración y sugeridos", "mis vistas ya no vienen de búsqueda"], "r": "Está bien. El tráfico por búsqueda viene por término y debería ir disminuyendo, salvo que hagas un video en tendencia. La idea es que después la mayoría llegue por exploración y videos sugeridos. Para ver de dónde vienen tus vistas, analizá tu canal en YouTube Studio: ese es el camino, analizar y mejorar.", "n": 1, "vid": null}, {"id": "g4-066", "m": "M7", "c": "Miniaturas", "q": "¿Qué es una miniatura y por qué importa tanto?", "v": ["para qué sirve la miniatura", "la miniatura es tan importante", "qué peso tiene la miniatura", "qué es el delivery"], "r": "Es la imagen que la gente ve antes de hacer clic. Junto con el título y la descripción forma el delivery, que es el 50% del éxito; el video es el otro 50%. La miniatura se percibe en unos 0,3 segundos y empuja el CTR de las primeras horas, que es lo que define si YouTube le muestra tu video a más gente. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": null}, {"id": "g4-067", "m": "M7", "c": "Miniaturas", "q": "¿Qué medida tiene que tener la miniatura?", "v": ["tamaño de la miniatura", "resolución de la miniatura", "qué formato uso para la miniatura", "cuántos píxeles tiene la miniatura"], "r": "La miniatura mide 1280x720 píxeles, en formato 16:9. Armala en ese tamaño desde el principio, y antes de publicar mirala también en chico, porque así es como la va a ver la mayoría de la gente en el celular y en el inicio de YouTube. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": null}, {"id": "g4-068", "m": "M7", "c": "Miniaturas", "q": "¿Cuánto texto pongo en la miniatura?", "v": ["cuántas palabras van en la miniatura", "pongo el título en la miniatura", "miniatura sin texto sirve", "qué escribo en la miniatura"], "r": "Poco: de 1 a 3 palabras, 5 como máximo. Incluso podés hacerla sin texto si así funciona tu nicho. Ese texto no repite el título: lo complementa con un gancho de curiosidad. Fijate qué hacen los outliers de tus referentes para ver si en tu nicho se usa texto o no. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": null}, {"id": "g4-069", "m": "M7", "c": "Miniaturas", "q": "¿Qué es lo que más llama la atención en una miniatura?", "v": ["qué atrae más en una miniatura", "qué colores uso en la miniatura", "cómo hago que se note mi miniatura", "anatomía de una buena miniatura"], "r": "Primero atrae una persona con los ojos visibles, después los colores fuertes como el rojo y el amarillo, y después el texto. La miniatura que funciona tiene un solo foco, alto contraste, poco texto y un gancho de curiosidad. Si metés muchas cosas, el ojo no sabe adónde ir en esos 0,3 segundos. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": null}, {"id": "g4-070", "m": "M7", "c": "Miniaturas", "q": "¿Conviene poner caras en la miniatura?", "v": ["pongo una persona en la miniatura", "caras con emoción", "hacia dónde mira el personaje", "sirve una cara en un canal faceless"], "r": "Las caras con emoción real funcionan, y una persona con los ojos visibles es lo que más atrae. Además, la mirada o el gesto del personaje hacia el texto dirige la atención del espectador justo adonde querés. Que la emoción se note y que tenga que ver con lo que promete el video. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": {"id": "rBbelWbbGZ0", "titulo": "Cómo Hacer Miniaturas de Youtube con Inteligencia Artificial I De Principiante a PRO", "url": "https://www.youtube.com/watch?v=rBbelWbbGZ0"}}, {"id": "g4-071", "m": "M7", "c": "Miniaturas", "q": "¿Qué errores tengo que evitar en una miniatura?", "v": ["errores comunes en miniaturas", "por qué mi miniatura se ve mal", "fondo borroso en la miniatura", "cómo reviso mi miniatura antes de subir"], "r": "Los más comunes: fondos débiles, borrosos o pixelados; demasiadas cosas compitiendo, sin un foco claro; mucho texto; y en faceless, hacer todas las miniaturas iguales. Antes de publicar, mirala en tamaño chico: si no se entiende ahí, no va a funcionar en el celular. Esto lo ves en la clase «Miniaturas».", "n": 1, "vid": null}];
+var $ = function(id){ return document.getElementById(id); };
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+
+/* ---------- buscador: normaliza, saca palabras vacías, une sinónimos y compara raíces ---------- */
+var STOP = {}; 'que como cual cuales para con por los las una uno unos unas del sin mas pero hay hago puedo tengo esta este estos esas eso esto donde cuando cuanto cuanta cuantos cuantas me mi mis tu tus se lo la el de en y o a es si no ya al le les su sus son ser hacer tiene tener muy tambien'.split(' ').forEach(function(w){ STOP[w] = 1; });
+var SIN = { cobrar:'monetizar', plata:'monetizar', pagan:'monetizar', ganar:'monetizar', dinero:'monetizar', monetizacion:'monetizar', monetizado:'monetizar',
+  subs:'suscriptores', suscriptor:'suscriptores', seguidores:'suscriptores', vistas:'visualizaciones', views:'visualizaciones', reproducciones:'visualizaciones',
+  tema:'nicho', temas:'nicho', nichos:'nicho', tematica:'nicho', referente:'referencia', modelo:'referencia',
+  gmail:'cuenta', mail:'cuenta', correo:'cuenta', educar:'educada', entrenar:'educada', entrenada:'educada',
+  nexlev:'nexlev', vidiq:'vidiq', idioma:'idioma', ingles:'ingles', espanol:'espanol', competidor:'competencia', competidores:'competencia' };
+function norm(t){ return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ñ ]/g, ' '); }
+function raiz(w){ w = SIN[w] || w; return w.length > 6 ? w.slice(0, 6) : w; }
+function tok(t){ return norm(t).split(/\s+/).filter(function(w){ return w.length > 1 && !STOP[w]; }); }
+var IDX = D.map(function(e){
+  var fuerte = tok(e.q + ' ' + e.v.join(' ') + ' ' + e.c).map(raiz), debil = tok(e.r).map(raiz);
+  return { f: fuerte, d: debil };
+});
+function puntaje(i, qs){
+  var x = IDX[i], s = 0, todas = true;
+  qs.forEach(function(q, k){
+    var ultima = k === qs.length - 1, r = raiz(q), hit = 0;
+    // la última palabra puede estar a medio escribir: vale como prefijo
+    var igual = function(w){ return w === r || (ultima && q.length >= 3 && w.indexOf(q.slice(0, 6)) === 0); };
+    if (x.f.some(igual)) hit = 3; else if (x.d.some(igual)) hit = 1;
+    if (!hit) todas = false; s += hit;
+  });
+  return todas ? s + D[i].n * 0.05 : (s >= 3 && qs.length > 2 ? s * 0.5 : 0);
+}
+function resaltar(texto, qs){
+  var t = esc(texto); if (!qs.length) return t;
+  var pals = texto.split(/(\s+)/);
+  return pals.map(function(p){ if (/^\s+$/.test(p)) return p; var n = raiz(norm(p).trim());
+    var ok = n && qs.some(function(q){ var r = raiz(q); return n === r || (q.length >= 3 && n.indexOf(q.slice(0, 6)) === 0); });
+    return ok ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
+}
+
+/* ---------- temas (chips) ---------- */
+var TEMAS = []; D.forEach(function(e){ if (TEMAS.indexOf(e.c) < 0) TEMAS.push(e.c); });
+var tema = '';
+$('chips').innerHTML = '<button type="button" class="on" data-t="">Todas</button>' + TEMAS.map(function(t){ return '<button type="button" data-t="' + esc(t) + '">' + esc(t) + '</button>'; }).join('');
+$('chips').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; tema = b.dataset.t;
+  [].forEach.call(this.children, function(x){ x.classList.toggle('on', x === b); }); pintar(); };
+
+/* ---------- grilla ---------- */
+function resultados(){
+  var qs = tok($('q').value);
+  var lista = D.map(function(e, i){ return { e:e, i:i, s: qs.length ? puntaje(i, qs) : 1 + e.n * 0.05 }; })
+    .filter(function(x){ return x.s > 0 && (!tema || x.e.c === tema); });
+  lista.sort(function(a, b){ return b.s - a.s; });
+  return { qs:qs, lista:lista };
+}
+function pintar(){
+  var r = resultados(), qs = r.qs;
+  $('barra').classList.toggle('con-texto', !!$('q').value);
+  $('grilla').innerHTML = r.lista.map(function(x){ var e = x.e;
+    return '<button class="tarj" type="button" data-i="' + x.i + '"><span class="tema">' + esc(e.c) + '</span><b>' + resaltar(e.q, qs) + '</b><p>' + esc(e.r) + '</p>' +
+      '<span class="pie"><span>' + esc(e.m) + '</span>' + (e.vid ? '<span class="yt"><svg width="14" height="10" viewBox="0 0 24 17" fill="currentColor"><path d="M23.5 2.5A3 3 0 0 0 21.4.4C19.5 0 12 0 12 0S4.5 0 2.6.4A3 3 0 0 0 .5 2.5C0 4.4 0 8.5 0 8.5s0 4.1.5 6A3 3 0 0 0 2.6 16.6C4.5 17 12 17 12 17s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1C24 12.6 24 8.5 24 8.5s0-4.1-.5-6zM9.5 12V5l6.5 3.5L9.5 12z"/></svg>con video</span>' : '') + '</span></button>';
+  }).join('');
+  $('vacio').classList.toggle('on', !r.lista.length);
+  $('estado').textContent = qs.length ? r.lista.length + (r.lista.length === 1 ? ' respuesta' : ' respuestas') + ' para «' + $('q').value.trim() + '»'
+    : (tema ? r.lista.length + ' respuestas de «' + tema + '»' : 'Las ' + r.lista.length + ' dudas de estas clases, de las más preguntadas a las menos');
+}
+
+/* ---------- sugerencias mientras escribís (como YouTube) ---------- */
+var selSug = -1;
+function sugerir(){
+  var r = resultados(), q = $('q').value.trim();
+  if (!q){ $('sug').classList.remove('on'); return; }
+  var top = r.lista.slice(0, 6); selSug = -1;
+  $('sug').innerHTML = top.map(function(x){ return '<button type="button" data-i="' + x.i + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>' + resaltar(x.e.q, r.qs) + '</span></button>'; }).join('');
+  $('sug').classList.toggle('on', top.length > 0);
+}
+$('q').addEventListener('input', function(){ pintar(); sugerir(); });
+$('q').addEventListener('keydown', function(e){
+  var bs = $('sug').querySelectorAll('button'); if (!bs.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); selSug = (selSug + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length; [].forEach.call(bs, function(b, k){ b.classList.toggle('sel', k === selSug); }); }
+  if (e.key === 'Enter' && selSug >= 0){ e.preventDefault(); abrir(+bs[selSug].dataset.i); }
+  if (e.key === 'Escape') $('sug').classList.remove('on');
+});
+$('sug').onclick = function(e){ var b = e.target.closest('button'); if (b) abrir(+b.dataset.i); };
+$('barra').onsubmit = function(e){ e.preventDefault(); $('sug').classList.remove('on'); $('q').blur(); window.scrollTo({ top: $('grilla').offsetTop - 160, behavior:'smooth' }); };
+$('borrar').onclick = function(){ $('q').value = ''; pintar(); sugerir(); $('q').focus(); };
+document.addEventListener('click', function(e){ if (!e.target.closest('.barra')) $('sug').classList.remove('on'); });
+
+/* ---------- respuesta ---------- */
+function abrir(i){
+  var e = D[i]; $('sug').classList.remove('on');
+  var rel = D.map(function(x, k){ return { k:k, x:x }; }).filter(function(o){ return o.k !== i && o.x.c === e.c; }).slice(0, 3);
+  $('resp').innerHTML = '<button class="cerrar" type="button" aria-label="Cerrar">×</button><div class="tema">' + esc(e.c) + '</div><h2>' + esc(e.q) + '</h2><div class="txt">' + esc(e.r) + '</div>' +
+    '<div class="clase">Lo ves completo en la clase <b>«' + esc(e.c) + '»</b> · ' + esc(e.m) + '</div>' +
+    (e.vid ? '<a class="video" href="' + esc(e.vid.url) + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + esc(e.vid.id) + '/mqdefault.jpg" alt="" loading="lazy"><span><small>Refuerzo en YouTube</small>' + esc(e.vid.titulo) + '</span></a>' : '') +
+    (rel.length ? '<div class="relac"><h4>También te puede servir</h4>' + rel.map(function(o){ return '<button type="button" data-i="' + o.k + '">' + esc(o.x.q) + '</button>'; }).join('') + '</div>' : '') +
+    '<div class="nada">¿No era esto? <a href="https://www.skool.com/sen6" target="_blank" rel="noopener">Preguntalo en la comunidad</a> o llevalo al <a href="https://www.skool.com/sen6/classroom/fd4b2abd" target="_blank" rel="noopener">Q&amp;A con Lau</a>.</div>';
+  $('velo').classList.add('on'); $('resp').scrollTop = 0;
+}
+$('grilla').onclick = function(e){ var b = e.target.closest('.tarj'); if (b) abrir(+b.dataset.i); };
+$('velo').onclick = function(e){ if (e.target === this || e.target.closest('.cerrar')) this.classList.remove('on'); var b = e.target.closest('.relac button'); if (b) abrir(+b.dataset.i); };
+addEventListener('keydown', function(e){ if (e.key === 'Escape') $('velo').classList.remove('on'); });
+
+pintar();
+</script>
+</body>
+</html>
