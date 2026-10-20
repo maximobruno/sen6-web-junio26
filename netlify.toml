@@ -23,3 +23,8 @@
   for = "/cazadores/kit-5458c914/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/atlas-a1462c66/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
