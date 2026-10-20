@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bienvenido a Silver Pro · SEN6</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F5F3EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F3EF; --white:#FFFFFF; --sand:#EDEAE4; --ink:#111111;
+  --gray-ink:#5c584f; --line:rgba(17,17,17,.08);
+  --accent:#D4450A; --accent-ink:#B23A08;
+  --shadow:0 1px 2px rgba(17,17,17,.04), 0 10px 30px -12px rgba(17,17,17,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:620px;margin:0 auto;padding:28px 16px 56px}
+.logo{font-weight:900;letter-spacing:-.04em;font-size:1.45rem;color:var(--ink)}
+.logo span{color:var(--accent)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:32px 26px;margin-top:28px}
+.ok{width:54px;height:54px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin-bottom:18px}
+h1{font-size:clamp(1.7rem,5vw,2.2rem);line-height:1.15;letter-spacing:-.03em;margin:0 0 12px;font-weight:900}
+.lead{color:var(--gray-ink);margin:0 0 24px}
+ol{margin:0;padding:0;list-style:none;counter-reset:p}
+ol li{counter-increment:p;position:relative;padding:14px 0 14px 46px;border-top:1px solid var(--line)}
+ol li:first-child{border-top:0}
+ol li::before{content:counter(p);position:absolute;left:0;top:13px;width:30px;height:30px;border-radius:50%;background:var(--sand);font-weight:800;font-size:.9rem;display:grid;place-items:center}
+ol b{display:block}
+ol span{color:var(--gray-ink);font-size:.95rem}
+.aviso{background:#FFF4EE;border:1px solid rgba(212,69,10,.25);border-radius:14px;padding:14px 16px;margin-top:22px;font-size:.95rem}
+.aviso b{color:var(--accent-ink)}
+.pie{text-align:center;color:var(--gray-ink);font-size:.9rem;margin-top:26px}
+.pie a{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="logo" aria-label="SEN6">SEN<span>6</span></div>
+  <div class="card">
+    <div class="ok" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1>¡Bienvenido a Silver Pro! 🎉</h1>
+    <p class="lead">Tu pago está confirmado. Ahora te sumás a la comunidad de SEN6 en Skool, donde están las clases, los vivos y el equipo.</p>
+    <ol>
+      <li><b>Revisá tu email</b><span>En unos minutos te llega la invitación de Skool al mismo email con el que pagaste.</span></li>
+      <li><b>Aceptá la invitación</b><span>Abrí el email de Skool y tocá el botón para entrar. Si todavía no tenés cuenta en Skool, se crea ahí mismo.</span></li>
+      <li><b>Empezá por «Primeros pasos»</b><span>Ya adentro, arrancá por el curso de bienvenida y presentate en la comunidad.</span></li>
+    </ol>
+    <div class="aviso"><b>¿No ves el email?</b> Buscalo en <b>Promociones</b> o <b>Spam</b>. Suele caer ahí la primera vez.</div>
+  </div>
+  <p class="pie">¿Dudas o no te llegó nada en una hora? Escribinos a <a href="mailto:info@maximobruno.io">info@maximobruno.io</a></p>
+</main>
+</body>
+</html>
