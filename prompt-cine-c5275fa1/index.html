@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prompt Cine · SEN6</title>
+<meta name="description" content="Escribí una idea en español y recibí un prompt de imagen con la precisión de un director de fotografía. Una skill para Claude con 771 fichas de cine, fotografía, cámaras y lentes. Gratis para alumnos SEN6.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0D12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D12; --ink2:#12161F; --cream:#F5F3EF; --papel:#F2ECE4; --tinta:#1A1A1A; --dim:rgba(245,243,239,.68); --line:rgba(245,243,239,.14);
+  --naranja:#D4450A; --glow:#F26A2E; --oro:#E8C27A; --terra:#C8502A; --r:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eb{font-size:12px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--glow)}
+.mono{font-family:'Space Mono',ui-monospace,monospace}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:.98}
+h2{font-size:clamp(38px,5.6vw,72px)}
+h2 em,h1 em{font-style:normal;color:var(--glow)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--dim);max-width:640px}
+
+/* grano de película sobre toda la página */
+.grano{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano .9s steps(6) infinite}
+@keyframes grano{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-6%,-2%)}80%{transform:translate(5%,4%)}100%{transform:translate(0,0)}}
+
+/* botones */
+.cta{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:999px;padding:18px 30px;font:800 17px/1 Inter,sans-serif;color:#fff;text-decoration:none;cursor:pointer;
+  background:linear-gradient(135deg,#FF9A4D,var(--glow) 45%,var(--naranja));box-shadow:0 22px 50px -14px rgba(242,106,46,.85),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 28px 60px -14px rgba(242,106,46,.95),inset 0 1px 0 rgba(255,255,255,.3)}
+.cta small{font-weight:700;opacity:.85;font-size:14px;padding-left:12px;border-left:1px solid rgba(255,255,255,.35)}
+.cta svg{width:18px;height:18px}
+.cta.sec2{background:rgba(245,243,239,.06);box-shadow:none;border:1px solid var(--line)}
+.cta-nota{margin-top:14px;font-size:13px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap}
+
+/* barra */
+.top{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.top.solida{background:rgba(11,13,18,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.marca{display:flex;align-items:center;gap:10px;font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.14em;font-size:18px;text-transform:uppercase;text-decoration:none}
+.marca img{width:30px;height:30px;border-radius:8px}
+.marca em{font-style:normal;color:var(--glow)}
+.top nav{display:flex;align-items:center;gap:18px}
+.top nav a.ent{font-size:14px;font-weight:600;color:var(--dim);text-decoration:none}
+.top nav a.ent:hover{color:var(--cream)}
+.top .cta{padding:11px 18px;font-size:14px;box-shadow:0 10px 30px -10px rgba(242,106,46,.8)}
+
+/* diafragma que se cierra con el scroll (el altímetro de la Expedición) */
+.iris{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;width:70px;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;opacity:0;transition:opacity .5s}
+.iris.on{opacity:1}
+.iris svg{width:62px;height:62px}
+.iris b{font:600 16px Oswald,sans-serif;letter-spacing:.04em}
+.iris small{font-size:9.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;text-align:center}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;background:#07090D}
+#escena{position:absolute;inset:0;z-index:-3;width:100%;height:100%;display:block}
+.hero .velo{position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(90deg,rgba(7,9,13,.9) 0%,rgba(7,9,13,.55) 40%,rgba(7,9,13,0) 72%),linear-gradient(0deg,var(--ink) 0%,rgba(11,13,18,0) 36%)}
+.franja{position:absolute;left:0;right:0;height:12vh;background:#000;z-index:-1;transition:transform 1.8s cubic-bezier(.7,0,.2,1) .3s;pointer-events:none}
+.franja.a{top:0;transform:translateY(0)} .franja.b{bottom:0}
+.hero.abierto .franja.a{transform:translateY(-100%)} .hero.abierto .franja.b{transform:translateY(100%)}
+.hero .txt{padding:150px 22px 70px;max-width:1180px;margin:0 auto;width:100%}
+.hero h1{font-size:clamp(52px,8.6vw,124px);max-width:920px;text-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hero .lead{margin-top:22px;color:rgba(245,243,239,.86)}
+.hero .acciones{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px}
+.chip{border:1px solid var(--line);background:rgba(11,13,18,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:9px 15px;font-size:13px;font-weight:600}
+.chip b{color:var(--glow);font-family:Oswald;font-weight:600;font-size:15px;margin-right:4px}
+.rec{position:absolute;top:84px;right:26px;display:flex;gap:18px;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;color:rgba(245,243,239,.75);z-index:2}
+.rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff3b30;margin-right:7px;box-shadow:0 0 12px #ff3b30;animation:parp 1.2s steps(2) infinite}
+@keyframes parp{50%{opacity:.15}}
+.bajar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bajar i{width:1px;height:34px;background:linear-gradient(var(--glow),transparent);animation:baja 1.8s ease-in-out infinite}
+@keyframes baja{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
+
+section{position:relative}
+.sec{padding:130px 0}
+
+/* el problema */
+.historia{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.cita{font-family:Oswald,sans-serif;text-transform:uppercase;font-size:clamp(34px,4.6vw,58px);line-height:1.02}
+.cita em{font-style:normal;color:var(--glow)}
+.historia p{color:var(--dim);font-size:18px;margin:18px 0 0}
+.historia p b{color:var(--cream)}
+.contraste{display:grid;gap:14px}
+.fila{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:linear-gradient(180deg,rgba(245,243,239,.04),rgba(245,243,239,.01))}
+.fila .et{display:flex;gap:10px;align-items:center;font:700 11px 'Space Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.fila .et i{width:8px;height:8px;border-radius:50%;background:rgba(245,243,239,.3)}
+.fila.bien{border-color:rgba(242,106,46,.45);background:linear-gradient(180deg,rgba(242,106,46,.1),rgba(242,106,46,.02))}
+.fila.bien .et{color:var(--glow)} .fila.bien .et i{background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.fila code{display:block;margin-top:10px;font:400 14px/1.6 'Space Mono',monospace;color:var(--cream);word-break:break-word}
+.fila.mal code{color:var(--dim)}
+
+/* la estructura: las 6 cajas (estilo papel de la estructura original) */
+.estructura{background:var(--papel);color:var(--tinta);padding:120px 0;overflow:hidden}
+.estructura .eb{color:var(--terra)}
+.estructura h2 em{color:var(--terra)}
+.estructura .lead{color:rgba(26,26,26,.7)}
+.selector{display:flex;gap:8px;flex-wrap:wrap;margin-top:34px}
+.selector button{font:600 14px Inter,sans-serif;border:1.5px solid var(--tinta);background:transparent;color:var(--tinta);border-radius:999px;padding:9px 16px;cursor:pointer;transition:background .2s,color .2s}
+.selector button.on,.selector button:hover{background:var(--tinta);color:var(--papel)}
+.idea{margin-top:26px;display:flex;align-items:center;gap:14px;border:2px solid var(--tinta);border-radius:14px;padding:16px 20px;background:#fff;max-width:760px;box-shadow:6px 6px 0 var(--tinta)}
+.idea span{font:700 11px 'Space Mono',monospace;letter-spacing:.16em;color:var(--terra);white-space:nowrap}
+.idea b{font-size:clamp(17px,2vw,21px);font-weight:600}
+.idea b::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--terra);margin-left:3px;vertical-align:-.15em;animation:parp 1s steps(2) infinite}
+.cajas{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px 0;margin-top:40px;min-height:330px}
+.caja{border:2px solid var(--tinta);background:#F7F3EE;padding:16px 20px 15px;min-width:150px;flex:1 1 200px;opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.caja.on{opacity:1;transform:none}
+.caja .k{font:700 12px 'Space Mono',monospace;letter-spacing:.14em;color:var(--terra);text-transform:uppercase}
+.caja .en{font:400 clamp(17px,1.7vw,22px)/1.25 'Space Mono',monospace;margin-top:8px;color:var(--tinta)}
+.caja .es{font-size:14px;color:rgba(26,26,26,.6);margin-top:8px;font-weight:500}
+.caja.suj{flex:2 1 320px}
+.mas{display:flex;align-items:center;padding:0 12px;font:700 26px Oswald;color:var(--terra)}
+.resultado{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;margin-top:44px;align-items:start}
+.revelado{position:relative;aspect-ratio:16/9;border:2px solid var(--tinta);background:#111;overflow:hidden;box-shadow:10px 10px 0 var(--tinta)}
+.revelado img{width:100%;height:100%;object-fit:cover;filter:blur(18px) saturate(.2) brightness(.6);transform:scale(1.08);transition:filter 1.6s ease,transform 2.2s cubic-bezier(.2,.7,.2,1)}
+.revelado.on img{filter:none;transform:none}
+.revelado .tag{position:absolute;left:12px;top:12px;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;background:var(--tinta);color:var(--papel);padding:5px 9px}
+.final{border:2px solid var(--tinta);background:var(--tinta);color:var(--papel);padding:20px}
+.final .k{font:700 11px 'Space Mono',monospace;letter-spacing:.16em;color:var(--oro)}
+.final code{display:block;margin-top:12px;font:400 14px/1.65 'Space Mono',monospace;color:var(--papel);word-break:break-word}
+.final button{margin-top:16px;font:700 13px Inter;border:0;border-radius:999px;padding:10px 16px;background:var(--glow);color:#fff;cursor:pointer}
+.fuentes{margin-top:16px;font-size:13.5px;color:rgba(26,26,26,.7)}
+.fuentes b{color:var(--tinta)}
+
+/* galería: tira de película */
+.galeria{padding:120px 0 110px;overflow:hidden}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.tira{margin-top:50px;position:relative;background:#050608;padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tira::before,.tira::after{content:"";position:absolute;left:0;right:0;height:16px;background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(245,243,239,.16) 18px 34px,transparent 34px 52px);background-size:52px 10px;background-repeat:repeat-x;background-position:0 center}
+.tira::before{top:9px}.tira::after{bottom:9px}
+.cuadros{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 22px;scrollbar-width:none;cursor:grab}
+.cuadros::-webkit-scrollbar{display:none}
+.cuadro{flex:0 0 min(560px,84vw);scroll-snap-align:center;position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:4px;cursor:pointer;isolation:isolate}
+.cuadro img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.cuadro:hover img{transform:scale(1.05)}
+.cuadro::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,6,8,.92) 6%,rgba(5,6,8,0) 55%)}
+.cuadro .pie{position:absolute;left:18px;right:18px;bottom:14px;z-index:2}
+.cuadro .pie b{display:block;font:600 clamp(19px,2vw,24px)/1.1 Oswald;text-transform:uppercase}
+.cuadro .pie span{font:400 12px 'Space Mono',monospace;color:var(--dim)}
+.cuadro .num{position:absolute;top:12px;left:14px;z-index:2;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;color:var(--oro)}
+
+/* la base: constelación */
+.base{background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(242,106,46,.12),transparent 70%),var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.cielo{position:relative;margin-top:56px;height:min(72vh,680px);border-radius:24px;border:1px solid var(--line);background:radial-gradient(ellipse at center,#141924,#07090D 75%);overflow:hidden}
+#constelacion{width:100%;height:100%;display:block;cursor:grab}
+#constelacion:active{cursor:grabbing}
+.buscador{position:absolute;left:18px;top:18px;display:flex;gap:8px;z-index:3}
+.buscador input{width:min(320px,58vw);border:1px solid var(--line);background:rgba(11,13,18,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);border-radius:999px;padding:11px 16px;font:500 14px Inter;outline:none}
+.buscador input:focus{border-color:var(--glow)}
+.leyenda{position:absolute;left:18px;bottom:16px;display:flex;gap:8px;flex-wrap:wrap;z-index:3;max-width:calc(100% - 36px)}
+.leyenda button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:rgba(11,13,18,.7);color:var(--cream);border-radius:999px;padding:7px 12px;font:600 12px Inter;cursor:pointer}
+.leyenda button i{width:9px;height:9px;border-radius:50%}
+.leyenda button.off{opacity:.35}
+.ficha-tip{position:absolute;z-index:4;pointer-events:none;max-width:280px;border:1px solid rgba(242,106,46,.5);background:rgba(11,13,18,.92);border-radius:14px;padding:12px 14px;font-size:13px;opacity:0;transition:opacity .2s}
+.ficha-tip.on{opacity:1}
+.ficha-tip b{display:block;font:600 17px Oswald;text-transform:uppercase}
+.ficha-tip span{font:700 10px 'Space Mono';letter-spacing:.14em;color:var(--glow);text-transform:uppercase}
+.ficha-tip p{margin:6px 0 0;color:var(--dim)}
+.cuentas{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:22px}
+.cuenta{border:1px solid var(--line);border-radius:16px;padding:18px 14px;background:rgba(245,243,239,.03);text-align:center}
+.cuenta b{display:block;font:700 38px/1 Oswald;color:var(--glow)}
+.cuenta span{font-size:12.5px;color:var(--dim)}
+
+/* directores */
+.muro{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:60px}
+.retrato{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0E1116}
+.retrato img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.85);transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1)}
+.retrato:hover img{filter:none;transform:scale(1.05)}
+.retrato::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,9,13,.9),transparent 50%)}
+.retrato b{position:absolute;left:12px;right:12px;bottom:10px;z-index:2;font:600 15px/1.05 Oswald;text-transform:uppercase}
+.retrato small{display:block;font:400 10px 'Space Mono';color:var(--oro);letter-spacing:.1em;margin-top:3px}
+
+/* cómo se instala */
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px;counter-reset:p}
+.paso{border:1px solid var(--line);border-radius:20px;padding:26px;background:rgba(245,243,239,.03);position:relative}
+.paso::before{counter-increment:p;content:"0" counter(p);font:700 56px/1 Oswald;color:transparent;-webkit-text-stroke:1.5px rgba(242,106,46,.7)}
+.paso h3{font-size:24px;margin-top:14px}
+.paso p{color:var(--dim);font-size:15px;margin:10px 0 0}
+.paso code{font:400 13px 'Space Mono';background:rgba(242,106,46,.12);color:var(--oro);padding:2px 6px;border-radius:6px}
+.terminal{margin-top:40px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#07090D;box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}
+.terminal .barra{display:flex;gap:7px;padding:12px 14px;background:#14171E;border-bottom:1px solid var(--line)}
+.terminal .barra i{width:11px;height:11px;border-radius:50%;background:#3A3F4A}
+.terminal .barra i:nth-child(1){background:#FF5F57}.terminal .barra i:nth-child(2){background:#FEBC2E}.terminal .barra i:nth-child(3){background:#28C840}
+.terminal pre{margin:0;padding:22px 24px;font:400 13.5px/1.75 'Space Mono',monospace;color:#D7D3CC;white-space:pre-wrap;min-height:290px}
+.terminal .u{color:var(--glow)} .terminal .g{color:#7FD1A8} .terminal .d{color:#6E7480}
+
+/* descarga */
+.precio{position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.precio .fondo{position:absolute;inset:0;background:url(img/gen/bladerunner.jpg) center/cover;opacity:.32;z-index:-1}
+.precio .fondo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(11,13,18,.4) 45%,var(--ink))}
+.tarjeta{max-width:560px;margin:0 auto;border-radius:26px;padding:38px 34px;background:rgba(14,16,21,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(242,106,46,.45);box-shadow:0 60px 120px -40px rgba(242,106,46,.45);text-align:center}
+.tarjeta .monto{font:700 86px/1 Oswald;margin-top:14px}
+.tarjeta .unico{color:var(--dim);font-size:15px}
+.tarjeta ul{list-style:none;padding:0;margin:28px 0;text-align:left;display:grid;gap:12px}
+.tarjeta li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+.tarjeta li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;margin-top:1px;background:var(--glow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/13px no-repeat}
+.tarjeta .cta{width:100%;justify-content:center}
+.tarjeta .extra{margin-top:18px;font-size:13.5px;color:var(--dim);border-top:1px solid var(--line);padding-top:16px}
+
+/* preguntas */
+.faq{max-width:820px;margin:50px auto 0;display:grid;gap:12px}
+details{border:1px solid var(--line);border-radius:16px;background:rgba(245,243,239,.025);overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:20px 22px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:500 26px/1 Oswald;color:var(--glow);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0;padding:0 22px 20px;color:var(--dim)}
+
+/* cierre */
+.cierre{min-height:86vh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.cierre .fondo{position:absolute;inset:0;background:url(img/gen/madmax.jpg) center/cover;z-index:-2;animation:respira 30s ease-in-out infinite alternate}
+@keyframes respira{from{transform:scale(1.02)}to{transform:scale(1.1) translateY(-1.5%)}}
+.cierre::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 55% 45% at center,rgba(11,13,18,.8),rgba(11,13,18,.5) 60%,rgba(11,13,18,.92) 100%)}
+.cierre h2{font-size:clamp(48px,8vw,110px)}
+.cierre .lead{margin:20px auto 34px}
+footer{padding:36px 22px 110px;text-align:center;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line)}
+footer .cred{max-width:900px;margin:14px auto 0;font-size:11.5px;opacity:.75}
+footer .cred a{color:var(--dim)}
+
+/* visor */
+.visor{position:fixed;inset:0;z-index:80;background:rgba(5,6,8,.94);display:none;align-items:center;justify-content:center;padding:30px}
+.visor.on{display:flex}
+.visor .in{max-width:1200px;width:100%;display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:center}
+.visor img{width:100%;border-radius:6px}
+.visor h3{font-size:32px}
+.visor code{display:block;margin-top:14px;font:400 13.5px/1.7 'Space Mono';color:var(--cream);background:rgba(245,243,239,.05);border:1px solid var(--line);border-radius:12px;padding:16px}
+.visor .x{position:absolute;top:18px;right:22px;font:500 34px Oswald;background:none;border:0;color:var(--cream);cursor:pointer}
+
+.fija{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;display:none;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.fija.on{transform:none}
+.fija .cta{width:100%;justify-content:center;padding:16px 20px}
+
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+@media (max-width:900px){
+  .historia,.resultado,.visor .in{grid-template-columns:1fr;gap:34px}
+  .cuentas{grid-template-columns:repeat(3,1fr)}
+  .muro{grid-template-columns:repeat(3,1fr)}
+  .pasos{grid-template-columns:1fr}
+  .iris,.rec{display:none}
+  .fija{display:block}
+  .top nav a.ent{display:none}
+  .sec{padding:96px 0}
+  .mas{display:none}
+  .cajas{gap:10px}
+  .caja{flex:1 1 calc(50% - 10px)}
+  .caja.suj{flex:1 1 100%}
+}
+@media (max-width:560px){
+  .marca{font-size:15px;letter-spacing:.1em;white-space:nowrap}
+  .top{padding:12px 14px}
+  .top .cta small{display:none}
+  .top .cta{padding:10px 14px}
+  .hero .velo{background:linear-gradient(0deg,var(--ink) 10%,rgba(7,9,13,.6) 55%,rgba(7,9,13,.3))}
+  .hero .txt{padding-bottom:84px}
+  .cta{padding:16px 22px;font-size:16px}
+  .cta small{display:none}
+  .caja{flex:1 1 100%}
+  .muro{grid-template-columns:repeat(2,1fr)}
+  .tarjeta{padding:30px 22px}
+  .bajar{display:none}
+  .cielo{height:520px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv,.caja{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <a class="marca" href="#"><img src="img/sen6.png" alt="">Prompt <em>Cine</em></a>
+  <nav>
+    <a class="ent" href="#estructura">Cómo funciona</a>
+    <a class="ent" href="#base">La base</a>
+    <a class="ent" href="#instalar">Instalar</a>
+    <a class="cta" href="prompt-cine-skill.zip" download>Descargar <small>gratis</small></a>
+  </nav>
+</header>
+
+<div class="iris" id="iris" aria-hidden="true">
+  <svg viewBox="-50 -50 100 100"><circle r="47" fill="none" stroke="rgba(245,243,239,.25)" stroke-width="2"/><g id="hojas"></g></svg>
+  <b id="fstop">f/1.4</b>
+  <small id="focal">85 mm</small>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="escena"></canvas>
+  <div class="velo"></div>
+  <div class="franja a"></div><div class="franja b"></div>
+  <div class="rec mono"><span><i></i>REC</span><span id="tc">00:00:00:00</span><span>2.39:1</span></div>
+  <div class="txt">
+    <div class="eb rv on">Una skill de SEN6 para Claude</div>
+    <h1 class="rv on d1" style="margin-top:16px">Escribí una idea.<br>Recibí un <em>plano de cine.</em></h1>
+    <p class="lead rv on d2">"Un caballo al estilo Mad Max" se convierte en un prompt con el encuadre, el ángulo, la lente, la luz y la paleta reales de la película. Detrás hay 771 fichas sobre cine, fotografía, cámaras y lentes, y todo corre en tu compu.</p>
+    <div class="acciones rv on d3">
+      <a class="cta" href="prompt-cine-skill.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>Descargar la skill <small>gratis</small></a>
+      <a class="cta sec2" href="#estructura">Ver cómo funciona</a>
+    </div>
+    <div class="chips rv on d3">
+      <span class="chip"><b>771</b>fichas</span>
+      <span class="chip"><b>6</b>cajas por prompt</span>
+      <span class="chip"><b>96</b>directores</span>
+      <span class="chip"><b>116</b>cámaras, lentes y películas</span>
+    </div>
+  </div>
+  <a class="bajar" href="#problema"><span>Bajá</span><i></i></a>
+</section>
+
+<!-- EL PROBLEMA -->
+<section class="sec" id="problema">
+  <div class="wrap historia">
+    <div>
+      <div class="eb rv">El problema</div>
+      <p class="cita rv d1" style="margin-top:14px">"Estilo Mad Max" no le dice nada <em>a la cámara.</em></p>
+      <p class="rv d2">Cuando le pedís a una IA <b>"un caballo estilo Mad Max"</b> recibís una imagen genérica de desierto. Ningún director de fotografía filma así. Cada película tiene decisiones concretas: dónde va el sujeto, desde qué altura se mira, qué lente, qué luz y qué paleta.</p>
+      <p class="rv d3">Prompt Cine traduce la referencia a esas decisiones. <b>No escribe "al estilo de". Escribe lo que hizo el que la filmó.</b></p>
+    </div>
+    <div class="contraste">
+      <div class="fila mal rv d1"><div class="et"><i></i>Lo que escribe todo el mundo</div><code>a horse in the style of Mad Max, cinematic, epic, 8k, masterpiece</code></div>
+      <div class="fila bien rv d2"><div class="et"><i></i>Lo que escribe Prompt Cine</div><code id="prompt-mm"></code></div>
+    </div>
+  </div>
+</section>
+
+<!-- LA ESTRUCTURA -->
+<section class="estructura" id="estructura">
+  <div class="wrap">
+    <div class="eb rv">La estructura</div>
+    <h2 class="rv d1" style="margin-top:14px">Seis cajas.<br><em>Un plano.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">Cada prompt se arma igual que el plano de un rodaje: encuadre, ángulo, sujeto y acción, foco, luz y color. Elegí una idea y mirá cómo la skill llena cada caja con datos de la base.</p>
+    <div class="selector rv d3" id="selector"></div>
+    <div class="idea rv"><span>TU IDEA</span><b id="idea-txt"></b></div>
+    <div class="cajas" id="cajas"></div>
+    <div class="resultado">
+      <div class="revelado" id="revelado"><img id="rev-img" alt=""><span class="tag">GENERADA CON EL PROMPT</span></div>
+      <div>
+        <div class="final"><div class="k">PROMPT FINAL · LISTO PARA COPIAR</div><code id="final-txt"></code><button id="copiar">Copiar prompt</button></div>
+        <p class="fuentes" id="fuentes"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="galeria" id="galeria">
+  <div class="wrap cab">
+    <div>
+      <div class="eb rv">Hecho con la skill</div>
+      <h2 class="rv d1" style="margin-top:14px">Una idea en español.<br><em>Siete películas distintas.</em></h2>
+    </div>
+    <p class="lead rv d2" style="max-width:420px">Todas estas imágenes salieron de prompts que armó Prompt Cine, sin retoque. Tocá una para ver la idea y el prompt.</p>
+  </div>
+  <div class="tira rv"><div class="cuadros" id="cuadros"></div></div>
+</section>
+
+<!-- LA BASE -->
+<section class="sec base" id="base">
+  <div class="wrap">
+    <div class="eb rv">La base de conocimiento</div>
+    <h2 class="rv d1" style="margin-top:14px;font-size:clamp(34px,4.6vw,60px)">771 fichas conectadas.<br><em>Todas en tu compu.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">Cada punto es una ficha: una película, un director, un director de fotografía, una lente o un esquema de luz. Las líneas unen al director con sus películas y con quien las filmó. Girala, buscá una referencia o tocá un punto.</p>
+    <div class="cielo rv">
+      <canvas id="constelacion"></canvas>
+      <div class="buscador"><input id="buscar" placeholder="Buscá: kubrick, portra, rembrandt…" autocomplete="off"></div>
+      <div class="leyenda" id="leyenda"></div>
+      <div class="ficha-tip" id="tip"></div>
+    </div>
+    <div class="cuentas" id="cuentas"></div>
+    <div class="muro" id="muro"></div>
+  </div>
+</section>
+
+<!-- INSTALAR -->
+<section class="sec" id="instalar">
+  <div class="wrap">
+    <div class="eb rv">Cómo se instala</div>
+    <h2 class="rv d1" style="margin-top:14px">Tres pasos.<br><em>Dos minutos.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">Funciona con Claude, con el plan que ya tenés. No hay servidor ni API, y no se paga nada extra.</p>
+    <div class="pasos">
+      <div class="paso rv"><h3>Descargá el zip</h3><p>Bajá <code>prompt-cine-skill.zip</code> desde esta página y descomprimilo. Te queda una carpeta <code>prompt-cine</code>.</p></div>
+      <div class="paso rv d1"><h3>Instalala en Claude</h3><p><b>Claude Code:</b> mové la carpeta a <code>~/.claude/skills/</code>.<br><b>App de Claude (chat):</b> Configuración → Capacidades → Skills → subí el zip.</p></div>
+      <div class="paso rv d2"><h3>Pedí tu plano</h3><p>Abrí una conversación nueva y escribí la idea con su referencia: <code>prompt de mi perro al estilo Wes Anderson</code>.</p></div>
+    </div>
+    <div class="terminal rv">
+      <div class="barra"><i></i><i></i><i></i></div>
+      <pre id="term"></pre>
+    </div>
+  </div>
+</section>
+
+<!-- DESCARGA -->
+<section class="sec precio" id="descargar">
+  <div class="fondo"></div>
+  <div class="wrap">
+    <div class="tarjeta rv">
+      <div class="eb">Para alumnos SEN6</div>
+      <div class="monto">GRATIS</div>
+      <div class="unico">Descarga directa · se actualiza con fichas nuevas</div>
+      <ul>
+        <li>La skill Prompt Cine para Claude, lista para instalar</li>
+        <li>771 fichas: 173 películas, 21 series, 10 videoclips, 96 directores, 62 directores de fotografía, 82 fotógrafos y 25 pintores</li>
+        <li>116 fichas de equipo: cámaras, lentes y emulsiones con datos reales</li>
+        <li>Vocabulario completo de encuadres, ángulos, foco, luz, color y 44 estéticas</li>
+        <li>Si la referencia no está en la base, la busca en la web y te dice de dónde sacó cada dato</li>
+      </ul>
+      <a class="cta" href="prompt-cine-skill.zip" download>Descargar Prompt Cine</a>
+      <div class="extra">Sirve para Midjourney, Nano Banana, GPT Image, Flux, Seedream y cualquier generador que acepte prompts en inglés.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS -->
+<section class="sec" id="preguntas" style="padding-top:110px">
+  <div class="wrap">
+    <div class="eb rv" style="text-align:center">Preguntas</div>
+    <h2 class="rv d1" style="text-align:center;margin-top:14px">Antes de rodar</h2>
+    <div class="faq">
+      <details class="rv"><summary>¿Tengo que pagar algo aparte?</summary><p>No. La skill corre dentro de Claude con tu plan actual. No usa APIs ni servidores, y la base viaja dentro del zip.</p></details>
+      <details class="rv"><summary>¿Genera la imagen?</summary><p>No, genera el prompt. Lo copiás y lo pegás en el generador que uses: Midjourney, Nano Banana, GPT Image, Flux, etc. Las imágenes de esta página salieron así, con Nano Banana Pro.</p></details>
+      <details class="rv"><summary>¿Por qué el prompt sale en inglés?</summary><p>Porque los generadores de imagen entienden mejor la terminología técnica en inglés. Cada caja trae la traducción al español para que sepas qué pide cada parte.</p></details>
+      <details class="rv"><summary>¿Y si mi referencia no está en la base?</summary><p>La skill te avisa y busca la información en la web, en inglés y en español. Solo usa datos verificados y te dice de dónde los sacó.</p></details>
+      <details class="rv"><summary>¿Sirve para video?</summary><p>Está pensada para imagen fija, por eso no incluye movimientos de cámara. Igual podés usar la imagen como primer cuadro para animarla después.</p></details>
+      <details class="rv"><summary>¿Puedo sumar mis propias referencias?</summary><p>Sí. Las fichas son archivos de texto en <b>kb/</b> con un formato simple, explicado en ESQUEMA.md. Agregás la tuya y la skill la usa en la siguiente conversación.</p></details>
+      <details class="rv"><summary>¿Funciona en Windows?</summary><p>Sí. En Claude Code la carpeta va en <b>%USERPROFILE%\.claude\skills\</b>, y en la app de Claude se sube el zip igual que en Mac.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="cierre">
+  <div class="fondo"></div>
+  <div class="wrap">
+    <div class="eb rv">Silencio en el set</div>
+    <h2 class="rv d1" style="margin-top:14px">Tu próxima imagen<br><em>ya tiene director.</em></h2>
+    <p class="lead rv d2">Descargala, instalala y pedile tu primer plano.</p>
+    <a class="cta rv d3" href="prompt-cine-skill.zip" download>Descargar Prompt Cine <small>gratis</small></a>
+  </div>
+</section>
+
+<footer>
+  <div>Prompt Cine · una skill de SEN6 · Imágenes generadas con IA a partir de prompts de la skill.</div>
+  <div class="cred" id="creditos"></div>
+</footer>
+
+<div class="fija" id="fija"><a class="cta" href="prompt-cine-skill.zip" download>Descargar Prompt Cine · gratis</a></div>
+
+<div class="visor" id="visor"><button class="x" id="visor-x" aria-label="Cerrar">×</button><div class="in"><img id="visor-img" alt=""><div><div class="eb" id="visor-n"></div><h3 id="visor-idea" style="margin-top:10px"></h3><code id="visor-prompt"></code><p class="fuentes" id="visor-f" style="color:var(--dim)"></p></div></div></div>
+
+<script src="datos.js"></script>
+<script src="texturas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const PC = window.PC, EJ = PC.ejemplos;
+const $ = s => document.querySelector(s);
+const promptDe = e => e.cajas.map(c => c[0]).join(', ');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- barra, apariciones, diafragma ---------- */
+const top = $('#top'), fija = $('#fija'), iris = $('#iris');
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .14 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+const hojas = $('#hojas');
+for (let i = 0; i < 8; i++) {
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('fill', 'rgba(242,106,46,.85)'); p.setAttribute('stroke', '#0B0D12'); p.setAttribute('stroke-width', '1.2');
+  hojas.appendChild(p);
+}
+const FSTOPS = ['1.4','2','2.8','4','5.6','8','11','16'], FOCALES = [85, 50, 35, 24, 18, 135, 50, 85];
+function dibujarIris(t) { // t: 0 abierto → 1 cerrado
+  const r = 44 - t * 34;
+  [...hojas.children].forEach((p, i) => {
+    const a = i / 8 * Math.PI * 2, b = a + Math.PI / 4;
+    const x1 = Math.cos(a) * r, y1 = Math.sin(a) * r, x2 = Math.cos(b) * r, y2 = Math.sin(b) * r;
+    p.setAttribute('d', `M${x1.toFixed(1)},${y1.toFixed(1)} L${(Math.cos(a)*48).toFixed(1)},${(Math.sin(a)*48).toFixed(1)} A48,48 0 0,1 ${(Math.cos(b)*48).toFixed(1)},${(Math.sin(b)*48).toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} Z`);
+  });
+  const k = Math.min(7, Math.floor(t * 8));
+  $('#fstop').textContent = 'f/' + FSTOPS[k];
+  $('#focal').textContent = FOCALES[k] + ' mm';
+}
+dibujarIris(0);
+function onScroll() {
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  top.classList.toggle('solida', y > 40);
+  // el diafragma se esconde sobre las secciones anchas (cajas de papel y constelación) para no taparlas
+  const tapa = ['#estructura', '.cielo', '.terminal'].some(s => { const r = document.querySelector(s).getBoundingClientRect(); return r.top < innerHeight * .55 && r.bottom > innerHeight * .45; });
+  iris.classList.toggle('on', y > innerHeight * .6 && !tapa);
+  fija.classList.toggle('on', y > innerHeight * .8);
+  dibujarIris(Math.max(0, Math.min(1, y / h)));
+}
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+/* timecode del REC */
+const t0 = performance.now();
+(function tc() {
+  const f = Math.floor((performance.now() - t0) / 1000 * 24), p = n => String(n).padStart(2, '0');
+  $('#tc').textContent = `${p(Math.floor(f / 86400))}:${p(Math.floor(f / 1440) % 60)}:${p(Math.floor(f / 24) % 60)}:${p(f % 24)}`;
+  requestAnimationFrame(tc);
+})();
+
+/* ---------- HERO 3D: pantallas flotando en un set con polvo ---------- */
+function hero() {
+  const cv = $('#escena');
+  if (!window.THREE) { cv.style.background = 'url(img/gen/madmax.jpg) center/cover'; return; }
+  const ren = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: false });
+  ren.setPixelRatio(Math.min(devicePixelRatio, 2));
+  ren.setClearColor(0x07090D);
+  const sc = new THREE.Scene();
+  sc.fog = new THREE.FogExp2(0x07090D, 0.055);
+  const cam = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  cam.position.set(0, 0, 9);
+  const orden = ['madmax', 'bladerunner', 'kubrick', 'hopper', 'wesanderson', 'wongkarwai', 'boxeador'];
+  const loader = new THREE.TextureLoader();
+  const pantallas = [];
+  orden.forEach((s, i) => {
+    const tex = loader.load(window.PC_TEX ? PC_TEX[s] : 'img/gen/' + s + '.jpg');
+    tex.minFilter = THREE.LinearFilter;
+    const w = 4.2, h = w * 9 / 16;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0 }));
+    const a = (i - 3) * 0.62;
+    const R = 9;
+    m.userData = { a, y: ((i % 3) - 1) * 1.15 + (i % 2 ? .35 : -.25), z0: -i * 1.4, fase: i * 1.7 };
+    // marco fino
+    const marco = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(w * 1.02, h * 1.04)), new THREE.LineBasicMaterial({ color: 0xF26A2E, transparent: true, opacity: .35 }));
+    m.add(marco);
+    sc.add(m); pantallas.push(m);
+    m.position.set(Math.sin(a) * R * .7 + 2.2, m.userData.y, -Math.cos(a) * 3 + m.userData.z0 * .3 - 1);
+    m.lookAt(0, 0, 9);
+  });
+  // polvo en el haz del proyector
+  const N = 2600, pos = new Float32Array(N * 3), vel = new Float32Array(N);
+  for (let i = 0; i < N; i++) { pos[i*3] = (Math.random() - .5) * 26; pos[i*3+1] = (Math.random() - .5) * 14; pos[i*3+2] = (Math.random() - .5) * 18 - 2; vel[i] = .002 + Math.random() * .006; }
+  const gp = new THREE.BufferGeometry(); gp.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,220,180,1)'); gr.addColorStop(.35,'rgba(255,170,110,.45)'); gr.addColorStop(1,'rgba(255,140,80,0)'); g.fillStyle = gr; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); })();
+  const polvo = new THREE.Points(gp, new THREE.PointsMaterial({ size: .09, map: sprite, transparent: true, opacity: .75, depthWrite: false, blending: THREE.AdditiveBlending }));
+  sc.add(polvo);
+  // haz de luz del proyector
+  const haz = new THREE.Mesh(new THREE.ConeGeometry(7, 22, 48, 1, true), new THREE.MeshBasicMaterial({ color: 0xF26A2E, transparent: true, opacity: .045, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
+  haz.rotation.z = Math.PI / 2 + .25; haz.position.set(-9, 2.5, -4); sc.add(haz);
+
+  let mx = 0, my = 0, tx = 0, ty = 0, visible = true;
+  addEventListener('pointermove', e => { tx = e.clientX / innerWidth - .5; ty = e.clientY / innerHeight - .5; });
+  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(cv);
+  function tam() { const w = cv.clientWidth, h = cv.clientHeight; ren.setSize(w, h, false); cam.aspect = w / h; cam.fov = w < 700 ? 60 : 42; cam.updateProjectionMatrix(); }
+  addEventListener('resize', tam); tam();
+  const reloj = new THREE.Clock();
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!visible) return;
+    const t = reloj.getElapsedTime();
+    mx += (tx - mx) * .04; my += (ty - my) * .04;
+    const sy = Math.min(1, scrollY / innerHeight);
+    cam.position.x = mx * 1.6; cam.position.y = -my * .9 - sy * 1.2; cam.position.z = 9 - sy * 5;
+    cam.lookAt(1.5, 0, 0);
+    pantallas.forEach((m, i) => {
+      const u = m.userData;
+      m.material.opacity = Math.min(1, Math.max(0, (t - .6 - i * .22) * 1.2));
+      m.position.y = u.y + Math.sin(t * .5 + u.fase) * .12;
+      m.rotation.z = Math.sin(t * .3 + u.fase) * .015;
+    });
+    const p = gp.attributes.position.array;
+    for (let i = 0; i < N; i++) { p[i*3+1] += vel[i]; p[i*3] += Math.sin(t * .3 + i) * .002; if (p[i*3+1] > 7) p[i*3+1] = -7; }
+    gp.attributes.position.needsUpdate = true;
+    haz.material.opacity = .04 + Math.sin(t * 7) * .004 + Math.sin(t * 13) * .003;
+    ren.render(sc, cam);
+  })();
+}
+hero();
+setTimeout(() => $('#hero').classList.add('abierto'), 120);
+
+/* ---------- el problema ---------- */
+$('#prompt-mm').textContent = promptDe(EJ.find(e => e.slug === 'madmax'));
+
+/* ---------- las 6 cajas ---------- */
+const KS = ['01 Encuadre', '02 Ángulo', 'Sujeto + acción', '03 Foco', '04 Luz', '05 Color'];
+const sel = $('#selector'), cajas = $('#cajas');
+let actual = -1, timers = [], auto = null;
+EJ.forEach((e, i) => { const b = document.createElement('button'); b.textContent = e.idea.replace(/^(Un|Una|Mi) /, m => m); b.onclick = () => { mostrar(i); clearInterval(auto); }; sel.appendChild(b); });
+function mostrar(i) {
+  if (i === actual) return; actual = i;
+  timers.forEach(clearTimeout); timers = [];
+  const e = EJ[i];
+  [...sel.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  const idea = $('#idea-txt'); idea.textContent = '';
+  let k = 0; (function tipear() { idea.textContent = e.idea.slice(0, ++k); if (k < e.idea.length) timers.push(setTimeout(tipear, reduce ? 0 : 22)); })();
+  cajas.innerHTML = e.cajas.map((c, j) => (j ? '<div class="mas">+</div>' : '') + `<div class="caja${j === 2 ? ' suj' : ''}"><div class="k">${KS[j]}</div><div class="en">${esc(c[0])}</div><div class="es">${esc(c[1])}</div></div>`).join('');
+  [...cajas.querySelectorAll('.caja')].forEach((c, j) => timers.push(setTimeout(() => c.classList.add('on'), 500 + j * 260)));
+  const rev = $('#revelado'); rev.classList.remove('on');
+  $('#rev-img').src = 'img/gen/' + e.slug + '.jpg';
+  timers.push(setTimeout(() => rev.classList.add('on'), 2200));
+  $('#final-txt').textContent = promptDe(e);
+  $('#fuentes').innerHTML = '<b>Fuentes de la base:</b> ' + e.fuentes.map(esc).join(' · ');
+}
+$('#copiar').onclick = () => { navigator.clipboard.writeText($('#final-txt').textContent); $('#copiar').textContent = 'Copiado ✓'; setTimeout(() => $('#copiar').textContent = 'Copiar prompt', 1600); };
+// el ciclo automático solo corre con la sección a la vista: al cambiar de ejemplo cambia la altura y movería la página
+let estructuraVisible = false;
+new IntersectionObserver(([en]) => {
+  estructuraVisible = en.isIntersecting;
+  if (estructuraVisible && actual < 0) { mostrar(1); auto = setInterval(() => { if (estructuraVisible) mostrar((actual + 1) % EJ.length); }, 9000); }
+}, { threshold: .25 }).observe($('#estructura'));
+
+/* ---------- galería ---------- */
+$('#cuadros').innerHTML = EJ.map((e, i) => `<div class="cuadro" data-i="${i}"><img src="img/gen/${e.slug}.jpg" alt="${esc(e.idea)}" loading="lazy"><span class="num">TOMA ${String(i + 1).padStart(2, '0')} · ${esc(e.fuentes[0]).toUpperCase()}</span><div class="pie"><b>${esc(e.idea)}</b><span>${esc(promptDe(e).slice(0, 78))}…</span></div></div>`).join('');
+const visor = $('#visor');
+$('#cuadros').addEventListener('click', ev => {
+  const c = ev.target.closest('.cuadro'); if (!c || arrastro) return;
+  const e = EJ[+c.dataset.i];
+  $('#visor-img').src = 'img/gen/' + e.slug + '.jpg'; $('#visor-n').textContent = 'Toma ' + (+c.dataset.i + 1);
+  $('#visor-idea').textContent = e.idea; $('#visor-prompt').textContent = promptDe(e); $('#visor-f').textContent = 'Fuentes: ' + e.fuentes.join(' · ');
+  visor.classList.add('on');
+});
+$('#visor-x').onclick = () => visor.classList.remove('on');
+visor.onclick = ev => { if (ev.target === visor) visor.classList.remove('on'); };
+addEventListener('keydown', ev => { if (ev.key === 'Escape') visor.classList.remove('on'); });
+let arrastro = false;
+(() => { const el = $('#cuadros'); let x0 = 0, s0 = 0, down = false;
+  el.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; arrastro = false; x0 = e.clientX; s0 = el.scrollLeft; });
+  addEventListener('pointermove', e => { if (!down) return; const d = e.clientX - x0; if (Math.abs(d) > 5) arrastro = true; el.scrollLeft = s0 - d; });
+  addEventListener('pointerup', () => { down = false; setTimeout(() => arrastro = false, 0); });
+})();
+
+/* ---------- cuentas y muro de directores ---------- */
+const T = PC.porTipo, sum = (...k) => k.reduce((s, x) => s + (T[x] || 0), 0);
+const CUENTAS = [[sum('pelicula', 'serie', 'videoclip'), 'películas, series y videoclips'], [T.director, 'directores'], [T.dp, 'directores de fotografía'], [sum('fotografo', 'pintor'), 'fotógrafos y pintores'], [sum('camara', 'lente', 'emulsion'), 'cámaras, lentes y películas'], [sum('encuadre', 'angulo', 'foco', 'luz', 'color', 'estetica'), 'términos de luz, color y estética']];
+$('#cuentas').innerHTML = CUENTAS.map(([n, t], i) => `<div class="cuenta rv d${i % 3}"><b data-n="${n}">0</b><span>${t}</span></div>`).join('');
+$('#cuentas').querySelectorAll('.rv').forEach(el => io.observe(el));
+new IntersectionObserver(([en], o) => { if (!en.isIntersecting) return; o.disconnect();
+  document.querySelectorAll('.cuenta b').forEach(b => { const n = +b.dataset.n, t1 = performance.now();
+    (function f() { const k = Math.min(1, (performance.now() - t1) / 1400); b.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); })(); });
+}, { threshold: .4 }).observe($('#cuentas'));
+const ROL = { kubrick: 'Director', 'wes-anderson': 'Director', villeneuve: 'Director', 'wong-kar-wai': 'Director', kurosawa: 'Director', deakins: 'Dir. de fotografía', lubezki: 'Dir. de fotografía', nolan: 'Director', 'del-toro': 'Director', cuaron: 'Director', tarantino: 'Director', 'sofia-coppola': 'Directora', miller: 'Director', lynch: 'Director', leibovitz: 'Fotógrafa', hoytema: 'Dir. de fotografía', fincher: 'Director', kahlo: 'Directora' };
+const cred = PC.creditos || {};
+const muro = Object.entries(cred).filter(([, c]) => c.archivo).slice(0, 12);
+$('#muro').innerHTML = muro.map(([s, c], i) => `<div class="retrato rv d${i % 3}"><img src="${c.archivo}" alt="${esc(c.nombre)}" loading="lazy"><b>${esc(c.nombre)}<small>${ROL[s] || ''}</small></b></div>`).join('');
+$('#muro').querySelectorAll('.rv').forEach(el => io.observe(el));
+$('#creditos').innerHTML = 'Fotos de Wikimedia Commons: ' + muro.map(([, c]) => `${esc(c.nombre)} — ${esc(c.autor || 'autor desconocido')}, <a href="${esc(c.fuente)}" target="_blank" rel="noopener">${esc(c.licencia)}</a>`).join(' · ');
+
+/* ---------- constelación 3D de la base ---------- */
+function constelacion() {
+  const cv = $('#constelacion'); if (!window.THREE) return;
+  const G = PC.grafo, GRUPOS = [['Películas y series', 0xF26A2E], ['Directores', 0xE8C27A], ['Dir. de fotografía', 0x7FD1A8], ['Fotógrafos y pintores', 0x8FB4FF], ['Cámaras y lentes', 0xD98BFF], ['Luz, color y estética', 0xF5F3EF]];
+  const ren = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
+  ren.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(50, 1, 1, 2000);
+  const raiz = new THREE.Group(); sc.add(raiz);
+  const n = G.nodos.length, pos = new Float32Array(n * 3), col = new Float32Array(n * 3), base = new Float32Array(n * 3);
+  const c = new THREE.Color();
+  G.nodos.forEach((nd, i) => { pos.set(nd.p, i * 3); c.setHex(GRUPOS[nd.g][1]); col.set([c.r, c.g, c.b], i * 3); base.set([c.r, c.g, c.b], i * 3); });
+  const gp = new THREE.BufferGeometry();
+  gp.setAttribute('position', new THREE.BufferAttribute(pos, 3)); gp.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const sprite = (() => { const k = document.createElement('canvas'); k.width = k.height = 64; const g = k.getContext('2d'); const gr = g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'#fff'); gr.addColorStop(.25,'rgba(255,255,255,.9)'); gr.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(k); })();
+  const puntos = new THREE.Points(gp, new THREE.PointsMaterial({ size: 4.2, map: sprite, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+  raiz.add(puntos);
+  const lp = new Float32Array(G.aristas.length * 6);
+  G.aristas.forEach(([a, b], k) => { lp.set(G.nodos[a].p, k * 6); lp.set(G.nodos[b].p, k * 6 + 3); });
+  const gl = new THREE.BufferGeometry(); gl.setAttribute('position', new THREE.BufferAttribute(lp, 3));
+  const lineas = new THREE.LineSegments(gl, new THREE.LineBasicMaterial({ color: 0xF26A2E, transparent: true, opacity: .16, blending: THREE.AdditiveBlending, depthWrite: false }));
+  raiz.add(lineas);
+  // aro de selección
+  const aro = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.9, 40), new THREE.MeshBasicMaterial({ color: 0xF26A2E, transparent: true, opacity: 0, side: THREE.DoubleSide }));
+  sc.add(aro);
+
+  let rotY = 0, rotX = .25, vY = .0016, dist = 175, distObj = 175, arrastra = false, px = 0, py = 0, foco = null, visible = false;
+  const apagados = new Set();
+  function tam() { const w = cv.clientWidth, h = cv.clientHeight; ren.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); distObj = dist = w < 600 ? 230 : 175; }
+  addEventListener('resize', tam); tam();
+  cv.addEventListener('pointerdown', e => { arrastra = true; px = e.clientX; py = e.clientY; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointerup', () => arrastra = false);
+  cv.addEventListener('pointermove', e => {
+    if (arrastra) { rotY += (e.clientX - px) * .005; rotX = Math.max(-1.2, Math.min(1.2, rotX + (e.clientY - py) * .004)); px = e.clientX; py = e.clientY; vY = 0; }
+    hover(e);
+  });
+  cv.addEventListener('wheel', e => { if (!e.ctrlKey && !e.metaKey) return; e.preventDefault(); distObj = Math.max(60, Math.min(320, distObj + e.deltaY * .2)); }, { passive: false });
+  const ray = new THREE.Raycaster(); ray.params.Points.threshold = 2.6;
+  const tip = $('#tip'), mouse = new THREE.Vector2();
+  function mostrarTip(i, x, y) {
+    const nd = G.nodos[i];
+    tip.innerHTML = `<span>${esc(nd.t)}</span><b>${esc(nd.n)}</b>${nd.r ? `<p>${esc(nd.r)}</p>` : ''}`;
+    const r = cv.getBoundingClientRect();
+    tip.style.left = Math.min(r.width - 290, x + 14) + 'px'; tip.style.top = Math.max(8, y - 20) + 'px';
+    tip.classList.add('on');
+  }
+  function hover(e) {
+    const r = cv.getBoundingClientRect();
+    mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
+    ray.setFromCamera(mouse, cam);
+    const hit = ray.intersectObject(puntos).find(h => !apagados.has(G.nodos[h.index].g));
+    if (hit) { mostrarTip(hit.index, e.clientX - r.left, e.clientY - r.top); cv.style.cursor = 'pointer'; }
+    else if (foco === null) { tip.classList.remove('on'); cv.style.cursor = ''; }
+  }
+  // leyenda
+  $('#leyenda').innerHTML = GRUPOS.map(([t, h], g) => `<button data-g="${g}"><i style="background:#${h.toString(16).padStart(6, '0')}"></i>${t}</button>`).join('');
+  $('#leyenda').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const g = +b.dataset.g; apagados.has(g) ? apagados.delete(g) : apagados.add(g); b.classList.toggle('off');
+    pintar();
+  });
+  function pintar(destacados) {
+    G.nodos.forEach((nd, i) => {
+      let k = apagados.has(nd.g) ? .05 : 1;
+      if (destacados && !destacados.has(i)) k *= .18;
+      col[i*3] = base[i*3] * k; col[i*3+1] = base[i*3+1] * k; col[i*3+2] = base[i*3+2] * k;
+    });
+    gp.attributes.color.needsUpdate = true;
+  }
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  $('#buscar').addEventListener('input', e => {
+    const q = norm(e.target.value.trim());
+    if (q.length < 3) { foco = null; aro.material.opacity = 0; pintar(); tip.classList.remove('on'); distObj = dist; return; }
+    const i = G.nodos.findIndex(nd => norm(nd.n).includes(q));
+    if (i < 0) return;
+    foco = i;
+    const vecinos = new Set([i]); G.aristas.forEach(([a, b]) => { if (a === i) vecinos.add(b); if (b === i) vecinos.add(a); });
+    pintar(vecinos); vY = 0; distObj = 110;
+  });
+  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(cv);
+  const v = new THREE.Vector3();
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!visible) return;
+    if (foco !== null) {
+      // girar hasta dejar el nodo de frente
+      const p = G.nodos[foco].p, ang = Math.atan2(p[0], p[2]);
+      rotY += (-ang - rotY) * .06; rotX += (0 - rotX) * .06;
+    } else if (!arrastra) { rotY += vY; vY += (.0016 - vY) * .01; }
+    dist += (distObj - dist) * .05;
+    raiz.rotation.set(rotX, rotY, 0);
+    cam.position.set(0, 0, dist); cam.lookAt(0, 0, 0);
+    if (foco !== null) {
+      v.fromArray(G.nodos[foco].p).applyMatrix4(raiz.matrixWorld);
+      aro.position.copy(v); aro.lookAt(cam.position); aro.material.opacity = .9;
+      aro.scale.setScalar(1 + Math.sin(performance.now() / 300) * .12);
+      const s = v.clone().project(cam), r = cv.getBoundingClientRect();
+      mostrarTip(foco, (s.x + 1) / 2 * r.width, (1 - s.y) / 2 * r.height);
+    }
+    ren.render(sc, cam);
+  })();
+}
+constelacion();
+
+/* ---------- terminal ---------- */
+const mm = EJ.find(e => e.slug === 'wesanderson');
+const GUION = [
+  ['u', '› '], ['', 'prompt de un gato en una cocina estilo wes anderson\n\n'],
+  ['d', '⏺ Skill(prompt-cine)\n'], ['d', '⏺ Bash(node buscar.mjs "un gato en una cocina estilo wes anderson")\n'],
+  ['g', '  ⎿ Wes Anderson · The Grand Budapest Hotel · Robert Yeoman · pastel\n\n'],
+  ...mm.cajas.map((c, j) => [['u', `${KS[j].toUpperCase()} — `], ['', c[0] + '\n']]).flat(),
+  ['d', '\nFuentes: ' + mm.fuentes.join(' · ')]
+];
+let termHecho = false;
+new IntersectionObserver(([en], o) => { if (!en.isIntersecting || termHecho) return; termHecho = true; o.disconnect();
+  const pre = $('#term'); let s = 0, c = 0, span = null;
+  (function paso() {
+    if (s >= GUION.length) return;
+    const [cl, tx] = GUION[s];
+    if (c === 0) { span = document.createElement('span'); if (cl) span.className = cl; pre.appendChild(span); }
+    span.textContent += tx[c++];
+    if (c >= tx.length) { s++; c = 0; }
+    setTimeout(paso, reduce ? 0 : (cl === 'd' || cl === 'g') ? 6 : 16);
+  })();
+}, { threshold: .35 }).observe($('#term'));
+})();
+</script>
+</body>
+</html>

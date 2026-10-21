@@ -28,3 +28,8 @@
   for = "/atlas-a1462c66/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-cine-c5275fa1/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
