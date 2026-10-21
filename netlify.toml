@@ -33,3 +33,8 @@
   for = "/prompt-cine-c5275fa1/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-camera-26d9cddc/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
