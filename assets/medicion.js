@@ -1,7 +1,7 @@
 /* Medición de sen6.online en la Oficina SEN6: una visita por página, con su fuente (sin cookies ni datos personales).
    - Visitante: id al azar en localStorage (sen6_v), el mismo que manda el quiz.
    - Fuente de la visita: ?f= o utm_source; si no, el sitio de donde viene (google, youtube, instagram, skool…); si no, "directo".
-   - Fuente de la sesión (sen6_fuente, la que el quiz manda con el lead): en /noticias queda "noticias", así la conversión
+   - Fuente de la sesión (sen6_fuente, la que el quiz manda con el lead): en /blog queda "blog", así la conversión
      del blog se ve en la oficina; en el resto se guarda la primera fuente de la sesión. */
 (function () {
   var URL_EV = 'https://oficina-sen6.onrender.com/evento', v = '';
@@ -17,10 +17,10 @@
       }
     } catch (e) {}
   }
-  var enBlog = location.pathname.indexOf('/noticias') === 0, ses = '';
-  try { ses = sessionStorage.getItem('sen6_fuente') || ''; if (enBlog) ses = 'noticias'; else if (!ses) ses = f || 'directo'; sessionStorage.setItem('sen6_fuente', ses); } catch (e) {}
+  var enBlog = location.pathname.indexOf('/blog') === 0, ses = '';
+  try { ses = sessionStorage.getItem('sen6_fuente') || ''; if (enBlog) ses = 'blog'; else if (!ses) ses = f || 'directo'; sessionStorage.setItem('sen6_fuente', ses); } catch (e) {}
   try {
-    var b = JSON.stringify({ t: 'visita', v: v, fuente: f || (enBlog ? 'noticias' : ses) || 'directo', path: location.pathname });
+    var b = JSON.stringify({ t: 'visita', v: v, fuente: f || (enBlog ? 'blog' : ses) || 'directo', path: location.pathname });
     if (!(navigator.sendBeacon && navigator.sendBeacon(URL_EV, new Blob([b], { type: 'text/plain' })))) fetch(URL_EV, { method: 'POST', body: b, keepalive: true, mode: 'cors' });
   } catch (e) {}
 })();
