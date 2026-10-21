@@ -48,3 +48,8 @@
   for = "/prompt-camera-26d9cddc/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/blog-borradores-88512d76/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
