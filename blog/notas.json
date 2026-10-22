@@ -1,0 +1,423 @@
+[
+ {
+  "titulo": "Informe de YouTube: 7 de cada 10 que suben videos ya usan IA generativa",
+  "bajada": "Un informe de YouTube muestra que la IA ya es común al crear videos, y que lo que más crece es usarla para contar historias personales.",
+  "fecha": "2026-10-20",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/youtube-informe-ia-generativa-2026/",
+  "hechos": [
+   "YouTube publicó el informe \"Human Creativity and AI\" (Creatividad humana e IA), hecho por su equipo de Cultura y Tendencias junto con la consultora NRG.",
+   "El dato principal: el 72 % de las personas encuestadas que suben videos dicen que usan IA en sus videos o imágenes. Más de dos tercios de quienes publican videos con IA dicen que se incluyeron a sí mismos en el contenido, y el 61 % dice que le interesa usar IA para aparecer en sus videos.",
+   "El informe destaca tendencias como animar fotos de la infancia para \"abrazar a tu yo de chico\", y aficionados que usan IA para llevar sus pasiones más lejos: bocetos de moda convertidos en desfiles realistas o mundos de videojuegos recreados."
+  ],
+  "mirada": [
+   "Usar IA para crear ya es lo normal, no la excepción. La propia plataforma lo muestra con datos y lo presenta como algo positivo.",
+   "Lo que YouTube destaca no es la IA por la IA, sino la IA al servicio de una historia o una pasión que conecta con una comunidad. Para un canal faceless, el mensaje es claro: la herramienta suma cuando hay una idea y un punto de vista detrás.",
+   "Ojo con un detalle: la encuesta citada es de Estados Unidos (abril de 2026, 694 personas). Sirve como tendencia, no como dato de Latinoamérica."
+  ],
+  "fuente": "https://blog.youtube/culture-and-trends/youtube-generative-ai-video-creativity-report/"
+ },
+ {
+  "titulo": "Ask Studio, miniaturas dinámicas y test A/B de ganchos en YouTube Studio",
+  "bajada": "Made On YouTube 2026 trajo herramientas para todo el proceso: investigar ideas, revisar el borrador, elegir miniaturas y editar conversando con la IA.",
+  "fecha": "2026-09-23",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/youtube-studio-nuevas-herramientas-made-on-2026/",
+  "hechos": [
+   "YouTube Studio suma nuevas secciones de Insights e Investigación para entender el rendimiento de tus videos y encontrar videos outliers que inspiren el próximo.",
+   "Una función de feedback revisa tu borrador y te da consejos sobre ritmo, estructura y forma de contar la historia.",
+   "Miniaturas: vas a poder generar miniaturas con el estilo de tu canal o usar miniaturas dinámicas, donde YouTube muestra la mejor de tres opciones a cada segmento de tu audiencia. Además, Ask Studio puede revisar videos viejos en segundo plano y sugerir y probar miniaturas renovadas.",
+   "Próximamente: pruebas A/B de hasta tres cortes de video para ver qué gancho funciona mejor.",
+   "Edición: Gemini se integra como asistente de edición conversacional en Shorts y en la app YouTube Create. Le pedís un primer armado y después le pedís cambios: reordenar tomas, recortar o sincronizar la música con el ritmo.",
+   "También anunciaron moderación de comentarios con IA (en prueba, opcional) y que la detección de parecido va a sumar la voz además de la cara."
+  ],
+  "mirada": [
+   "Varias cosas que hoy hacés a mano o con herramientas externas (buscar outliers, testear miniaturas, revisar el ritmo del guion) pasan a estar dentro de YouTube Studio.",
+   "Lo más valioso para un canal faceless son las pruebas A/B de ganchos: el gancho define la retención, y vas a poder medir cuál de tres arranques funciona mejor con datos reales.",
+   "Que Ask Studio pueda renovar miniaturas de videos viejos significa que tu catálogo puede volver a moverse sin subir nada nuevo.",
+   "Varias funciones dicen \"pronto\" o \"en prueba\": no todas van a estar disponibles para todos los canales al mismo tiempo."
+  ],
+  "fuente": "https://blog.youtube/news-and-events/made-on-youtube-new-tools-power-creation-journey/"
+ },
+ {
+  "titulo": "Más formas de ganar en YouTube: marcas desde Studio y Shopping en 35 países",
+  "bajada": "YouTube facilita los acuerdos con marcas desde Studio y amplía los afiliados de Shopping a 35 países, con Amazon llegando a Brasil e India.",
+  "fecha": "2026-09-23",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-monetizacion-marcas-shopping-made-on-2026/",
+  "hechos": [
+   "Marcas: Ask Studio va a ayudarte a responder briefs de marcas, armar propuestas y adaptar tu media kit. YouTube Creator Partnerships ya está en 20 países, y con un código de un clic le das acceso a la marca para ver el rendimiento del video e invertir en publicidad detrás de tu contenido.",
+   "Segmentos de marca dinámicos (en prueba): podés insertar un segmento patrocinado en hasta 20 videos largos a la vez, segmentado por región y con un botón de llamada a la acción.",
+   "Shopping: según YouTube, las etiquetas de productos generan más del doble de clics que los links en la descripción. El programa de afiliados va a estar en 35 países a fin de año.",
+   "Amazon: la etiqueta de productos de Amazon, que ya funcionaba en Estados Unidos, se amplía a India y Brasil en las próximas semanas, y a más países antes de fin de año.",
+   "Para audiencias de varios países, el link del producto se adapta al país de quien mira, y vos cobrás la comisión igual. Además llegan campañas de afiliados donde las marcas ofrecen comisiones especiales o bonos."
+  ],
+  "mirada": [
+   "La monetización deja de depender solo de los anuncios. Afiliados y marcas son ingresos que no dependen del RPM.",
+   "En Latinoamérica, el primer país con productos de Amazon dentro de Shopping es Brasil. Para el resto de la región todavía no hay fecha.",
+   "Que el link se adapte al país de quien mira es clave para canales con público repartido entre varios países, como la mayoría de los canales en español."
+  ],
+  "fuente": "https://blog.youtube/news-and-events/made-on-youtube-creator-monetization-shopping/"
+ },
+ {
+  "titulo": "Nuevo curso, programa y podcast: lo que suma el botón Crear de YouTube",
+  "bajada": "El menú Crear de YouTube Studio ya no es solo para subir videos: ahora permite armar cursos, programas con temporadas y podcasts. No todos los canales lo ven.",
+  "fecha": "2026-09-10",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/youtube-studio-boton-crear-nuevo-curso-programa-podcast/",
+  "hechos": [
+   "En YouTube Studio, el botón Crear de arriba a la derecha muestra opciones nuevas además de subir videos o transmitir en vivo. Entre ellas: Nuevo podcast, Nuevo curso y Nuevo programa. No todas están disponibles para todos los canales.",
+   "Nuevo programa: convierte una lista en un \"programa\" con temporadas y episodios. Podés elegir si es serial (se mira en orden) o no serial (episodios independientes) y sumar arte propio en 16:9. Los programas pueden aparecer en búsqueda y en secciones como \"Programas recomendados\" y \"Seguir viendo\". Según el anuncio de julio de 2026, la función es para canales del Programa de Socios.",
+   "Nuevo curso: agrupa videos para enseñar un tema o una habilidad. Tiene que tener al menos 3 videos, sin repetir y sin videos de otros canales, y ser apto para todo público. Se crea y se administra solo desde la computadora, y a cada video le podés adjuntar hasta 5 PDF desde Google Drive. Por ahora requiere tener acceso a las funciones avanzadas.",
+   "Nuevo podcast: marca una lista (nueva o existente) como podcast. Cada video es un episodio y, en las regiones donde aplica, el podcast puede aparecer también en YouTube Music.",
+   "Si una lista no cumple los requisitos de curso o de programa, YouTube puede devolverla a lista común."
+  ],
+  "mirada": [
+   "La dirección es clara: YouTube quiere que pienses tu canal como un catálogo ordenado y no como una pila de videos sueltos. Programas, cursos y podcasts son formas de empaquetar lo que ya tenés.",
+   "Los programas apuntan a la pantalla de la tele, donde YouTube compite con el streaming tradicional. Un formato con temporadas y episodios es más fácil de presentar ante marcas y anunciantes que un video aislado.",
+   "Los cursos acercan YouTube a las plataformas de educación en línea. Para canales educativos o explicativos, ordenar el contenido en un recorrido puede sumar tiempo de visualización y darle más valor al catálogo viejo."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/16590581"
+ },
+ {
+  "titulo": "YouTube cuenta las vistas desde el primer segundo: qué cambia y qué no",
+  "bajada": "Desde el 24 de agosto de 2026 una vista se cuenta apenas arranca el video. Lo que cobrás no cambia: se sigue midiendo con vistas comprometidas.",
+  "fecha": "2026-08-17",
+  "categoria": "Algoritmo",
+  "url": "https://sen6.online/blog/youtube-cambia-conteo-visualizaciones-desde-primer-segundo/",
+  "hechos": [
+   "El equipo de YouTube anunció en su comunidad de ayuda oficial que, a partir del 24 de agosto de 2026, una visualización pública se cuenta en el momento en que el video empieza a reproducirse, desde el primer fotograma.",
+   "El cambio es global y aplica a todos los formatos: videos largos, Shorts y transmisiones en vivo. Los Shorts ya funcionaban así desde marzo de 2025; ahora el resto se alinea. Antes, los videos largos necesitaban un tiempo mínimo de reproducción que YouTube nunca hizo público.",
+   "La razón que dio YouTube: usaba varios sistemas de conteo distintos según el formato y los creadores querían terminar con esa confusión y conocer su exposición real. Advirtió que los contadores de vistas probablemente suban más rápido.",
+   "Lo que no cambia: los ingresos y la elegibilidad para el Programa de Socios. Los pagos se siguen calculando con las vistas comprometidas de Shorts y las horas de visualización comprometidas, y la elegibilidad, con las vistas y horas válidas.",
+   "La métrica anterior no desaparece: sigue disponible en YouTube Analytics, en el modo avanzado, como vistas comprometidas, para ver cuánta gente decide seguir mirando el video."
+  ],
+  "mirada": [
+   "Primero, bajar la euforia: el contador público sube, pero lo que paga AdSense se sigue midiendo como siempre. Más vistas en pantalla no significan más ingresos por anuncios.",
+   "¿A quién beneficia? A quien tiene ingresos fuera de los anuncios. Cuando vas a una marca, el número que ve es el alcance total de tu canal, y ese número ahora refleja todas las reproducciones. Eso hace más fácil comparar tu alcance con otras redes y justificar el valor de una mención en tu video.",
+   "La otra cara: la vista pública pasa a ser una métrica de alcance bruto, que incluye la reproducción automática y a quien entra y se va enseguida. Para medir de verdad cómo rinde un video, mirá las vistas comprometidas y el tiempo de visualización, no el contador. Y es probable que las marcas empiecen a pedir datos de retención más profundos.",
+   "En SEN6 lo vemos como una movida lógica para YouTube como negocio: ordena sus métricas y se pone a la par de otras plataformas a la hora de vender publicidad. Otra razón para no depender de un solo ingreso."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/433409976?hl=en"
+ },
+ {
+  "titulo": "GEMA le ganó a Suno en Alemania: qué cambia para la música con IA",
+  "bajada": "Un tribunal de Múnich falló el 31 de julio de 2026 que Suno infringió derechos de autor al entrenar su IA con canciones protegidas. El fallo no es firme.",
+  "fecha": "2026-08-14",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/gema-suno-fallo-musica-ia-derechos-de-autor/",
+  "hechos": [
+   "El Tribunal Regional de Múnich I (Landgericht München I) le dio la razón a GEMA, la sociedad alemana que gestiona los derechos de los compositores, en su demanda contra Suno, la empresa estadounidense que genera canciones con IA. El fallo se conoció el 31 de julio de 2026, después de que la fecha original del 12 de junio se postergara.",
+   "El caso giró alrededor de seis composiciones conocidas, entre ellas \"Forever Young\", \"Daddy Cool\" y \"Mambo No. 5\". Según la cobertura, algunos resultados de Suno eran tan parecidos a los originales que se podían confundir.",
+   "El tribunal encontró infracción en tres momentos: al copiar las canciones para entrenar el modelo, al quedar guardadas dentro del modelo y al aparecer en las canciones que genera. Ordenó a Suno dejar de hacerlo y reconoció el derecho de GEMA a una indemnización, cuyo monto todavía no está definido.",
+   "GEMA no pide prohibir el entrenamiento con música, sino que los autores cobren por ese uso: había propuesto un modelo de licencias que Suno rechazó. Suno dijo que no está de acuerdo con el fallo y que evalúa todas las opciones, incluida la apelación.",
+   "Es un fallo de primera instancia y no es firme. El mismo tribunal ya había fallado a favor de GEMA contra OpenAI en noviembre de 2025 por las letras de canciones, un caso que hoy está en apelación."
+  ],
+  "mirada": [
+   "La IA es una herramienta, no la solución. Que una app te entregue una canción en un minuto no significa que esa canción esté libre de derechos.",
+   "El fallo pone la responsabilidad en el proveedor, no en quien usa la app. Pero si la música de tu video se parece demasiado a un tema protegido, el reclamo en YouTube te llega a vos, no a la empresa que la generó.",
+   "Todavía falta camino: puede haber apelación y algunas preguntas podrían terminar en la justicia europea. Mientras tanto, lo sensato es leer los términos de uso de cada herramienta de música y no pedirle que imite canciones concretas."
+  ],
+  "fuente": "https://www.zdfheute.de/panorama/musik-gema-ki-suno-100.html"
+ },
+ {
+  "titulo": "Programa de socios de YouTube: aceptá las nuevas condiciones antes de 2027",
+  "bajada": "Los canales monetizados tienen que aceptar los módulos actualizados del Programa de socios en YouTube Studio antes del 31 de enero de 2027 para seguir cobrando.",
+  "fecha": "2026-08-12",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-programa-de-socios-aceptar-nuevas-condiciones-2027/",
+  "hechos": [
+   "En agosto de 2026, YouTube anunció cambios en el Programa de socios (YPP) que entran en vigencia el 1 de febrero de 2027, y les pidió a los canales que ya están en el programa que acepten las condiciones actualizadas.",
+   "Hay que aceptar el Módulo sobre Monetización de la Página de Reproducción, el Módulo de Monetización de Shorts y, si corresponde, el Módulo de Productos Comerciales. El plazo vence el 31 de enero de 2027.",
+   "Se hace desde YouTube Studio, en computadora o en el celular: aparece un aviso en el panel o en la pestaña de Ingresos, revisás cada módulo, marcás la casilla y enviás.",
+   "Si no lo aceptás a tiempo, desde el 1 de febrero de 2027 dejás de cobrar por esas funciones. No perdés tu lugar en el programa y podés recuperar los ingresos aceptando después. En canales administrados por una red multicanal (MCN), la acepta la red.",
+   "Entre los cambios anunciados para esa fecha: los canales nuevos van a necesitar 8.000 horas de reproducción en un año o 20 millones de vistas de Shorts en 90 días para entrar con anuncios, y para participar de los ingresos de Shorts se van a pedir 10 millones de vistas calificadas en los últimos 90 días. Los canales que ya están en el programa no tienen que volver a cumplir el nuevo umbral de entrada."
+  ],
+  "mirada": [
+   "Es un trámite de un par de minutos, pero si lo dejás pasar el canal sigue en el programa y deja de cobrar. Lo más sensato es aceptarlo apenas te aparezca el aviso.",
+   "Si manejás varios canales, revisá uno por uno: el aviso es por canal, no por cuenta.",
+   "El cambio de fondo va más allá de este trámite: entrar al programa se vuelve más difícil y los Shorts piden más volumen para cobrar. Diversificar ingresos con marcas, afiliados o productos propios deja de ser opcional."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/12843009"
+ },
+ {
+  "titulo": "Requisitos de monetización de YouTube 2027: 8.000 horas o 20M de vistas",
+  "bajada": "Desde el 1 de febrero de 2027, entrar al Programa de Socios pide el doble de horas o de vistas de Shorts. Los canales que ya están adentro no se ven afectados.",
+  "fecha": "2026-08-10",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/requisitos-monetizacion-youtube-2027-8000-horas/",
+  "hechos": [
+   "YouTube anunció el 10 de agosto de 2026 los primeros cambios grandes a su Programa de Socios (YPP) desde 2018. Entran en vigencia el 1 de febrero de 2027.",
+   "Requisitos de entrada: para acceder al reparto de ingresos por anuncios y Premium, un canal nuevo va a necesitar 8.000 horas de visualización válidas en los últimos 365 días, o 20 millones de vistas válidas de Shorts en los últimos 90 días. Hasta ahora eran 4.000 horas o 10 millones de vistas de Shorts. El requisito de 1.000 suscriptores no cambia.",
+   "Los canales que ya están en el programa no se ven afectados por esta suba. Los requisitos del nivel de apoyo de fans y de Shopping tampoco cambian.",
+   "Shorts: desde la misma fecha, para cobrar anuncios y Premium en Shorts un canal va a necesitar 10 millones de vistas válidas de Shorts en los últimos 90 días. Si está por debajo, sigue en el programa y sigue cobrando por sus videos largos; el reparto en Shorts se reactiva solo cuando vuelve a superar esa cifra.",
+   "Para los canales debajo de ese umbral de Shorts, YouTube adelantó que habrá otras vías: bonos de YouTube Shopping, incentivos para acuerdos con marcas y programas por hitos. Todavía no dio detalles.",
+   "Premium Lite se amplía a todos los países donde existe YouTube Premium. Los creadores tienen que revisar y aceptar los nuevos términos desde YouTube Studio."
+  ],
+  "mirada": [
+   "La suba es solo de horas o de vistas, no de suscriptores. Duplicar la vara no es poca cosa, pero tampoco es un muro: para muchos canales la diferencia entre 4.000 y 8.000 horas puede ser un buen video.",
+   "Lo que sí logra este cambio es filtrar. Mucha gente que no conoce bien la plataforma va a ver el número y no va a empezar. Para YouTube es una forma de frenar los canales basura; para quien se lo toma en serio, es menos competencia en la puerta.",
+   "Si tenés un canal cerca del umbral actual, la fecha importa: entrar antes del 1 de febrero de 2027 te deja con las condiciones vigentes. Y para los canales solo de Shorts, la escala pasa a ser decisiva. En SEN6 no los recomendamos como único formato."
+  ],
+  "fuente": "https://blog.youtube/news-and-events/youtube-partner-program-updates-2027-new-opportunities-earn/"
+ },
+ {
+  "titulo": "Contenido inauténtico en YouTube: las tres categorías que no se monetizan",
+  "bajada": "YouTube aclaró en julio de 2026 qué entiende por contenido inauténtico. No es una política nueva: la dividió en tres tipos de videos que no pueden monetizar.",
+  "fecha": "2026-07-27",
+  "categoria": "Políticas",
+  "url": "https://sen6.online/blog/youtube-contenido-inautentico-que-es-tres-categorias/",
+  "hechos": [
+   "El 16 de julio de 2026 YouTube publicó una aclaración de su política de monetización sobre \"contenido inauténtico\", el nombre que desde julio de 2025 reemplazó al de contenido repetitivo. Matt Halprin, responsable de Confianza y Seguridad, lo explicó en un video de Creator Insider y dijo que no venía a anunciar una política nueva.",
+   "Primera categoría: contenido genérico, repetitivo o hecho con plantilla. Videos casi iguales entre sí, con poca variación, ya sea con IA, imágenes generadas por computadora o plantillas. También entran tutoriales que repiten lo que ya abunda en la plataforma sin aportar nada original.",
+   "Segunda categoría: contenido perturbador o desagradable, pensado para manipular emocionalmente y conseguir vistas. El ejemplo que dio YouTube es el del animal en peligro que alguien rescata al final. Los canales dedicados a esto quedan fuera del Programa de Socios, usen IA o no.",
+   "Tercera categoría: personas generadas con IA que hablan de temas sensibles, como finanzas, temas legales o salud.",
+   "La regla aplica a todos los miembros del Programa de Socios de YouTube: un canal con demasiado contenido de cualquiera de estos tres tipos no puede monetizar. El objetivo declarado es frenar las granjas de contenido de baja calidad hechas solo para generar ingresos."
+  ],
+  "mirada": [
+   "\"Contenido inauténtico\" era una frase confusa y se prestaba a cualquier interpretación. Ahora hay criterios concretos, y ninguno dice que usar IA o no mostrar la cara sea un problema en sí.",
+   "Lo que YouTube describe es la granja de contenido: muchos videos intercambiables, manipulación emocional barata o falsos expertos. Eso existía antes de la IA generativa, con stock, voces robóticas y plantillas. La herramienta no es lo que se juzga, sino el resultado.",
+   "El punto más delicado es el tercero. Un avatar dando consejos de salud, inversión o temas legales puede hacer daño real, y ahí YouTube no quiere poner plata. Si tu canal toca esos temas, la información tiene que ser correcta y el formato no puede simular a un profesional que no existe."
+  ],
+  "fuente": "https://techcrunch.com/2026/07/20/youtube-clarifies-policies-around-ai-slop-and-upsetting-videos/"
+ },
+ {
+  "titulo": "Afiliados de YouTube Shopping en México y Argentina con Mercado Libre",
+  "bajada": "YouTube amplió sus afiliados de Shopping a México y Argentina con Mercado Libre: los creadores elegibles etiquetan productos y cobran comisión.",
+  "fecha": "2026-07-26",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-shopping-afiliados-mexico-argentina-mercado-libre/",
+  "hechos": [
+   "YouTube anunció el 18 de junio de 2026 la llegada del Programa de afiliados de YouTube Shopping a México y Argentina, con Mercado Libre como socio comercial.",
+   "Los creadores elegibles pueden etiquetar productos en sus videos y ganar una comisión cuando alguien compra desde esa etiqueta. YouTube también usa IA para sugerir y etiquetar automáticamente productos que aparecen en los videos.",
+   "La función se activa desde la pestaña Ingresos de YouTube Studio. YouTube indicó que se habilitaría en las semanas siguientes al anuncio, así que la llegada fue gradual.",
+   "Quien mira puede terminar la compra en Mercado Libre sin dejar de ver el video. YouTube también está llevando Shopping a más lugares, como la pantalla del televisor.",
+   "Como dato de contexto, YouTube informó que en 2025 se vieron más de 40.000 millones de horas de videos relacionados con compras en todo el mundo."
+  ],
+  "mirada": [
+   "Circularon videos diciendo que es una estafa. No lo es: es un programa oficial de YouTube con Mercado Libre como socio, que funciona con sus propias reglas de comisión, distintas de las de AdSense.",
+   "Es una fuente de ingresos que no depende del RPM, algo que para un canal en español pesa mucho.",
+   "Funciona mejor cuando el producto tiene sentido para tu audiencia. Si el canal todavía no tiene una comunidad que confíe en vos, llenar los videos de etiquetas suena más a vender que a recomendar."
+  ],
+  "fuente": "https://blog.youtube/intl/es-419/news-and-events/youtube-shopping-llega-a-mexico-y-argentina-de-la-mano-de-mercado-libre/"
+ },
+ {
+  "titulo": "¿YouTube desmonetiza el contenido hecho con IA? Lo que aclaró la plataforma",
+  "bajada": "YouTube aclaró que no castiga la IA: no monetiza videos genéricos, la manipulación emocional ni los avatares de IA en temas sensibles.",
+  "fecha": "2026-07-24",
+  "categoria": "Políticas",
+  "url": "https://sen6.online/blog/youtube-contenido-con-ia-monetizacion-contenido-inautentico/",
+  "hechos": [
+   "En julio de 2026, el canal oficial Creator Insider publicó una entrevista con Matt Halprin, vicepresidente de Confianza y Seguridad de YouTube, para explicar qué significa en la práctica la política de contenido inauténtico del Programa de Socios (YPP).",
+   "Halprin aclaró que la política no cambió: lo nuevo es que ahora la desglosan en tres grupos para que se entienda mejor qué no se puede monetizar.",
+   "Primero, el contenido genérico y repetitivo: videos hechos con plantillas, con poca variación de uno a otro. Segundo, el contenido que resulta perturbador o insatisfactorio, como los videos que buscan vistas con manipulación emocional (el ejemplo que dio es el de un animal en peligro que alguien rescata, repetido en todo un canal). Tercero, los avatares o personajes creados con IA que hablan de temas sensibles como finanzas, salud o cuestiones legales.",
+   "Sobre la IA fue directo: YouTube no mira con qué herramienta se hizo el video. Si está hecho con IA generativa o sin ella, las reglas son las mismas. Lo que no quieren en el programa es la producción en masa de videos casi idénticos.",
+   "La evaluación es del canal en su conjunto, no de un video suelto. La cantidad de denuncias que reciba un canal no influye en la revisión. Si te suspenden, tenés 21 días para apelar y, si la decisión se mantiene, podés volver a postular a los 90 días."
+  ],
+  "mirada": [
+   "La IA no está prohibida. Lo que queda afuera es el contenido perezoso: plantillas copiadas, cientos de videos iguales y nichos que viven de la manipulación emocional.",
+   "Para un canal faceless la aclaración es una buena noticia, porque confirma lo que venimos diciendo en SEN6: automatizar partes del trabajo está bien siempre que haya una persona detrás del guion, la edición y la publicación, con criterio y una idea propia.",
+   "En el fondo no cambia nada. La IA es una herramienta de producción más; lo que define si un canal tiene lugar en el programa es la cabeza detrás del mensaje, la consistencia y el respeto por la audiencia. Valía en 2007, en 2020 y vale ahora."
+  ],
+  "fuente": "https://www.youtube.com/watch?v=14Vm0CiyUVE"
+ },
+ {
+  "titulo": "YouTube Custom Feed: el feed que armás escribiendo lo que querés ver",
+  "bajada": "YouTube prueba en Estados Unidos un feed de inicio que se arma con una instrucción escrita. Empezó como experimento y en septiembre lo anunció para más gente.",
+  "fecha": "2026-07-17",
+  "categoria": "Algoritmo",
+  "url": "https://sen6.online/blog/youtube-custom-feed-feed-personalizado-prompt/",
+  "hechos": [
+   "Custom Feed (\"Tu feed personalizado\") es una opción que aparece arriba de la pestaña Inicio. Escribís qué tipo de videos querés ver, o elegís una sugerencia, y YouTube arma un feed alrededor de esa instrucción. Es privado y podés volver al Inicio de siempre cuando quieras.",
+   "Según el Centro de Ayuda, es una función experimental disponible en inglés en Estados Unidos. Para usarla tenés que tener la sesión iniciada, el historial de reproducciones y de búsqueda activados y el idioma del dispositivo en inglés.",
+   "Los videos que mirás desde ese feed se suman a tu historial y pueden influir en tus recomendaciones generales. Para el creador, esas vistas cuentan igual que las del Inicio para el tiempo de visualización y la monetización.",
+   "La función se fue ampliando por etapas: la primera prueba se conoció en noviembre de 2025, en mayo de 2026 se extendió a más usuarios de Estados Unidos, en agosto el grupo de prueba pasó a poder tener varios feeds a la vez y el 23 de septiembre, en Made On YouTube, se anunció Custom Feeds para web, celular y TV en Estados Unidos.",
+   "Por ahora no hay fecha oficial para otros países ni para otros idiomas."
+  ],
+  "mirada": [
+   "Es la versión oficial de lo que muchos hacen a mano: educar una cuenta para que YouTube muestre un tema puntual. Ahora el espectador lo pide con una frase y el sistema ordena el catálogo por él.",
+   "Para un canal, eso cambia la pregunta de fondo. Ya no alcanza con que el algoritmo te asocie a un nicho amplio: lo que va a pesar es que tu video responda bien a pedidos concretos, como \"documentales cortos de historia para la noche\".",
+   "Que la vista cuente igual para la monetización es una buena noticia para los canales chicos con un tema bien definido. Mientras siga limitado a Estados Unidos y en inglés, el impacto directo es para canales que apuntan a ese público."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/17081258"
+ },
+ {
+  "titulo": "YouTube Studio renueva la pestaña Contenido: columnas de avisos e ingresos",
+  "bajada": "La lista de videos de Studio junta todas las alertas en una columna de Avisos y suma los ingresos estimados de cada video, a la vista y sin entrar a Analytics.",
+  "fecha": "2026-06-25",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/youtube-studio-pestana-contenido-avisos-ingresos-estimados/",
+  "hechos": [
+   "El 23 de junio de 2026, TeamYouTube anunció un rediseño de la pestaña Contenido de YouTube Studio.",
+   "La nueva columna Avisos reemplaza a las de Monetización y Restricciones. Usa tres colores: rojo para una limitación total (video bloqueado o sin posibilidad de generar ingresos), amarillo para una parcial (anuncios limitados o restricción de edad) y gris para avisos informativos. Si pasás el cursor sobre el aviso, ves la causa y cómo resolverlo. Un guion significa que el video no tiene ninguna limitación.",
+   "Se suma la columna Ingresos estimados, con lo que genera cada video entre anuncios, YouTube Premium, Shopping y aportes de fans. El dato tiene unos dos días de demora, y en videos recién publicados puede aparecer un reloj mientras se calcula.",
+   "La columna Visibilidad queda solo con lo que elegiste vos: público, privado, no listado o solo para miembros. Las restricciones pasan a Avisos.",
+   "También llega una página de Estado de la cuenta, que reúne monetización, reclamos de derechos de autor y advertencias de Normas de la comunidad. Por ahora está solo en la app de YouTube Studio para Android e iOS."
+  ],
+  "mirada": [
+   "Antes la pestaña Contenido era poco más que una lista. Ahora es un buen primer vistazo: en una sola pantalla ves qué videos tienen problemas y cuáles están generando ingresos.",
+   "Para quien maneja varios canales, el color de los avisos ayuda a priorizar: lo rojo primero, lo gris puede esperar.",
+   "Ordenar por ingresos estimados también deja ver rápido qué parte del catálogo sostiene al canal, un dato que antes había que buscar en Analytics."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/444479993?hl=en"
+ },
+ {
+  "titulo": "Etiqueta de contenido IA en YouTube: más visible y ahora también automática",
+  "bajada": "YouTube mueve la etiqueta de IA debajo del reproductor y empieza a ponerla sola cuando detecta uso realista de IA que el creador no declaró.",
+  "fecha": "2026-05-28",
+  "categoria": "Políticas",
+  "url": "https://sen6.online/blog/youtube-etiqueta-contenido-generado-con-ia-alterado-sintetico/",
+  "hechos": [
+   "El 27 de mayo de 2026, YouTube anunció cambios en la etiqueta para contenido alterado o sintético.",
+   "En videos largos, la etiqueta pasa a mostrarse justo debajo del reproductor, arriba de la descripción. En Shorts aparece sobre el video. Si el contenido es poco realista, animado o con retoques menores, el aviso sigue en la descripción expandida.",
+   "Desde mayo de 2026, YouTube usa señales internas para detectar IA. Si no indicaste si usaste IA y el sistema detecta un uso fotorrealista importante, la etiqueta se aplica sola. Si creés que es un error, podés cambiarla desde YouTube Studio, salvo en videos hechos con herramientas de IA de YouTube (como Veo o Dream Screen) o con metadatos C2PA que indican que son totalmente generados.",
+   "La declaración sigue siendo obligatoria para contenido realista: que una persona real parezca decir o hacer algo que no hizo, alterar imágenes de hechos o lugares reales, o crear escenas realistas que no pasaron. No hace falta declararla para guiones, miniaturas, títulos, subtítulos, contenido claramente fantástico o tu propia voz clonada.",
+   "Según YouTube, la etiqueta por sí sola no cambia cómo se recomienda un video ni si puede monetizar. Quien no declare de forma sistemática puede recibir sanciones, incluida la suspensión del Programa de socios."
+  ],
+  "mirada": [
+   "La regla práctica es simple: si en lo audiovisual hay IA realista, marcá la casilla. No te baja el alcance ni la monetización, y ahora además YouTube la detecta por su cuenta.",
+   "Entendemos la postura de YouTube. La plataforma vive de que las marcas confíen en lo que se publica, y el contenido engañoso le resta valor a todos. Ser transparente con la IA no es un costo, es parte de jugar a largo plazo.",
+   "Esconder el uso de IA hoy es más riesgo que beneficio: la etiqueta igual puede aparecer, y la falta de declaración repetida sí tiene consecuencias."
+  ],
+  "fuente": "https://blog.youtube/news-and-events/improving-ai-labels-for-viewers-and-creators/"
+ },
+ {
+  "titulo": "YouTube y la FIFA se unen para el Mundial 2026: qué cambia para creadores",
+  "bajada": "YouTube es la plataforma preferida de la Copa Mundial 2026: partidos en vivo para los socios de medios, acceso para creadores y el archivo histórico de la FIFA.",
+  "fecha": "2026-05-27",
+  "categoria": "Tendencias",
+  "url": "https://sen6.online/blog/youtube-fifa-mundial-2026-plataforma-preferida-creadores/",
+  "hechos": [
+   "YouTube y la FIFA anunciaron un acuerdo por el que YouTube pasa a ser la plataforma preferida de la Copa Mundial de la FIFA 2026, que se juega en Canadá, México y Estados Unidos. El anuncio oficial salió el 17 de marzo de 2026 en el blog de YouTube.",
+   "Por primera vez en la historia del torneo, los socios de medios (los canales que tienen derechos de transmisión) pueden emitir en vivo los primeros 10 minutos de cada partido en sus canales de YouTube. También pueden transmitir completos algunos partidos seleccionados, además de resúmenes extendidos, contenido detrás de escena y Shorts.",
+   "Un grupo de creadores de todo el mundo recibe un acceso al torneo que YouTube describe como sin precedentes, para hacer historias, análisis tácticos y contenido detrás de escena. Antes del Mundial también tuvieron acceso al archivo digital de la FIFA.",
+   "La FIFA, además, abre parte de su archivo en su canal oficial de YouTube, con partidos históricos completos y momentos icónicos.",
+   "Después del torneo, Alphabet informó en sus resultados del segundo trimestre que más de 1.700 millones de personas vieron videos relacionados con el Mundial en YouTube."
+  ],
+  "mirada": [
+   "Es un paso grande para YouTube: el evento deportivo más visto del planeta lo eligió como plataforma principal, al lado de la televisión. YouTube ya no compite solo por el entretenimiento, también por el deporte en vivo.",
+   "Lo interesante para quien tiene un canal es que la FIFA les dio lugar a los creadores junto a los medios tradicionales. Es una señal de hacia dónde va la plataforma: el contenido de creadores se sienta en la misma mesa que el de las grandes marcas.",
+   "Un acuerdo así atrae audiencia nueva a YouTube, y más gente mirando más tiempo en la plataforma es bueno para todo el ecosistema, aunque tu canal no hable de fútbol."
+  ],
+  "fuente": "https://blog.youtube/intl/es-419/news-and-events/youtube-y-fifa-se-unen-para-copa-mundial/"
+ },
+ {
+  "titulo": "AdSense suma la verificación con selfie: en algunos países evitás el PIN",
+  "bajada": "Google ofrece en AdSense una verificación de identidad en línea con documento y video selfie. Según el país, puede reemplazar al PIN que llega por correo.",
+  "fecha": "2026-05-15",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/adsense-verificacion-identidad-video-selfie-pin-youtube/",
+  "hechos": [
+   "Para cobrar lo que ganás en YouTube, Google te pide verificar tu identidad y, en muchos casos, tu dirección. El método clásico para la dirección es un PIN de seis dígitos que llega por correo postal y que suele tardar de tres a cuatro semanas.",
+   "AdSense ofrece ahora una verificación en línea: subís una foto de un documento oficial (pasaporte, licencia de conducir o documento de identidad) y grabás un video selfie. Un escaneo facial compara tu cara con la foto del documento. Según Google, el proceso lleva entre 5 y 10 minutos.",
+   "Si no querés usar la comparación biométrica, podés pedir una revisión manual, que tarda entre 2 y 3 días hábiles.",
+   "La opción en línea solo está disponible en algunos lugares. La ayuda de YouTube aclara que, según tu ubicación, podés usar la verificación en línea, y que si no te aparece, seguís con el PIN. En otros casos Google te puede pedir el PIN igual después de verificar tu identidad.",
+   "Una vez que Google te pide la verificación de identidad, tenés 45 días para completarla antes de que se dejen de mostrar anuncios."
+  ],
+  "mirada": [
+   "El PIN por correo fue durante años uno de los cuellos de botella para cobrar desde Latinoamérica: cartas que no llegan, reenvíos, semanas de espera. Que exista un camino digital, parecido a la validación de identidad de un banco online, es una buena noticia.",
+   "No todos lo van a ver al mismo tiempo, y no conviene pedirlo por fuera de AdSense. Fijate qué te muestra tu cuenta en Pagos y seguí el camino que te ofrece.",
+   "Un detalle práctico: el nombre del perfil de pagos tiene que coincidir con el del documento. Revisarlo antes ahorra rechazos."
+  ],
+  "fuente": "https://support.google.com/adsense/answer/16354192"
+ },
+ {
+  "titulo": "La IA empieza a cobrarse por uso: GitHub Copilot pasa a facturar por tokens",
+  "bajada": "Desde el 1 de junio de 2026, GitHub Copilot cobra según los tokens que consumís. Es una señal de hacia dónde puede ir el precio de las herramientas de IA.",
+  "fecha": "2026-05-02",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/ia-pago-por-uso-tokens-github-copilot/",
+  "hechos": [
+   "GitHub anunció el 27 de abril de 2026 que Copilot, su asistente de programación con IA, deja el sistema de \"solicitudes premium\" y pasa a un modelo de facturación por uso desde el 1 de junio.",
+   "Cada plan incluye una cantidad mensual de créditos (GitHub AI Credits) que se descuentan según los tokens procesados: los de entrada, los de salida y los guardados en caché, al precio publicado de cada modelo. Los planes pagos pueden comprar más créditos si se les terminan.",
+   "Los precios base no cambian: Pro sigue en 10 dólares por mes y Pro+ en 39. El autocompletado de código queda incluido y no consume créditos. Lo que desaparece es la opción de pasar a un modelo más barato cuando llegás al límite.",
+   "GitHub explicó el cambio así: Copilot pasó de responder preguntas cortas a ejecutar sesiones largas de varios pasos, y con el sistema anterior una consulta rápida y horas de trabajo autónomo podían costarle lo mismo al usuario."
+  ],
+  "mirada": [
+   "Es nuestra opinión: la IA se va a parecer cada vez más a un servicio como la luz o el agua, donde pagás por lo que consumís y no por una suscripción fija. El caso de GitHub es una de las primeras señales grandes en esa dirección.",
+   "Para quien tiene un canal, eso no es necesariamente malo. Pagar por uso permite combinar varias herramientas y usar cada una cuando hace falta, en lugar de sostener muchas suscripciones a la vez.",
+   "El otro lado: los negocios que dependen de usar IA de forma masiva van a ver subir sus costos. Conviene mirar cuánto consume tu proceso y no dar por hecho que el precio de hoy es el de mañana."
+  ],
+  "fuente": "https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/"
+ },
+ {
+  "titulo": "Google Flow guarda tus prompts y videos hasta que los borres: qué cambia",
+  "bajada": "Desde el 19 de mayo de 2026, Google guarda en Flow tus prompts, archivos subidos y resultados generados hasta que los elimines vos.",
+  "fecha": "2026-04-21",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/google-flow-privacidad-guarda-prompts-videos/",
+  "hechos": [
+   "Google actualizó el aviso de privacidad de Flow, su herramienta de video con IA, con vigencia desde el 19 de mayo de 2026.",
+   "Por defecto, Google guarda tus prompts, lo que subís, tus proyectos, las imágenes y videos generados y los metadatos asociados, hasta que decidas borrarlos. Las sesiones con el agente y las herramientas de Flow se guardan 18 meses.",
+   "Un grupo de revisores humanos puede leer y anotar una muestra de esos datos para mejorar el servicio. Google dice que antes desvincula esos archivos de tu cuenta, y pide no subir información confidencial.",
+   "Google usa estos datos para mejorar sus productos y desarrollar tecnologías de aprendizaje automático. Podés desactivar la opción \"Help improve Flow\" desde el menú, pero las conversaciones que ya fueron revisadas se pueden conservar hasta 18 meses.",
+   "Borrar no es un solo botón: los proyectos, los resultados generados y las sesiones con el agente se eliminan por separado."
+  ],
+  "mirada": [
+   "No es algo que ponga en riesgo un canal de YouTube hecho con IA. Pero conviene saber cómo funciona el juego: lo que generás en la nube queda guardado y puede ser revisado.",
+   "Si trabajás con guiones originales, ideas de negocio o información de terceros, pensá qué subís y qué no. Lo sensible (finanzas, contratos, datos personales) no tiene por qué pasar por una herramienta de generación de video.",
+   "Es una buena costumbre revisar cada tanto los avisos de privacidad de las herramientas que usás todos los días y limpiar lo que ya no necesitás."
+  ],
+  "fuente": "https://labs.google/flow/privacy"
+ },
+ {
+  "titulo": "Ask Studio: qué es el asistente de IA de YouTube Studio y qué puede hacer",
+  "bajada": "YouTube Studio tiene un asistente de IA al que le podés preguntar por tu canal, tus métricas y tus comentarios. Qué hace, dónde está y qué límites tiene.",
+  "fecha": "2026-03-11",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/ask-studio-youtube-studio-asistente-ia/",
+  "hechos": [
+   "Ask Studio es un asistente de inteligencia artificial integrado en YouTube Studio. Se abre desde un ícono arriba a la derecha del panel y responde preguntas sobre el rendimiento del canal, las tendencias de la audiencia y los comentarios.",
+   "Además de responder sobre métricas, sirve para pensar ideas de videos (las sugerencias se pueden guardar como tarjetas de ideas) y para pedir una devolución sobre un guion que pegues o sobre un video en borrador, privado u oculto. Para eso usa buenas prácticas creativas y los datos históricos de retención del canal.",
+   "También acepta hasta 10 imágenes por consulta, por ejemplo para opinar sobre miniaturas, y ayuda con temas de soporte como errores de subida, apelaciones de monetización o advertencias por políticas. Si escribís que querés hablar con una persona, te deriva a un agente.",
+   "Según el Centro de Ayuda, está disponible para la mayoría de los creadores en los países habilitados, en el idioma que tengas configurado, y por ahora solo desde el navegador de una computadora. No está disponible para canales oficiales de artistas, canales para niños ni menores de 18 años.",
+   "Las conversaciones se guardan 30 días y después se borran. YouTube aclara que las respuestas pueden variar en calidad y precisión, y que personas del equipo pueden revisar las conversaciones, sin datos personales cuando es posible.",
+   "En Made On YouTube 2026, en septiembre, YouTube anunció que Ask Studio va a sumar más funciones, como revisar videos viejos en segundo plano para sugerir miniaturas nuevas, y que llega también a la app móvil de Studio."
+  ],
+  "mirada": [
+   "La dirección es clara: YouTube quiere que el análisis del canal pase por adentro de su propia plataforma, con su propia IA, en lugar de depender de herramientas externas.",
+   "Es una buena noticia, pero con un cuidado: sigue siendo una IA. Cada canal es particular y una recomendación general no siempre aplica a tu caso. Usalo como un segundo par de ojos sobre tus datos, no como alguien que decide por vos.",
+   "Lo más útil para un canal faceless es tener a mano una lectura rápida de tus propias métricas y comentarios. La decisión final sobre qué video hacer y cómo contarlo sigue siendo tuya."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/16291691?hl=es-419"
+ },
+ {
+  "titulo": "Qué es Moltbook, la red social de agentes de IA donde los humanos miran",
+  "bajada": "Moltbook se volvió viral a fines de enero de 2026: un foro donde publican agentes de IA. Una falla de seguridad y las dudas sobre los bots enfriaron el furor.",
+  "fecha": "2026-02-04",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/moltbook-red-social-agentes-ia-que-es/",
+  "hechos": [
+   "Moltbook arrancó a fines de enero de 2026 como un experimento de Matt Schlicht: un sitio con formato tipo Reddit donde los que publican, comentan y votan son agentes de IA. Las personas pueden entrar a leer, pero la conversación es entre bots.",
+   "La mayoría de esos agentes funciona con OpenClaw, un asistente de código abierto que antes se llamó Clawdbot y Moltbot. En menos de una semana el sitio tenía decenas de miles de agentes registrados y más de un millón de visitas humanas, según NBC News.",
+   "El 2 de febrero, la empresa de ciberseguridad Wiz informó que una base de datos mal configurada dejaba expuestos mensajes privados entre agentes, miles de correos de sus dueños y credenciales de acceso. El problema se corrigió después del aviso. Wiz también señaló que cualquiera podía publicar haciéndose pasar por un agente, lo que pone en duda cuánto de lo que se ve ahí es realmente autónomo.",
+   "Al día siguiente, en el Cisco AI Summit de San Francisco, Sam Altman, CEO de OpenAI, dijo que Moltbook probablemente sea una moda pasajera, pero que la tecnología de agentes que actúan solos en una computadora llegó para quedarse."
+  ],
+  "mirada": [
+   "Moltbook en sí puede desaparecer mañana. Lo que importa es lo que muestra: agentes que navegan, leen y reaccionan a contenido sin una persona del otro lado de cada clic.",
+   "La pregunta que nos hacemos es si algún día una parte de la audiencia de YouTube serán agentes que buscan, resumen y recomiendan videos para sus dueños. Hoy no hay ningún dato oficial que lo indique, y YouTube monetiza vistas humanas válidas. Es una hipótesis, no un hecho.",
+   "Lo que sí parece claro es que el contenido con información concreta, bien titulado y bien descrito es más fácil de encontrar y entender, lo lea una persona o una máquina."
+  ],
+  "fuente": "https://whbl.com/2026/02/03/openai-ceo-altman-dismisses-moltbook-as-likely-fad-backs-the-tech-behind-it/"
+ },
+ {
+  "titulo": "Project Genie: Google abre Genie 3 para crear mundos que podés recorrer",
+  "bajada": "Google DeepMind lanzó Project Genie, un prototipo que arma mundos navegables a partir de texto o imágenes. Abre la pregunta de qué contenido puede salir de ahí.",
+  "fecha": "2026-01-31",
+  "categoria": "IA",
+  "url": "https://sen6.online/blog/project-genie-google-genie-3-mundos-interactivos-ia/",
+  "hechos": [
+   "El 29 de enero de 2026, Google presentó Project Genie, un prototipo experimental de Google Labs que funciona con Genie 3, su modelo de mundos, junto con Nano Banana Pro y Gemini.",
+   "La idea: describís un entorno y un personaje con texto o con imágenes, ajustás cómo se ve antes de entrar y después lo recorrés caminando, manejando o volando, en primera o tercera persona. El modelo va generando el camino en tiempo real a medida que te movés.",
+   "También se pueden remixar mundos de otros a partir de sus prompts y descargar videos de los recorridos.",
+   "Al lanzamiento estaba disponible solo en Estados Unidos, para mayores de 18 con suscripción a Google AI Ultra. Cada generación dura como máximo 60 segundos, y Google aclara que los mundos no siempre se ven realistas, no siempre respetan el prompt ni la física, y que el control del personaje puede tener demora.",
+   "Actualización: el 19 de mayo de 2026 Google anunció que Project Genie empieza a llegar de forma gradual a suscriptores de AI Ultra de todo el mundo (mayores de 18), y sumó una función para arrancar el mundo desde imágenes de Street View, por ahora solo con lugares de Estados Unidos."
+  ],
+  "mirada": [
+   "Por primera vez una herramienta pública genera escenarios que se recorren como un videojuego sin que nadie los haya diseñado a mano. Eso abre la puerta a un tipo de video nuevo: exploraciones de mundos que no existen.",
+   "Para el contenido faceless es una pregunta abierta más que una oportunidad confirmada. Con clips de un minuto y resultados irregulares, hoy sirve para experimentar y para tomas puntuales, no para sostener un canal entero.",
+   "Lo que conviene mirar es cómo YouTube trata ese material: si la audiencia lo consume como gameplay, como entretenimiento visual o como relleno sin valor agregado. La diferencia la va a seguir haciendo la idea y la narración que pongas encima, no el mundo generado en sí."
+  ],
+  "fuente": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/project-genie/"
+ }
+]
