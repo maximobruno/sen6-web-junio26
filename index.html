@@ -59,6 +59,9 @@ p{margin:0 0 1em}
 header.top{position:fixed;inset:0 0 auto 0;z-index:30;background:rgba(245,243,239,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s ease, box-shadow .3s ease}
 header.top.scrolled{border-bottom-color:var(--line);box-shadow:0 8px 30px -16px rgba(17,17,17,.14)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.top-der{display:flex;align-items:center;gap:20px}
+.nav-blog{font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.nav-blog:hover{color:var(--accent)}
 .buy{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:800;font-size:.86rem;text-decoration:none;letter-spacing:-.01em;transition:background .2s ease}
 .buy:hover{background:var(--accent)}
 
@@ -301,7 +304,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
 <header class="top" id="top-bar">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="SEN6, ir al inicio">SEN<span>6</span></a>
-    <a class="buy" href="#planes">Comprar ahora</a>
+    <div class="top-der"><a class="nav-blog" href="/blog/">Noticias</a><a class="buy" href="#planes">Comprar ahora</a></div>
   </div>
 </header>
 
@@ -570,6 +573,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a>
       </div>
       <nav class="f-links" aria-label="Legales y contacto">
+        <a href="/blog/">Blog de noticias de YouTube</a>
         <a href="/terminos-y-condiciones">Términos</a>
         <a href="/politica-de-privacidad">Privacidad</a>
         <a href="mailto:info@maximobruno.io">Contacto</a>
