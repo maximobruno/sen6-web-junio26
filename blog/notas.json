@@ -1,5 +1,45 @@
 [
  {
+  "titulo": "Bono mensual de Shorts: YouTube prueba pagar por subir con constancia",
+  "bajada": "YouTube prueba, solo por invitación, un bono mensual para socios que suben una cantidad mínima de Shorts, con un extra según las vistas.",
+  "fecha": "2026-10-23",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-bono-mensual-shorts-piloto/",
+  "hechos": [
+   "YouTube está probando un programa de bonos para Shorts. Es un piloto solo por invitación: no hay forma de anotarse y el soporte para creadores no puede invitar canales a mano.",
+   "Según Creator Insider, las invitaciones les llegan a canales del Programa de Socios de Estados Unidos, Reino Unido, Alemania, Brasil, Japón y Corea del Sur. Llegan por correo y como aviso en YouTube Studio, donde aparece una tarjeta de bonos activos en la pestaña Ganar.",
+   "El bono tiene dos partes. Un pago por cumplir: subir cada mes calendario al menos la cantidad de Shorts públicos que fija la invitación. Y un extra no garantizado que depende de las vistas con interacción válidas del mes, calculado según lo que se gana típicamente en tu país.",
+   "Solo cuentan las vistas orgánicas: las que vienen de anuncios quedan afuera. Además, el canal tiene que seguir monetizando al cierre del mes. Si aceptás antes del día 15, ese mes ya cuenta; si aceptás después, empieza a contar el mes siguiente.",
+   "El pago se suma a AdSense para YouTube y suele llegar entre el 21 y el 26 del mes siguiente. YouTube dice que habrá más oportunidades a medida que el programa crezca en 2027."
+  ],
+  "mirada": [
+   "El dato de fondo es qué premia YouTube: la constancia. Un pago atado a una cantidad mínima de Shorts por mes deja claro que la plataforma quiere canales que publiquen seguido, no picos sueltos.",
+   "Llega en un momento particular: desde el 1 de febrero de 2027 el reparto de ingresos por anuncios en Shorts va a exigir 10 millones de vistas calificadas en 90 días. Los bonos aparecen como otra vía para que más canales de Shorts cobren algo.",
+   "Por ahora no cambia nada para Latinoamérica, salvo para canales de socios en Brasil. Vale la pena mirar la pestaña Ganar de Studio de vez en cuando, pero no armaríamos un canal contando con un piloto que YouTube puede modificar o cerrar."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/18336041"
+ },
+ {
+  "titulo": "YouTube Shorts prioriza el contenido original y recorta a los resubidos",
+  "bajada": "El sistema de recomendación de Shorts le dará menos alcance a los canales que suben clips ajenos sin cambios importantes.",
+  "fecha": "2026-10-23",
+  "categoria": "Algoritmo",
+  "url": "https://sen6.online/blog/youtube-shorts-contenido-original-alcance/",
+  "hechos": [
+   "YouTube anunció en Creator Insider, su canal oficial para creadores, que está actualizando el sistema de recomendación de Shorts para darle todavía más prioridad a los Shorts originales.",
+   "La otra cara del cambio: van a perder alcance los canales que se dedican principalmente a juntar o volver a subir clips de otros creadores sin modificarlos de forma significativa.",
+   "YouTube aclaró qué no alcanza para que un clip ajeno cuente como propio: una voz en off que describe lo que se ve en pantalla, ediciones técnicas menores o cambios masivos hechos con plantillas. Lo que sí suma es aportar perspectiva, comentario, análisis o una historia propia.",
+   "Para quien quiere mostrarle a su audiencia el video de otro creador, la sugerencia oficial es compartirlo en la pestaña de publicaciones del canal, para que se vea el original.",
+   "Según el anuncio, si un canal que venía resubiendo contenido pasa a publicar material original, el sistema vuelve a evaluar su alcance. YouTube no informó una fecha de inicio ni un plazo para esa reevaluación."
+  ],
+  "mirada": [
+   "Esto no es una política nueva de monetización: es un cambio en cuánto te muestra el algoritmo. Y para un canal de Shorts, el alcance es todo.",
+   "Va en la misma línea que lo que YouTube viene diciendo sobre el contenido inauténtico y reutilizado: la plataforma premia al que crea, no al que recopila. Que lo diga ahora con ejemplos tan concretos, como la voz en off que solo narra lo que se ve, es una señal clara para muchos canales faceless de clips.",
+   "En SEN6 lo leemos como una buena noticia para quien hace su propio contenido, con o sin cara: un faceless con una idea, un guion y un punto de vista propios queda del lado correcto de este cambio."
+  ],
+  "fuente": "https://www.youtube.com/shorts/XS2A6aExLaA"
+ },
+ {
   "titulo": "Informe de YouTube: 7 de cada 10 que suben videos ya usan IA generativa",
   "bajada": "Un informe de YouTube muestra que la IA ya es común al crear videos, y que lo que más crece es usarla para contar historias personales.",
   "fecha": "2026-10-20",
