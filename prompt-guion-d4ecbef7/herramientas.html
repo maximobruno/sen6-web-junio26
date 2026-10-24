@@ -1,0 +1,1882 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prompt Guion · SEN6</title>
+<meta name="description" content="Guiones de YouTube faceless vistos como líneas de tiempo: estructuras, ganchos, retención, analizador de ritmo, comparador de estructuras, entrenamiento de tu canal y voz. Gratis para alumnos SEN6.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F2ECE4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2ECE4; --bg2:#EAE1D4; --card:#FBF8F3; --tinta:#1A1A1A; --dim:rgba(26,26,26,.68); --line:rgba(26,26,26,.14); --line2:rgba(26,26,26,.3);
+  --ink:#0B0D12; --ink2:#12161F; --cream:#F5F3EF; --cdim:rgba(245,243,239,.66); --cline:rgba(245,243,239,.14);
+  --naranja:#D4450A; --glow:#F26A2E; --oro:#E8C27A; --terra:#C8502A; --acento:#C8502A;
+  --verde:#2E8B57; --amar:#E0A100; --rojo:#C62828;
+  --sombra:6px 6px 0 var(--tinta);
+  --f-gancho:#E2531A; --f-contexto:#CDBFA8; --f-giro:#5B3E96; --f-re:#E8C27A; --f-rev:#2C7A68; --f-climax:#A3221B; --f-cierre:#22324F; --f-cta:#8C8172; --f-neutro:#D9D0C2;
+  color-scheme:light;
+}
+:root:not([data-tema="claro"]){
+  --bg:#0B0D12; --bg2:#12161F; --card:#151A24; --tinta:#F5F3EF; --dim:rgba(245,243,239,.68); --line:rgba(245,243,239,.14); --line2:rgba(245,243,239,.3);
+  --acento:#F26A2E; --sombra:6px 6px 0 rgba(242,106,46,.55); --f-neutro:#3A3F4B; --f-contexto:#B9AC95; --f-cierre:#3A5488; --f-giro:#6A4BB0;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+.eb{font:700 11.5px 'Space Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--acento)}
+.mono{font-family:'Space Mono',ui-monospace,monospace}
+h1,h2,h3,h4{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:1}
+h1 em,h2 em,h3 em{font-style:normal;color:var(--acento)}
+h2{font-size:clamp(34px,5vw,62px)}
+h3{font-size:clamp(22px,2.4vw,28px)}
+.lead{font-size:clamp(16.5px,1.8vw,19px);color:var(--dim);max-width:700px;margin:16px 0 0}
+p{margin:0}
+.grano{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root:not([data-tema="claro"]) .grano{mix-blend-mode:overlay;opacity:.07}
+
+/* ---------- botones ---------- */
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:15px 24px;font:800 15.5px/1.1 Inter,sans-serif;color:#fff;text-decoration:none;cursor:pointer;text-align:center;
+  background:linear-gradient(135deg,#FF9A4D,var(--glow) 45%,var(--naranja));box-shadow:0 18px 40px -16px rgba(212,69,10,.8),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s}
+.cta:hover{transform:translateY(-2px)}
+.cta svg{width:17px;height:17px;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--tinta);background:transparent;border-radius:999px;padding:10px 16px;font:700 14px/1.1 Inter;cursor:pointer;text-decoration:none;transition:background .2s,color .2s;text-align:center}
+.btn:hover,.btn.on{background:var(--tinta);color:var(--bg)}
+.btn.chico{padding:7px 12px;font-size:13px}
+.btn.lleno{background:var(--tinta);color:var(--bg)}
+.btn.lleno:hover{background:var(--acento);border-color:var(--acento);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line2);background:transparent;border-radius:999px;padding:7px 13px;font:600 13px/1.2 Inter;cursor:pointer;transition:all .2s}
+.chip.on,.chip:hover{background:var(--tinta);border-color:var(--tinta);color:var(--bg)}
+.chip small{opacity:.6;margin-left:4px;font-family:'Space Mono'}
+
+/* ---------- barra superior ---------- */
+.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1.5px solid var(--tinta)}
+.top .fila1{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 22px 9px;max-width:1240px;margin:0 auto}
+.marca{display:flex;align-items:center;gap:10px;font:700 18px Oswald,sans-serif;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.marca img{width:28px;height:28px;border-radius:7px}
+.marca em{font-style:normal;color:var(--acento)}
+.ver{font:700 10.5px 'Space Mono',monospace;letter-spacing:.06em;color:#fff;background:var(--glow);border-radius:6px;padding:3px 6px}
+.acc-top{display:flex;align-items:center;gap:10px}
+.tema{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--tinta);background:transparent;cursor:pointer;display:grid;place-items:center}
+.tema svg{width:18px;height:18px}
+.top .cta{padding:10px 16px;font-size:13.5px;box-shadow:none}
+
+/* la regla: navegación como línea de tiempo */
+.regla{position:relative;max-width:1240px;margin:0 auto;padding:0 22px;overflow-x:auto;scrollbar-width:none}
+.regla::-webkit-scrollbar{display:none}
+.regla .pista{display:flex;min-width:max-content;position:relative;padding-top:14px}
+.regla .pista::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--line2) 0 1px,transparent 1px 12px);opacity:.9}
+.regla a{position:relative;display:flex;flex-direction:column;gap:2px;padding:6px 18px 11px 12px;text-decoration:none;border-left:1.5px solid var(--line2);min-width:118px;transition:background .2s}
+.regla a:first-child{border-left-color:var(--tinta)}
+.regla a b{font:600 15px/1 Oswald;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.regla a span{font:700 10px 'Space Mono';letter-spacing:.1em;color:var(--dim)}
+.regla a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--c,var(--line));opacity:.55;transition:opacity .2s,height .2s}
+.regla a:hover::after{opacity:1}
+.regla a.on{background:color-mix(in srgb,var(--c) 14%,transparent)}
+.regla a.on::after{opacity:1;height:6px}
+.regla a.on span{color:var(--tinta)}
+.cabezal{position:absolute;top:0;width:2px;bottom:0;background:var(--rojo);pointer-events:none;transition:left .45s cubic-bezier(.2,.7,.2,1);z-index:2}
+.cabezal::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid var(--rojo)}
+
+/* ---------- vistas ---------- */
+.vista{display:none;padding:54px 0 90px;animation:entra .5s cubic-bezier(.2,.7,.2,1)}
+.vista.on{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cabecera{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:34px}
+.util{border:1.5px solid var(--tinta);border-radius:16px;padding:16px 18px;background:var(--card);box-shadow:var(--sombra);font-size:14.5px}
+.util p+p{margin-top:8px}
+.util b{font:700 10.5px 'Space Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--acento);display:block;margin-bottom:2px}
+.bloque{margin-top:46px}
+.bloque>h3{margin-bottom:14px}
+.tarjeta{border:1.5px solid var(--line2);border-radius:18px;background:var(--card);padding:20px}
+.nota{font-size:13.5px;color:var(--dim)}
+.aviso{border:1.5px dashed var(--acento);border-radius:14px;padding:13px 16px;font-size:14px;background:color-mix(in srgb,var(--glow) 7%,transparent)}
+.aviso b{color:var(--acento)}
+label.campo{display:flex;flex-direction:column;gap:6px;font:700 11px 'Space Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+label.campo small{font:500 12.5px Inter;letter-spacing:0;text-transform:none;color:var(--dim)}
+input[type=text],input[type=number],input[type=search],select,textarea{width:100%;border:1.5px solid var(--line2);border-radius:12px;background:var(--card);padding:11px 13px;font:500 15px/1.4 Inter;color:var(--tinta);outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--acento)}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+textarea.grande{min-height:340px;font-size:15.5px}
+.fila-campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.check{display:inline-flex;align-items:center;gap:7px;font:500 14px Inter;color:var(--tinta);text-transform:none;letter-spacing:0;cursor:pointer;margin:0 14px 6px 0}
+.check input{accent-color:var(--acento);width:16px;height:16px}
+.copiable{position:relative}
+.copiable textarea{font:400 13px/1.6 'Space Mono',monospace;min-height:220px;background:var(--bg2)}
+.barra-acc{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.ok{font:700 12px 'Space Mono';color:var(--verde)}
+
+/* ---------- mesa de montaje (línea de tiempo protagonista) ---------- */
+.mesa{background:var(--ink);color:var(--cream);border-radius:22px;padding:22px 22px 18px;border:1.5px solid var(--tinta);box-shadow:var(--sombra);position:relative;overflow:hidden}
+:root:not([data-tema="claro"]) .mesa{background:#06080C;border-color:var(--cline)}
+.mesa .eb{color:var(--oro)}
+.mesa-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.mesa-cab h3{color:var(--cream)}
+.tc{font:700 13px 'Space Mono';letter-spacing:.08em;color:var(--cdim);display:flex;gap:14px;align-items:center}
+.tc i{width:9px;height:9px;border-radius:50%;background:#ff3b30;box-shadow:0 0 10px #ff3b30;animation:parp 1.2s steps(2) infinite}
+@keyframes parp{50%{opacity:.15}}
+.linea{position:relative;padding-top:24px}
+.linea .reg{position:relative;height:22px;margin-bottom:6px;border-bottom:1px solid var(--cline)}
+.linea .reg i{position:absolute;bottom:0;width:1px;height:8px;background:var(--cline)}
+.linea .reg i.m{height:14px;background:rgba(245,243,239,.4)}
+.linea .reg i b{position:absolute;bottom:15px;left:3px;font:400 10px 'Space Mono';color:var(--cdim);white-space:nowrap}
+.linea .pist{position:relative;height:64px;display:flex;border-radius:8px;overflow:hidden;background:rgba(245,243,239,.04)}
+.linea .bl{position:relative;height:100%;border-right:2px solid var(--ink);padding:8px 8px 6px;overflow:hidden;cursor:default;min-width:3px;transition:filter .2s}
+:root:not([data-tema="claro"]) .linea .bl{border-right-color:#06080C}
+.linea .bl:hover{filter:brightness(1.12)}
+.linea .bl b{display:block;font:600 13px/1 Oswald;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.linea .bl small{display:block;font:400 10px 'Space Mono';opacity:.8;margin-top:5px;white-space:nowrap}
+.linea .sub{position:relative;height:16px;margin-top:6px}
+.linea .sub i{position:absolute;top:3px;width:9px;height:9px;border-radius:50%;margin-left:-4px;border:1.5px solid var(--ink);cursor:pointer}
+.linea .hueco{position:absolute;top:48px;height:72px;border:2px dashed #ff6b5e;border-radius:10px;pointer-events:none;background:rgba(255,80,60,.1)}
+.linea .zona{position:absolute;top:48px;height:72px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0 5px,transparent 5px 11px);border-right:2px solid var(--oro);pointer-events:none}
+.linea .etqs{position:relative;height:18px;margin-top:4px}
+.linea .etqs span{position:absolute;top:0;font:700 10.5px 'Space Mono';white-space:nowrap}
+.linea .etqs .eh{color:#ff8a7e}
+.linea .etqs .ez{color:var(--oro)}
+.linea .bl.mini b,.linea .bl.mini small,.beats .bt.mini b,.beats .bt.mini small,.col-pist .bl.mini b,.col-pist .bl.mini small{visibility:hidden}
+.linea .play{position:absolute;top:0;bottom:-4px;width:2px;background:#ff3b30;box-shadow:0 0 12px #ff3b30;pointer-events:none;z-index:3}
+.linea .play::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid #ff3b30}
+.leyenda{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px;font-size:12.5px;color:var(--cdim)}
+.leyenda span{display:inline-flex;align-items:center;gap:7px}
+.leyenda i{width:12px;height:12px;border-radius:3px}
+.aire{margin-top:14px;display:flex;gap:12px;align-items:baseline;font-size:14.5px;min-height:44px;border-top:1px solid var(--cline);padding-top:12px}
+.aire b{font:700 10.5px 'Space Mono';letter-spacing:.14em;color:#ff6b5e;white-space:nowrap}
+.aire span{color:var(--cream)}
+
+/* ---------- INICIO ---------- */
+.hero{padding:30px 0 10px}
+.hero h1{font-size:clamp(46px,8vw,112px);line-height:.94;max-width:980px}
+.hero .acciones{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero .mesa{margin-top:44px}
+.funciones{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.func{border:1.5px solid var(--line2);border-radius:14px;padding:14px;background:var(--card);display:flex;gap:12px;align-items:flex-start}
+.func i{flex:none;width:14px;height:42px;border-radius:4px}
+.func b{font:600 16px/1 Oswald;text-transform:uppercase;letter-spacing:.05em}
+.func p{font-size:13.5px;color:var(--dim);margin-top:4px}
+/* recorrido */
+.recorrido{position:relative;margin-top:30px;display:grid;grid-template-columns:repeat(7,1fr);gap:0}
+.recorrido::before{content:"";position:absolute;left:0;right:0;top:27px;height:3px;background:var(--tinta)}
+.paso{position:relative;padding:0 10px 0 0}
+.paso .nodo{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:var(--bg);border:3px solid var(--tinta);display:grid;place-items:center;font:700 22px Oswald;transition:background .2s}
+.paso:hover .nodo{background:var(--glow);color:#fff;border-color:var(--glow)}
+.paso .min{font:700 10px 'Space Mono';color:var(--acento);letter-spacing:.1em;margin-top:12px}
+.paso h4{font-size:19px;margin-top:4px}
+.paso p{font-size:13.5px;color:var(--dim);margin-top:6px}
+.paso p.por{font-size:12.5px;border-top:1px solid var(--line);padding-top:6px;margin-top:8px}
+.herr{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:22px}
+.herr .tarjeta{display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .2s,box-shadow .2s;border-color:var(--tinta)}
+.herr .tarjeta:hover{transform:translate(-2px,-2px);box-shadow:var(--sombra)}
+.herr .tarjeta .n{font:700 11px 'Space Mono';color:var(--acento);letter-spacing:.14em}
+.herr .tarjeta h4{font-size:24px}
+.herr .tarjeta p{font-size:14px;color:var(--dim)}
+.herr .tarjeta p b{color:var(--tinta);font-weight:700}
+.skill{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;margin-top:22px;align-items:start}
+.zip{background:var(--ink);color:var(--cream);border-radius:22px;padding:28px;border:1.5px solid var(--tinta);box-shadow:var(--sombra)}
+.zip .monto{font:700 68px/1 Oswald;margin:10px 0 4px}
+.zip ul{list-style:none;padding:0;margin:20px 0;display:grid;gap:10px;font-size:14.5px}
+.zip li{display:flex;gap:10px}
+.zip li::before{content:"";flex:none;width:9px;height:9px;margin-top:7px;border-radius:2px;background:var(--glow)}
+.zip .cta{width:100%}
+.zip .nota{color:var(--cdim);margin-top:12px}
+.instalar{display:grid;gap:12px}
+.inst{border:1.5px solid var(--line2);border-radius:16px;padding:18px;background:var(--card)}
+.inst h4{font-size:20px;display:flex;gap:10px;align-items:center}
+.inst h4 span{font:700 11px 'Space Mono';background:var(--tinta);color:var(--bg);border-radius:6px;padding:3px 7px;letter-spacing:.08em}
+.inst ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;display:grid;gap:6px}
+code{font:400 .9em 'Space Mono',monospace;background:color-mix(in srgb,var(--glow) 12%,transparent);color:var(--acento);padding:1px 5px;border-radius:5px;word-break:break-word}
+.proyecto{margin-top:14px;border:1.5px solid var(--tinta);border-radius:16px;padding:18px;background:var(--oro);color:#1A1A1A}
+.proyecto h4{font-size:20px}
+.proyecto p{font-size:14.5px;margin-top:8px}
+.proyecto code{background:rgba(26,26,26,.1);color:#1A1A1A}
+details.faq{border:1.5px solid var(--line2);border-radius:14px;background:var(--card);margin-top:10px}
+details.faq summary{cursor:pointer;list-style:none;padding:15px 18px;font-weight:700;display:flex;justify-content:space-between;gap:16px}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";font:500 22px/1 Oswald;color:var(--acento);transition:transform .3s}
+details.faq[open] summary::after{transform:rotate(45deg)}
+details.faq>div{padding:0 18px 16px;color:var(--dim);font-size:14.5px}
+footer{border-top:1.5px solid var(--tinta);padding:28px 22px 40px;text-align:center;font-size:12.5px;color:var(--dim)}
+
+/* ---------- BIBLIOTECA ---------- */
+.subtabs{display:flex;gap:0;border:1.5px solid var(--tinta);border-radius:14px;overflow:hidden;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.subtabs::-webkit-scrollbar{display:none}
+.subtabs button{border:0;border-right:1.5px solid var(--tinta);background:transparent;padding:11px 16px;font:600 15px/1 Oswald;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.subtabs button:last-child{border-right:0}
+.subtabs button small{font:700 10px 'Space Mono';color:var(--acento);margin-left:5px}
+.subtabs button.on{background:var(--tinta);color:var(--bg)}
+.subtabs button.on small{color:var(--oro)}
+.subv{display:none;margin-top:26px}
+.subv.on{display:block}
+.filtros{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.filtros .et{font:700 10.5px 'Space Mono';letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-right:6px;align-self:center}
+.filtros .chips{align-items:center}
+.estr{border:1.5px solid var(--tinta);border-radius:18px;background:var(--card);padding:18px 20px;margin-bottom:14px}
+.estr-cab{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.estr-cab h4{font-size:24px}
+.estr-cab p{color:var(--dim);font-size:14.5px;margin-top:4px}
+.estr-cab .dur{font:700 12px 'Space Mono';border:1.5px solid var(--tinta);border-radius:999px;padding:5px 10px;white-space:nowrap}
+.beats{position:relative;margin-top:16px}
+.beats .pist{display:flex;height:54px;border-radius:8px;overflow:hidden;border:1.5px solid var(--tinta)}
+.beats .bt{position:relative;border-right:1.5px solid var(--tinta);padding:6px 7px;overflow:hidden;cursor:pointer;min-width:2px}
+.beats .bt:last-child{border-right:0}
+.beats .bt b{font:600 12px/1 Oswald;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.beats .bt small{display:block;font:400 9.5px 'Space Mono';opacity:.75;margin-top:4px}
+.beats .bt.sel{outline:3px solid var(--glow);outline-offset:-3px}
+.beats .marcas{position:relative;height:16px;font:400 10px 'Space Mono';color:var(--dim)}
+.beats .marcas span{position:absolute;top:3px;transform:translateX(-50%)}
+.beats .marcas span:first-child{transform:none}
+.beats .marcas span:last-child{transform:translateX(-100%)}
+.beat-info{margin-top:10px;font-size:14px;min-height:22px;color:var(--dim)}
+.beat-info b{color:var(--tinta)}
+.estr details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.estr summary{cursor:pointer;font:700 12px 'Space Mono';letter-spacing:.1em;color:var(--acento);text-transform:uppercase}
+.estr-det{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px;font-size:14.5px}
+.estr-det h5{margin:0 0 6px;font:700 10.5px 'Space Mono';letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.estr-det ul,.estr-det ol{margin:0;padding-left:18px;display:grid;gap:5px}
+.estr-det .ej{grid-column:1/-1;border-left:4px solid var(--glow);padding:8px 14px;background:var(--bg2);border-radius:0 10px 10px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:600 12px Inter;border-radius:999px;padding:3px 9px;background:var(--bg2);border:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.gancho{border:1.5px solid var(--tinta);border-radius:18px;background:var(--card);padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.gancho h4{font-size:22px}
+.gancho .tipo{font:700 10.5px 'Space Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--acento)}
+.gancho .formula{font:400 13.5px/1.6 'Space Mono';background:var(--bg2);border-radius:10px;padding:10px 12px}
+.gancho ol{margin:0;padding-left:20px;font-size:14px;display:grid;gap:4px}
+.gancho .ej{font-size:14.5px;border-left:4px solid var(--f-gancho);padding:4px 0 4px 12px;font-style:italic}
+.gancho .riesgo{font-size:13.5px;color:var(--dim)}
+.gancho .riesgo b{color:var(--rojo)}
+.cuentas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.cuenta{border:1.5px solid var(--line2);border-radius:14px;padding:14px;background:var(--card);font-size:14px}
+.cuenta b{display:block;font:700 10.5px 'Space Mono';letter-spacing:.12em;color:var(--acento);text-transform:uppercase;margin-bottom:4px}
+.fn{border:1.5px solid var(--line2);border-radius:16px;background:var(--card);padding:16px 18px;font-size:14px}
+.fn h4{font-size:19px;margin-bottom:6px}
+.fn p+p{margin-top:6px}
+.fn .k{font:700 10px 'Space Mono';letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.gastadas{border:2px solid var(--rojo);border-radius:18px;padding:18px;background:color-mix(in srgb,var(--rojo) 5%,var(--card))}
+.gastadas .titulo{font:600 20px Oswald;text-transform:uppercase;color:var(--rojo)}
+.gastadas ul{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.gastadas li{font-size:14px;display:flex;flex-direction:column;gap:2px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.gastadas li s{text-decoration-color:var(--rojo);text-decoration-thickness:2px}
+.gastadas li span{font:700 10px 'Space Mono';color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.ia-lista{display:grid;gap:10px}
+.ia{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:16px;border:1.5px solid var(--line2);border-radius:14px;padding:14px 16px;background:var(--card);font-size:14px}
+.ia h4{font:600 17px/1.15 Oswald;text-transform:none;letter-spacing:.01em}
+.ia .t{font:700 10px 'Space Mono';letter-spacing:.12em;color:var(--acento);text-transform:uppercase;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.ia .t em{font-style:normal;color:var(--verde)}
+.ia s{color:var(--dim);text-decoration-color:var(--rojo)}
+.ia .k{font:700 10px 'Space Mono';letter-spacing:.12em;color:var(--dim);text-transform:uppercase;display:block;margin-bottom:2px}
+.pol{border:1.5px solid var(--line2);border-radius:16px;background:var(--card);padding:18px;margin-bottom:12px;font-size:14.5px}
+.pol h4{font-size:20px}
+.pol p{margin-top:8px}
+.pol .r{display:inline-block;font:700 10.5px 'Space Mono';letter-spacing:.1em;padding:3px 8px;border-radius:6px;margin-top:10px;background:color-mix(in srgb,var(--rojo) 12%,transparent);color:var(--rojo)}
+.pol a{color:var(--acento);word-break:break-all}
+.pol .k{font:700 10px 'Space Mono';letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+details.cat{border:1.5px solid var(--line2);border-radius:12px;background:var(--card);margin-bottom:8px}
+details.cat summary{cursor:pointer;padding:12px 16px;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat summary::after{content:"+";color:var(--acento);font:500 20px/1 Oswald}
+details.cat[open] summary::after{content:"–"}
+details.cat>div{padding:0 16px 14px;font-size:14px;display:grid;gap:6px}
+.sens{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sens span{font:400 12.5px 'Space Mono';padding:2px 8px;border-radius:6px}
+.sens .amarillo{background:color-mix(in srgb,var(--amar) 22%,transparent)}
+.sens .rojo{background:color-mix(in srgb,var(--rojo) 18%,transparent);color:var(--rojo)}
+
+/* ---------- MI GUION ---------- */
+.editor{display:grid;grid-template-columns:1.45fr .55fr;gap:20px;align-items:start}
+.editor-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.editor-bar .cont{font:700 12px 'Space Mono';color:var(--dim)}
+.ajustes{display:grid;gap:14px}
+.ajustes .tarjeta{display:grid;gap:14px}
+.marcas-ayuda{display:flex;flex-wrap:wrap;gap:6px}
+.marcas-ayuda button{border:0;border-radius:6px;padding:4px 7px;font:700 11px 'Space Mono';cursor:pointer}
+.semaforo{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.luz{border:1.5px solid var(--tinta);border-radius:14px;padding:12px 14px;background:var(--card);position:relative;overflow:hidden}
+.luz::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--lc,var(--line))}
+.luz.v{--lc:var(--verde)} .luz.a{--lc:var(--amar)} .luz.r{--lc:var(--rojo)} .luz.g{--lc:var(--line2)}
+.luz .k{font:700 10px 'Space Mono';letter-spacing:.12em;color:var(--dim);text-transform:uppercase;display:flex;justify-content:space-between;gap:6px}
+.luz .val{font:700 26px/1.05 Oswald;margin-top:6px}
+.luz p{font-size:12.5px;color:var(--dim);margin-top:4px}
+.medidas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.medida{border-top:3px solid var(--tinta);padding-top:8px}
+.medida b{display:block;font:700 30px/1 Oswald}
+.medida span{font-size:12.5px;color:var(--dim)}
+.resaltado-wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:start}
+.resaltado{border:1.5px solid var(--tinta);border-radius:16px;background:var(--card);padding:20px 22px;white-space:pre-wrap;word-wrap:break-word;font-size:15.5px;line-height:1.75;max-height:640px;overflow:auto}
+.resaltado mark{background:none;color:inherit;cursor:pointer;border-radius:3px;padding:0 1px}
+.resaltado mark.h-ia{background:color-mix(in srgb,var(--glow) 22%,transparent);border-bottom:2px solid var(--glow)}
+.resaltado mark.h-cl{background:color-mix(in srgb,#8E6CC8 22%,transparent);border-bottom:2px solid #8E6CC8}
+.resaltado mark.h-am{background:color-mix(in srgb,var(--amar) 30%,transparent);border-bottom:2px solid var(--amar)}
+.resaltado mark.h-ro{background:color-mix(in srgb,var(--rojo) 22%,transparent);border-bottom:2px solid var(--rojo)}
+.resaltado mark.flash{outline:3px solid var(--tinta);outline-offset:1px}
+.resaltado .mk{font:700 11px 'Space Mono';border-radius:5px;padding:2px 6px;letter-spacing:.04em}
+.hallazgos{position:sticky;top:120px;display:grid;gap:10px;max-height:calc(100vh - 140px);overflow:auto}
+.sel-det{border:1.5px solid var(--tinta);border-radius:14px;padding:14px;background:var(--oro);color:#1A1A1A;font-size:14px;display:none}
+.sel-det.on{display:block}
+.sel-det b{font:600 17px Oswald;text-transform:uppercase;display:block}
+.sel-det p{margin-top:6px}
+.grupo{border:1.5px solid var(--line2);border-radius:14px;background:var(--card);overflow:hidden}
+.grupo h5{margin:0;padding:10px 14px;font:700 11px 'Space Mono';letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}
+.grupo ul{list-style:none;margin:0;padding:6px;display:grid;gap:2px;max-height:300px;overflow:auto}
+.grupo li{padding:7px 9px;border-radius:8px;font-size:13.5px;cursor:pointer;display:flex;gap:8px;align-items:baseline}
+.grupo li:hover{background:var(--bg2)}
+.grupo li i{flex:none;width:9px;height:9px;border-radius:50%}
+.grupo li span{color:var(--dim);font-size:12.5px}
+.lista-simple{margin:0;padding-left:18px;font-size:14px;display:grid;gap:6px}
+.vacio{border:1.5px dashed var(--line2);border-radius:16px;padding:30px;text-align:center;color:var(--dim)}
+
+/* ---------- COMPARAR ---------- */
+.pasos-c{counter-reset:pc}
+.paso-c{position:relative;padding-left:56px;margin-top:34px}
+.paso-c::before{counter-increment:pc;content:counter(pc);position:absolute;left:0;top:-4px;width:40px;height:40px;border-radius:50%;background:var(--tinta);color:var(--bg);display:grid;place-items:center;font:700 20px Oswald}
+.paso-c>h3{margin-bottom:12px}
+.elegir{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.opc{border:1.5px solid var(--line2);border-radius:14px;padding:12px;background:var(--card);cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
+.opc:hover{border-color:var(--tinta)}
+.opc.on{border-color:var(--glow);box-shadow:0 0 0 3px color-mix(in srgb,var(--glow) 30%,transparent)}
+.opc b{font:600 16px Oswald;text-transform:uppercase;letter-spacing:.04em}
+.opc small{font-size:12.5px;color:var(--dim)}
+.mini{display:flex;height:10px;border-radius:3px;overflow:hidden}
+.prompts-c{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.prompt-c{border:1.5px solid var(--tinta);border-radius:16px;background:var(--card);padding:16px;display:flex;flex-direction:column;gap:10px}
+.prompt-c h4{font-size:19px}
+.prompt-c textarea{min-height:150px}
+.prompt-c .copiable textarea{min-height:120px;max-height:180px}
+.columnas{display:grid;gap:14px;align-items:start}
+.col h4{font:600 15px/1.1 Oswald;color:var(--cream);text-transform:uppercase;margin-bottom:10px;min-height:34px}
+.col-cuerpo{display:grid;grid-template-columns:34px 1fr;gap:6px}
+.col-reg{position:relative}
+.col-reg span{position:absolute;right:0;font:400 9.5px 'Space Mono';color:var(--cdim);transform:translateY(-50%)}
+.col-pist{position:relative;border-radius:8px;overflow:hidden;background:rgba(245,243,239,.04)}
+.col-pist .bl{position:absolute;left:0;right:0;border-bottom:2px solid var(--ink);padding:4px 7px;overflow:hidden}
+:root:not([data-tema="claro"]) .col-pist .bl{border-bottom-color:#06080C}
+.col-pist .bl b{font:600 12px/1 Oswald;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.col-pist .bl small{font:400 9.5px 'Space Mono';opacity:.8;margin-left:5px}
+.col-pist .hueco{position:absolute;left:3px;right:3px;border:2px dashed #ff6b5e;border-radius:8px;pointer-events:none;background:rgba(255,80,60,.1)}
+.tabla{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px}
+.tabla th,.tabla td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+.tabla th{font:700 10.5px 'Space Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.tabla td b{font-family:Oswald;font-size:18px;font-weight:600}
+.tabla-wrap{overflow-x:auto}
+.mesa .tabla th{color:var(--cdim)} .mesa .tabla td,.mesa .tabla th{border-color:var(--cline)}
+
+/* ---------- ENTRENAR ---------- */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.form-grid .ancho{grid-column:1/-1}
+.herr-checks{display:grid;gap:10px}
+.herr-checks>div{border:1.5px solid var(--line2);border-radius:12px;padding:10px 12px;background:var(--card)}
+.herr-checks .k{font:700 10.5px 'Space Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:6px}
+.medidor{height:8px;border-radius:4px;background:var(--bg2);overflow:hidden;margin-top:6px}
+.medidor i{display:block;height:100%;background:var(--glow);transition:width .3s}
+.pasos-yt{counter-reset:py;list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.pasos-yt li{counter-increment:py;display:flex;gap:10px;font-size:14.5px}
+.pasos-yt li::before{content:counter(py);flex:none;width:24px;height:24px;border-radius:50%;background:var(--glow);color:#fff;display:grid;place-items:center;font:700 12px 'Space Mono'}
+
+/* ---------- VOZ ---------- */
+.voz-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.partes{display:grid;gap:10px;margin-top:12px}
+.parte{border:1.5px solid var(--line2);border-radius:14px;background:var(--card);padding:12px 14px}
+.parte-cab{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.parte-cab b{font:600 17px Oswald;text-transform:uppercase}
+.parte-cab span{font:700 11.5px 'Space Mono';color:var(--verde)}
+.parte p{font-size:13px;color:var(--dim);margin-top:6px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.rango{display:flex;align-items:center;gap:10px;font-size:14px}
+.rango input{flex:1;accent-color:var(--glow)}
+.rango output{font:700 12px 'Space Mono';min-width:58px;text-align:right}
+.tp{position:fixed;inset:0;z-index:100;background:#050608;color:#F5F3EF;display:none;flex-direction:column}
+.tp.on{display:flex}
+.tp-txt{flex:1;overflow:hidden;position:relative}
+.tp-txt .rollo{position:absolute;left:0;right:0;padding:45vh 8vw;font:600 48px/1.45 Inter;white-space:pre-wrap;will-change:transform}
+.tp-txt.espejo .rollo{transform-origin:center}
+.tp-guia{position:absolute;left:0;right:0;top:42vh;height:2px;background:rgba(242,106,46,.6);pointer-events:none;z-index:2}
+.tp-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:#0E1016;border-top:1px solid rgba(245,243,239,.14)}
+.tp-bar button{border:1px solid rgba(245,243,239,.3);background:transparent;color:#F5F3EF;border-radius:999px;padding:9px 14px;font:700 13px Inter;cursor:pointer}
+.tp-bar button.prim{background:var(--glow);border-color:var(--glow)}
+.tp-bar label{display:flex;gap:8px;align-items:center;font:700 11px 'Space Mono';color:rgba(245,243,239,.7)}
+.tp-bar input{accent-color:var(--glow);width:110px}
+
+#pg-test{display:none}
+/* ===== Sistema SEN6: barra, banda, guías, glosario, guionistas ===== */
+.top{background:rgba(11,13,18,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,243,239,.14);color:#F5F3EF}
+:root[data-tema="claro"] .top{background:rgba(242,236,228,.92);color:#1A1A1A;border-bottom-color:rgba(26,26,26,.18)}
+.top .fila1{padding:12px 22px}
+.marca{letter-spacing:.14em}
+.marca img{width:30px;height:30px;border-radius:8px}
+.acc-top a.ent{font-size:14px;font-weight:600;color:var(--dim);text-decoration:none}
+.acc-top a.ent:hover{color:var(--tinta)}
+.tema{border-color:var(--line2)}
+.top .cta{padding:11px 18px;font-size:14px;box-shadow:0 10px 30px -10px rgba(242,106,46,.8)}
+.top .cta small{font-weight:700;opacity:.85;font-size:13px;padding-left:10px;border-left:1px solid rgba(255,255,255,.35)}
+.regla a{border-left-color:var(--line)}
+.banda{position:relative;overflow:hidden;isolation:isolate;background:#07090D;color:#F5F3EF;border-bottom:1px solid rgba(245,243,239,.14)}
+.banda-v{position:absolute;inset:0;z-index:-2}
+.banda-v video{width:100%;height:100%;object-fit:cover;object-position:50% 40%;opacity:.55;animation:respira 30s ease-in-out infinite alternate}
+@keyframes respira{from{transform:scale(1.02)}to{transform:scale(1.1) translateY(-1.5%)}}
+.banda::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,9,13,.95),rgba(7,9,13,.6) 55%,rgba(7,9,13,.25)),linear-gradient(0deg,rgba(11,13,18,.9),rgba(11,13,18,0) 50%)}
+.banda-in{padding:64px 22px 54px;position:relative}
+.banda h1{font-size:clamp(44px,6.4vw,88px);margin-top:12px;color:#F5F3EF}
+.banda h1 em{color:var(--glow)}
+.banda .lead{color:rgba(245,243,239,.82)}
+.banda .eb{color:var(--glow)}
+.rec2{position:absolute;right:22px;top:22px;display:flex;gap:16px;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;color:rgba(245,243,239,.75)}
+.rec2 i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff3b30;margin-right:7px;box-shadow:0 0 12px #ff3b30;animation:parp 1.2s steps(2) infinite}
+.guia{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:color-mix(in srgb,var(--card) 70%,transparent);margin-bottom:34px}
+.guia-v{position:relative;background:#000;min-height:280px}
+.guia-v video,.guia-v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.guia-v::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,9,13,.7),rgba(7,9,13,0) 50%)}
+.guia-v span{position:absolute;left:14px;top:12px;z-index:2;font:700 11px 'Space Mono';letter-spacing:.14em;color:var(--oro)}
+.guia-v b{position:absolute;left:14px;bottom:10px;z-index:2;font:700 11px 'Space Mono';letter-spacing:.1em;color:#fff}
+.guia-v b i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff3b30;margin-right:6px;animation:parp 1.2s steps(2) infinite}
+.guia-c{padding:28px 30px}
+.guia-c h2{font-size:clamp(32px,4vw,52px);margin-top:10px}
+.guia-c .que{font-size:18px;margin-top:12px;line-height:1.5}
+.guia-c .k{font:700 10.5px 'Space Mono';letter-spacing:.14em;color:var(--acento);text-transform:uppercase;display:block;margin-bottom:4px}
+.guia-c .ej{margin-top:16px;border-left:3px solid var(--glow);background:color-mix(in srgb,var(--glow) 8%,transparent);border-radius:0 12px 12px 0;padding:10px 14px;font-size:15px}
+.guia-c ol{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;counter-reset:gp}
+.guia-c li{counter-increment:gp;display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.guia-c li::before{content:counter(gp);flex:none;width:24px;height:24px;border-radius:50%;background:var(--glow);color:#fff;display:grid;place-items:center;font:700 12px 'Space Mono';margin-top:-1px}
+.guia-c .tip{font-size:13.5px;color:var(--dim);margin-top:12px}
+.guia-c .acc{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.guia-c .cta{padding:13px 20px;font-size:14.5px}
+.g{border-bottom:1.5px dotted var(--acento);cursor:help;text-decoration:none}
+.g:focus{outline:2px solid var(--acento);outline-offset:2px;border-radius:2px}
+#gpop{position:fixed;z-index:120;max-width:300px;border:1px solid rgba(242,106,46,.55);background:#0E1016;color:#F5F3EF;border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45;box-shadow:0 20px 50px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transition:opacity .15s}
+#gpop.on{opacity:1}
+#gpop b{display:block;font:600 16px Oswald;text-transform:uppercase;letter-spacing:.04em;color:var(--glow);margin-bottom:4px}
+#gpop em{display:block;font-style:normal;color:rgba(245,243,239,.65);margin-top:6px;font-size:12.5px}
+.glos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.glos div{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card)}
+.glos h4{font-size:20px;color:var(--acento)}
+.glos p{margin-top:6px;font-size:15px}
+.glos p.e{color:var(--dim);font-size:14px}
+.gn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gn{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:20px;display:flex;flex-direction:column;gap:12px}
+.gn h3{font-size:24px}
+.gn .meta{font:700 10.5px/1.5 'Space Mono',monospace;letter-spacing:.08em;color:var(--oro);text-transform:uppercase}
+:root[data-tema="claro"] .gn .meta{color:var(--terra)}
+.gn .quien{color:var(--dim);font-size:14.5px}
+.gn .k{font:700 10.5px 'Space Mono',monospace;letter-spacing:.14em;color:var(--acento);text-transform:uppercase;display:block;margin-bottom:4px}
+.gn .idea{font-size:15px}
+.gn .yt{border-left:3px solid var(--glow);background:color-mix(in srgb,var(--glow) 8%,transparent);border-radius:0 12px 12px 0;padding:10px 12px;font-size:14.5px}
+.gn .vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:auto;padding-top:6px}
+.vid{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit}
+.vid .vmini{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.vid .vmini img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.vid:hover .mini img{transform:scale(1.06)}
+.vid .vmini b{position:absolute;left:6px;top:6px;font:700 10px 'Space Mono';background:var(--glow);color:#fff;border-radius:4px;padding:2px 6px}
+.vid .vmini b.en{background:#3A5488}
+.vid .vmini i{position:absolute;right:6px;bottom:6px;font:700 10px 'Space Mono';font-style:normal;background:rgba(0,0,0,.75);color:#fff;border-radius:4px;padding:2px 5px}
+.vid .vmini::after{content:"";position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/16px no-repeat;border:1px solid rgba(255,255,255,.4)}
+.vid span{font-size:12.5px;line-height:1.35;color:var(--dim);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vacio b{color:var(--tinta)}
+.vacio .btn{margin-top:12px}
+@media (max-width:980px){
+  .guia{grid-template-columns:1fr}
+  .guia-v{min-height:0;aspect-ratio:16/9}
+  .gn-grid{grid-template-columns:1fr 1fr}
+  .acc-top a.ent{display:none}
+  .rec2{display:none}
+}
+@media (max-width:620px){
+  .gn-grid,.glos{grid-template-columns:1fr}
+  .guia-c{padding:20px 18px 22px}
+  .top .cta small{display:none}
+  .banda-in{padding:40px 16px 36px}
+}
+
+
+@media (max-width:980px){
+  .cabecera,.editor,.resaltado-wrap,.skill,.voz-grid{grid-template-columns:1fr}
+  .funciones{grid-template-columns:repeat(2,1fr)}
+  .hallazgos{position:static;max-height:none}
+  .recorrido{grid-template-columns:1fr;gap:18px}
+  .recorrido::before{left:27px;right:auto;top:0;bottom:0;width:3px;height:auto}
+  .paso{display:grid;grid-template-columns:56px 1fr;gap:4px 16px;padding:0}
+  .paso .nodo{grid-row:1/5}
+  .paso .min{margin-top:4px}
+  .grid2{grid-template-columns:1fr}
+  .ia{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  .top .fila1{padding:9px 16px 7px}
+  .regla{padding:0 16px}
+  .marca{font-size:15px;letter-spacing:.09em}
+  .marca img{width:24px;height:24px}
+  .top .cta span{display:none}
+  .top .cta{padding:9px 12px}
+  .regla a{min-width:96px;padding:5px 12px 10px 9px}
+  .regla a b{font-size:13.5px}
+  .vista{padding:34px 0 70px}
+  .funciones{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .estr-det{grid-template-columns:1fr}
+  .mesa{padding:16px 14px 14px;border-radius:16px}
+  .linea .pist{height:56px}
+  .linea .bl{padding:6px 5px}
+  .linea .bl small{display:none}
+  .linea .hueco,.linea .zona{height:64px}
+  .linea .etqs{height:auto;display:flex;flex-direction:column;gap:3px}
+  .linea .etqs span{position:static;white-space:normal}
+  .paso-c{padding-left:0;padding-top:50px}
+  .paso-c::before{top:0}
+  .tp-txt .rollo{font-size:30px;padding:45vh 6vw}
+  .resaltado{padding:16px;font-size:15px}
+  .hero h1{font-size:clamp(40px,12.5vw,60px)}
+  .zip .monto{font-size:54px}
+  .col-cuerpo{grid-template-columns:26px 1fr}
+  .col-pist .bl{padding:3px 4px}
+  .col-pist .bl b{font-size:10.5px}
+  .col-pist .bl small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="fila1">
+    <a class="marca" href="index.html"><img src="img/sen6.png" alt="">Prompt <em>Guion</em><span class="ver">V1</span></a>
+    <nav class="acc-top">
+      <a class="ent" href="index.html">Inicio</a>
+      <a class="ent" href="#guionistas">Guionistas</a>
+      <a class="ent" href="#glosario">Glosario</a>
+      <button class="tema" id="tema" aria-label="Cambiar entre modo oscuro y claro" title="Modo oscuro / claro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+      <a class="cta" href="prompt-guion-skill-v1.zip" download>Descargar <small>gratis</small></a>
+    </nav>
+  </div>
+  <nav class="regla" id="regla" aria-label="Herramientas">
+    <div class="pista">
+      <a href="#revisar" data-v="revisar" style="--c:var(--f-gancho)"><span>01 · 00:00</span><b>Revisá tu guion</b></a>
+      <a href="#comparar" data-v="comparar" style="--c:var(--f-giro)"><span>02 · 01:00</span><b>Otras estructuras</b></a>
+      <a href="#entrenar" data-v="entrenar" style="--c:var(--f-rev)"><span>03 · 02:00</span><b>Enseñale a tu IA</b></a>
+      <a href="#voz" data-v="voz" style="--c:var(--f-cierre)"><span>04 · 03:00</span><b>Preparalo para grabar</b></a>
+      <a href="#biblioteca" data-v="biblioteca" style="--c:var(--f-contexto)"><span>05 · 04:00</span><b>Biblioteca</b></a>
+      <a href="#guionistas" data-v="guionistas" style="--c:var(--f-re)"><span>06 · 05:00</span><b>Guionistas</b></a>
+      <a href="#glosario" data-v="glosario" style="--c:var(--f-climax)"><span>07 · 06:00</span><b>Glosario</b></a>
+      <div class="cabezal" id="cabezal"></div>
+    </div>
+  </nav>
+</header>
+
+<section class="banda" id="banda">
+  <div class="banda-v"><video src="media/gen/pared.mp4" poster="media/gen/pared.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+  <div class="wrap banda-in">
+    <div class="rec2"><span><i></i>REC</span><span id="tc">00:00:00:00</span><span id="banda-esc">MESA DE TRABAJO</span></div>
+    <div class="eb">Prompt Guion · herramientas gratis</div>
+    <h1>Tu mesa de <em>trabajo.</em></h1>
+    <p class="lead">Cinco herramientas que funcionan en tu navegador, sin cuenta y sin pagar IA. Elegí una en la barra de arriba. Las palabras <span class="g" data-g="subrayado">subrayadas así</span> tienen explicación: pasá el mouse o tocalas.</p>
+  </div>
+</section>
+
+
+<main>
+<section class="vista" id="v-biblioteca">
+  <div class="wrap">
+    <div class="guia" data-guia="biblioteca"></div>
+    <div class="subtabs" id="subtabs">
+      <button data-s="estructuras" class="on">Estructuras<small id="n-estr"></small></button>
+      <button data-s="ganchos">Ganchos<small id="n-ganch"></small></button>
+      <button data-s="retencion">Retención y cierres</button>
+      <button data-s="anti-ia">Anti-IA<small id="n-ia"></small></button>
+      <button data-s="politicas">Políticas de YouTube</button>
+    </div>
+
+    <div class="subv on" id="s-estructuras">
+      <div class="filtros">
+        <div class="chips" id="f-formato"><span class="et">Formato</span></div>
+        <div class="chips" id="f-dur"><span class="et">Duración</span></div>
+      </div>
+      <div id="lista-estr"></div>
+    </div>
+
+    <div class="subv" id="s-ganchos">
+      <div class="filtros"><div class="chips" id="f-tipo"><span class="et">Tipo</span></div></div>
+      <div class="grid2" id="lista-ganch"></div>
+    </div>
+
+    <div class="subv" id="s-retencion">
+      <div class="util" style="box-shadow:none;margin-bottom:20px"><p><b>Para qué sirve</b>Que el espectador no se vaya a la mitad: cada pocos minutos algo tiene que renovar las ganas de seguir.</p><p><b>Ejemplo</b>En vez de "pero eso no es lo peor", nombrá lo que falta: "todavía no te dije quién cobraba el seguro".</p></div>
+      <div class="cuentas" id="ret-datos"></div>
+      <div class="bloque"><h3>Funciones de retención</h3><div class="grid2" id="ret-fn"></div></div>
+      <div class="bloque"><div class="gastadas"><div class="titulo">Gastadas: usá la función, no la frase</div><p class="nota" id="ret-adv" style="margin-top:6px"></p><ul id="ret-cliches"></ul></div></div>
+      <div class="bloque"><h3>Cierres</h3><div class="grid2" id="cierres"></div></div>
+    </div>
+
+    <div class="subv" id="s-anti-ia">
+      <div class="util" style="box-shadow:none;margin-bottom:20px"><p><b>Para qué sirve</b>Detectar las muletillas que delatan un texto escrito por IA, y reemplazarlas con tu voz.</p><p><b>Ejemplo</b>"Cabe destacar que el proyecto costó millones" → "El proyecto costó millones".</p></div>
+      <div class="filtros">
+        <input type="search" id="ia-buscar" placeholder="Buscá: viaje, crucial, raya, en definitiva…" style="max-width:460px">
+        <div class="chips" id="f-ia"><span class="et">Tipo</span></div>
+      </div>
+      <p class="nota" id="ia-cuenta" style="margin-bottom:10px"></p>
+      <div class="ia-lista" id="lista-ia"></div>
+    </div>
+
+    <div class="subv" id="s-politicas">
+      <div class="aviso" id="pol-aviso"></div>
+      <div class="bloque" style="margin-top:24px"><h3 id="pol-an-nombre"></h3><div class="pol" style="margin-top:12px" id="pol-anuncios"></div><div id="pol-cats"></div></div>
+      <div class="bloque"><h3>Las políticas que más afectan a un canal faceless</h3><div style="margin-top:12px" id="pol-puntos"></div></div>
+      <div class="bloque"><h3>Palabras que conviene mirar dos veces</h3><p class="nota" id="pol-sens-uso" style="margin:8px 0 12px"></p><div id="pol-sens"></div></div>
+      <p class="aviso" style="margin-top:24px"><b>Es una ayuda, no una garantía.</b> La decisión final la toma YouTube.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MI GUION ================= -->
+<section class="vista" id="v-revisar">
+  <div class="wrap">
+    <div class="guia" data-guia="revisar"></div>
+    <div class="editor">
+      <div>
+        <div class="editor-bar">
+          <div class="chips"><button class="btn chico" id="mg-ejemplo">Cargar ejemplo</button><button class="btn chico" id="mg-borrar">Borrar</button></div>
+          <span class="cont" id="mg-cont">0 palabras</span>
+        </div>
+        <textarea class="grande" id="mg-texto" data-guion placeholder="Pegá acá tu guion. Si querés ver los bloques por función, poné las marcas en su propia línea: [GANCHO], [CONTEXTO], [GIRO], [RE-GANCHO], [REVELACIÓN], [CLÍMAX], [CIERRE]."></textarea>
+        <div class="barra-acc"><span class="nota">Insertar <span class="g" data-g="marcas">marca</span>:</span><div class="marcas-ayuda" id="mg-marcas"></div></div>
+        <p class="nota" id="mg-guardado" style="margin-top:6px"></p>
+      </div>
+      <div class="ajustes">
+        <div class="tarjeta">
+          <label class="campo">Idioma de la voz
+            <select id="mg-idioma"><option value="es">Español</option><option value="en">Inglés</option></select></label>
+          <label class="campo">Velocidad de la voz <small>En <span class="g" data-g="palabras por minuto">palabras por minuto</span>. Elegí un perfil o escribí la tuya.</small>
+            <select id="mg-preset"></select></label>
+          <label class="campo">Palabras por minuto
+            <input type="number" id="mg-ppm" min="80" max="220" step="1"></label>
+          <label class="campo">Duración objetivo (minutos)
+            <input type="number" id="mg-dur" min="1" max="120" step="0.5"></label>
+          <label class="campo">Registro del canal <small>Para avisarte si se cuela un "tú" en un canal de "vos" (o al revés).</small>
+            <select id="mg-registro"><option value="">No chequear</option><option value="voseo">Voseo (vos sabés)</option><option value="tuteo">Tuteo o neutro (tú sabes)</option></select></label>
+        </div>
+        <p class="nota" id="mg-ritmo-nota"></p>
+      </div>
+    </div>
+
+    <div id="mg-resultado"></div>
+  </div>
+</section>
+
+<!-- ================= COMPARAR ================= -->
+<section class="vista" id="v-comparar">
+  <div class="wrap">
+    <div class="guia" data-guia="comparar"></div>
+    <div class="pasos-c">
+      <div class="paso-c"><h3>Tu guion</h3>
+        <textarea id="cmp-texto" data-guion placeholder="Pegá tu guion (es el mismo que en Mi guion: si ya lo pegaste ahí, aparece acá)."></textarea>
+        <p class="nota" id="cmp-cont" style="margin-top:6px"></p></div>
+      <div class="paso-c"><h3>Elegí 2 o 3 estructuras</h3><div class="elegir" id="cmp-elegir"></div></div>
+      <div class="paso-c"><h3>Copiá un prompt por estructura</h3><p class="nota" style="margin-bottom:12px">Pegá cada prompt en una conversación nueva de tu Claude o ChatGPT. Después pegá la respuesta en la caja de abajo de cada uno.</p><div class="prompts-c" id="cmp-prompts"></div></div>
+      <div class="paso-c"><h3>Compará</h3><div id="cmp-resultado"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENTRENAR ================= -->
+<section class="vista" id="v-entrenar">
+  <div class="wrap">
+    <div class="guia" data-guia="entrenar"></div>
+
+    <div class="bloque" style="margin-top:0"><h3>1 · La ficha del canal</h3>
+      <div class="form-grid" style="margin-top:14px" id="ent-ficha">
+        <label class="campo">Nombre del canal <input type="text" data-f="nombre" placeholder="Ej: Faros y naufragios"></label>
+        <label class="campo">Idioma y registro <select data-f="registro"><option>Español con voseo</option><option>Español con tú</option><option>Español neutro</option><option>Español de España</option><option>Inglés</option><option>Otro</option></select></label>
+        <label class="campo">Nicho <small>Con un ejemplo de tema</small><input type="text" data-f="nicho" placeholder="Ej: historia marítima: naufragios con misterio"></label>
+        <label class="campo">Formato principal <select data-f="formato"><option>Documental</option><option>Lista</option><option>Explicativo</option><option>Historia / biografía</option><option>Comparación</option><option>Investigación</option><option>Otro</option></select></label>
+        <label class="campo">Audiencia <small>Edad, países y cuánto sabe del tema</small><input type="text" data-f="audiencia" placeholder="Ej: 25-45, Argentina y México, no sabe nada"></label>
+        <label class="campo">Tono (hasta dos) <input type="text" data-f="tono" placeholder="Ej: misterioso y cercano"></label>
+        <label class="campo">Duración habitual <select data-f="duracion"><option>5-8 min</option><option>8-12 min</option><option selected>12-20 min</option><option>20+ min</option></select></label>
+        <label class="campo">Voz <small>Y palabras por minuto, si las sabés</small><input type="text" data-f="voz" placeholder="Ej: ElevenLabs, ~145 palabras por minuto"></label>
+        <label class="campo">Canal de referencia <small>Y qué te gusta de él</small><input type="text" data-f="referencia" placeholder="Ej: (nombre o link): cómo cuenta con calma"></label>
+        <label class="campo">Reglas propias <input type="text" data-f="reglas" placeholder="Ej: nunca digo el nombre del barco en el título"></label>
+        <div class="ancho"><span class="eb" style="color:var(--dim)">Herramientas que tenés</span>
+          <div class="herr-checks" style="margin-top:8px" id="ent-herr"></div></div>
+      </div>
+    </div>
+
+    <div class="bloque"><h3>2 · Tus textos</h3>
+      <p class="nota" style="margin:8px 0 10px">Guiones, posts, mensajes largos o la transcripción de un audio tuyo. Ideal: 1.500 palabras o más. No importan los errores: se analiza el estilo. <b>¿No tenés nada escrito?</b> Grabá un audio de 3 minutos contándole a un amigo una historia de tu nicho, como en un café, y transcribilo gratis con el dictado del celular o subiéndolo a tu IA.</p>
+      <textarea id="ent-propios" data-e="propios" placeholder="Pegá acá tus textos…" style="min-height:200px"></textarea>
+      <div class="medidor"><i id="ent-med" style="width:0"></i></div>
+      <p class="nota" id="ent-med-txt" style="margin-top:4px"></p>
+    </div>
+
+    <div class="bloque"><h3>3 · Transcripciones de tu competencia</h3>
+      <div class="tarjeta" style="margin:10px 0 14px"><b class="eb" style="color:var(--dim)">Cómo copiar una transcripción gratis desde YouTube (en la compu)</b>
+        <ol class="pasos-yt">
+          <li>Abrí el video de un canal fuerte de tu nicho (mejor si rinde mucho más que el promedio de ese canal).</li>
+          <li>Debajo del título, tocá "…más" para abrir la descripción.</li>
+          <li>Bajá hasta "Mostrar transcripción" y tocalo: se abre un panel a la derecha.</li>
+          <li>En los tres puntitos del panel, desactivá las marcas de tiempo si aparece la opción.</li>
+          <li>Seleccioná todo el texto del panel, copialo y pegalo en una caja de acá.</li>
+        </ol>
+        <p class="nota" style="margin-top:10px">Con NexLev o vidIQ también podés bajar la transcripción directo. Si no conseguís ninguna, seguí igual: el mapa del nicho va a salir "provisorio".</p>
+      </div>
+      <div class="grid2" id="ent-comp"></div>
+      <button class="btn chico" id="ent-mas" style="margin-top:10px">+ Agregar otra transcripción</button>
+    </div>
+
+    <div class="bloque"><h3>4 · Tu prompt de entrenamiento</h3>
+      <div class="barra-acc" style="margin-top:0"><button class="btn lleno" id="ent-armar">Armar el prompt</button><span class="nota">Pegalo en tu IA. Te va a devolver el PERFIL DE CANAL: guardalo en un Proyecto con el nombre del canal.</span></div>
+      <div class="copiable" id="ent-salida" style="margin-top:12px"></div>
+    </div>
+
+    <div class="bloque" style="border-top:1.5px solid var(--tinta);padding-top:40px;margin-top:60px">
+      <div class="cabecera" style="margin-bottom:18px">
+        <div><div class="eb">Segundo generador</div><h3 style="margin-top:8px;font-size:clamp(26px,3.4vw,40px)">Escribí mi guion con este perfil</h3></div>
+        <div class="util"><p><b>Para qué sirve</b>Que tu IA te lleve por los 7 pasos (tema, estructura, gancho, esqueleto, guion, revisión, salidas) con tu perfil, una cosa por vez.</p><p><b>Ejemplo</b>Pegás tu perfil, escribís "el faro que nunca salvó a nadie", 12 minutos, y la IA arranca por el paso 1.</p></div>
+      </div>
+      <div class="form-grid">
+        <label class="campo ancho">Tu PERFIL DE CANAL <textarea id="gen-perfil" data-e="perfil" placeholder="Pegá acá el texto que empieza con # PERFIL DE CANAL…" style="min-height:160px"></textarea></label>
+        <label class="campo">Tema o idea del video <input type="text" id="gen-tema" data-e="tema" placeholder="Ej: el faro que nunca salvó a nadie"></label>
+        <label class="campo">Duración (minutos) <input type="number" id="gen-dur" data-e="gdur" min="3" max="90" value="12"></label>
+        <label class="campo">Estructura <small>Opcional: si no elegís, la IA te recomienda 2 o 3</small><select id="gen-estr" data-e="gestr"></select></label>
+        <label class="campo">Plan de tu IA <select id="gen-plan" data-e="gplan"><option value="pago">Pago (puede escribir el guion entero)</option><option value="gratis">Gratis (mejor por secciones y mensajes cortos)</option></select></label>
+      </div>
+      <div class="barra-acc"><button class="btn lleno" id="gen-armar">Armar el prompt guiado</button></div>
+      <div class="copiable" id="gen-salida" style="margin-top:12px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VOZ ================= -->
+<section class="vista" id="v-voz">
+  <div class="wrap">
+    <div class="guia" data-guia="voz"></div>
+    <label class="campo">Tu guion <small>Es el mismo de "Revisá tu guion": lo que cambies acá cambia allá.</small>
+      <textarea id="voz-texto" data-guion style="min-height:170px"></textarea></label>
+    <div class="voz-grid" style="margin-top:22px">
+      <div class="tarjeta">
+          <h3>Cortar para ElevenLabs</h3>
+          <p class="nota" style="margin-top:6px">Si generás la voz con IA. Saca las marcas <code>[…]</code> y los emojis, y corta siempre al final de un párrafo.</p>
+          <div class="barra-acc">
+            <label class="campo" style="flex:1;min-width:160px">Máximo por parte <input type="number" id="el-max" min="1000" max="4999" step="100" value="4800"></label>
+            <button class="btn lleno" id="el-cortar" style="align-self:flex-end">Cortar</button>
+          </div>
+          <div class="partes" id="el-partes"></div>
+        </div>
+      <div class="tarjeta">
+          <h3>Teleprompter</h3>
+          <p class="nota" style="margin-top:6px">Si grabás con tu propia voz. Pantalla completa, letra grande y scroll automático. Espacio: pausa · flechas: velocidad · Esc: salir.</p>
+          <div style="display:grid;gap:10px;margin-top:12px">
+            <div class="rango"><span>Letra</span><input type="range" id="tp-tam" min="24" max="96" step="2" value="48"><output id="tp-tam-o">48 px</output></div>
+            <div class="rango"><span>Velocidad</span><input type="range" id="tp-vel" min="10" max="200" step="5" value="60"><output id="tp-vel-o">60</output></div>
+            <label class="check"><input type="checkbox" id="tp-espejo"> Modo espejo (para vidrio de teleprompter)</label>
+            <button class="btn lleno" id="tp-abrir">Abrir teleprompter</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= GUIONISTAS ================= -->
+<section class="vista" id="v-guionistas">
+  <div class="wrap">
+    <div class="guia" data-guia="guionistas"></div>
+    <div class="filtros">
+      <input type="search" id="gn-buscar" placeholder="Buscá: Sorkin, giros, comedia, primer minuto…" style="max-width:460px">
+      <div class="chips" id="gn-idioma"><span class="et">Videos</span><button class="chip on" data-v="">Todos</button><button class="chip" data-v="es">En español</button><button class="chip" data-v="en">En inglés</button></div>
+    </div>
+    <p class="nota" id="gn-cuenta" style="margin-bottom:12px"></p>
+    <div class="gn-grid" id="gn-lista"></div>
+  </div>
+</section>
+
+<!-- ================= GLOSARIO ================= -->
+<section class="vista" id="v-glosario">
+  <div class="wrap">
+    <div class="guia" data-guia="glosario"></div>
+    <input type="search" id="gl-buscar" placeholder="Buscá una palabra: gancho, giro, huella…" style="max-width:460px;margin-bottom:18px">
+    <div class="glos" id="gl-lista"></div>
+  </div>
+</section>
+</main>
+
+<footer>Prompt Guion · una skill de SEN6 · Funciona en tu navegador, sin IA ni servidores · <a href="index.html">Volver al inicio</a> · <span id="pie-fecha"></span></footer>
+
+<div class="tp" id="tp" aria-hidden="true">
+  <div class="tp-txt" id="tp-txt"><div class="tp-guia"></div><div class="rollo" id="tp-rollo"></div></div>
+  <div class="tp-bar">
+    <button class="prim" id="tp-play">Pausa</button>
+    <button id="tp-menos">− Lento</button><button id="tp-mas">+ Rápido</button>
+    <label>Letra <input type="range" id="tp-tam2" min="24" max="96" step="2"></label>
+    <button id="tp-inicio">Al principio</button>
+    <button id="tp-cerrar">Salir (Esc)</button>
+  </div>
+</div>
+
+<pre id="pg-test"></pre>
+
+<script src="datos.js"></script>
+<script>
+(function(){
+'use strict';
+var B = window.BIBLIOTECA;
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+var fmt = function(n){ return Math.round(n).toLocaleString('es-AR'); };
+function mmss(seg){ seg = Math.max(0, Math.round(seg)); var m = Math.floor(seg / 60), s = seg % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+function minTxt(seg){ return mmss(seg); }
+
+/* ---------- guardado local (solo comodidad) ---------- */
+var CLAVE = 'prompt-guion:v1';
+var E = { guion:'', idioma:'es', ppm:145, preset:'es-prom', dur:12, registro:'', tema:'', ficha:{}, herr:[], propios:'', comp:['', '', ''], perfil:'', gdur:12, gestr:'', gplan:'pago', cmpSel:[], cmpResp:{}, claro:false, tpTam:48, tpVel:60 };
+var guardar = function(){};
+try {
+  var crudo = localStorage.getItem(CLAVE);
+  if (crudo) { var g = JSON.parse(crudo); for (var k in g) if (Object.prototype.hasOwnProperty.call(E, k)) E[k] = g[k]; }
+  var tGuardar = null;
+  guardar = function(){ clearTimeout(tGuardar); tGuardar = setTimeout(function(){ try { localStorage.setItem(CLAVE, JSON.stringify(E)); marcaGuardado(true); } catch (e) { marcaGuardado(false); } }, 350); };
+} catch (e) { /* sin localStorage: la página funciona igual */ }
+function marcaGuardado(ok){ var el = $('#mg-guardado'); if (el) el.textContent = ok ? 'Guardado en este navegador.' : 'No se pudo guardar en este navegador (la página funciona igual).'; }
+
+/* ---------- funciones y colores ---------- */
+var FUNC = {
+  'gancho':     { n:'Gancho',     v:'--f-gancho',   t:'#fff',    d:'Promete algo concreto en los primeros segundos para que no te vayas.' },
+  'contexto':   { n:'Contexto',   v:'--f-contexto', t:'#1A1A1A', d:'Lo mínimo para entender: quién, dónde, cuándo. Ni una línea de más.' },
+  'giro':       { n:'Giro',       v:'--f-giro',     t:'#fff',    d:'Rompe lo que el espectador creía haber entendido. Resetea la atención.' },
+  're-gancho':  { n:'Re-gancho',  v:'--f-re',       t:'#1A1A1A', d:'Renueva las ganas de seguir: nombra lo que todavía falta saber.' },
+  'revelacion': { n:'Revelación', v:'--f-rev',      t:'#fff',    d:'Entrega una respuesta o un dato que se venía buscando.' },
+  'climax':     { n:'Clímax',     v:'--f-climax',   t:'#fff',    d:'Lo más fuerte del video. Suele caer entre el 60 % y el 80 %.' },
+  'cierre':     { n:'Cierre',     v:'--f-cierre',   t:'#fff',    d:'Cierra el círculo y deja algo: una imagen, una pregunta, un próximo video.' },
+  'cta':        { n:'CTA',        v:'--f-cta',      t:'#fff',    d:'Llamado a la acción: suscribirse, comentar, ver otro video.' },
+  'parrafo':    { n:'Párrafo',    v:'--f-neutro',   t:'inherit', d:'Bloque sin marca.' },
+  'sinmarca':   { n:'Sin marca',  v:'--f-neutro',   t:'inherit', d:'Texto antes de la primera marca.' }
+};
+var ORDEN_F = ['gancho','contexto','giro','re-gancho','revelacion','climax','cierre','cta'];
+function colF(f){ return 'var(' + (FUNC[f] || FUNC.parrafo).v + ')'; }
+function txtF(f){ var t = (FUNC[f] || FUNC.parrafo).t; return t === 'inherit' ? 'var(--tinta)' : t; }
+var MARCA_A_F = { 'GANCHO':'gancho', 'CONTEXTO':'contexto', 'GIRO':'giro', 'RE-GANCHO':'re-gancho', 'REGANCHO':'re-gancho', 'RE GANCHO':'re-gancho', 'REVELACION':'revelacion', 'CLIMAX':'climax', 'CIERRE':'cierre', 'CTA':'cta' };
+var MARCAS_TXT = ['[GANCHO]','[CONTEXTO]','[GIRO]','[RE-GANCHO]','[REVELACIÓN]','[CLÍMAX]','[CIERRE]'];
+var RX_MARCA = /\[\s*(GANCHO|CONTEXTO|GIRO|RE[- ]?GANCHO|REVELACI[OÓ]N|CL[IÍ]MAX|CIERRE|CTA)\b[^\]\n]{0,40}\]/gi;
+
+/* ---------- utilidades de texto ---------- */
+// minúsculas y sin tildes, con la MISMA longitud que el original (para poder resaltar por posición)
+function norm(s){
+  var out = '';
+  for (var i = 0; i < s.length; i++) {
+    var c = s[i], l = c.toLowerCase();
+    if (l.length !== 1) l = c;
+    var n = l.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    out += n.length === 1 ? n : l;
+  }
+  return out;
+}
+function bajo(s){ var out = ''; for (var i = 0; i < s.length; i++) { var l = s[i].toLowerCase(); out += l.length === 1 ? l : s[i]; } return out; }
+var RX_PAL = /[\p{L}\d]+(?:['’\-][\p{L}\d]+)*/gu;
+function contarPalabras(s){ var m = s.replace(RX_MARCA, ' ').match(RX_PAL); return m ? m.length : 0; }
+function quitarMarcas(s){ return s.replace(RX_MARCA, '').replace(/\[[^\]\n]{0,80}\]/g, ''); }
+
+/* ---------- bloques y tiempos ---------- */
+function bloques(texto, ppm){
+  var marcas = [], m; RX_MARCA.lastIndex = 0;
+  while ((m = RX_MARCA.exec(texto))) {
+    var k = norm(m[1]).toUpperCase().replace(/\s+/g, ' ');
+    marcas.push({ f: MARCA_A_F[k] || MARCA_A_F[k.replace(/[- ]/g, '')] || 'parrafo', ini: m.index, fin: m.index + m[0].length, et: m[0] });
+  }
+  var res = [];
+  if (marcas.length) {
+    if (contarPalabras(texto.slice(0, marcas[0].ini)) > 0) res.push({ f:'sinmarca', ini:0, txtIni:0, fin:marcas[0].ini });
+    marcas.forEach(function(mk, i){ res.push({ f: mk.f, ini: mk.ini, txtIni: mk.fin, fin: i + 1 < marcas.length ? marcas[i + 1].ini : texto.length }); });
+  } else {
+    var rx = /[^\n]+(?:\n(?!\s*\n)[^\n]*)*/g, p, primero = true;
+    while ((p = rx.exec(texto))) {
+      if (!contarPalabras(p[0])) continue;
+      res.push({ f: primero ? 'gancho' : 'parrafo', ini: p.index, txtIni: p.index, fin: p.index + p[0].length, supuesto: primero });
+      primero = false;
+    }
+  }
+  var acum = 0;
+  res.forEach(function(b){ b.pal = contarPalabras(texto.slice(b.txtIni, b.fin)); b.t0 = acum / ppm * 60; acum += b.pal; b.t1 = acum / ppm * 60; });
+  res = res.filter(function(b){ return b.pal > 0 || b.f !== 'parrafo'; });
+  return { lista: res, conMarcas: marcas.length > 0, total: acum / ppm * 60, palabras: acum };
+}
+// hueco más largo sin re-gancho ni giro (solo con marcas)
+function huecoMayor(bl){
+  if (!bl.conMarcas || !bl.total) return null;
+  var pts = [0];
+  bl.lista.forEach(function(b){ if ((b.f === 're-gancho' || b.f === 'giro') && b.t0 > 0) pts.push(b.t0); });
+  pts.push(bl.total); pts.sort(function(a, b){ return a - b; });
+  var mejor = { ini:0, fin:0, dur:0 };
+  for (var i = 1; i < pts.length; i++) if (pts[i] - pts[i - 1] > mejor.dur) mejor = { ini: pts[i - 1], fin: pts[i], dur: pts[i] - pts[i - 1] };
+  return mejor;
+}
+function ganchoDur(texto, bl, ppm){
+  // hasta la marca [CONTEXTO] si existe; si no, el primer párrafo
+  var ctx = bl.lista.filter(function(b){ return b.f === 'contexto'; })[0];
+  if (bl.conMarcas && ctx) return { seg: ctx.t0, modo:'hasta [CONTEXTO]' };
+  if (bl.conMarcas) { var g = bl.lista.filter(function(b){ return b.f === 'gancho'; })[0]; if (g) return { seg: g.t1 - g.t0, modo:'bloque [GANCHO]' }; }
+  var limpio = quitarMarcas(texto).replace(/^\s+/, '');
+  var p = limpio.split(/\n\s*\n/)[0] || '';
+  return { seg: contarPalabras(p) / ppm * 60, modo:'primer párrafo' };
+}
+
+/* ---------- detectores ---------- */
+var DETS = B.web.detectores.map(function(d){ var o = {}; for (var k in d) o[k] = d[k]; if (d.rx) o.re = new RegExp(d.rx, 'gmu' + (d.modo === 'exacto' ? '' : 'i')); return o; });
+var IA_POR_ID = {}; B.anti_ia.forEach(function(a){ IA_POR_ID[a.id] = a; });
+var SENS = B.palabras_sensibles.map(function(p){ return { p: p, re: new RegExp(p.rx, 'gu') }; });
+var CLICH = B.web.cliches.map(function(c){ return { c: c, re: new RegExp(c.rx, 'gu') }; });
+
+function todas(re, s){ var r = [], m; re.lastIndex = 0; while ((m = re.exec(s))) { if (!m[0].length) { re.lastIndex++; continue; } r.push({ ini: m.index, fin: m.index + m[0].length, txt: m[0] }); } return r; }
+
+function detectarIA(texto, registro){
+  var n = norm(texto), b = bajo(texto), hits = [], globales = [];
+  DETS.forEach(function(d){
+    if (d.registro && d.registro !== registro) return;
+    if (d.especial === 'parrafos') {
+      var pars = texto.replace(RX_MARCA, '').split(/\n\s*\n/).map(contarPalabras).filter(function(x){ return x >= 15; });
+      if (pars.length >= 5) {
+        var med = pars.reduce(function(a, x){ return a + x; }, 0) / pars.length;
+        var sd = Math.sqrt(pars.reduce(function(a, x){ return a + (x - med) * (x - med); }, 0) / pars.length);
+        if (sd / med < 0.15) globales.push({ id: d.id, nota: pars.length + ' párrafos de largo casi igual (~' + Math.round(med) + ' palabras)' });
+      }
+      return;
+    }
+    var fuente = d.modo === 'exacto' ? texto : d.modo === 'crudo' ? b : n;
+    var r = todas(d.re, fuente);
+    if (d.min && r.length < d.min) return;
+    r.forEach(function(h){ hits.push({ tipo:'ia', id: d.id, ini: h.ini, fin: h.fin, txt: texto.slice(h.ini, h.fin), abuso: !!d.min, cant: r.length }); });
+  });
+  return { hits: hits, globales: globales };
+}
+function detectarSensibles(texto, segGancho, ppm){
+  var n = norm(texto), hits = [];
+  SENS.forEach(function(s){ todas(s.re, n).forEach(function(h){ hits.push({ tipo: s.p.severidad === 'rojo' ? 'ro' : 'am', p: s.p, ini: h.ini, fin: h.fin, txt: texto.slice(h.ini, h.fin) }); }); });
+  // ¿cae en los primeros 30 segundos?
+  var lim = ppm / 2;
+  hits.forEach(function(h){ h.alInicio = contarPalabras(texto.slice(0, h.ini)) < lim; });
+  return hits;
+}
+function detectarCliches(texto){
+  var n = norm(texto), hits = [];
+  CLICH.forEach(function(c){ todas(c.re, n).forEach(function(h){ hits.push({ tipo:'cl', c: c.c, ini: h.ini, fin: h.fin, txt: texto.slice(h.ini, h.fin) }); }); });
+  return hits;
+}
+var STOP = {}; ('que de la el en y a los las del se por un una con no su para es al lo como mas pero sus le ya o fue este ha si porque esta son entre cuando muy sin sobre ser tiene tambien me hasta hay donde quien desde todo nos durante todos uno les ni contra otros ese eso ante ellos esto antes algunos unos otro otras otra tanto esa estos mucho quienes nada muchos cual poco ella estar estas algunas algo nosotros mi mis tu te ti era eran fueron habia tenia hace hacer cada solo dijo dice entonces despues ahora asi aunque mientras siempre nunca vez veces ella ellas esos esas aquel aquella the and that with this from have they were what which there their about would your') .split(' ').forEach(function(w){ STOP[w] = 1; });
+function repetidas(texto){
+  var n = norm(quitarMarcas(texto)), toks = n.match(RX_PAL) || [];
+  var pos = {}, res = [];
+  toks.forEach(function(w, i){ if (w.length < 5 || STOP[w] || /^\d+$/.test(w)) return; (pos[w] = pos[w] || []).push(i); });
+  Object.keys(pos).forEach(function(w){
+    var p = pos[w], max = 0;
+    for (var i = 0; i < p.length; i++) { var j = i; while (j + 1 < p.length && p[j + 1] - p[i] < 100) j++; max = Math.max(max, j - i + 1); }
+    if (max >= 3) res.push({ w: w, max: max, total: p.length });
+  });
+  return res.sort(function(a, b){ return b.max - a.max || b.total - a.total; });
+}
+function frasesLargas(texto){
+  var limpio = quitarMarcas(texto), r = [];
+  limpio.split(/(?<=[.!?…])\s+|\n+/).forEach(function(f){ var c = contarPalabras(f); if (c > 30) r.push({ f: f.trim(), c: c }); });
+  return r;
+}
+
+/* ---------- análisis completo ---------- */
+function analizar(texto, cfg){
+  var ppm = cfg.ppm, bl = bloques(texto, ppm), g = ganchoDur(texto, bl, ppm), hueco = huecoMayor(bl);
+  var ia = detectarIA(texto, cfg.registro), sens = detectarSensibles(texto, g.seg, ppm), cl = detectarCliches(texto);
+  var rep = repetidas(texto), largas = frasesLargas(texto);
+  var objetivo = cfg.dur * 60, desvio = objetivo ? (bl.total - objetivo) / objetivo : 0;
+  var recG = cfg.idioma === 'en' ? 50 : 70, recGtxt = B.ritmo.duracion_gancho[cfg.idioma] || B.ritmo.duracion_gancho.es;
+  var rasgosIA = 0, vistosAbuso = {};
+  ia.hits.forEach(function(h){ if (h.abuso) { if (!vistosAbuso[h.id]) { vistosAbuso[h.id] = 1; rasgosIA++; } } else rasgosIA++; });
+  rasgosIA += ia.globales.length;
+  var primerRe = bl.lista.filter(function(b){ return b.f === 're-gancho' && b.t0 > 0; })[0];
+  var primerGiro = bl.lista.filter(function(b){ return b.f === 'giro'; })[0];
+  var luces = {};
+  luces.duracion = !objetivo ? 'g' : Math.abs(desvio) <= 0.10 ? 'v' : Math.abs(desvio) <= 0.20 ? 'a' : 'r';
+  luces.gancho = !bl.palabras ? 'g' : g.seg <= recG ? 'v' : g.seg <= recG + 20 ? 'a' : 'r';
+  luces.retencion = !hueco ? 'g' : hueco.dur <= 180 ? 'v' : hueco.dur <= 240 ? 'a' : 'r';
+  luces.largas = largas.length <= 2 ? 'v' : largas.length <= 5 ? 'a' : 'r';
+  luces.repes = rep.length <= 2 ? 'v' : rep.length <= 6 ? 'a' : 'r';
+  luces.ia = rasgosIA <= 1 ? 'v' : rasgosIA <= 4 ? 'a' : 'r';
+  luces.sens = sens.some(function(h){ return h.tipo === 'ro'; }) ? 'r' : sens.length ? 'a' : 'v';
+  luces.cliches = cl.length === 0 ? 'v' : cl.length <= 2 ? 'a' : 'r';
+  return { cfg: cfg, bl: bl, gancho: g, recG: recG, recGtxt: recGtxt, hueco: hueco, ia: ia, rasgosIA: rasgosIA, sens: sens, cliches: cl, rep: rep, largas: largas,
+    objetivo: objetivo, desvio: desvio, primerRe: primerRe, primerGiro: primerGiro, luces: luces, palabras: bl.palabras, total: bl.total };
+}
+
+/* ---------- corte para ElevenLabs ---------- */
+function limpiarVoz(t){
+  return t.replace(RX_MARCA, '').replace(/\[[^\]\n]{0,80}\]/g, '')
+    .replace(/[\p{Extended_Pictographic}️‍⃣]/gu, '')
+    .replace(/\*\*|__|^#+\s*/gm, '')
+    .replace(/[ \t]+/g, ' ').replace(/ ([.,;:!?…])/g, '$1').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+function cortarEleven(texto, max){
+  max = Math.min(4999, Math.max(500, max || 4800));
+  var limpio = limpiarVoz(texto); if (!limpio) return [];
+  var pars = limpio.split(/\n\s*\n/).map(function(p){ return p.trim(); }).filter(Boolean);
+  var piezas = [];
+  pars.forEach(function(p){
+    if (p.length <= max) { piezas.push(p); return; }
+    var frases = p.split(/(?<=[.!?…])\s+/), act = '';
+    frases.forEach(function(f){
+      while (f.length > max) { var corte = f.lastIndexOf(' ', max); if (corte < max * 0.5) corte = max; if (act) { piezas.push(act); act = ''; } piezas.push(f.slice(0, corte).trim()); f = f.slice(corte).trim(); }
+      if (!act) act = f; else if ((act + ' ' + f).length <= max) act += ' ' + f; else { piezas.push(act); act = f; }
+    });
+    if (act) piezas.push(act);
+  });
+  var partes = [], cur = '';
+  piezas.forEach(function(p){ if (!cur) cur = p; else if ((cur + '\n\n' + p).length <= max) cur += '\n\n' + p; else { partes.push(cur); cur = p; } });
+  if (cur) partes.push(cur);
+  return partes;
+}
+
+/* ---------- copiar ---------- */
+function copiar(txt, boton){
+  var hecho = function(){ if (!boton) return; var o = boton.textContent; boton.textContent = 'Copiado ✓'; setTimeout(function(){ boton.textContent = o; }, 1600); };
+  var viejo = function(){ var t = document.createElement('textarea'); t.value = txt; t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(t); hecho(); };
+  try { if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(hecho, viejo); else viejo(); } catch (e) { viejo(); }
+}
+function cajaPrompt(cont, txt, etiqueta){
+  cont.innerHTML = '<textarea readonly></textarea><div class="barra-acc"><button class="btn lleno">' + esc(etiqueta || 'Copiar prompt') + '</button><span class="nota"></span></div>';
+  var ta = $('textarea', cont); ta.value = txt;
+  $('.nota', cont).textContent = fmt(txt.length) + ' caracteres';
+  $('button', cont).onclick = function(){ copiar(ta.value, this); };
+}
+
+/* ---------- dibujo de líneas de tiempo ---------- */
+function paso(total, px){
+  px = px || 900;
+  var c = [15, 30, 60, 120, 300, 600, 900, 1800, 3600];
+  for (var i = 0; i < c.length; i++) if (c[i] / total * px >= 52) return c[i];
+  return 3600;
+}
+function htmlRegla(total, px){
+  var st = paso(total, px), h = '';
+  for (var t = 0; t <= total + 0.01; t += st / 2) {
+    var mayor = Math.round(t / st * 2) % 2 === 0, x = t / total * 100;
+    if (x > 100.01) break;
+    h += '<i class="' + (mayor ? 'm' : '') + '" style="left:' + x.toFixed(3) + '%">' + (mayor && x < 96 ? '<b>' + mmss(t) + '</b>' : '') + '</i>';
+  }
+  return '<div class="reg">' + h + '</div>';
+}
+// lista: [{f, t0, t1, titulo}], opts: {hueco, zona:{seg, txt}, puntos:[{t, c, titulo}], play:true}
+function dibujarLinea(cont, lista, total, opts){
+  opts = opts || {}; total = Math.max(total, 1);
+  cont._args = [lista, total, opts];
+  var px = cont.clientWidth || 900;
+  var h = htmlRegla(total, px) + '<div class="pist">';
+  lista.forEach(function(b){
+    var w = (b.t1 - b.t0) / total * 100; if (w <= 0) return;
+    var nombre = (FUNC[b.f] || FUNC.parrafo).n;
+    h += '<div class="bl" style="width:' + w.toFixed(3) + '%;background:' + colF(b.f) + ';color:' + txtF(b.f) + '" title="' + esc((b.titulo || nombre) + ' · ' + mmss(b.t0) + '–' + mmss(b.t1)) + '"><b>' + esc(nombre) + '</b><small>' + mmss(b.t0) + '</small></div>';
+  });
+  h += '</div>';
+  if (opts.puntos) { h += '<div class="sub">'; opts.puntos.forEach(function(p){ h += '<i style="left:' + (p.t / total * 100).toFixed(2) + '%;background:' + p.c + '" title="' + esc(p.titulo) + '" data-ir="' + (p.idx == null ? '' : p.idx) + '"></i>'; }); h += '</div>'; }
+  var etq = '';
+  if (opts.zona && opts.zona.seg > 0) { var zw = Math.min(100, opts.zona.seg / total * 100); h += '<div class="zona" style="left:0;width:' + zw.toFixed(2) + '%"></div>'; etq += '<span class="ez" style="left:0">▲ ' + esc(opts.zona.txt) + '</span>'; }
+  if (opts.hueco && opts.hueco.dur > 0) {
+    var izq = opts.hueco.ini / total * 100, ancho = opts.hueco.dur / total * 100;
+    h += '<div class="hueco" style="left:' + izq.toFixed(2) + '%;width:' + ancho.toFixed(2) + '%"></div>';
+    var der = izq + ancho > 55;
+    etq += '<span class="eh" style="' + (der ? 'right:' + (100 - izq - ancho).toFixed(2) + '%' : 'left:' + izq.toFixed(2) + '%') + '">' + (der ? '' : '▲ ') + 'Hueco más largo sin re-gancho: ' + mmss(opts.hueco.dur) + (der ? ' ▲' : '') + '</span>';
+  }
+  if (etq) h += '<div class="etqs">' + etq + '</div>';
+  if (opts.play) h += '<div class="play" style="left:0"></div>';
+  cont.innerHTML = h;
+  cont.classList.add('linea');
+  achicar(cont, '.bl', 34);
+}
+function achicar(cont, sel, min){ $$(sel, cont).forEach(function(el){ el.classList.toggle('mini', (el.offsetWidth || 99) < min); }); }
+var tRedibujo = null;
+function redibujarTodo(){ clearTimeout(tRedibujo); tRedibujo = setTimeout(function(){ $$('.linea').forEach(function(c){ if (c._args && c.offsetParent) dibujarLinea(c, c._args[0], c._args[1], c._args[2]); }); $$('.beats').forEach(function(b){ achicar(b, '.bt', 30); }); moverCabezal(); }, 150); }
+function leyendaHTML(funcs){ return funcs.map(function(f){ return '<span><i style="background:' + colF(f) + '"></i>' + FUNC[f].n + '</span>'; }).join(''); }
+function beatsALista(beats, total){
+  return beats.map(function(b, i){ var p1 = i + 1 < beats.length ? beats[i + 1].pct : 100; return { f: normF(b.funcion), t0: b.pct / 100 * total, t1: p1 / 100 * total, titulo: b.que_pasa, q: b.que_pasa }; });
+}
+function normF(f){ f = norm(String(f)); return FUNC[f] ? f : (f.indexOf('re') === 0 && f.indexOf('gancho') > 0 ? 're-gancho' : 'parrafo'); }
+
+/* ================= GUÍAS PARA PRINCIPIANTES ================= */
+// [[palabra]] o [[texto|clave]] = término del glosario con explicación
+var GLOS = {
+  'gancho': ['Gancho', 'El arranque del video: los primeros segundos donde prometés algo concreto para que la persona se quede. En los videos que analizamos dura entre 50 y 70 segundos en español.', 'Ej.: "El faro más alto de la costa nunca salvó a nadie. Hoy te cuento por qué."'],
+  're-gancho': ['Re-gancho', 'Un momento en el medio del video que renueva las ganas de seguir mirando: nombra lo que todavía falta saber. Conviene uno cada 1,5 a 3 minutos.', 'Ej.: "Guardá este dato: cuarenta minutos. Va a volver."'],
+  'estructura': ['Estructura', 'El orden en que contás tu historia: qué va primero, dónde va la sorpresa y cómo termina. Cada estructura de la biblioteca está dibujada como una línea de minutos.', 'Ej.: "Empezar por el final" muestra el desenlace primero y el video cuenta cómo se llegó ahí.'],
+  'giro': ['Giro', 'Un dato o hecho que rompe lo que el espectador creía. Despierta la atención otra vez.', 'Ej.: "El faro no falló. Según los papeles, funcionó todas las noches."'],
+  'contexto': ['Contexto', 'Lo mínimo para entender la historia: quién, dónde, cuándo. Sin una línea de más.', ''],
+  'revelacion': ['Revelación', 'El momento en que entregás una respuesta o un dato que se venía buscando.', ''],
+  'climax': ['Clímax', 'Lo más fuerte del video. Suele caer entre el 60 % y el 80 % de la duración.', ''],
+  'cierre': ['Cierre', 'Cómo termina el video: cierra el círculo y deja algo (una imagen, una pregunta, el próximo video).', ''],
+  'cabo suelto': ['Cabo suelto', 'Un dato que plantás al principio y recién explicás al final. La gente se queda para ver dónde encaja.', 'Ej.: "Acordate de esta fecha: 1956." Y en el minuto 9 la fecha vuelve.'],
+  'palabras por minuto': ['Palabras por minuto', 'La velocidad de la voz que va a leer tu guion. Sirve para calcular cuánto dura: palabras ÷ palabras por minuto = minutos. En español el promedio es 145.', 'Ej.: 1.450 palabras a 145 por minuto = 10 minutos.'],
+  'huella de voz': ['Huella de voz', 'Cómo hablás vos: largo de tus frases, si usás vos o tú, tus muletillas, tu humor. La IA la aprende de tus textos para que el guion suene a vos.', ''],
+  'lista negra': ['Lista negra', 'Las frases y recursos que tu guion no puede tener: las muletillas típicas de la IA y los clichés que repite toda tu competencia.', ''],
+  'muletilla de ia': ['Muletilla de IA', 'Frases que delatan un texto escrito por inteligencia artificial y que el espectador ya reconoce.', 'Ej.: "En un mundo donde…", "fascinante", "no es solo X, es Y".'],
+  'perfil de canal': ['Perfil de canal', 'Un texto que resume tu canal: de qué es, a quién le hablás, tu huella de voz, lo que hace tu competencia y tu lista negra. Se lo das a tu IA al empezar cada guion.', ''],
+  'mapa del nicho': ['Mapa del nicho', 'Lo que hacen igual todos los canales de tu tema (para evitarlo) y los ángulos que nadie toma (para aprovecharlos).', ''],
+  'firma del canal': ['Firma del canal', 'Dos o tres recursos tuyos que se repiten y hacen que te reconozcan sin ver el nombre del canal.', 'Ej.: cerrar siempre con una pregunta de una palabra.'],
+  'semaforo': ['Semáforo', 'El resumen de la revisión: 🟢 está bien, 🟡 conviene mirarlo, 🔴 hay que arreglarlo antes de grabar.', ''],
+  'hueco': ['Hueco', 'Un tramo largo del video donde no pasa nada nuevo (ni re-gancho ni giro). Ahí es donde la gente se va. Más de 3 minutos es mucho.', ''],
+  'marcas': ['Marcas', 'Etiquetas entre corchetes que ponés en tu guion para decir qué función cumple cada bloque: [GANCHO], [CONTEXTO], [GIRO], [RE-GANCHO], [REVELACIÓN], [CLÍMAX], [CIERRE]. La web las usa para dibujar la línea de tiempo.', ''],
+  'prompt': ['Prompt', 'El texto que le pegás a tu IA (Claude, ChatGPT) para pedirle algo. Acá la web te lo arma: solo lo copiás y lo pegás.', ''],
+  'skill': ['Skill', 'Un paquete de instrucciones que se instala en Claude y le enseña a hacer una tarea de una forma concreta. Prompt Guion es una skill.', ''],
+  'anunciantes': ['Anunciantes', 'Las marcas que pagan los anuncios de YouTube. Algunas palabras o temas hacen que tu video tenga menos anuncios o ninguno.', ''],
+  'palabra sensible': ['Palabra sensible', 'Una palabra que puede hacer que YouTube limite los anuncios de tu video, sobre todo en el título, la miniatura o los primeros segundos.', 'Ej.: "masacre", "suicidio", "cura definitiva".'],
+  'transcripcion': ['Transcripción', 'Todo lo que se dice en un video, escrito. YouTube la muestra gratis en la compu: debajo del video, "…más" → "Mostrar transcripción".', ''],
+  'faceless': ['Faceless', 'Un canal "sin cara": el creador no aparece; el video se arma con voz, imágenes y edición.', ''],
+  'teleprompter': ['Teleprompter', 'Una pantalla que muestra el texto grande y lo va subiendo solo, para leerlo mientras grabás.', ''],
+  'elevenlabs': ['ElevenLabs', 'Una herramienta que convierte texto en voz con inteligencia artificial. Acepta hasta 5.000 caracteres por vez.', ''],
+  'esqueleto': ['Esqueleto', 'El plan del guion antes de escribirlo: los momentos clave con su minuto aproximado.', ''],
+  'outlier': ['Video que rinde de más', 'Un video que tuvo muchas más vistas que el promedio de su propio canal. Son los que analizamos para armar la biblioteca.', ''],
+  'subrayado': ['Así se ven', 'Las palabras con este subrayado tienen una explicación. Pasá el mouse o tocalas.', '']
+};
+var CLAVE_G = { 're-ganchos':'re-gancho', 'reganchos':'re-gancho', 'estructuras':'estructura', 'giros':'giro', 'ganchos':'gancho', 'muletillas de ia':'muletilla de ia', 'transcripciones':'transcripcion', 'semáforo':'semaforo', 'revelación':'revelacion', 'clímax':'climax', 'transcripción':'transcripcion', 'huecos':'hueco' };
+function claveG(k){ k = String(k).toLowerCase().trim(); return GLOS[k] ? k : CLAVE_G[k] || (GLOS[norm(k)] ? norm(k) : k); }
+function gl(txt){ return esc(txt).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(_, t, k){ return '<span class="g" data-g="' + esc(claveG(k || t)) + '">' + t + '</span>'; }); }
+var GUIAS = {
+  revisar: { n:'Revisá tu guion', v:'montana', demo:true,
+    q:'Pegás tu guion y te dice cuánto dura, cuánto tarda el [[gancho]], en qué minuto se te puede ir la gente y qué frases suenan a IA o asustan a los [[anunciantes]].',
+    ej:'Pegás un guion de 900 palabras y te avisa: dura 6:13, el gancho está bien, pero hay un [[hueco]] de 3:19 sin [[re-gancho]] entre el minuto 1:47 y el 5:05.',
+    p:['Pegá tu guion en la caja grande (o tocá "Cargar un ejemplo").', 'Elegí la velocidad de la voz ([[palabras por minuto]]) y cuántos minutos querés que dure.', 'Mirá el [[semáforo]] y tocá cada frase marcada: te dice por qué y cómo cambiarla.'],
+    tip:'Truco: si ponés [[marcas]] como [GANCHO] o [GIRO] al principio de cada bloque, ves tu guion como una línea de tiempo por función.' },
+  comparar: { n:'Probá tu guion en otras estructuras', v:'actos', demo:true,
+    q:'Tu IA reordena tu mismo guion en 2 o 3 [[estructuras]] distintas, y acá las ves una al lado de la otra para elegir la que mantiene mejor la atención.',
+    ej:'Tu guion está contado en orden. Lo probás en "Empezar por el final" y ves que el primer [[giro]] pasa del minuto 1:47 al 1:00.',
+    p:['Pegá tu guion y elegí 2 o 3 estructuras.', 'Copiá cada [[prompt]] y pegalo en una conversación nueva de tu Claude o ChatGPT.', 'Pegá cada respuesta en su caja: la web dibuja las líneas de tiempo y una tabla para comparar.'] },
+  entrenar: { n:'Enseñale a la IA cómo hablás', v:'pagina', demo:true,
+    q:'Completás la ficha de tu canal y pegás textos tuyos y de tu competencia. La web arma el texto que le enseña a tu IA tu [[huella de voz]] y te devuelve tu [[perfil de canal]].',
+    ej:'Pegás 1.500 palabras tuyas y 3 [[transcripciones]] de canales de tu nicho. ChatGPT te devuelve cómo hablás, qué hace igual toda tu competencia y tu [[lista negra]].',
+    p:['Completá la ficha y marcá las herramientas que tenés.', 'Pegá textos tuyos y de 3 competidores (más abajo te explicamos cómo copiarlos gratis).', 'Tocá "Armar el prompt", pegalo en tu IA y guardá el perfil que te devuelve en un Proyecto con el nombre del canal.'],
+    tip:'Sirve para ChatGPT, Gemini o Claude sin la skill. Si usás la skill en Claude, ella ya hace esto por vos.' },
+  voz: { n:'Preparalo para grabar', img:'media/gen/microfono.jpg', demo:true,
+    q:'Deja tu guion listo para la voz: si lo grabás vos, te lo muestra en un [[teleprompter]]; si usás una voz con IA, lo corta en partes listas para [[ElevenLabs]].',
+    ej:'Un guion de 12 minutos (unos 10.000 caracteres) sale en 3 partes, cortadas al final de un párrafo, sin [[marcas]] ni emojis.',
+    p:['Pegá el guion (si ya lo revisaste, ya está acá).', '¿Lo grabás vos? Abrí el teleprompter, elegí el tamaño de letra y la velocidad, y leé en voz alta: donde te trabás, corregí.', '¿Usás ElevenLabs? Tocá "Cortar" y copiá cada parte, una por una.'],
+    tip:'Antes de grabar, leelo vos en voz alta una vez: donde te trabás, el espectador se va.' },
+  biblioteca: { n:'Biblioteca de estructuras y ganchos', v:'heroe', demo:true,
+    q:'Todas las [[estructuras]] dibujadas como una línea de minutos, los tipos de [[gancho]], cómo mantener la atención, las [[muletillas de IA]] y las reglas de YouTube para [[anunciantes]].',
+    ej:'Vas a hacer un video de 15 minutos sobre un misterio: filtrás "Misterio" y "12 a 20 min", tocás cada bloque y ves qué tiene que pasar en el minuto 5.',
+    p:['Filtrá por tipo de video y duración.', 'Tocá cada bloque de color para ver qué pasa en ese momento.', 'Abrí "Para qué sirve, errores y ejemplo" y elegí la que va con tu video.'],
+    tip:'Todo sale de analizar 46 [[videos que rindieron de más|outlier]] de canales [[faceless]]. Enseña funciones, no frases para copiar.' },
+  guionistas: { n:'Aprendé de los que escriben', v:'bomba',
+    q:'Guionistas de cine, series y YouTube: quiénes son, su idea principal explicada en pocas palabras, cómo usarla en tu canal y entrevistas para mirar.',
+    ej:'Buscás "giros" y aparece Damián Szifron: cada [[giro]] tiene que poder explicarse con algo que ya mostraste antes.',
+    p:['Filtrá por videos en español o en inglés.', 'Buscá un nombre o un tema.', 'Tocá un video: se abre en YouTube, en otra pestaña.'],
+    tip:'Las ideas están resumidas con nuestras palabras: no son citas textuales.' },
+  glosario: { n:'Glosario', v:'claqueta',
+    q:'Todas las palabras técnicas de esta página, explicadas en simple y con ejemplo.',
+    ej:'¿Qué es un [[re-gancho]]? Algo en el medio del video que renueva las ganas de seguir mirando.',
+    p:['Buscá la palabra.', 'Leé la explicación y el ejemplo.', 'Volvé a la herramienta: en toda la página, las palabras subrayadas tienen esta misma explicación.'] }
+};
+var NUM_G = { revisar:'01', comparar:'02', entrenar:'03', voz:'04', biblioteca:'05', guionistas:'06', glosario:'07' };
+function iniciarGuias(){
+  $$('.guia[data-guia]').forEach(function(el){
+    var k = el.dataset.guia, g = GUIAS[k];
+    var media = g.img ? '<img src="' + g.img + '" alt="" loading="lazy">' : '<video data-src="media/' + g.v + '.mp4" poster="media/' + g.v + '.jpg" muted loop playsinline preload="none"></video>';
+    el.innerHTML = '<div class="guia-v">' + media + '<span>' + (NUM_G[k] === '06' || NUM_G[k] === '07' ? 'SECCIÓN ' : 'HERRAMIENTA ') + NUM_G[k] + '</span><b><i></i>TOMA ' + NUM_G[k] + '</b></div>'
+      + '<div class="guia-c"><div class="eb">Para empezar · en 1 minuto</div><h2>' + esc(g.n) + '</h2>'
+      + '<p class="que"><span class="k">Qué hace</span>' + gl(g.q) + '</p>'
+      + '<div class="ej"><span class="k">Ejemplo</span>' + gl(g.ej) + '</div>'
+      + '<span class="k" style="margin-top:16px">Paso a paso</span><ol>' + g.p.map(function(x){ return '<li><span>' + gl(x) + '</span></li>'; }).join('') + '</ol>'
+      + (g.tip ? '<p class="tip">' + gl(g.tip) + '</p>' : '')
+      + (g.demo ? '<div class="acc"><button class="cta" data-ejemplo="' + k + '">Cargar un ejemplo</button>' + (k === 'revisar' || k === 'voz' || k === 'comparar' ? '<a class="btn" href="#glosario">¿Alguna palabra no se entiende?</a>' : '') + '</div>' : '') + '</div>';
+  });
+  $$('[data-ejemplo]').forEach(function(b){ b.onclick = function(){ cargarEjemplo(b.dataset.ejemplo, true); }; });
+  // videos de las guías: se cargan y reproducen solo cuando se ven
+  try {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ var v = e.target; if (e.isIntersecting) { if (!v.src && v.dataset.src) v.src = v.dataset.src; var p = v.play(); if (p && p.catch) p.catch(function(){}); } else if (v.src) v.pause(); }); }, { rootMargin:'150px 0px' });
+    $$('.guia video[data-src]').forEach(function(v){ io.observe(v); });
+  } catch (e) { $$('.guia video[data-src]').forEach(function(v){ v.src = v.dataset.src; }); }
+}
+var FICHA_EJ = { nombre:'Faros y naufragios', registro:'Español con voseo', nicho:'historia marítima: naufragios con misterio', formato:'Documental', audiencia:'25-45 años, Argentina, México y España; no sabe nada del tema', tono:'misterioso y cercano', duracion:'12-20 min', voz:'ElevenLabs, ~145 palabras por minuto', referencia:'(un canal de misterios que admires): cómo cuenta con calma', reglas:'nunca digo el nombre del barco en el título' };
+var PROPIOS_EJ = 'Te cuento algo que me pasó el verano pasado en la costa. Estaba con mi viejo, que fue pescador treinta años, y le pregunto por el faro. Se ríe. Me dice: "ese faro no salvó nunca a nadie". Yo pensé que era una joda. No era. Mirá: él tenía un amigo que se salvó de un naufragio en el 78 nadando dos horas. Dos horas. Y lo primero que le dijo cuando llegó a la playa fue que el faro estaba prendido, que lo vio todo el tiempo. Ojo con esto, porque cambia todo. Si lo veía, ¿por qué el capitán siguió de largo?\n\n(Ejemplo: en tu caso, pegá acá guiones tuyos, posts o la transcripción de un audio de 3 minutos. Ideal: 1.500 palabras o más.)';
+var COMP_EJ = '(Ejemplo de transcripción de un competidor)\nCanal: Misterios del Mar · Video: El faro maldito\nEn un mundo donde los misterios del océano siguen sin resolverse, hay una historia fascinante que muy pocos conocen. Bienvenidos a un nuevo video. Hoy vamos a sumergirnos en la leyenda del faro maldito…';
+function cargarEjemplo(v, preguntar){
+  if (v === 'revisar' || v === 'voz' || v === 'comparar') {
+    if (preguntar && E.guion.trim() && E.guion !== EJEMPLO && !confirm('Esto reemplaza el guion que tenés pegado por el ejemplo. ¿Seguimos?')) return;
+    E.guion = EJEMPLO; E.dur = 7; $('#mg-dur').value = 7; sincronizarGuion(null);
+  }
+  if (v === 'comparar') {
+    E.cmpSel = ['empezar-por-el-final', 'misterio-en-capas'];
+    E.cmpResp = {
+      'empezar-por-el-final': respuestaDemo([[5, 'GANCHO · 0:00'], [3, 'GIRO · 0:50'], [6, 'RE-GANCHO · 1:35'], [1, 'CONTEXTO · 1:45'], [4, 'CONTEXTO · 3:00'], [2, 'RE-GANCHO · 5:05'], [7, 'CLÍMAX · 5:15'], [8, 'CIERRE · 6:10']]),
+      'misterio-en-capas': respuestaDemo([[0, 'GANCHO · 0:00'], [2, 'RE-GANCHO · 0:35'], [1, 'CONTEXTO · 0:45'], [3, 'GIRO · 1:55'], [5, 'REVELACIÓN · 2:35'], [6, 'RE-GANCHO · 3:35'], [4, 'CONTEXTO · 3:45'], [7, 'CLÍMAX · 5:50'], [8, 'CIERRE · 6:45']])
+    };
+    $('#cmp-prompts').dataset.sel = ''; marcarSel();
+  }
+  if (v === 'entrenar') {
+    E.ficha = JSON.parse(JSON.stringify(FICHA_EJ)); E.herr = ['IA para escribir: ChatGPT gratis', 'Investigación: Ninguna', 'Voz: ElevenLabs', 'Edición: CapCut', 'Imágenes: ChatGPT / Gemini'];
+    E.propios = PROPIOS_EJ; E.comp = [COMP_EJ, '', ''];
+    $$('#ent-ficha [data-f]').forEach(function(el){ el.value = E.ficha[el.dataset.f] || ''; });
+    $$('#ent-herr input').forEach(function(ch){ ch.checked = E.herr.indexOf(ch.value) >= 0; });
+    $('#ent-propios').value = E.propios; medir(); pintarComp();
+    cajaPrompt($('#ent-salida'), promptEntrenamiento());
+  }
+  if (v === 'biblioteca') {
+    location.hash = 'biblioteca/estructuras';
+    var ch = $('#f-formato .chip[data-v="misterio"]'); if (ch) ch.click();
+    var dz = $('#f-dur .chip[data-v="medio"]'); if (dz) dz.click();
+    setTimeout(function(){ var d = $('#lista-estr details'); if (d) d.open = true; var bt = $('#lista-estr .bt[data-i="3"]'); if (bt) bt.click(); }, 50);
+  }
+  if (preguntar) guardar();
+  alCambiarGuion(); analizarYa();
+  if (v === 'voz') pintarPartes();
+  if (v === 'comparar') pintarPromptsCmp();
+}
+
+/* ---------- glosario: ventanita y lista ---------- */
+function iniciarGlos(){
+  var pop = document.createElement('div'); pop.id = 'gpop'; pop.setAttribute('role', 'tooltip'); document.body.appendChild(pop);
+  function mostrarG(el){
+    var d = GLOS[claveG(el.dataset.g)]; if (!d) return;
+    pop.innerHTML = '<b>' + esc(d[0]) + '</b>' + esc(d[1]) + (d[2] ? '<em>' + esc(d[2]) + '</em>' : '');
+    pop.classList.add('on');
+    var r = el.getBoundingClientRect(), w = Math.min(300, innerWidth - 24); pop.style.maxWidth = w + 'px';
+    var x = Math.max(12, Math.min(innerWidth - w - 12, r.left + r.width / 2 - w / 2)), h = pop.offsetHeight;
+    var y = r.top - h - 10; if (y < 70) y = r.bottom + 10;
+    pop.style.left = x + 'px'; pop.style.top = y + 'px';
+  }
+  function ocultar(){ pop.classList.remove('on'); }
+  function prep(root){ $$('.g', root).forEach(function(el){ if (el.dataset.ok) return; el.dataset.ok = 1; el.tabIndex = 0; el.setAttribute('role', 'button'); var d = GLOS[claveG(el.dataset.g)]; if (d) el.setAttribute('aria-label', el.textContent + ': ' + d[1]); }); }
+  window.prepGlos = prep; prep(document);
+  document.addEventListener('mouseover', function(e){ var g = e.target.closest && e.target.closest('.g'); if (g) mostrarG(g); });
+  document.addEventListener('mouseout', function(e){ if (e.target.closest && e.target.closest('.g')) ocultar(); });
+  document.addEventListener('focusin', function(e){ if (e.target.classList && e.target.classList.contains('g')) mostrarG(e.target); });
+  document.addEventListener('focusout', ocultar);
+  document.addEventListener('click', function(e){ var g = e.target.closest && e.target.closest('.g'); if (g) { e.preventDefault(); mostrarG(g); } else ocultar(); });
+  addEventListener('scroll', ocultar, { passive: true });
+}
+function iniciarGlosario(){
+  function pintar(){
+    var q = norm($('#gl-buscar').value.trim());
+    var ks = Object.keys(GLOS).filter(function(k){ return k !== 'subrayado' && (!q || norm(GLOS[k].join(' ')).indexOf(q) >= 0); }).sort(function(a, b){ return GLOS[a][0].localeCompare(GLOS[b][0], 'es'); });
+    $('#gl-lista').innerHTML = ks.length ? ks.map(function(k){ var d = GLOS[k]; return '<div><h4>' + esc(d[0]) + '</h4><p>' + esc(d[1]) + '</p>' + (d[2] ? '<p class="e">' + esc(d[2]) + '</p>' : '') + '</div>'; }).join('') : '<div class="vacio" style="grid-column:1/-1">No encontramos esa palabra. Probá con otra, o escribila más corta (por ejemplo "gancho" en vez de "ganchos").</div>';
+  }
+  $('#gl-buscar').oninput = pintar; pintar();
+}
+
+/* ---------- guionistas ---------- */
+function tarjetaGuionista(g, idioma){
+  var vs = g.videos.filter(function(v){ return !idioma || v.idioma === idioma; });
+  var vids = vs.map(function(v){ return '<a class="vid" href="https://www.youtube.com/watch?v=' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener"><span class="vmini"><img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg" alt="" loading="lazy"><b class="' + (v.idioma === 'en' ? 'en' : '') + '">' + (v.idioma === 'en' ? 'EN' : 'ES') + '</b>' + (v.min ? '<i>' + esc(v.min) + ' min</i>' : '') + '</span><span>' + esc(v.titulo) + '</span></a>'; }).join('');
+  return '<article class="gn"><div><h3>' + esc(g.nombre) + '</h3><div class="meta">' + esc([g.pais, g.obras].filter(Boolean).join(' · ')) + '</div></div><p class="quien">' + esc(g.quien) + '</p>'
+    + '<div><span class="k">Su idea, en pocas palabras</span><p class="idea">' + esc(g.consejo) + '</p></div>'
+    + '<div class="yt"><span class="k">Aplicalo en YouTube</span>' + esc(g.aplicalo) + '</div><div class="vids">' + vids + '</div></article>';
+}
+function iniciarGuionistas(){
+  var G = B.guionistas || [], idioma = '';
+  function pintar(){
+    if (!G.length) { $('#gn-lista').innerHTML = '<div class="vacio" style="grid-column:1/-1">El índice de guionistas llega en la próxima actualización.</div>'; $('#gn-cuenta').textContent = ''; return; }
+    var q = norm($('#gn-buscar').value.trim());
+    var l = G.filter(function(g){ return (!idioma || g.videos.some(function(v){ return v.idioma === idioma; })) && (!q || norm([g.nombre, g.quien, g.pais, g.obras, g.consejo, g.aplicalo].join(' ')).indexOf(q) >= 0); });
+    $('#gn-cuenta').textContent = l.length + ' de ' + G.length + ' guionistas' + (idioma ? ' con videos en ' + (idioma === 'es' ? 'español' : 'inglés') : '') + '. Los videos se abren en YouTube, en otra pestaña.';
+    $('#gn-lista').innerHTML = l.length ? l.map(function(g){ return tarjetaGuionista(g, idioma); }).join('') : '<div class="vacio" style="grid-column:1/-1">Nadie coincide con esa búsqueda. Probá con un nombre (Sorkin, Campanella) o un tema (giros, diálogos, final).</div>';
+  }
+  $('#gn-buscar').oninput = pintar;
+  $$('#gn-idioma .chip').forEach(function(c){ c.onclick = function(){ $$('#gn-idioma .chip').forEach(function(x){ x.classList.remove('on'); }); c.classList.add('on'); idioma = c.dataset.v; pintar(); }; });
+  pintar();
+}
+function relojBanda(){
+  var t0 = performance.now();
+  (function tc(){ var f = Math.floor((performance.now() - t0) / 1000 * 24), p = function(n){ return String(n).padStart(2, '0'); };
+    $('#tc').textContent = p(Math.floor(f / 86400)) + ':' + p(Math.floor(f / 1440) % 60) + ':' + p(Math.floor(f / 24) % 60) + ':' + p(f % 24);
+    requestAnimationFrame(tc); })();
+}
+
+/* ================= BIBLIOTECA ================= */
+function iniciarBiblioteca(){
+  $('#n-estr').textContent = B.estructuras.length; $('#n-ganch').textContent = B.ganchos.length; $('#n-ia').textContent = B.anti_ia.length;
+  if ($('#bib-lead')) $('#bib-lead').textContent = 'Todo sale de analizar videos faceless que rinden mucho más que el promedio de su canal (' + B.meta.fuente_investigacion.split('.')[0] + '). La biblioteca te enseña qué tiene que pasar; las palabras las ponés vos.';
+  $$('#subtabs button').forEach(function(b){ b.onclick = function(){ location.hash = 'biblioteca/' + b.dataset.s; }; });
+
+  // ---- estructuras
+  var fF = '', fD = '';
+  var DURS = { corto:['Hasta 12 min', 0, 12], medio:['12 a 20 min', 12, 20], largo:['Más de 20 min', 20, 999] };
+  var chipsF = '<button class="chip on" data-v="">Todos</button>' + Object.keys(B.web.formatos).map(function(k){ var n = B.estructuras.filter(function(e){ return e.formato === k; }).length; return '<button class="chip" data-v="' + k + '">' + esc(B.web.formatos[k]) + '<small>' + n + '</small></button>'; }).join('');
+  $('#f-formato').insertAdjacentHTML('beforeend', chipsF);
+  $('#f-dur').insertAdjacentHTML('beforeend', '<button class="chip on" data-v="">Todas</button>' + Object.keys(DURS).map(function(k){ return '<button class="chip" data-v="' + k + '">' + DURS[k][0] + '</button>'; }).join(''));
+  function chipsGrupo(sel, cb){ $$(sel + ' .chip').forEach(function(c){ c.onclick = function(){ $$(sel + ' .chip').forEach(function(x){ x.classList.remove('on'); }); c.classList.add('on'); cb(c.dataset.v); }; }); }
+  chipsGrupo('#f-formato', function(v){ fF = v; pintarEstr(); });
+  chipsGrupo('#f-dur', function(v){ fD = v; pintarEstr(); });
+  function pintarEstr(){
+    var l = B.estructuras.filter(function(e){
+      if (fF && e.formato !== fF) return false;
+      if (fD) { var d = DURS[fD]; if (!(e.dur[0] < d[2] && e.dur[1] > d[1])) return false; }
+      return true;
+    });
+    var cont = $('#lista-estr');
+    if (!l.length) { cont.innerHTML = '<div class="vacio">No hay estructuras con esos filtros.</div>'; return; }
+    cont.innerHTML = l.map(function(e){
+      var med = Math.round((e.dur[0] + e.dur[1]) / 2);
+      var marcas = '<span style="left:0">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%">100%</span>';
+      var bts = e.beats.map(function(b, i){ var p1 = i + 1 < e.beats.length ? e.beats[i + 1].pct : 100, f = normF(b.funcion); return '<div class="bt" data-i="' + i + '" style="width:' + (p1 - b.pct) + '%;background:' + colF(f) + ';color:' + txtF(f) + '" title="' + esc(FUNC[f].n + ' · ' + b.que_pasa) + '"><b>' + FUNC[f].n + '</b><small>' + b.pct + '%</small></div>'; }).join('');
+      var pasos = e.beats.map(function(b){ var f = normF(b.funcion); return '<li><b style="color:' + colF(f) + '">' + FUNC[f].n + '</b> · min ' + mmss(b.pct / 100 * med * 60) + ' — ' + esc(b.que_pasa) + '</li>'; }).join('');
+      return '<article class="estr" data-id="' + e.id + '"><div class="estr-cab"><div><h4>' + esc(e.nombre) + '</h4><p>' + esc(e.en_una_linea) + '</p></div><span class="dur">' + esc(e.duracion_recomendada) + '</span></div>'
+        + '<div class="beats"><div class="pist">' + bts + '</div><div class="marcas">' + marcas + '</div></div>'
+        + '<p class="beat-info">Tocá un bloque para ver qué pasa en ese momento.</p>'
+        + '<details><summary>Para qué sirve, errores y ejemplo</summary><div class="estr-det">'
+        + '<div><h5>Para qué sirve</h5><p>' + esc(e.para_que_sirve) + '</p><h5 style="margin-top:12px">Ideal para</h5><div class="tags">' + e.ideal_para.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div></div>'
+        + '<div><h5>Errores comunes</h5><ul>' + e.errores_comunes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+        + '<div style="grid-column:1/-1"><h5>Minuto a minuto (en un video de ' + med + ' min)</h5><ol style="list-style:none;padding:0">' + pasos + '</ol></div>'
+        + '<div class="ej"><h5>Ejemplo real</h5>' + esc(e.ejemplo_real) + '</div></div></details></article>';
+    }).join('');
+    setTimeout(function(){ $$('.beats', cont).forEach(function(b){ achicar(b, '.bt', 30); }); }, 0);
+    $$('.estr', cont).forEach(function(card){
+      var e = B.estructuras.filter(function(x){ return x.id === card.dataset.id; })[0], med = (e.dur[0] + e.dur[1]) / 2;
+      $$('.bt', card).forEach(function(bt){ bt.onclick = function(){ $$('.bt', card).forEach(function(x){ x.classList.remove('sel'); }); bt.classList.add('sel'); var b = e.beats[+bt.dataset.i], f = normF(b.funcion); $('.beat-info', card).innerHTML = '<b style="color:' + colF(f) + '">' + FUNC[f].n + '</b> · al ' + b.pct + '% (min ' + mmss(b.pct / 100 * med * 60) + ' de ' + Math.round(med) + ') — ' + esc(b.que_pasa); }; });
+    });
+  }
+  pintarEstr();
+
+  // ---- ganchos
+  var fT = '';
+  $('#f-tipo').insertAdjacentHTML('beforeend', '<button class="chip on" data-v="">Todos</button>' + Object.keys(B.web.tipos_gancho).map(function(k){ var n = B.ganchos.filter(function(g){ return g.tipo === k; }).length; return '<button class="chip" data-v="' + k + '">' + esc(B.web.tipos_gancho[k]) + '<small>' + n + '</small></button>'; }).join(''));
+  chipsGrupo('#f-tipo', function(v){ fT = v; pintarG(); });
+  function pintarG(){
+    $('#lista-ganch').innerHTML = B.ganchos.filter(function(g){ return !fT || g.tipo === fT; }).map(function(g){
+      var ej = g.ejemplo_adaptado || [];
+      return '<article class="gancho"><span class="tipo">' + esc(B.web.tipos_gancho[g.tipo]) + '</span><h4>' + esc(g.nombre) + '</h4><div class="formula">' + esc(g.formula) + '</div>'
+        + '<p style="font-size:14px">' + esc(g.cuando_usarlo) + '</p><ol>' + g.pasos.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ol>'
+        + (ej[0] ? '<p class="ej">' + esc(ej[0]) + '</p>' : '') + (ej.length > 1 ? '<details><summary class="nota" style="cursor:pointer">Ver ' + (ej.length - 1) + ' ejemplo' + (ej.length > 2 ? 's' : '') + ' más</summary>' + ej.slice(1).map(function(x){ return '<p class="ej" style="margin-top:8px">' + esc(x) + '</p>'; }).join('') + '</details>' : '')
+        + '<p class="riesgo"><b>Riesgo:</b> ' + esc(g.riesgo) + '</p></article>';
+    }).join('');
+  }
+  pintarG();
+
+  // ---- retención
+  var r = B.retencion, di = r.datos_investigacion;
+  $('#ret-datos').innerHTML = [['Primer re-gancho', di.primer_re_gancho], ['Cada cuánto (español)', di.cada_cuanto_es], ['Cada cuánto (inglés)', di.cada_cuanto_en], ['La regla', di.regla]].map(function(x){ return '<div class="cuenta"><b>' + x[0] + '</b>' + esc(x[1]) + '</div>'; }).join('');
+  $('#ret-fn').innerHTML = r.funciones.map(function(f){ return '<div class="fn"><h4>' + esc(f.nombre) + '</h4><p>' + esc(f.para_que) + '</p><p><span class="k">Cada cuánto · </span>' + esc(f.cada_cuanto) + '</p><p><span class="k">Cómo, sin cliché · </span>' + esc(f.como_escribirlo_sin_cliche) + '</p></div>'; }).join('');
+  $('#ret-adv').textContent = r.cliches_de_retencion.advertencia;
+  var nomFn = {}; r.funciones.forEach(function(f){ nomFn[f.id] = f.nombre; });
+  $('#ret-cliches').innerHTML = r.cliches_de_retencion.lista.map(function(c){ return '<li><s>' + esc(c.frase) + '</s><span>Función: ' + esc(nomFn[c.funcion] || (FUNC[c.funcion] ? FUNC[c.funcion].n : c.funcion)) + '</span></li>'; }).join('');
+  $('#cierres').innerHTML = B.cierres.map(function(c){ return '<div class="fn"><h4>' + esc(c.nombre) + '</h4><p>' + esc(c.que_es) + '</p><p><span class="k">Cuándo · </span>' + esc(c.cuando) + '</p><p><span class="k">Cómo · </span>' + esc(c.como_hacerlo) + '</p><p><span class="k">Error · </span>' + esc(c.error) + '</p><p class="nota">' + esc(c.datos) + '</p></div>'; }).join('');
+
+  // ---- anti-IA
+  var fI = '', TIPOS_IA = { frase:'Frases', estructura:'Estructura', vocabulario:'Vocabulario', puntuacion:'Puntuación' };
+  $('#f-ia').insertAdjacentHTML('beforeend', '<button class="chip on" data-v="">Todos</button>' + Object.keys(TIPOS_IA).map(function(k){ return '<button class="chip" data-v="' + k + '">' + TIPOS_IA[k] + '<small>' + B.anti_ia.filter(function(a){ return a.tipo === k; }).length + '</small></button>'; }).join(''));
+  chipsGrupo('#f-ia', function(v){ fI = v; pintarIA(); });
+  $('#ia-buscar').oninput = pintarIA;
+  function pintarIA(){
+    var q = norm($('#ia-buscar').value.trim());
+    var l = B.anti_ia.filter(function(a){ return (!fI || a.tipo === fI) && (!q || norm([a.patron, a.ejemplo, a.por_que_delata, a.como_reemplazarlo].join(' ')).indexOf(q) >= 0); });
+    $('#ia-cuenta').textContent = l.length + ' de ' + B.anti_ia.length + ' rasgos · los marcados "la web lo detecta" se resaltan solos en Mi guion.';
+    $('#lista-ia').innerHTML = l.map(function(a){ return '<div class="ia"><div><div class="t">' + TIPOS_IA[a.tipo] + (a.detectable ? ' <em>· la web lo detecta</em>' : '') + '</div><h4>' + esc(a.patron) + '</h4><p style="margin-top:6px"><s>' + esc(a.ejemplo) + '</s></p></div><div><span class="k">Por qué delata</span>' + esc(a.por_que_delata) + '</div><div><span class="k">Cómo reemplazarlo</span>' + esc(a.como_reemplazarlo) + '</div></div>'; }).join('') || '<div class="vacio">No hay rasgos con esa búsqueda.</div>';
+  }
+  pintarIA();
+
+  // ---- políticas
+  var P = B.politicas_youtube, an = P.anuncios;
+  $('#pol-aviso').innerHTML = '<b>Es una ayuda, no una garantía.</b> ' + esc(P.aviso) + ' <span class="nota">Verificado: ' + esc(P.fecha_verificacion) + '.</span>';
+  $('#pol-an-nombre').textContent = an.nombre;
+  $('#pol-anuncios').innerHTML = '<p style="margin-top:0">' + esc(an.que_dice) + '</p><p><span class="k">Dónde importa más · </span>' + esc(an.donde_importa_mas) + '</p><p><span class="k">Fuente · </span><a href="' + esc(an.fuente) + '" target="_blank" rel="noopener">' + esc(an.fuente) + '</a>' + (an.fuente_extra ? '<br><span class="nota">' + esc(an.fuente_extra) + '</span>' : '') + '</p>';
+  $('#pol-cats').innerHTML = an.categorias.map(function(c){ return '<details class="cat"><summary>' + esc(c.nombre) + '</summary><div><p><span class="k" style="font:700 10px Space Mono;color:var(--dim)">LIMITA · </span>' + esc(c.limita) + '</p><p><span class="k" style="font:700 10px Space Mono;color:var(--rojo)">SIN ANUNCIOS · </span>' + esc(c.sin_anuncios) + '</p><p><span class="k" style="font:700 10px Space Mono;color:var(--dim)">DÓNDE IMPORTA · </span>' + esc(c.donde_importa) + '</p><p><span class="k" style="font:700 10px Space Mono;color:var(--verde)">EN TU GUION · </span>' + esc(c.como_revisarlo_en_el_guion) + '</p></div></details>'; }).join('');
+  $('#pol-puntos').innerHTML = P.puntos.map(function(p){ return '<div class="pol"><h4>' + esc(p.nombre) + '</h4><p>' + esc(p.que_dice) + '</p><span class="r">' + 'Riesgo: ' + esc(((p.riesgo_para_faceless || '').match(/^[A-ZÁÉÍÓÚ\-]+/) || ['ver'])[0]) + '</span><p>' + esc(p.riesgo_para_faceless) + '</p><p><span class="k">Cómo revisarlo en tu guion · </span>' + esc(p.como_revisarlo_en_el_guion) + '</p><p><span class="k">Fuente · </span><a href="' + esc(p.fuente) + '" target="_blank" rel="noopener">' + esc(p.fuente) + '</a> <span class="nota">(verificado ' + esc(p.verificado) + ')</span></p></div>'; }).join('');
+  $('#pol-sens-uso').textContent = B.meta.palabras_sensibles_uso;
+  var porCat = {}; B.palabras_sensibles.forEach(function(p){ (porCat[p.categoria] = porCat[p.categoria] || []).push(p); });
+  $('#pol-sens').innerHTML = Object.keys(porCat).sort(function(a, b){ return porCat[b].length - porCat[a].length; }).map(function(k){ return '<details class="cat"><summary>' + esc(B.web.categorias[k] || k) + ' <span class="nota">' + porCat[k].length + '</span></summary><div><div class="sens">' + porCat[k].map(function(p){ return '<span class="' + p.severidad + '" title="' + esc(p.nota) + '">' + esc(p.termino) + '</span>'; }).join('') + '</div><p class="nota">Amarillo: revisá el contexto. Rojo: muy probable que limite o quite anuncios. Pasá el mouse sobre cada una para ver la nota.</p></div></details>'; }).join('');
+}
+function abrirSub(s){
+  if (!$('#s-' + s)) s = 'estructuras';
+  $$('#subtabs button').forEach(function(b){ b.classList.toggle('on', b.dataset.s === s); });
+  $$('.subv').forEach(function(v){ v.classList.toggle('on', v.id === 's-' + s); });
+}
+
+/* ================= MI GUION ================= */
+var PRESETS = [
+  { id:'es-prom', n:'Español · promedio (145)', ppm:145, idioma:'es' },
+  { id:'es-doc', n:'Español · documental solemne (118)', ppm:118, idioma:'es' },
+  { id:'es-lista', n:'Español · listas y curiosidades (158)', ppm:158, idioma:'es' },
+  { id:'en-prom', n:'Inglés · promedio (154)', ppm:154, idioma:'en' },
+  { id:'propio', n:'Mi propia velocidad', ppm:null }
+];
+function cfgActual(){ return { ppm: Math.min(220, Math.max(80, +E.ppm || 145)), dur: +E.dur || 0, idioma: E.idioma, registro: E.registro }; }
+function sincronizarGuion(origen){ $$('[data-guion]').forEach(function(t){ if (t !== origen && t.value !== E.guion) t.value = E.guion; }); }
+function iniciarMiGuion(){
+  var r = B.ritmo;
+  $('#mg-preset').innerHTML = PRESETS.map(function(p){ return '<option value="' + p.id + '">' + p.n + '</option>'; }).join('');
+  $('#mg-ritmo-nota').textContent = 'Datos de la investigación: español ' + r.palabras_por_minuto.es.promedio + ' palabras por minuto de promedio (rango ' + r.palabras_por_minuto.es.rango.join('-') + '); inglés ' + r.palabras_por_minuto.en.promedio + '. ' + r.palabras_por_minuto.es.nota;
+  $('#mg-marcas').innerHTML = MARCAS_TXT.map(function(m){ var f = MARCA_A_F[norm(m.slice(1, -1)).toUpperCase()]; return '<button type="button" data-m="' + m + '" style="background:' + colF(f) + ';color:' + txtF(f) + '">' + m + '</button>'; }).join('');
+  $$('#mg-marcas button').forEach(function(b){ b.onclick = function(){ var ta = $('#mg-texto'), p = ta.selectionStart || 0, antes = ta.value.slice(0, p), ins = (antes && !/\n$/.test(antes) ? '\n\n' : '') + b.dataset.m + '\n'; ta.value = antes + ins + ta.value.slice(p); ta.focus(); ta.selectionStart = ta.selectionEnd = p + ins.length; ta.dispatchEvent(new Event('input')); }; });
+  $('#mg-preset').value = E.preset; $('#mg-ppm').value = E.ppm; $('#mg-dur').value = E.dur; $('#mg-idioma').value = E.idioma; $('#mg-registro').value = E.registro;
+  $('#mg-preset').onchange = function(){ var p = PRESETS.filter(function(x){ return x.id === this.value; }, this)[0]; E.preset = p.id; if (p.ppm) { E.ppm = p.ppm; E.idioma = p.idioma; $('#mg-ppm').value = p.ppm; $('#mg-idioma').value = p.idioma; } guardar(); analizarYa(); };
+  $('#mg-ppm').oninput = function(){ E.ppm = +this.value; E.preset = 'propio'; $('#mg-preset').value = 'propio'; guardar(); analizarPronto(); };
+  $('#mg-dur').oninput = function(){ E.dur = +this.value; guardar(); analizarPronto(); };
+  $('#mg-idioma').onchange = function(){ E.idioma = this.value; guardar(); analizarYa(); };
+  $('#mg-registro').onchange = function(){ E.registro = this.value; guardar(); analizarYa(); };
+  $('#mg-ejemplo').onclick = function(){ cargarEjemplo('revisar', true); };
+  $('#mg-borrar').onclick = function(){ if (E.guion.trim() && !confirm('¿Borrar el guion?')) return; ponerGuion('', true); };
+}
+function ponerGuion(t, guardarlo){ E.guion = t; sincronizarGuion(null); if (guardarlo) guardar(); alCambiarGuion(); }
+var tAn = null;
+function analizarPronto(){ clearTimeout(tAn); tAn = setTimeout(analizarYa, 300); }
+function alCambiarGuion(){ var n = contarPalabras(E.guion); $('#mg-cont').textContent = fmt(n) + ' palabras · ' + fmt(E.guion.length) + ' caracteres'; $('#cmp-cont').textContent = fmt(n) + ' palabras'; analizarPronto(); if (vistaActual === 'comparar') pintarPromptsCmp(); }
+var ultimoAnalisis = null;
+function analizarYa(){
+  var cont = $('#mg-resultado');
+  if (!E.guion.trim()) { ultimoAnalisis = null; cont.innerHTML = '<div class="bloque"><div class="vacio"><b>Todavía no hay guion.</b><br>Copiá tu guion desde tu documento (Ctrl+C, o Cmd+C en Mac) y pegalo en la caja grande de arriba (Ctrl+V o Cmd+V). El análisis aparece acá solo, al instante.<br><button class="btn" data-ejemplo2="revisar">¿No tenés uno a mano? Cargá un ejemplo</button></div></div>'; var b2 = $('[data-ejemplo2]', cont); if (b2) b2.onclick = function(){ cargarEjemplo('revisar', true); }; return; }
+  var a = analizar(E.guion, cfgActual()); ultimoAnalisis = a; pintarAnalisis(a);
+}
+function luzHTML(l, k, val, p){ var ic = { v:'🟢', a:'🟡', r:'🔴', g:'⚪' }[l]; return '<div class="luz ' + l + '"><div class="k"><span>' + k + '</span><span>' + ic + '</span></div><div class="val">' + val + '</div><p>' + p + '</p></div>'; }
+function pintarAnalisis(a){
+  var c = a.cfg, L = a.luces, H = '';
+  var dObj = a.objetivo ? (a.desvio >= 0 ? '+' : '') + Math.round(a.desvio * 100) + '% vs. ' + c.dur + ' min' : 'Poné una duración objetivo';
+  H += '<div class="bloque"><div class="eb">Semáforo · lo que se mide sin IA</div><h3 style="margin:8px 0 14px">' + fmt(a.palabras) + ' palabras ≈ ' + mmss(a.total) + ' min <span class="nota" style="font:500 15px Inter;text-transform:none">(con una voz de ' + c.ppm + ' <span class="g" data-g="palabras por minuto">palabras por minuto</span>)</span></h3><div class="semaforo">'
+    + luzHTML(L.duracion, 'Duración', mmss(a.total), dObj + '. Verde: ±10 %.')
+    + luzHTML(L.gancho, 'Gancho', mmss(a.gancho.seg), 'Medido ' + a.gancho.modo + '. Recomendado: hasta ~' + a.recG + ' s.')
+    + luzHTML(L.retencion, 'Retención', a.hueco ? mmss(a.hueco.dur) : '—', a.hueco ? 'Hueco más largo sin re-gancho ni giro (min ' + mmss(a.hueco.ini) + ' a ' + mmss(a.hueco.fin) + '). Verde: hasta 3 min.' : 'Poné marcas [RE-GANCHO] y [GIRO] para medirla.')
+    + luzHTML(L.ia, '¿Suena a IA?', a.rasgosIA + ' rasgo' + (a.rasgosIA === 1 ? '' : 's'), 'Verde 0-1 · amarillo 2-4 · rojo 5 o más.')
+    + luzHTML(L.sens, 'Anunciantes', a.sens.length + ' palabra' + (a.sens.length === 1 ? '' : 's'), a.sens.filter(function(h){ return h.tipo === 'ro'; }).length + ' en rojo · ' + a.sens.filter(function(h){ return h.alInicio; }).length + ' en los primeros 30 s.')
+    + luzHTML(L.cliches, 'Frases gastadas', String(a.cliches.length), 'Clichés de retención que el espectador ya saltea.')
+    + luzHTML(L.largas, 'Frases largas', String(a.largas.length), 'Más de 30 palabras: se pierden al oído.')
+    + luzHTML(L.repes, 'Repeticiones', String(a.rep.length), 'Palabras repetidas 3+ veces en 100 palabras.')
+    + '</div><p class="nota" style="margin-top:10px">Lo que no se puede medir con una regla (si suena a vos, si la estructura tiene arco, si los datos son ciertos, la firma del canal) lo revisa tu IA con el botón de abajo.</p></div>';
+
+  // línea de tiempo del guion
+  var puntos = [], marcas = [];
+  marcas = a.ia.hits.map(function(h){ return { k:'ia', h:h }; }).concat(a.sens.map(function(h){ return { k:h.tipo, h:h }; }), a.cliches.map(function(h){ return { k:'cl', h:h }; }));
+  var colorK = { ia:'var(--glow)', am:'var(--amar)', ro:'#ff4b4b', cl:'#8E6CC8' };
+  marcas.forEach(function(m){ var t = contarPalabras(E.guion.slice(0, m.h.ini)) / c.ppm * 60; puntos.push({ t:t, c:colorK[m.k], titulo: mmss(t) + ' · ' + m.h.txt }); });
+  H += '<div class="bloque"><div class="mesa"><div class="mesa-cab"><div><div class="eb">Tu guion en la regla</div><h3 style="margin-top:8px">' + (a.bl.conMarcas ? 'Bloques por función' : 'Bloques por párrafo') + '</h3></div><div class="tc"><span>' + a.bl.lista.length + ' bloques</span><span>' + mmss(a.total) + '</span></div></div>'
+    + '<div id="mg-linea"></div>'
+    + '<div class="leyenda">' + (a.bl.conMarcas ? leyendaHTML(ORDEN_F.filter(function(f){ return a.bl.lista.some(function(b){ return b.f === f; }); })) : '<span>Sin marcas: el primer párrafo se toma como gancho. Agregá [GANCHO], [GIRO], [RE-GANCHO]… para ver las funciones y el hueco más largo.</span>')
+    + '<span><i style="background:var(--glow);border-radius:50%"></i>Rasgo de IA</span><span><i style="background:#8E6CC8;border-radius:50%"></i>Frase gastada</span><span><i style="background:var(--amar);border-radius:50%"></i>Palabra sensible</span><span><i style="background:#ff4b4b;border-radius:50%"></i>Sensible grave</span></div>'
+    + (a.bl.conMarcas ? '<div class="aire"><b>LECTURA</b><span>' + lecturaRet(a) + '</span></div>' : '') + '</div></div>';
+
+  // medidas
+  H += '<div class="bloque"><h3>Medidas</h3><div class="medidas" style="margin-top:14px">'
+    + '<div class="medida"><b>' + fmt(a.palabras) + '</b><span>palabras</span></div>'
+    + '<div class="medida"><b>' + mmss(a.total) + '</b><span>duración con una voz de ' + c.ppm + ' palabras por minuto</span></div>'
+    + '<div class="medida"><b>' + (a.objetivo ? fmt(c.dur * c.ppm) : '—') + '</b><span>palabras para ' + (c.dur || '—') + ' min</span></div>'
+    + '<div class="medida"><b>' + mmss(a.gancho.seg) + '</b><span>gancho (' + a.gancho.modo + ')</span></div>'
+    + '<div class="medida"><b>' + (a.primerRe ? mmss(a.primerRe.t0) : '—') + '</b><span>primer re-gancho (ideal antes de 1:30)</span></div>'
+    + '<div class="medida"><b>' + (a.primerGiro ? mmss(a.primerGiro.t0) : '—') + '</b><span>primer giro</span></div>'
+    + '</div><p class="nota" style="margin-top:10px">Gancho recomendado para tu idioma: ' + esc(a.recGtxt) + '. ' + esc(B.ritmo.reglas[0]) + '</p>'
+    + '<div class="grid2" style="margin-top:20px"><div class="tarjeta"><b class="eb" style="color:var(--dim)">Frases de más de 30 palabras (' + a.largas.length + ')</b>' + (a.largas.length ? '<ul class="lista-simple" style="margin-top:10px">' + a.largas.slice(0, 8).map(function(f){ return '<li><b>' + f.c + ' palabras:</b> ' + esc(f.f.length > 140 ? f.f.slice(0, 140) + '…' : f.f) + '</li>'; }).join('') + '</ul><p class="nota" style="margin-top:8px">Partilas en dos: una idea por frase.</p>' : '<p class="nota" style="margin-top:8px">Ninguna. Bien.</p>') + '</div>'
+    + '<div class="tarjeta"><b class="eb" style="color:var(--dim)">Palabras repetidas cerca (' + a.rep.length + ')</b>' + (a.rep.length ? '<div class="tags" style="margin-top:10px">' + a.rep.slice(0, 24).map(function(r){ return '<span class="tag">' + esc(r.w) + ' · ' + r.max + '× en 100</span>'; }).join('') + '</div><p class="nota" style="margin-top:8px">Si es el tema del video (el nombre del protagonista, por ejemplo), puede estar bien. Si no, buscá un sinónimo o reformulá.</p>' : '<p class="nota" style="margin-top:8px">Ninguna. Bien.</p>') + '</div></div></div>';
+
+  // texto resaltado
+  H += '<div class="bloque"><h3>Tu texto, marcado</h3><p class="nota" style="margin:6px 0 14px">Tocá una marca para ver por qué y cómo reemplazarla. <span style="border-bottom:2px solid var(--glow)">Naranja</span>: rasgo de IA · <span style="border-bottom:2px solid #8E6CC8">violeta</span>: frase gastada · <span style="border-bottom:2px solid var(--amar)">amarillo</span>: palabra sensible · <span style="border-bottom:2px solid var(--rojo)">rojo</span>: sensible grave.</p>'
+    + '<div class="resaltado-wrap"><div class="resaltado" id="mg-resaltado"></div><aside class="hallazgos" id="mg-hallazgos"></aside></div></div>';
+
+  H += '<div class="bloque"><div class="tarjeta" style="border-color:var(--tinta)"><h3>Revisión completa con IA</h3><p class="nota" style="margin:8px 0 12px">Arma un prompt con tu guion, estas medidas, los 10 chequeos de la skill, la lista negra anti-IA y el resumen de políticas. Pegalo en tu Claude o ChatGPT. Si tenés tu PERFIL DE CANAL, pegalo en <a href="#entrenar">Entrenar mi canal</a> y se suma solo.</p><button class="btn lleno" id="mg-armar">Armar el prompt de revisión</button><div class="copiable" id="mg-prompt" style="margin-top:12px"></div></div></div>';
+  $('#mg-resultado').innerHTML = H;
+
+  dibujarLinea($('#mg-linea'), a.bl.lista.map(function(b){ return { f:b.f, t0:b.t0, t1:b.t1, titulo:(b.supuesto ? 'Gancho (supuesto: primer párrafo)' : null) }; }), a.total,
+    { hueco: a.hueco && a.hueco.dur >= 60 ? a.hueco : null, zona: { seg: a.recG, txt: 'gancho ideal ≤ ' + a.recG + ' s' }, puntos: puntos });
+  pintarResaltado(a, marcas);
+  if (window.prepGlos) window.prepGlos($('#mg-resultado'));
+  $('#mg-armar').onclick = function(){ cajaPrompt($('#mg-prompt'), promptRevision(a)); $('#mg-prompt textarea').scrollIntoView({ block:'nearest', behavior:'smooth' }); };
+}
+function lecturaRet(a){
+  var t = [];
+  if (a.primerRe) t.push('Primer re-gancho en ' + mmss(a.primerRe.t0) + (a.primerRe.t0 <= 90 ? ' (a tiempo).' : ' (tarde: apuntá a antes de 1:30).'));
+  else t.push('No hay ningún [RE-GANCHO] marcado.');
+  if (a.hueco) t.push('Hueco más largo sin re-gancho ni giro: ' + mmss(a.hueco.dur) + ', entre ' + mmss(a.hueco.ini) + ' y ' + mmss(a.hueco.fin) + (a.hueco.dur > 180 ? ' → metele un re-gancho, un giro o un cambio de tramo en el medio.' : '.'));
+  var cl = a.bl.lista.filter(function(b){ return b.f === 'climax'; })[0];
+  if (cl && a.total) { var p = Math.round(cl.t0 / a.total * 100); t.push('Clímax al ' + p + '%' + (p >= 55 && p <= 85 ? ' (bien: suele caer entre 60 y 80 %).' : ' (suele caer entre el 60 y el 80 %).')); }
+  return esc(t.join(' '));
+}
+function pintarResaltado(a, marcas){
+  var PRI = { ro:4, am:3, ia:2, cl:1 };
+  var lista = marcas.map(function(m, i){ return { k:m.k, h:m.h, i:i }; }).sort(function(x, y){ return x.h.ini - y.h.ini || PRI[y.k] - PRI[x.k]; });
+  var elegidas = [], fin = -1;
+  lista.forEach(function(m){ if (m.h.ini >= fin) { elegidas.push(m); fin = m.h.fin; } else { var u = elegidas[elegidas.length - 1]; if (u && PRI[m.k] > PRI[u.k] && m.h.ini === u.h.ini) { elegidas[elegidas.length - 1] = m; fin = Math.max(fin, m.h.fin); } } });
+  // las marcas [GANCHO] se pintan como etiquetas
+  var t = E.guion, out = '', pos = 0, mk = [], m; RX_MARCA.lastIndex = 0;
+  while ((m = RX_MARCA.exec(t))) mk.push({ ini:m.index, fin:m.index + m[0].length, txt:m[0], f: MARCA_A_F[norm(m[1]).toUpperCase().replace(/\s+/g, ' ')] || MARCA_A_F[norm(m[1]).toUpperCase().replace(/[- ]/g, '')] || 'parrafo' });
+  var todos = elegidas.map(function(e){ return { ini:e.h.ini, fin:e.h.fin, e:e }; }).concat(mk.map(function(x){ return { ini:x.ini, fin:x.fin, mk:x }; })).sort(function(x, y){ return x.ini - y.ini; });
+  todos.forEach(function(x){
+    if (x.ini < pos) return;
+    out += esc(t.slice(pos, x.ini));
+    if (x.mk) out += '<span class="mk" style="background:' + colF(x.mk.f) + ';color:' + txtF(x.mk.f) + '">' + esc(x.mk.txt) + '</span>';
+    else out += '<mark class="h-' + x.e.k + '" data-i="' + x.e.i + '" title="' + esc(tituloMarca(x.e)) + '">' + esc(t.slice(x.ini, x.fin)) + '</mark>';
+    pos = x.fin;
+  });
+  out += esc(t.slice(pos));
+  var res = $('#mg-resaltado'); res.innerHTML = out;
+  // panel de hallazgos
+  var grupos = [
+    { k:'ro', n:'Sensibles graves', c:'var(--rojo)' }, { k:'am', n:'Palabras sensibles', c:'var(--amar)' },
+    { k:'ia', n:'Rasgos de IA', c:'var(--glow)' }, { k:'cl', n:'Frases gastadas', c:'#8E6CC8' }
+  ];
+  var hp = '<div class="sel-det" id="mg-sel"></div>';
+  grupos.forEach(function(g){
+    var items = lista.filter(function(x){ return x.k === g.k; });
+    if (!items.length) return;
+    hp += '<div class="grupo"><h5><span>' + g.n + '</span><span>' + items.length + '</span></h5><ul>' + items.map(function(x){ return '<li data-i="' + x.i + '"><i style="background:' + g.c + '"></i><div>' + esc(x.h.txt) + ' <span>· ' + esc(nombreMarca(x)) + '</span></div></li>'; }).join('') + '</ul></div>';
+  });
+  if (a.ia.globales.length) hp += '<div class="grupo"><h5><span>Rasgos de todo el texto</span><span>' + a.ia.globales.length + '</span></h5><ul>' + a.ia.globales.map(function(gl){ var r = IA_POR_ID[gl.id]; return '<li style="cursor:default"><i style="background:var(--glow)"></i><div>' + esc(r.patron) + ' <span>· ' + esc(gl.nota) + '. ' + esc(r.como_reemplazarlo) + '</span></div></li>'; }).join('') + '</ul></div>';
+  if (!lista.length && !a.ia.globales.length) hp += '<div class="vacio" style="padding:20px">No se marcó nada. Igual pasalo por la revisión con IA: hay rasgos que una regla no ve.</div>';
+  hp += '<p class="nota">La detección es automática y aproximada: puede marcar algo que en tu contexto está bien, y no ve todo.</p>';
+  var pan = $('#mg-hallazgos'); pan.innerHTML = hp;
+  function mostrar(i, desdeLista){
+    var x = marcas[i]; if (!x) return; var sel = $('#mg-sel');
+    sel.innerHTML = detalleMarca({ k:x.k, h:x.h }); sel.classList.add('on');
+    $$('mark.flash', res).forEach(function(el){ el.classList.remove('flash'); });
+    var el = $('mark[data-i="' + i + '"]', res);
+    if (el) { el.classList.add('flash'); if (desdeLista) res.scrollTop = el.offsetTop - res.clientHeight / 3; }
+    if (!desdeLista && innerWidth < 980) sel.scrollIntoView({ block:'nearest', behavior:'smooth' });
+  }
+  res.onclick = function(ev){ var mkk = ev.target.closest('mark'); if (mkk) mostrar(+mkk.dataset.i, false); };
+  $$('li[data-i]', pan).forEach(function(li){ li.onclick = function(){ mostrar(+li.dataset.i, true); }; });
+}
+function nombreMarca(x){ if (x.k === 'ia') return IA_POR_ID[x.h.id].patron; if (x.k === 'cl') return 'cliché de retención'; return B.web.categorias[x.h.p.categoria] || x.h.p.categoria; }
+function tituloMarca(x){ if (x.k === 'ia') { var r = IA_POR_ID[x.h.id]; return r.patron + ' — ' + r.por_que_delata; } if (x.k === 'cl') return 'Frase gastada — usá la función, no la frase'; return (x.k === 'ro' ? 'Grave · ' : 'Revisar · ') + x.h.p.nota; }
+function detalleMarca(x){
+  if (x.k === 'ia') { var r = IA_POR_ID[x.h.id]; return '<b>Rasgo de IA · ' + esc(r.patron) + '</b><p>' + esc(r.por_que_delata) + '</p><p><b style="font:700 11px Space Mono;display:inline">CÓMO REEMPLAZARLO · </b>' + esc(r.como_reemplazarlo) + '</p>' + (x.h.abuso ? '<p>Aparece ' + x.h.cant + ' veces: el problema es el abuso, no una sola.</p>' : ''); }
+  if (x.k === 'cl') { var fnm = (B.retencion.funciones.filter(function(f){ return f.id === x.h.c.funcion; })[0]) || null; return '<b>Frase gastada · "' + esc(x.h.c.frase) + '"</b><p>' + esc(B.retencion.cliches_de_retencion.advertencia) + '</p>' + (fnm ? '<p><b style="font:700 11px Space Mono;display:inline">LA FUNCIÓN: ' + esc(fnm.nombre.toUpperCase()) + ' · </b>' + esc(fnm.como_escribirlo_sin_cliche) + '</p>' : ''); }
+  var p = x.h.p; return '<b>' + (x.k === 'ro' ? 'Sensible grave' : 'Palabra sensible') + ' · ' + esc(B.web.categorias[p.categoria] || p.categoria) + '</b><p>"' + esc(x.h.txt) + '" (raíz: ' + esc(p.termino) + '). ' + esc(p.nota) + '</p>' + (x.h.alInicio ? '<p><b style="font:700 11px Space Mono;display:inline">OJO · </b>Está en los primeros 30 segundos, donde más pesa.</p>' : '') + '<p class="nota" style="color:rgba(26,26,26,.7)">Es una alerta, no un veredicto: el contexto (educativo, documental) importa.</p>';
+}
+
+/* ---------- prompt de revisión completa ---------- */
+function listaNegraTxt(){ return B.anti_ia.map(function(a){ return '- ' + a.patron + ' — ' + a.por_que_delata + ' → ' + a.como_reemplazarlo; }).join('\n'); }
+function politicasTxt(){
+  var P = B.politicas_youtube;
+  return P.puntos.map(function(p){ return '- ' + p.nombre + ': ' + p.como_revisarlo_en_el_guion + ' (fuente: ' + p.fuente + ')'; }).join('\n')
+    + '\n- ' + P.anuncios.nombre + ': ' + P.anuncios.donde_importa_mas + '\n' + P.anuncios.categorias.map(function(c){ return '  · ' + c.nombre + ': ' + c.como_revisarlo_en_el_guion; }).join('\n');
+}
+function promptRevision(a){
+  var c = a.cfg, medidas = [
+    'Palabras: ' + a.palabras + ' · duración estimada ' + mmss(a.total) + ' a ' + c.ppm + ' palabras por minuto' + (a.objetivo ? ' (objetivo: ' + c.dur + ' min, desvío ' + Math.round(a.desvio * 100) + '%)' : ''),
+    'Gancho: ' + mmss(a.gancho.seg) + ' (' + a.gancho.modo + '); recomendado ' + a.recGtxt,
+    a.hueco ? 'Hueco más largo sin re-gancho ni giro: ' + mmss(a.hueco.dur) + ' (min ' + mmss(a.hueco.ini) + ' a ' + mmss(a.hueco.fin) + ')' : 'El guion no tiene marcas de función: calculá vos el mapa de retención.',
+    'Frases de más de 30 palabras: ' + a.largas.length,
+    'Palabras repetidas cerca: ' + (a.rep.slice(0, 10).map(function(r){ return r.w + ' (' + r.max + '×)'; }).join(', ') || 'ninguna'),
+    'Rasgos de IA detectados automáticamente: ' + (a.ia.hits.map(function(h){ return '"' + h.txt + '"'; }).concat(a.ia.globales.map(function(g){ return IA_POR_ID[g.id].patron; })).slice(0, 25).join(', ') || 'ninguno'),
+    'Palabras sensibles: ' + (a.sens.map(function(h){ return '"' + h.txt + '" (' + h.p.severidad + (h.alInicio ? ', en los primeros 30 s' : '') + ')'; }).slice(0, 25).join(', ') || 'ninguna'),
+    'Frases gastadas de retención: ' + (a.cliches.map(function(h){ return '"' + h.txt + '"'; }).join(', ') || 'ninguna')
+  ].map(function(x){ return '- ' + x; }).join('\n');
+  var perfil = (E.perfil || '').trim();
+  return 'Sos editor de guiones de YouTube para canales faceless (sin mostrar la cara). Revisá el guion de abajo con el método de revisión con semáforo que te paso. Respondé en el idioma y el registro del guion.\n\n'
+    + 'Reglas:\n- No inventes datos, fechas, cifras ni citas. Si algo hay que confirmar, marcalo como [VERIFICAR: qué].\n- Cada punto amarillo o rojo lleva: dónde (cita corta o minuto), por qué importa (una línea) y el arreglo concreto escrito con la voz del canal.\n- No reescribas todo el guion: al final preguntame "¿Corrijo los rojos y amarillos?".\n'
+    + (perfil ? '- Usá el PERFIL DE CANAL de abajo para los chequeos "¿suena a vos?", "¿suena a tu competencia?" y "firma del canal".\n' : '- No tengo PERFIL DE CANAL: en los chequeos 6, 7 y 8 decime qué te haría falta saber y evaluá lo que puedas.\n')
+    + '\n## Medidas que ya calculé (sin IA; usalas, no las recalcules)\n' + medidas
+    + '\n\n## Método de revisión\n' + B.web.referencias.revision.trim()
+    + '\n\n## Lista negra anti-IA (general)\n' + listaNegraTxt()
+    + '\n\n## Frases de retención gastadas (usá la función, no la frase)\n' + B.retencion.cliches_de_retencion.lista.map(function(x){ return '- ' + x.frase; }).join('\n')
+    + '\n\n## Políticas de YouTube (resumen para revisar el guion)\n' + politicasTxt() + '\nAclaración fija: ' + B.politicas_youtube.aviso
+    + (perfil ? '\n\n## PERFIL DE CANAL\n' + perfil : '')
+    + '\n\n## GUION\n"""\n' + E.guion.trim() + '\n"""';
+}
+
+/* ================= COMPARAR ================= */
+function iniciarComparar(){
+  $('#cmp-elegir').innerHTML = B.estructuras.map(function(e){
+    var mini = e.beats.map(function(b, i){ var p1 = i + 1 < e.beats.length ? e.beats[i + 1].pct : 100; return '<i style="width:' + (p1 - b.pct) + '%;background:' + colF(normF(b.funcion)) + '"></i>'; }).join('');
+    return '<button type="button" class="opc" data-id="' + e.id + '"><b>' + esc(e.nombre) + '</b><span class="mini">' + mini + '</span><small>' + esc(e.en_una_linea) + ' · ' + esc(e.duracion_recomendada) + '</small></button>';
+  }).join('');
+  $$('#cmp-elegir .opc').forEach(function(b){ b.onclick = function(){
+    var id = b.dataset.id, i = E.cmpSel.indexOf(id);
+    if (i >= 0) E.cmpSel.splice(i, 1); else { if (E.cmpSel.length >= 3) E.cmpSel.shift(); E.cmpSel.push(id); }
+    guardar(); marcarSel(); pintarPromptsCmp();
+  }; });
+  marcarSel();
+}
+function marcarSel(){ $$('#cmp-elegir .opc').forEach(function(b){ b.classList.toggle('on', E.cmpSel.indexOf(b.dataset.id) >= 0); }); }
+function estrPorId(id){ return B.estructuras.filter(function(e){ return e.id === id; })[0]; }
+function promptCmp(e){
+  var c = cfgActual(), min = Math.round(contarPalabras(E.guion) / c.ppm * 10) / 10;
+  return 'Reordená ESTE MISMO guion en la estructura "' + e.nombre + '" (' + e.en_una_linea + ').\n\n'
+    + 'Reglas:\n- No agregues hechos, datos, nombres, fechas ni cifras nuevos. Solo podés mover, cortar y escribir transiciones mínimas, con la misma voz y el mismo registro del original.\n'
+    + '- Marcá el comienzo de cada bloque, en su propia línea, con UNA de estas marcas: [GANCHO] [CONTEXTO] [GIRO] [RE-GANCHO] [REVELACIÓN] [CLÍMAX] [CIERRE], seguida del minuto aproximado, así: [GIRO · 3:20].\n'
+    + '- Calculá los minutos con una voz de ' + c.ppm + ' palabras por minuto (el original dura unos ' + min + ' min).\n'
+    + '- Que no pasen más de 3 minutos sin un [RE-GANCHO] o un [GIRO].\n'
+    + '- Después del guion escribí una línea que diga exactamente ---FIN DEL GUION--- y abajo una tabla corta: dónde cae el primer giro, cuánto dura el gancho, el hueco más largo sin re-gancho, y qué se gana y qué se pierde con esta estructura.\n\n'
+    + 'Los momentos de la estructura (en % del video):\n' + e.beats.map(function(b){ return '- ' + b.pct + '% · ' + FUNC[normF(b.funcion)].n + ': ' + b.que_pasa; }).join('\n')
+    + '\n\nErrores a evitar con esta estructura:\n' + e.errores_comunes.map(function(x){ return '- ' + x; }).join('\n')
+    + '\n\nGUION ORIGINAL:\n"""\n' + E.guion.trim() + '\n"""';
+}
+function pintarPromptsCmp(){
+  var cont = $('#cmp-prompts');
+  if (E.cmpSel.length < 2) { cont.innerHTML = '<div class="vacio"><b>Falta elegir estructuras.</b><br>En el paso 2, tocá 2 o 3 tarjetas (se marcan en naranja). ¿No sabés cuáles? Probá "Empezar por el final" y "Misterio en capas".</div>'; pintarComparacion(); return; }
+  if (!E.guion.trim()) { cont.innerHTML = '<div class="vacio"><b>Falta tu guion.</b><br>Pegalo en la caja del paso 1. Si ya lo pegaste en "Revisá tu guion", aparece solo.</div>'; pintarComparacion(); return; }
+  var ya = {}; $$('.prompt-c', cont).forEach(function(p){ ya[p.dataset.id] = p; });
+  var nuevo = E.cmpSel.map(function(id){ return id; }).join(',');
+  if (cont.dataset.sel !== nuevo) {
+    cont.dataset.sel = nuevo;
+    cont.innerHTML = E.cmpSel.map(function(id){ var e = estrPorId(id); return '<div class="prompt-c" data-id="' + id + '"><h4>' + esc(e.nombre) + '</h4><div class="copiable"></div><label class="campo">Pegá acá la respuesta de tu IA<textarea data-resp="' + id + '" placeholder="La respuesta con las marcas [GANCHO · 0:00]…"></textarea></label></div>'; }).join('');
+    $$('[data-resp]', cont).forEach(function(t){ t.value = E.cmpResp[t.dataset.resp] || ''; t.oninput = function(){ E.cmpResp[t.dataset.resp] = t.value; guardar(); pintarComparacion(); }; });
+  }
+  $$('.prompt-c', cont).forEach(function(p){ cajaPrompt($('.copiable', p), promptCmp(estrPorId(p.dataset.id))); });
+  pintarComparacion();
+}
+function parsearRespuesta(txt, ppm){
+  var corte = txt.search(/-{3,}\s*FIN DEL GUION\s*-{3,}/i);
+  if (corte >= 0) txt = txt.slice(0, corte);
+  txt = txt.split('\n').filter(function(l){ return !/^\s*\|/.test(l); }).join('\n');
+  var bl = bloques(txt, ppm);
+  bl.lista = bl.lista.filter(function(b){ return b.f !== 'sinmarca'; });
+  if (bl.lista.length) { var off = bl.lista[0].t0; bl.lista.forEach(function(b){ b.t0 -= off; b.t1 -= off; }); bl.total = bl.lista[bl.lista.length - 1].t1; }
+  return bl;
+}
+function pintarComparacion(){
+  var cont = $('#cmp-resultado'), ppm = cfgActual().ppm;
+  var datos = E.cmpSel.map(function(id){ var t = E.cmpResp[id] || ''; return { e: estrPorId(id), bl: t.trim() ? parsearRespuesta(t, ppm) : null }; }).filter(function(d){ return d.bl && d.bl.conMarcas && d.bl.lista.length; });
+  if (E.cmpSel.length >= 2 && E.guion.trim()) {
+    var orig = bloques(E.guion, ppm); if (orig.conMarcas) datos.unshift({ e: { nombre:'Tu guion original' }, bl: orig, orig: true });
+  }
+  if (datos.filter(function(d){ return !d.orig; }).length < 1) { var sinMarcas = E.cmpSel.filter(function(id){ var t = (E.cmpResp[id] || '').trim(); return t && !parsearRespuesta(t, ppm).conMarcas; }).map(function(id){ return estrPorId(id).nombre; });
+    cont.innerHTML = sinMarcas.length ? '<div class="vacio"><b>La respuesta de ' + esc(sinMarcas.join(' y ')) + ' no trae marcas.</b><br>Para dibujarla, cada bloque tiene que empezar con una marca como [GANCHO · 0:00] o [GIRO · 3:20]. Pedile a tu IA: "Devolvelo con las marcas que te pedí al principio de cada bloque" y pegá la nueva respuesta.</div>'
+      : '<div class="vacio"><b>Todavía no pegaste respuestas.</b><br>Cuando tu IA te conteste, copiá toda la respuesta y pegala en la caja "Pegá acá la respuesta de tu IA" de cada estructura. Acá aparecen las líneas de tiempo lado a lado y una tabla para comparar.</div>'; return; }
+  var maxT = Math.max.apply(null, datos.map(function(d){ return d.bl.total; })), alto = Math.max(380, Math.min(720, maxT / 60 * 46));
+  var st = paso(maxT), reg = '';
+  for (var t = 0; t <= maxT; t += st) reg += '<span style="top:' + (t / maxT * 100) + '%">' + mmss(t) + '</span>';
+  var cols = datos.map(function(d){
+    var h = huecoMayor(d.bl), b = d.bl.lista.map(function(x){ var top = x.t0 / d.bl.total * 100, hh = (x.t1 - x.t0) / d.bl.total * 100; return '<div class="bl" style="top:' + top + '%;height:' + hh + '%;background:' + colF(x.f) + ';color:' + txtF(x.f) + '" title="' + esc(FUNC[x.f].n + ' · ' + mmss(x.t0) + '–' + mmss(x.t1)) + '"><b>' + FUNC[x.f].n + '</b><small>' + mmss(x.t0) + '</small></div>'; }).join('');
+    if (h && h.dur >= 60) b += '<div class="hueco" style="top:' + (h.ini / d.bl.total * 100) + '%;height:' + (h.dur / d.bl.total * 100) + '%"></div>';
+    return '<div class="col"><h4>' + esc(d.e.nombre) + '</h4><div class="col-cuerpo"><div class="col-reg" style="height:' + alto + 'px">' + reg + '</div><div class="col-pist" style="height:' + (d.bl.total / maxT * alto) + 'px">' + b + '</div></div></div>';
+  }).join('');
+  var filas = datos.map(function(d){
+    var bl = d.bl, g = ganchoDur('', bl, ppm), giro = bl.lista.filter(function(x){ return x.f === 'giro'; })[0], h = huecoMayor(bl), re = bl.lista.filter(function(x){ return x.f === 're-gancho'; }).length;
+    var lz = function(v, ok, mal){ return v <= ok ? '🟢' : v <= mal ? '🟡' : '🔴'; };
+    return '<tr><td><b>' + esc(d.e.nombre) + '</b></td><td>' + lz(g.seg, 70, 90) + ' ' + mmss(g.seg) + '</td><td>' + (giro ? mmss(giro.t0) : '—') + '</td><td>' + (h ? lz(h.dur, 180, 240) + ' ' + mmss(h.dur) + '<br><span class="nota" style="color:var(--cdim)">' + mmss(h.ini) + '–' + mmss(h.fin) + '</span>' : '—') + '</td><td>' + re + '</td><td>' + mmss(bl.total) + '</td></tr>';
+  }).join('');
+  cont.innerHTML = '<div class="mesa"><div class="mesa-cab"><div><div class="eb">Lado a lado · misma regla</div><h3 style="margin-top:8px">' + datos.length + ' montajes</h3></div><div class="tc"><span>voz de ' + ppm + ' palabras/min</span></div></div>'
+    + '<div class="columnas" style="grid-template-columns:repeat(' + datos.length + ',minmax(0,1fr))">' + cols + '</div>'
+    + '<div class="leyenda">' + leyendaHTML(ORDEN_F) + '<span><i style="border:2px dashed #ff6b5e"></i>Hueco más largo</span></div>'
+    + '<div class="tabla-wrap"><table class="tabla"><thead><tr><th>Estructura</th><th>Gancho</th><th>Primer giro</th><th>Hueco más largo sin re-gancho</th><th>Re-ganchos</th><th>Total</th></tr></thead><tbody>' + filas + '</tbody></table></div>'
+    + '<p class="nota" style="color:var(--cdim);margin-top:10px">Los minutos salen de contar las palabras de cada bloque a ' + ppm + ' palabras por minuto (no del minuto que escribió la IA). El gancho se mide hasta el primer [CONTEXTO].</p></div>';
+  $$('.col-pist .bl', cont).forEach(function(el){ el.classList.toggle('mini', el.offsetHeight > 0 && el.offsetHeight < 20); });
+}
+
+/* ================= ENTRENAR ================= */
+var HERRAMIENTAS = {
+  'IA para escribir': ['Claude gratis', 'Claude pago', 'ChatGPT gratis', 'ChatGPT pago', 'Gemini', 'Otra'],
+  'Investigación': ['NexLev', 'vidIQ', 'TubeBuddy', 'Ninguna'],
+  'Voz': ['ElevenLabs', 'Otra voz IA', 'Mi propia voz'],
+  'Edición': ['CapCut', 'DaVinci', 'Premiere', 'Canva', 'Otra'],
+  'Imágenes': ['Midjourney', 'ChatGPT / Gemini', 'Higgsfield', 'Ninguna']
+};
+function iniciarEntrenar(){
+  $('#ent-herr').innerHTML = Object.keys(HERRAMIENTAS).map(function(g){ return '<div><span class="k">' + g + '</span>' + HERRAMIENTAS[g].map(function(h){ var v = g + ': ' + h; return '<label class="check"><input type="checkbox" value="' + esc(v) + '"' + (E.herr.indexOf(v) >= 0 ? ' checked' : '') + '>' + esc(h) + '</label>'; }).join('') + '</div>'; }).join('');
+  $$('#ent-herr input').forEach(function(ch){ ch.onchange = function(){ E.herr = $$('#ent-herr input:checked').map(function(x){ return x.value; }); guardar(); }; });
+  $$('#ent-ficha [data-f]').forEach(function(el){ if (E.ficha[el.dataset.f] != null) el.value = E.ficha[el.dataset.f]; el.oninput = el.onchange = function(){ E.ficha[el.dataset.f] = el.value; guardar(); }; });
+  if (E.comp.length < 3) while (E.comp.length < 3) E.comp.push('');
+  pintarComp();
+  $('#ent-mas').onclick = function(){ if (E.comp.length < 5) { E.comp.push(''); pintarComp(); guardar(); } };
+  var prop = $('#ent-propios'); prop.value = E.propios; prop.oninput = function(){ E.propios = prop.value; guardar(); medir(); }; medir();
+  ['gen-perfil:perfil', 'gen-tema:tema', 'gen-dur:gdur', 'gen-plan:gplan'].forEach(function(p){ var a = p.split(':'), el = $('#' + a[0]); if (E[a[1]] !== '' && E[a[1]] != null) el.value = E[a[1]]; el.oninput = el.onchange = function(){ E[a[1]] = el.value; guardar(); }; });
+  $('#gen-estr').innerHTML = '<option value="">Que la IA me recomiende 2 o 3</option>' + B.estructuras.map(function(e){ return '<option value="' + e.id + '">' + esc(e.nombre) + ' (' + esc(e.duracion_recomendada) + ')</option>'; }).join('');
+  $('#gen-estr').value = E.gestr || ''; $('#gen-estr').onchange = function(){ E.gestr = this.value; guardar(); };
+  $('#ent-armar').onclick = function(){ cajaPrompt($('#ent-salida'), promptEntrenamiento()); };
+  $('#gen-armar').onclick = function(){ cajaPrompt($('#gen-salida'), promptGuiado()); };
+}
+function pintarComp(){
+  $('#ent-comp').innerHTML = E.comp.map(function(t, i){ return '<label class="campo">Transcripción ' + (i + 1) + ' <small>Canal y título del video en la primera línea, si podés</small><textarea data-c="' + i + '" style="min-height:140px"></textarea></label>'; }).join('');
+  $$('#ent-comp textarea').forEach(function(t){ t.value = E.comp[+t.dataset.c] || ''; t.oninput = function(){ E.comp[+t.dataset.c] = t.value; guardar(); }; });
+  $('#ent-mas').style.display = E.comp.length >= 5 ? 'none' : '';
+}
+function medir(){ var n = contarPalabras(E.propios); $('#ent-med').style.width = Math.min(100, n / 1500 * 100) + '%'; $('#ent-med-txt').textContent = fmt(n) + ' de 1.500 palabras ideales' + (n >= 1500 ? ' · listo' : n > 0 ? ' · con menos también sirve, pero la huella sale menos precisa' : ''); }
+function fichaTxt(){
+  var f = E.ficha, L = [['Nombre del canal', f.nombre], ['Idioma y registro', f.registro || 'Español con voseo'], ['Nicho', f.nicho], ['Formato', f.formato || 'Documental'], ['Audiencia', f.audiencia], ['Tono', f.tono], ['Duración', f.duracion || '12-20 min'], ['Voz', f.voz], ['Canal de referencia', f.referencia], ['Reglas propias', f.reglas], ['Herramientas', E.herr.join(' · ') || 'no marcó ninguna (asumí Claude o ChatGPT gratis + YouTube + Google Trends)']];
+  return L.map(function(x){ return '- ' + x[0] + ': ' + (x[1] && String(x[1]).trim() ? x[1] : '(sin completar: preguntámelo)'); }).join('\n');
+}
+function promptEntrenamiento(){
+  var comps = E.comp.map(function(t){ return t.trim(); }).filter(Boolean);
+  var plantilla = B.web.referencias.plantilla_perfil, formato = plantilla.slice(plantilla.indexOf('## Formato del perfil'));
+  return 'Sos un editor de guiones de YouTube. Tu trabajo es conocer mi canal para que después los guiones suenen a MÍ y distintos a mi competencia, nunca al revés. Seguí el método de entrenamiento de abajo al pie de la letra.\n\n'
+    + 'Cómo trabajar:\n- Respondé en español rioplatense claro (soy principiante).\n- Primero devolveme el análisis (huella de voz con citas cortas de MIS textos, mapa del nicho, lista negra propia y 3 propuestas de firma) para que yo apruebe o corrija. Esperá mi respuesta.\n- Cuando apruebe, generá el PERFIL DE CANAL completo con el formato exacto de abajo, en un solo bloque para copiar.\n- No inventes nada sobre mí ni sobre los competidores. Si falta información, preguntame.\n'
+    + (comps.length ? '' : '- No tengo transcripciones de la competencia: marcá el mapa del nicho como "provisorio" y decime qué videos debería buscar.\n')
+    + '\n## Ficha del canal\n' + fichaTxt()
+    + '\n\n## Método de entrenamiento\n' + B.web.referencias.entrenamiento.trim()
+    + '\n\n## Lista negra anti-IA general (sumala a la propia)\n' + listaNegraTxt()
+    + '\n\n' + formato.trim()
+    + '\n\n## MIS TEXTOS (' + contarPalabras(E.propios) + ' palabras)\n"""\n' + (E.propios.trim() || '(no pegué textos propios: pedímelos o proponeme el truco del audio de 3 minutos)') + '\n"""'
+    + comps.map(function(t, i){ return '\n\n## TRANSCRIPCIÓN DE COMPETIDOR ' + (i + 1) + '\n"""\n' + t + '\n"""'; }).join('');
+}
+function promptGuiado(){
+  var perfil = (E.perfil || '').trim(), dur = +E.gdur || 12, e = E.gestr ? estrPorId(E.gestr) : null, ppm = cfgActual().ppm, gratis = E.gplan === 'gratis';
+  var catEstr = B.estructuras.map(function(x){ return '- ' + x.nombre + ' (' + x.duracion_recomendada + '): ' + x.en_una_linea + ' Momentos: ' + x.beats.map(function(b){ return b.pct + '% ' + FUNC[normF(b.funcion)].n.toLowerCase(); }).join(', ') + '.'; }).join('\n');
+  var catG = B.ganchos.map(function(g){ return '- ' + g.nombre + ': ' + g.formula; }).join('\n');
+  var catR = B.retencion.funciones.map(function(f){ return '- ' + f.nombre + ': ' + f.para_que + ' Cómo: ' + f.como_escribirlo_sin_cliche; }).join('\n');
+  return 'Sos mi guionista y profesor para un video de YouTube faceless. Soy principiante: guiame una cosa por vez, con opciones numeradas, una línea de "por qué importa" en cada paso y la barra de progreso (Paso 3 de 7 ●●●○○○○). Esperá mi respuesta antes de avanzar.\n\n'
+    + 'Reglas:\n- Todo se escribe con la HUELLA DE VOZ de mi perfil y evitando lo que hace toda mi competencia (mapa del nicho). Nada de frases de la lista negra.\n- La biblioteca de abajo enseña FUNCIONES, nunca frases para copiar.\n- No inventes datos, fechas, cifras ni citas: lo que no puedas confirmar va como [VERIFICAR: qué].\n- No prometas vistas ni monetización. La revisión de políticas es una ayuda, no una garantía.\n'
+    + (gratis ? '- Uso un plan gratis: mensajes cortos y el guion por secciones.\n' : '- Uso un plan pago: podés escribir el guion entero, pero mostrame el esqueleto antes.\n')
+    + '\n## El video\n- Tema: ' + (E.tema || '(preguntámelo en el paso 1)') + '\n- Duración: ' + dur + ' min · mi voz va a ~' + ppm + ' palabras por minuto → unas ' + fmt(dur * ppm) + ' palabras\n- Estructura: ' + (e ? e.nombre + ' (' + e.en_una_linea + ')' : 'recomendame 2 o 3 en el paso 2') + '\n'
+    + '\n## Los 7 pasos\n1. Tema: qué promete, para quién, por qué alguien lo vería hoy y el riesgo (¿ya lo hizo toda la competencia?). Si es flojo, 2 ángulos alternativos.\n2. Estructura: ' + (e ? 'usamos ' + e.nombre + '; explicame en simple por qué sirve para este tema.' : 'recomendame 2 o 3 de la biblioteca, decime cuál elegirías y por qué.') + '\n3. Gancho: 3 ganchos de tipos distintos, con mi voz, de ' + (E.idioma === 'en' ? '~50 s' : '50-70 s (120-170 palabras)') + '.\n4. Esqueleto: tabla con los momentos clave y su minuto (momentos de la estructura + re-gancho cada 1,5-3 min + un cabo suelto plantado al inicio que se paga al final + cierre). Que lo apruebe antes de escribir.\n5. Guion: preguntame si lo escribís vos completo, por secciones, o si lo escribo yo y me acompañás. Formato: por bloque, la VOZ y en una línea aparte la IMAGEN sugerida. Marcá cada bloque con [GANCHO] [CONTEXTO] [GIRO] [RE-GANCHO] [REVELACIÓN] [CLÍMAX] [CIERRE].\n6. Revisión con semáforo 🟢🟡🔴: gancho, estructura, retención, ritmo y duración, ¿suena a IA?, ¿suena a mí?, ¿suena a mi competencia?, firma del canal, políticas de YouTube y hechos. Cada amarillo o rojo con su arreglo.\n7. Salidas (que yo elija): títulos + idea de miniatura, escenas con prompts de imagen, texto listo para la voz (si es ElevenLabs, en partes de menos de 5.000 caracteres cortadas al final de un párrafo), descripción.\n'
+    + '\n## Biblioteca · estructuras\n' + (e ? '- ' + e.nombre + ': ' + e.beats.map(function(b){ return b.pct + '% ' + FUNC[normF(b.funcion)].n + ' (' + b.que_pasa + ')'; }).join('; ') + '\nErrores comunes: ' + e.errores_comunes.join(' ') + '\n\nOtras estructuras por si hace falta:\n' : '') + catEstr
+    + '\n\n## Biblioteca · tipos de gancho (fórmulas, no frases)\n' + catG
+    + '\n\n## Biblioteca · funciones de retención\n' + catR
+    + '\n\n## Ritmo\n' + B.ritmo.reglas.map(function(x){ return '- ' + x; }).join('\n')
+    + '\n\n## Lista negra anti-IA\n' + B.anti_ia.map(function(a){ return '- ' + a.patron; }).join('\n')
+    + '\n\n## MI PERFIL DE CANAL\n' + (perfil || '(No tengo perfil todavía. Antes del paso 1, haceme las preguntas de la ficha del canal de a una o dos por mensaje, y avisame que el resultado va a ser más genérico.)')
+    + '\n\nEmpezá por el paso 1.';
+}
+
+/* ================= VOZ ================= */
+function iniciarVoz(){
+  $('#el-cortar').onclick = pintarPartes;
+  // teleprompter
+  $('#tp-tam').value = E.tpTam; $('#tp-vel').value = E.tpVel; $('#tp-tam-o').textContent = E.tpTam + ' px'; $('#tp-vel-o').textContent = E.tpVel;
+  $('#tp-tam').oninput = function(){ E.tpTam = +this.value; $('#tp-tam-o').textContent = this.value + ' px'; guardar(); };
+  $('#tp-vel').oninput = function(){ E.tpVel = +this.value; $('#tp-vel-o').textContent = this.value; guardar(); };
+  $('#tp-abrir').onclick = abrirTP;
+}
+function pintarPartes(){
+  var max = +$('#el-max').value || 4800, partes = cortarEleven(E.guion, max), cont = $('#el-partes');
+  if (!partes.length) { cont.innerHTML = '<div class="vacio"><b>No hay texto para cortar.</b><br>Pegá tu guion en la caja "Tu guion" de arriba y volvé a tocar Cortar.</div>'; return; }
+  cont.innerHTML = '<p class="nota">' + partes.length + ' parte' + (partes.length > 1 ? 's' : '') + ' · ' + fmt(partes.reduce(function(a, p){ return a + p.length; }, 0)) + ' caracteres en total.</p>' + partes.map(function(p, i){ return '<div class="parte"><div class="parte-cab"><b>Parte ' + (i + 1) + '</b><span>' + fmt(p.length) + ' / ' + fmt(max) + '</span><button class="btn chico" data-p="' + i + '">Copiar parte ' + (i + 1) + '</button></div><p>' + esc(p.slice(0, 220)) + '</p></div>'; }).join('');
+  $$('[data-p]', cont).forEach(function(b){ b.onclick = function(){ copiar(partes[+b.dataset.p], b); }; });
+}
+var tpY = 0, tpOn = false, tpUlt = 0, tpRaf = 0;
+function abrirTP(){
+  var limpio = limpiarVoz(E.guion); if (!limpio) { alert('Primero pegá tu guion en la caja "Tu guion" de arriba.'); return; }
+  var tp = $('#tp'), rollo = $('#tp-rollo');
+  rollo.textContent = limpio; rollo.style.fontSize = E.tpTam + 'px'; $('#tp-tam2').value = E.tpTam;
+  $('#tp-txt').classList.toggle('espejo', $('#tp-espejo').checked);
+  tp.classList.add('on'); tp.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+  try { if (tp.requestFullscreen) tp.requestFullscreen().catch(function(){}); } catch (e) {}
+  tpY = 0; tpOn = true; tpUlt = performance.now(); $('#tp-play').textContent = 'Pausa'; mover(); tpRaf = requestAnimationFrame(tick);
+}
+function mover(){ var esp = $('#tp-txt').classList.contains('espejo'); $('#tp-rollo').style.transform = 'translateY(' + (-tpY) + 'px)' + (esp ? ' scaleX(-1)' : ''); }
+function tick(now){
+  var dt = (now - tpUlt) / 1000; tpUlt = now;
+  if (tpOn) { tpY += E.tpVel * dt; var max = $('#tp-rollo').scrollHeight - innerHeight * 0.5; if (tpY > max) { tpY = max; tpOn = false; $('#tp-play').textContent = 'Seguir'; } mover(); }
+  if ($('#tp').classList.contains('on')) tpRaf = requestAnimationFrame(tick);
+}
+function cerrarTP(){ $('#tp').classList.remove('on'); $('#tp').setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; cancelAnimationFrame(tpRaf); try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} }
+function velTP(d){ E.tpVel = Math.max(10, Math.min(300, E.tpVel + d)); $('#tp-vel').value = E.tpVel; $('#tp-vel-o').textContent = E.tpVel; guardar(); }
+function iniciarTP(){
+  $('#tp-play').onclick = function(){ tpOn = !tpOn; this.textContent = tpOn ? 'Pausa' : 'Seguir'; };
+  $('#tp-menos').onclick = function(){ velTP(-10); }; $('#tp-mas').onclick = function(){ velTP(10); };
+  $('#tp-inicio').onclick = function(){ tpY = 0; mover(); };
+  $('#tp-cerrar').onclick = cerrarTP;
+  $('#tp-tam2').oninput = function(){ E.tpTam = +this.value; $('#tp-rollo').style.fontSize = this.value + 'px'; $('#tp-tam').value = this.value; $('#tp-tam-o').textContent = this.value + ' px'; guardar(); };
+  $('#tp-txt').addEventListener('wheel', function(ev){ tpY = Math.max(0, tpY + ev.deltaY); mover(); }, { passive: true });
+  document.addEventListener('keydown', function(ev){
+    if (!$('#tp').classList.contains('on')) return;
+    if (ev.key === 'Escape') cerrarTP();
+    else if (ev.key === ' ') { ev.preventDefault(); $('#tp-play').click(); }
+    else if (ev.key === 'ArrowUp' || ev.key === 'ArrowRight') { ev.preventDefault(); velTP(10); }
+    else if (ev.key === 'ArrowDown' || ev.key === 'ArrowLeft') { ev.preventDefault(); velTP(-10); }
+  });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement && $('#tp').classList.contains('on')) { /* sigue abierto sin pantalla completa */ } });
+}
+
+/* ================= navegación ================= */
+var vistaActual = '';
+var VISTAS = ['revisar', 'comparar', 'entrenar', 'voz', 'biblioteca', 'guionistas', 'glosario'];
+var ALIAS = { 'mi-guion':'revisar', 'inicio':'revisar', '':'revisar' };
+function ruta(){
+  var h = decodeURIComponent(location.hash.replace(/^#/, '')), partes = h.split('&'), base = partes[0].split('/'), v = base[0] || 'inicio';
+  return { v: v, sub: base[1] || '', flags: partes.slice(1) };
+}
+function ir(){
+  var r = ruta(), v = r.v;
+  if (ALIAS[v] != null) v = ALIAS[v];
+  if (VISTAS.indexOf(v) < 0) v = 'revisar';
+  mostrar(v);
+  if (v === 'biblioteca') abrirSub(r.sub || 'estructuras');
+}
+var ESC_BANDA = { revisar:'TOMA 01 · REVISAR', comparar:'TOMA 02 · ESTRUCTURAS', entrenar:'TOMA 03 · TU VOZ', voz:'TOMA 04 · A GRABAR', biblioteca:'TOMA 05 · BIBLIOTECA', guionistas:'TOMA 06 · GUIONISTAS', glosario:'TOMA 07 · GLOSARIO' };
+function mostrar(v){
+  var cambia = v !== vistaActual; vistaActual = v;
+  $$('.vista').forEach(function(s){ s.classList.toggle('on', s.id === 'v-' + v); });
+  $$('#regla a').forEach(function(a){ a.classList.toggle('on', a.dataset.v === v); });
+  $('#banda-esc').textContent = ESC_BANDA[v] || '';
+  moverCabezal(); redibujarTodo();
+  if (v === 'comparar') pintarPromptsCmp();
+  if (v === 'voz' && E.guion.trim()) pintarPartes();
+  if (cambia && scrollY > $('#banda').offsetHeight) window.scrollTo(0, $('#banda').offsetHeight);
+}
+function moverCabezal(){
+  var a = $('#regla a.on'), cab = $('#cabezal'); if (!a) return;
+  cab.style.left = (a.offsetLeft + 1) + 'px';
+  var reg = $('#regla'); if (a.offsetLeft < reg.scrollLeft || a.offsetLeft + a.offsetWidth > reg.scrollLeft + reg.clientWidth) reg.scrollLeft = a.offsetLeft - 16;
+}
+
+/* ================= ejemplo (con errores a propósito) ================= */
+var EJEMPLO = [
+'[GANCHO]',
+'En un mundo donde todo parece estar vigilado, hay un faro en la costa sur que nunca salvó a nadie. No una vez: nunca. Los tres naufragios más graves de la zona pasaron con la luz encendida, girando, a la vista de todo el pueblo. ¿Alguna vez te preguntaste para qué sirve una luz que nadie mira? Quedate hasta el final, porque la respuesta no está en el mar. Está en un cuaderno que el último farero escondió debajo de una baldosa suelta.',
+'',
+'[CONTEXTO]',
+'El faro de Punta Gaviota se encendió por primera vez en 1911 [VERIFICAR: fecha]. Medía treinta y dos metros y su luz, según los folletos de la época, se veía desde veinte millas. Cabe destacar que fue la obra más cara de la provincia en esa década. El pueblo tenía entonces cuatrocientos habitantes, casi todos pescadores, y el faro jugó un papel crucial en la vida de cada familia: marcaba la hora de salir, la hora de volver y, sobre todo, la hora de preocuparse.',
+'',
+'Sin lugar a dudas, era el orgullo del lugar. Lo pintaban cada primavera. Los chicos subían los domingos. Las parejas se casaban en la explanada. A lo largo de la historia, pocos edificios fueron tan queridos por un pueblo tan chico, y es fácil entender por qué: no es solo un faro, es la forma en que el pueblo se miraba a sí mismo desde el mar.',
+'',
+'[RE-GANCHO]',
+'Pero eso no es lo peor. Lo raro no es que el faro fallara. Lo raro es que, según los registros, nunca falló.',
+'',
+'[GIRO]',
+'En 1934, el vapor Carmela se partió contra las rocas a menos de una milla de la costa. Murieron diecinueve personas. La investigación oficial dijo algo que el pueblo nunca aceptó: la luz estaba encendida y funcionando, el farero estaba en su puesto y el libro de guardia no tenía una sola falla. Y aquí es donde todo cambia, porque si el faro funcionaba, alguien al mando del barco tuvo que verlo y decidir seguir de largo.',
+'',
+'[CONTEXTO]',
+'Para entender esa noche hay que entender cómo se trabajaba en un faro. El farero vivía con su familia en la casa de abajo y subía cada cuatro horas los ciento cuarenta escalones para limpiar el vidrio, cargar el combustible y anotar en el libro de guardia el estado del mar, la dirección del viento y cualquier barco que pasara cerca de la costa durante la noche, aunque fuera un bote chico de los que salían a buscar langostinos antes del amanecer. Ese libro era sagrado. Si algo salía mal, el libro era la única defensa del farero frente a la empresa naviera y frente al juez.',
+'',
+'El farero de 1934 se llamaba Anselmo Ruiz [VERIFICAR: nombre]. Tenía cincuenta años, tres hijos y fama de obsesivo. Los vecinos decían que contaba los escalones en voz alta. Su mujer decía que dormía con el reloj en la mano. Nadie en el pueblo dudaba de que esa noche había hecho su trabajo. El problema es que nadie tampoco podía explicar cómo un barco con luces, con radio y con un capitán de veinte años de experiencia terminó sobre las piedras, a la vista de un faro que funcionaba perfectamente.',
+'',
+'Los diarios de la capital publicaron fotos del casco partido y de los muertos alineados en la playa. Hablaron de tragedia, de mala suerte, de una tormenta que, según el servicio meteorológico, no existió. Durante meses llegaron curiosos, periodistas y abogados. Después, como pasa siempre, dejaron de llegar. El caso se cerró sin culpables y el faro siguió girando como si nada.',
+'',
+'[REVELACIÓN]',
+'Treinta años después, en 1964, el faro se automatizó y la casa del farero quedó vacía. Un sobrino de Anselmo, que vino a llevarse los últimos muebles, levantó una baldosa suelta de la cocina y encontró un cuaderno envuelto en hule. No era el libro de guardia. Era otro. Un segundo libro, escrito con la misma letra, con las mismas fechas, pero con anotaciones distintas.',
+'',
+'En el libro oficial, la noche del Carmela dice: luz encendida, mar calmo, sin novedad. En el cuaderno escondido dice otra cosa: que el mecanismo de giro se trabó a las dos y diez, que la luz quedó fija apuntando al pueblo y no al mar, y que Anselmo tardó cuarenta minutos en destrabarlo con las manos. Cuarenta minutos en los que, desde el agua, el faro no parecía un faro. Parecía una casa más con la luz prendida.',
+'',
+'[RE-GANCHO]',
+'Guardá ese dato: cuarenta minutos. Porque los otros dos naufragios tienen exactamente el mismo hueco.',
+'',
+'[CLÍMAX]',
+'Según el cuaderno, el mecanismo se trabó once veces entre 1929 y 1951. Once veces que no figuran en ningún registro oficial. Y dos de esas noches coinciden, hora por hora, con los otros dos naufragios de la zona. El 73,4 % de las fallas, si uno cuenta las anotaciones, ocurrieron en noches de niebla. Anselmo no se quitó la vida ni escapó: siguió subiendo los escalones hasta que se jubiló, con ese cuaderno debajo de la baldosa. 🔥',
+'',
+'¿Por qué no lo contó? En la última página hay una sola línea: si lo decía, cerraban el faro, y sin faro el pueblo se moría.',
+'',
+'[CIERRE]',
+'El faro sigue ahí. Ahora tiene una luz automática que nunca se traba. Este caso nos invita a reflexionar sobre lo que callamos para proteger lo que queremos. Y la pregunta queda abierta: ¿vos lo hubieras contado? Contámelo en los comentarios. ¡Hasta la próxima!'
+].join('\n');
+// respuestas de ejemplo para el comparador (mismo contenido, otro orden)
+function respuestaDemo(orden){
+  var trozos = EJEMPLO.split(/\n(?=\[)/).map(function(t){ return t.replace(/^\[[^\]]+\]\n/, ''); });
+  return orden.map(function(o){ return '[' + o[1] + ']\n' + trozos[o[0]].trim(); }).join('\n\n') + '\n\n---FIN DEL GUION---\n| Primer giro | ... |';
+}
+
+/* ================= arranque ================= */
+function aplicarTema(){ document.documentElement.setAttribute('data-tema', E.claro ? 'claro' : 'oscuro'); var m = $('meta[name=theme-color]'); if (m) m.content = E.claro ? '#F2ECE4' : '#0B0D12'; }
+function arrancar(){
+  aplicarTema();
+  $('#tema').onclick = function(){ E.claro = !E.claro; aplicarTema(); guardar(); };
+  $('#pie-fecha').textContent = 'Datos del ' + B.meta.generado;
+  iniciarGuias(); iniciarBiblioteca(); iniciarMiGuion(); iniciarComparar(); iniciarEntrenar(); iniciarVoz(); iniciarTP(); iniciarGuionistas(); iniciarGlosario(); iniciarGlos(); relojBanda();
+  $$('[data-guion]').forEach(function(t){ t.value = E.guion; t.addEventListener('input', function(){ E.guion = t.value; sincronizarGuion(t); guardar(); alCambiarGuion(); }); });
+  var r = ruta();
+  var demoV = ALIAS[r.v] != null ? ALIAS[r.v] : r.v;
+  if (r.flags.indexOf('demo') >= 0) cargarEjemplo(VISTAS.indexOf(demoV) >= 0 ? demoV : 'revisar', false);
+  if (r.flags.indexOf('claro') >= 0) { E.claro = true; aplicarTema(); }
+  alCambiarGuion(); analizarYa();
+  window.addEventListener('hashchange', ir);
+  window.addEventListener('resize', redibujarTodo);
+  try { document.fonts.ready.then(function(){ moverCabezal(); redibujarTodo(); }); } catch (e) {}
+  window.addEventListener('load', redibujarTodo);
+  ir();
+  if (window.prepGlos) window.prepGlos(document);
+  if (r.flags.indexOf('test') >= 0) correrTest();
+}
+function correrTest(){
+  var a = analizar(EJEMPLO, { ppm:145, dur:7, idioma:'es', registro:'voseo' });
+  var largo = EJEMPLO.split('\n\n').join('\n\n') + '\n\n' + EJEMPLO.replace(/\[[^\]]+\]/g, '') + '\n\n' + EJEMPLO + '\n\n' + 'Una frase muy larga sin cortes '.repeat(400);
+  var partes = cortarEleven(largo, 4800), partes5 = cortarEleven(largo, 6000);
+  var salida = {
+    palabras: a.palabras, duracion: mmss(a.total), gancho: mmss(a.gancho.seg), ganchoModo: a.gancho.modo,
+    bloques: a.bl.lista.map(function(b){ return b.f + '@' + mmss(b.t0); }),
+    hueco: a.hueco && { dur: mmss(a.hueco.dur), ini: mmss(a.hueco.ini), fin: mmss(a.hueco.fin) },
+    ia: a.ia.hits.map(function(h){ return h.id + ':' + h.txt; }), iaGlobales: a.ia.globales.map(function(g){ return g.id; }), rasgosIA: a.rasgosIA,
+    sensibles: a.sens.map(function(h){ return h.p.severidad + ':' + h.txt + (h.alInicio ? '(inicio)' : ''); }),
+    cliches: a.cliches.map(function(h){ return h.txt; }),
+    largas: a.largas.map(function(f){ return f.c; }), repetidas: a.rep.map(function(r){ return r.w + 'x' + r.max; }),
+    luces: a.luces,
+    eleven: { largoEntrada: largo.length, partes: partes.map(function(p){ return p.length; }), maxParte: Math.max.apply(null, partes.map(function(p){ return p.length; })), sinMarcas: partes.every(function(p){ return !/\[[A-ZÁÉÍÓÚ]/.test(p); }), sinEmoji: partes.every(function(p){ return !/\p{Extended_Pictographic}/u.test(p); }), topeConMax6000: Math.max.apply(null, partes5.map(function(p){ return p.length; })) },
+    comparar: E.cmpSel.map(function(id){ var bl = parsearRespuesta(E.cmpResp[id] || '', 145); var h = huecoMayor(bl); return id + ': ' + bl.lista.length + ' bloques, total ' + mmss(bl.total) + ', hueco ' + (h ? mmss(h.dur) : '-'); }),
+    promptRevisionChars: promptRevision(a).length, promptEntrenamientoChars: promptEntrenamiento().length, promptGuiadoChars: promptGuiado().length,
+    promptCmpChars: estrPorId('versus') ? promptCmp(estrPorId('versus')).length : 0
+  };
+  $('#pg-test').textContent = 'PGTEST' + JSON.stringify(salida) + 'FINPGTEST';
+}
+arrancar();
+})();
+</script>
+</body>
+</html>

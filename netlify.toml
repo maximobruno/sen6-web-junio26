@@ -58,3 +58,8 @@
   for = "/blog-borradores-88512d76/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-guion-d4ecbef7/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

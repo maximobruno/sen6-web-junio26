@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prompt Guion · SEN6</title>
+<meta name="description" content="Escribí guiones de YouTube que suenen a vos, no a la IA ni a tu competencia. Una skill para Claude y cinco herramientas gratis para canales sin mostrar la cara. Para alumnos SEN6.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0D12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* === Sistema SEN6 (mismo CSS base que Prompt Cine y Prompt Camera) === */
+:root{
+  --ink:#0B0D12; --ink2:#12161F; --cream:#F5F3EF; --papel:#F2ECE4; --tinta:#1A1A1A; --dim:rgba(245,243,239,.68); --line:rgba(245,243,239,.14);
+  --naranja:#D4450A; --glow:#F26A2E; --oro:#E8C27A; --terra:#C8502A; --rec:#ff3b30; --r:20px;
+  --f-gancho:#E2531A; --f-contexto:#CDBFA8; --f-giro:#6A4BB0; --f-re:#E8C27A; --f-rev:#2C7A68; --f-climax:#B3261E; --f-cierre:#3A5488;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eb{font:700 12px 'Space Mono',monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--glow)}
+.mono{font-family:'Space Mono',ui-monospace,monospace}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:.98}
+h2{font-size:clamp(38px,5.6vw,72px)}
+h2 em,h1 em,h3 em{font-style:normal;color:var(--glow)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--dim);max-width:660px;margin:0}
+p{margin:0}
+.grano{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano .9s steps(6) infinite}
+@keyframes grano{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-6%,-2%)}80%{transform:translate(5%,4%)}100%{transform:translate(0,0)}}
+@keyframes parp{50%{opacity:.15}}
+
+/* botones */
+.cta{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:999px;padding:18px 30px;font:800 17px/1 Inter,sans-serif;color:#fff;text-decoration:none;cursor:pointer;
+  background:linear-gradient(135deg,#FF9A4D,var(--glow) 45%,var(--naranja));box-shadow:0 22px 50px -14px rgba(242,106,46,.85),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 28px 60px -14px rgba(242,106,46,.95),inset 0 1px 0 rgba(255,255,255,.3)}
+.cta small{font-weight:700;opacity:.85;font-size:14px;padding-left:12px;border-left:1px solid rgba(255,255,255,.35)}
+.cta svg{width:18px;height:18px}
+.cta.sec2{background:rgba(245,243,239,.06);box-shadow:none;border:1px solid var(--line)}
+.cta.chica{padding:12px 18px;font-size:14px;box-shadow:0 10px 30px -12px rgba(242,106,46,.8)}
+
+/* barra */
+.top{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.top.solida{background:rgba(11,13,18,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.marca{display:flex;align-items:center;gap:10px;font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.14em;font-size:18px;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.marca img{width:30px;height:30px;border-radius:8px}
+.marca em{font-style:normal;color:var(--glow)}
+.ver{font:700 11px 'Space Mono',monospace;letter-spacing:.08em;color:#fff;background:var(--glow);border-radius:6px;padding:3px 7px;margin-left:2px}
+.top nav{display:flex;align-items:center;gap:18px}
+.top nav a.ent{font-size:14px;font-weight:600;color:var(--dim);text-decoration:none}
+.top nav a.ent:hover{color:var(--cream)}
+.top .cta{padding:11px 18px;font-size:14px;box-shadow:0 10px 30px -10px rgba(242,106,46,.8)}
+
+/* regla lateral: esta página es un guion */
+.regla{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;width:74px;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;opacity:0;transition:opacity .5s}
+.regla.on{opacity:1}
+.regla .pista{position:relative;width:10px;height:190px;border-radius:5px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(245,243,239,.25)}
+.regla .pista i{display:block;flex:1}
+.regla .cab{position:absolute;left:-4px;right:-4px;height:2px;background:#fff;box-shadow:0 0 8px #fff;top:0}
+.regla b{font:600 16px Oswald,sans-serif;letter-spacing:.04em}
+.regla small{font-size:9.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;text-align:center;font-family:'Space Mono',monospace;line-height:1.3}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;background:#07090D}
+.fondo-hero{position:absolute;inset:0;z-index:-4;background:#000}
+.fondo-hero video{width:100%;height:100%;object-fit:cover;object-position:60% 40%;transform:scale(1.04);animation:respira 30s ease-in-out infinite alternate}
+.collage{position:absolute;right:4%;top:21%;width:min(300px,22vw);z-index:-2;display:grid;gap:12px;transform:perspective(1200px) rotateY(-16deg) rotateZ(1.5deg)}
+.collage .t{position:relative;border-radius:6px;overflow:hidden;border:1px solid rgba(242,106,46,.45);background:#000;box-shadow:0 30px 60px -18px rgba(0,0,0,.95);opacity:0;transform:translateX(40px);transition:opacity 1.2s ease,transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.hero.abierto .collage .t{opacity:1;transform:none}
+.collage .t:nth-child(2){margin-left:-46px}
+.collage .t video{width:100%;aspect-ratio:16/9;object-fit:cover}
+.collage .t span{position:absolute;left:8px;top:7px;font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--oro);text-shadow:0 1px 3px #000}
+.collage .t i{position:absolute;right:8px;bottom:6px;font:700 10px 'Space Mono',monospace;font-style:normal;color:#fff;text-shadow:0 1px 3px #000}
+.hero .velo{position:absolute;inset:0;z-index:-3;pointer-events:none;background:linear-gradient(90deg,rgba(7,9,13,.94) 0%,rgba(7,9,13,.72) 36%,rgba(7,9,13,.1) 66%,rgba(7,9,13,.3) 100%),linear-gradient(0deg,var(--ink) 0%,rgba(11,13,18,0) 36%)}
+.franja{position:absolute;left:0;right:0;height:12vh;background:#000;z-index:-1;transition:transform 1.8s cubic-bezier(.7,0,.2,1) .3s;pointer-events:none}
+.franja.a{top:0}.franja.b{bottom:0}
+.hero.abierto .franja.a{transform:translateY(-100%)}.hero.abierto .franja.b{transform:translateY(100%)}
+.hero .txt{padding:150px 22px 70px;max-width:1180px;margin:0 auto;width:100%}
+.hero h1{font-size:clamp(46px,6.8vw,100px);max-width:none;text-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hero .lead{margin-top:22px;color:rgba(245,243,239,.88)}
+.hero .acciones{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px}
+.chip{border:1px solid var(--line);background:rgba(11,13,18,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:9px 15px;font-size:13px;font-weight:600}
+.chip b{color:var(--glow);font-family:Oswald;font-weight:600;font-size:15px;margin-right:4px}
+.rec{position:absolute;top:84px;right:26px;display:flex;gap:18px;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;color:rgba(245,243,239,.75);z-index:2}
+.rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--rec);margin-right:7px;box-shadow:0 0 12px var(--rec);animation:parp 1.2s steps(2) infinite}
+.bajar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bajar i{width:1px;height:34px;background:linear-gradient(var(--glow),transparent);animation:baja 1.8s ease-in-out infinite}
+@keyframes baja{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
+
+section{position:relative}
+.sec{padding:130px 0}
+
+/* el problema */
+.historia{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.cita{font-family:Oswald,sans-serif;text-transform:uppercase;font-size:clamp(34px,4.6vw,58px);line-height:1.02}
+.cita em{font-style:normal;color:var(--glow)}
+.historia p.t{color:var(--dim);font-size:18px;margin:18px 0 0}
+.historia p.t b{color:var(--cream)}
+.dolores{display:grid;gap:14px}
+.dolor{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:linear-gradient(180deg,rgba(245,243,239,.04),rgba(245,243,239,.01))}
+.dolor .n{grid-row:span 3;font:700 44px/1 Oswald;color:transparent;-webkit-text-stroke:1.5px rgba(242,106,46,.75)}
+.dolor b{font:600 21px/1.15 Oswald;text-transform:uppercase;letter-spacing:.02em}
+.dolor p{color:var(--dim);font-size:15px}
+.dolor .dato{font:700 11.5px/1.5 'Space Mono',monospace;letter-spacing:.06em;color:var(--oro);margin-top:6px}
+.fondo-video{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.fondo-video video{width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(.6)}
+.fondo-video::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(11,13,18,.55) 40%,var(--ink))}
+
+/* cómo funciona (papel, como "La estructura") */
+.papel{background:var(--papel);color:var(--tinta);padding:120px 0;overflow:hidden}
+.papel .eb{color:var(--terra)}
+.papel h2 em{color:var(--terra)}
+.papel .lead{color:rgba(26,26,26,.7)}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.paso3{border:2px solid var(--tinta);background:#F7F3EE;display:flex;flex-direction:column;box-shadow:8px 8px 0 var(--tinta)}
+.paso3 .v{position:relative;aspect-ratio:16/9;background:#111;border-bottom:2px solid var(--tinta);overflow:hidden}
+.paso3 .v video{width:100%;height:100%;object-fit:cover}
+.paso3 .v span{position:absolute;left:10px;top:10px;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;background:var(--tinta);color:var(--papel);padding:4px 8px}
+.paso3 .c{padding:20px 22px 22px}
+.paso3 .k{font:700 12px 'Space Mono',monospace;letter-spacing:.14em;color:var(--terra);text-transform:uppercase}
+.paso3 h3{font-size:clamp(24px,2.4vw,30px);margin-top:8px}
+.paso3 p{font-size:15px;color:rgba(26,26,26,.72);margin-top:10px}
+.puntos7{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.puntos7 i{font:700 10px 'Space Mono';font-style:normal;border:1.5px solid var(--tinta);border-radius:999px;padding:3px 8px}
+.semaf{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.semaf i{font:600 12px Inter;font-style:normal;border-radius:999px;padding:4px 9px;background:#fff;border:1.5px solid var(--tinta)}
+/* mesa de montaje: un guion que retiene */
+.mesa{margin-top:60px;background:var(--ink);color:var(--cream);border:2px solid var(--tinta);box-shadow:10px 10px 0 var(--terra);padding:22px 24px 18px}
+.mesa-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.mesa-cab .eb{color:var(--oro)}
+.mesa-cab h3{font-size:clamp(22px,2.6vw,32px);margin-top:8px}
+.tc{font:700 13px 'Space Mono';letter-spacing:.08em;color:var(--dim);display:flex;gap:12px;align-items:center}
+.tc i{width:9px;height:9px;border-radius:50%;background:var(--rec);box-shadow:0 0 10px var(--rec);animation:parp 1.2s steps(2) infinite}
+.linea{position:relative}
+.linea .reg{position:relative;height:22px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.linea .reg i{position:absolute;bottom:0;width:1px;height:12px;background:rgba(245,243,239,.35)}
+.linea .reg i b{position:absolute;bottom:13px;left:3px;font:400 10px 'Space Mono';color:var(--dim);white-space:nowrap}
+.linea .pist{display:flex;height:66px;border-radius:6px;overflow:hidden}
+.linea .bl{height:100%;border-right:2px solid var(--ink);padding:9px 8px;overflow:hidden}
+.linea .bl b{display:block;font:600 13px/1 Oswald;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.linea .bl small{display:block;font:400 10px 'Space Mono';opacity:.8;margin-top:6px;white-space:nowrap}
+.linea .bl.mini b,.linea .bl.mini small{visibility:hidden}
+.linea .play{position:absolute;top:0;bottom:-4px;width:2px;background:var(--rec);box-shadow:0 0 12px var(--rec);z-index:3;left:0}
+.linea .play::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid var(--rec)}
+.aire{margin-top:14px;display:flex;gap:12px;align-items:baseline;font-size:15px;min-height:46px;border-top:1px solid var(--line);padding-top:12px}
+.aire>b{font:700 10.5px 'Space Mono';letter-spacing:.14em;color:#ff6b5e;white-space:nowrap}
+.leyenda{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:12.5px;color:var(--dim)}
+.leyenda span{display:inline-flex;align-items:center;gap:7px}
+.leyenda i{width:12px;height:12px;border-radius:3px}
+
+/* antes / después */
+.voz-cab{display:grid;grid-template-columns:1.3fr .7fr;gap:50px;align-items:end}
+.foto45{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:1px solid var(--line);max-height:420px;justify-self:end;width:100%;max-width:340px}
+.foto45 img{width:100%;height:100%;object-fit:cover;animation:respira 24s ease-in-out infinite alternate}
+.foto45 span{position:absolute;left:12px;bottom:10px;font:700 10.5px 'Space Mono';letter-spacing:.14em;color:var(--oro);text-shadow:0 1px 4px #000}
+.contraste{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:50px}
+.fila{border:1px solid var(--line);border-radius:18px;padding:22px 24px;background:linear-gradient(180deg,rgba(245,243,239,.04),rgba(245,243,239,.01))}
+.fila .et{display:flex;gap:10px;align-items:center;font:700 11px 'Space Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.fila .et i{width:8px;height:8px;border-radius:50%;background:rgba(245,243,239,.3)}
+.fila.bien{border-color:rgba(242,106,46,.45);background:linear-gradient(180deg,rgba(242,106,46,.1),rgba(242,106,46,.02))}
+.fila.bien .et{color:var(--glow)} .fila.bien .et i{background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.fila .txt{margin-top:14px;font-size:18px;line-height:1.7}
+.fila.mal .txt{color:rgba(245,243,239,.78)}
+.fila mark{background:rgba(255,59,48,.16);color:inherit;border-bottom:2px solid rgba(255,90,80,.8);padding:0 2px;border-radius:3px}
+.fila mark.h{background:rgba(242,106,46,.14);border-bottom-color:var(--glow)}
+.notas{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.notas span{font:700 11px 'Space Mono',monospace;letter-spacing:.04em;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--dim)}
+.fila.mal .notas span{border-color:rgba(255,90,80,.4);color:#ff9a90}
+.fila.bien .notas span{border-color:rgba(242,106,46,.45);color:var(--oro)}
+.veredicto{display:flex;align-items:center;gap:14px;margin-top:16px;font:700 12px 'Space Mono';letter-spacing:.1em}
+.veredicto b{font:700 30px/1 Oswald}
+
+/* herramientas */
+.herrs{background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(242,106,46,.12),transparent 70%),var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.lista-h{display:grid;gap:22px;margin-top:56px}
+.herr{display:grid;grid-template-columns:.95fr 1.05fr;gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:rgba(245,243,239,.03)}
+.herr:nth-child(even){grid-template-columns:1.05fr .95fr}
+.herr:nth-child(even) .hv{order:2}
+.hv{position:relative;min-height:300px;background:#000}
+.hv video,.hv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hv img{object-position:50% 30%}
+.hv::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,9,13,.75),rgba(7,9,13,0) 45%)}
+.hv .num{position:absolute;left:16px;top:14px;z-index:2;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;color:var(--oro)}
+.hv .hud{position:absolute;left:16px;right:16px;bottom:12px;z-index:2;display:flex;justify-content:space-between;font:700 11px 'Space Mono',monospace;letter-spacing:.1em;color:rgba(255,255,255,.8)}
+.hv .hud i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rec);margin-right:6px;animation:parp 1.2s steps(2) infinite}
+.hc{padding:30px 32px}
+.hc h3{font-size:clamp(28px,3vw,40px)}
+.hc .que{font-size:18px;margin-top:12px}
+.hc .cuando{color:var(--dim);font-size:15px;margin-top:10px}
+.hc .cuando b{color:var(--oro);font:700 11px 'Space Mono';letter-spacing:.12em;text-transform:uppercase;margin-right:6px}
+.hc ol{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px;counter-reset:hp}
+.hc li{counter-increment:hp;display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.hc li::before{content:counter(hp);flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--glow);color:var(--glow);display:grid;place-items:center;font:700 12px 'Space Mono';margin-top:-1px}
+.hc .acc{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+/* caminos (papel) */
+.caminos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px}
+.camino{border:2px solid var(--tinta);background:#fff;padding:24px;box-shadow:6px 6px 0 var(--tinta);display:flex;flex-direction:column}
+.camino .k{font:700 11px 'Space Mono';letter-spacing:.14em;color:var(--terra);text-transform:uppercase}
+.camino h3{font-size:28px;margin-top:8px}
+.camino ol{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:0;flex:1}
+.camino li{position:relative;padding:0 0 16px 26px;font-size:15px;color:rgba(26,26,26,.8)}
+.camino li::before{content:"";position:absolute;left:5px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--terra)}
+.camino li::after{content:"";position:absolute;left:9.5px;top:18px;bottom:-2px;width:1.5px;background:rgba(26,26,26,.25)}
+.camino li:last-child::after{display:none}
+.camino li b{color:var(--tinta)}
+.camino .ir{margin-top:8px;display:inline-flex;align-self:flex-start;border:2px solid var(--tinta);border-radius:999px;padding:11px 18px;font:700 14px Inter;color:var(--tinta);text-decoration:none;transition:background .2s,color .2s}
+.camino .ir:hover{background:var(--tinta);color:var(--papel)}
+
+
+/* guionistas */
+.guion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.gn{border:1px solid var(--line);border-radius:20px;background:rgba(245,243,239,.03);padding:22px;display:flex;flex-direction:column;gap:12px}
+.gn h3{font-size:26px}
+.gn .meta{font:700 10.5px/1.5 'Space Mono',monospace;letter-spacing:.08em;color:var(--oro);text-transform:uppercase}
+.gn .quien{color:var(--dim);font-size:14.5px}
+.gn .k{font:700 10.5px 'Space Mono',monospace;letter-spacing:.14em;color:var(--glow);text-transform:uppercase;display:block;margin-bottom:4px}
+.gn .idea{font-size:15px}
+.gn .yt{border-left:3px solid var(--glow);background:rgba(242,106,46,.08);border-radius:0 12px 12px 0;padding:10px 12px;font-size:14.5px}
+.gn .vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:auto;padding-top:6px}
+.vid{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit}
+.vid .vmini{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.vid .vmini img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.vid:hover .mini img{transform:scale(1.06)}
+.vid .vmini b{position:absolute;left:6px;top:6px;font:700 10px 'Space Mono';background:var(--glow);color:#fff;border-radius:4px;padding:2px 6px}
+.vid .vmini b.en{background:#3A5488}
+.vid .vmini i{position:absolute;right:6px;bottom:6px;font:700 10px 'Space Mono';font-style:normal;background:rgba(0,0,0,.75);color:#fff;border-radius:4px;padding:2px 5px}
+.vid .vmini::after{content:"";position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/16px no-repeat;border:1px solid rgba(255,255,255,.4)}
+.vid span{font-size:12.5px;line-height:1.35;color:var(--dim);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vacio{border:1px dashed var(--line);border-radius:18px;padding:34px;text-align:center;color:var(--dim)}
+
+/* instalar */
+.papel code{background:rgba(26,26,26,.08);color:var(--terra)}
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px;counter-reset:p}
+.paso{border:1px solid var(--line);border-radius:20px;padding:26px;background:rgba(245,243,239,.03);position:relative}
+.paso::before{counter-increment:p;content:"0" counter(p);font:700 56px/1 Oswald;color:transparent;-webkit-text-stroke:1.5px rgba(242,106,46,.7)}
+.paso h3{font-size:24px;margin-top:14px}
+.paso p{color:var(--dim);font-size:15px;margin:10px 0 0}
+.paso p b{color:var(--cream)}
+code{font:400 13px 'Space Mono';background:rgba(242,106,46,.12);color:var(--oro);padding:2px 6px;border-radius:6px;word-break:break-word}
+.inst2{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:22px;align-items:stretch}
+.terminal{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#07090D;box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}
+.terminal .barra{display:flex;gap:7px;padding:12px 14px;background:#14171E;border-bottom:1px solid var(--line)}
+.terminal .barra i{width:11px;height:11px;border-radius:50%;background:#3A3F4A}
+.terminal .barra i:nth-child(1){background:#FF5F57}.terminal .barra i:nth-child(2){background:#FEBC2E}.terminal .barra i:nth-child(3){background:#28C840}
+.terminal pre{margin:0;padding:22px 24px;font:400 13.5px/1.75 'Space Mono',monospace;color:#D7D3CC;white-space:pre-wrap;min-height:330px}
+.terminal .u{color:var(--glow)} .terminal .g{color:#7FD1A8} .terminal .d{color:#6E7480}
+.proyecto{border:1px solid rgba(232,194,122,.45);border-radius:20px;padding:26px;background:linear-gradient(180deg,rgba(232,194,122,.1),rgba(232,194,122,.02))}
+.proyecto .eb{color:var(--oro)}
+.proyecto h3{font-size:28px;margin-top:10px}
+.proyecto p{color:var(--dim);font-size:15px;margin-top:12px}
+.proyecto p b{color:var(--cream)}
+
+/* descarga */
+.precio{position:relative;overflow:hidden;border-top:1px solid var(--line);isolation:isolate}
+.precio .fv{position:absolute;inset:0;z-index:-1}
+.precio .fv video{width:100%;height:100%;object-fit:cover;opacity:.32}
+.precio .fv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(11,13,18,.4) 45%,var(--ink))}
+.tarjeta{max-width:560px;margin:0 auto;border-radius:26px;padding:38px 34px;background:rgba(14,16,21,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(242,106,46,.45);box-shadow:0 60px 120px -40px rgba(242,106,46,.45);text-align:center}
+.tarjeta .monto{font:700 86px/1 Oswald;margin-top:14px}
+.tarjeta .unico{color:var(--dim);font-size:15px}
+.tarjeta ul{list-style:none;padding:0;margin:28px 0;text-align:left;display:grid;gap:12px}
+.tarjeta li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+.tarjeta li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;margin-top:1px;background:var(--glow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/13px no-repeat}
+.tarjeta .cta{width:100%;justify-content:center}
+.tarjeta .extra{margin-top:18px;font-size:13.5px;color:var(--dim);border-top:1px solid var(--line);padding-top:16px}
+
+/* preguntas */
+.faq{max-width:820px;margin:50px auto 0;display:grid;gap:12px}
+details{border:1px solid var(--line);border-radius:16px;background:rgba(245,243,239,.025);overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:20px 22px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:500 26px/1 Oswald;color:var(--glow);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0;padding:0 22px 20px;color:var(--dim)}
+details p b{color:var(--cream)}
+
+/* cierre */
+.cierre{min-height:86vh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.cierre .fv{position:absolute;inset:0;z-index:-2}
+.cierre .fv video{width:100%;height:100%;object-fit:cover;animation:respira 30s ease-in-out infinite alternate}
+@keyframes respira{from{transform:scale(1.02)}to{transform:scale(1.1) translateY(-1.5%)}}
+.cierre::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 55% 45% at center,rgba(11,13,18,.82),rgba(11,13,18,.55) 60%,rgba(11,13,18,.94) 100%)}
+.cierre h2{font-size:clamp(48px,8vw,110px)}
+.cierre .lead{margin:20px auto 34px}
+footer{padding:36px 22px 110px;text-align:center;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line)}
+footer a{color:var(--dim)}
+
+.fija{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;display:none;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.fija.on{transform:none}
+.fija .cta{width:100%;justify-content:center;padding:16px 20px}
+
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+@media (max-width:980px){
+  .historia,.contraste,.inst2,.voz-cab{grid-template-columns:1fr;gap:34px}
+  .foto45{justify-self:start;max-height:320px;max-width:260px}
+  .tres,.caminos,.pasos,.guion-grid{grid-template-columns:1fr}
+  .herr,.herr:nth-child(even){grid-template-columns:1fr}
+  .herr:nth-child(even) .hv{order:0}
+  .hv{min-height:0;aspect-ratio:16/9}
+  .regla,.rec{display:none}
+  .fija{display:block}
+  .top nav a.ent{display:none}
+  .sec{padding:96px 0}
+  .papel{padding:96px 0}
+  .collage{display:none}
+  .fondo-hero video{object-position:58% 30%}
+  .hero .velo{background:linear-gradient(0deg,var(--ink) 18%,rgba(7,9,13,.8) 52%,rgba(7,9,13,.35))}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .marca{font-size:15px;letter-spacing:.1em;white-space:nowrap}
+  .marca img{width:26px;height:26px}
+  .top{padding:12px 14px}
+  .top .cta small{display:none}
+  .top .cta{padding:10px 14px}
+  .hero .txt{padding:120px 16px 84px}
+  .cta{padding:16px 22px;font-size:16px}
+  .cta small{display:none}
+  .tarjeta{padding:30px 22px}
+  .bajar{display:none}
+  .hc{padding:22px 20px 24px}
+  .mesa{padding:16px 14px 14px;box-shadow:6px 6px 0 var(--terra)}
+  .linea .pist{height:56px}
+  .linea .bl{padding:7px 5px}
+  .linea .bl small{display:none}
+  .fila{padding:18px}
+  .fila .txt{font-size:16.5px}
+  .dolor .n{font-size:34px}
+  .tarjeta .monto{font-size:66px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv,.collage .t{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <a class="marca" href="#"><img src="img/sen6.png" alt="">Prompt <em>Guion</em><span class="ver">V1</span></a>
+  <nav>
+    <a class="ent" href="#como">Cómo funciona</a>
+    <a class="ent" href="#herramientas">Herramientas</a>
+    <a class="ent" href="#instalar">Instalar</a>
+    <a class="cta" href="prompt-guion-skill-v1.zip" download>Descargar <small>gratis</small></a>
+  </nav>
+</header>
+
+<div class="regla" id="regla" aria-hidden="true">
+  <div class="pista" id="regla-pista"><div class="cab" id="regla-cab"></div></div>
+  <b id="regla-min">00:00</b>
+  <small id="regla-fn">Gancho</small>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="fondo-hero"><video src="media/gen/creador.mp4" poster="media/gen/creador.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+  <div class="collage" id="collage" aria-hidden="true"></div>
+  <div class="velo"></div>
+  <div class="franja a"></div><div class="franja b"></div>
+  <div class="rec"><span><i></i>REC</span><span id="tc">00:00:00:00</span><span>ESC. 01 · GANCHO</span></div>
+  <div class="txt">
+    <div class="eb rv on">Una skill de SEN6 para Claude · V1</div>
+    <h1 class="rv on d1" style="margin-top:16px">Escribí guiones<br>que suenen <em>a vos.</em></h1>
+    <p class="lead rv on d2">No a la IA. No a tu competencia. Prompt Guion te lleva paso a paso desde la idea hasta el guion revisado, y te muestra en qué minuto se te va la gente. Para canales de YouTube sin mostrar la cara.</p>
+    <div class="acciones rv on d3">
+      <a class="cta" href="prompt-guion-skill-v1.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>Descargar la skill<small>gratis</small></a>
+      <a class="cta sec2" href="#herramientas">Ver las herramientas</a>
+    </div>
+    <div class="chips rv on d3">
+      <span class="chip"><b>46</b>videos analizados</span>
+      <span class="chip"><b id="n-estr">20</b>estructuras</span>
+      <span class="chip"><b id="n-ganch">24</b>ganchos</span>
+      <span class="chip"><b id="n-ia">60</b>muletillas de IA</span>
+    </div>
+  </div>
+  <a class="bajar" href="#problema"><span>Bajá</span><i></i></a>
+</section>
+
+<!-- EL PROBLEMA -->
+<section class="sec" id="problema" data-f="contexto">
+  <div class="fondo-video"><video data-src="media/maquina.mp4" poster="media/maquina.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="wrap historia">
+    <div>
+      <div class="eb rv">El problema</div>
+      <p class="cita rv d1" style="margin-top:14px">Tu video no se pierde en el minuto 8. <em>Se pierde en el segundo 30.</em></p>
+      <p class="t rv d2">Cuando empezás un canal sin mostrar la cara, el guion es lo único que tenés. Y casi siempre pasan las mismas tres cosas.</p>
+      <p class="t rv d3">Prompt Guion sale de mirar con lupa <b>46 videos de canales sin cara que rindieron mucho más que el promedio de su canal</b>, 24 en español y 22 en inglés. No te da frases para copiar: <b>te muestra qué tiene que pasar en cada minuto.</b></p>
+    </div>
+    <div class="dolores">
+      <div class="dolor rv d1"><span class="n">01</span><b>No sabés por dónde empezar</b><p>Tenés la idea, pero no sabés en qué orden contarla ni qué va primero.</p><p class="dato">→ <span id="d-estr">20</span> estructuras probadas, cada una dibujada minuto a minuto.</p></div>
+      <div class="dolor rv d2"><span class="n">02</span><b>Tu guion suena a IA</b><p>"En un mundo donde…", "fascinante", "no es solo X, es Y". El espectador lo nota y se va.</p><p class="dato">→ <span id="d-ia">60</span> muletillas de IA marcadas, con cómo reemplazarlas.</p></div>
+      <div class="dolor rv d3"><span class="n">03</span><b>La gente se va al principio</b><p>Si el gancho tarda o pasan minutos sin nada nuevo, el video muere.</p><p class="dato">→ En los videos que funcionan, el gancho dura 50-70 s y hay un re-gancho cada 1,5 a 3 min.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="papel" id="como" data-f="re-gancho">
+  <div class="wrap">
+    <div class="eb rv">Cómo funciona la skill</div>
+    <h2 class="rv d1" style="margin-top:14px">Tres pasos.<br><em>Un guion tuyo.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">La skill vive adentro de tu Claude. Le hablás como a un profesor y te acompaña una cosa por vez, sin tirarte todo junto.</p>
+    <div class="tres">
+      <div class="paso3 rv"><div class="v"><video data-src="media/pagina.mp4" poster="media/pagina.jpg" muted loop playsinline preload="none"></video><span>PASO 01</span></div>
+        <div class="c"><div class="k">Una sola vez · 10 minutos</div><h3>Conoce tu canal</h3><p>Le contás de qué es tu canal, a quién le hablás y qué herramientas tenés. Le pegás textos tuyos y de tu competencia. Aprende <b>cómo hablás vos</b> y qué hace igual todo tu nicho, para escribir distinto.</p></div></div>
+      <div class="paso3 rv d1"><div class="v"><video data-src="media/actos.mp4" poster="media/actos.jpg" muted loop playsinline preload="none"></video><span>PASO 02</span></div>
+        <div class="c"><div class="k">Cada video</div><h3>Te guía en 7 pasos</h3><p>Tema, estructura, gancho, esqueleto con minutos, guion, revisión y salidas. En cada paso te da opciones y espera tu OK.</p>
+          <div class="puntos7"><i>1 Tema</i><i>2 Estructura</i><i>3 Gancho</i><i>4 Esqueleto</i><i>5 Guion</i><i>6 Revisión</i><i>7 Salidas</i></div></div></div>
+      <div class="paso3 rv d2"><div class="v"><video data-src="media/reganchos.mp4" poster="media/reganchos.jpg" muted loop playsinline preload="none"></video><span>PASO 03</span></div>
+        <div class="c"><div class="k">Antes de grabar</div><h3>Revisa con semáforo</h3><p>Te marca en verde, amarillo o rojo lo que hay que arreglar: el gancho, los huecos sin re-gancho, si suena a IA, si suena a vos y las reglas de YouTube.</p>
+          <div class="semaf"><i>🟢 Gancho</i><i>🟡 Retención</i><i>🔴 Suena a IA</i></div></div></div>
+    </div>
+    <div class="mesa rv">
+      <div class="mesa-cab"><div><div class="eb">Así se ve un guion que retiene</div><h3 id="hero-nombre">Misterio en capas · 12 min</h3></div><div class="tc"><i></i><span id="mesa-tc">00:00</span><span>/ 12:00</span></div></div>
+      <div class="linea" id="mesa-linea"></div>
+      <div class="aire"><b>EN EL AIRE</b><span id="mesa-aire">—</span></div>
+      <div class="leyenda" id="mesa-leyenda"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TU VOZ -->
+<section class="sec" id="voz" data-f="giro">
+  <div class="wrap">
+    <div class="voz-cab"><div>
+    <div class="eb rv">Tu voz, no la de la IA</div>
+    <h2 class="rv d1" style="margin-top:14px">El mismo dato.<br><em>Dos guiones.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">A la izquierda, lo que escribe cualquier IA sin entrenar. A la derecha, el mismo contenido escrito con la <b style="color:var(--cream)">huella de voz</b> de un canal: frases cortas, voseo, un dato concreto y un remate seco.</p>
+    </div><div class="foto45 rv d2"><img src="media/gen/maquina-roja.jpg" alt="Máquina de escribir con un lápiz rojo" loading="lazy"><span>LÁPIZ ROJO · REVISIÓN</span></div></div>
+    <div class="contraste">
+      <div class="fila mal rv d1">
+        <div class="et"><i></i>Antes · suena a IA</div>
+        <p class="txt"><mark>En un mundo donde</mark> todo cambia a pasos agigantados, la historia de este faro es <mark>fascinante</mark>. <mark>No es solo un faro, es</mark> un <mark>verdadero testimonio</mark> del ingenio humano. <mark>A lo largo de la historia</mark>, <mark>jugó un papel crucial</mark> en la vida del pueblo. <mark>¿Alguna vez te preguntaste</mark> por qué?</p>
+        <div class="notas"><span>apertura genérica</span><span>adjetivo vacío</span><span>"no es solo X, es Y"</span><span>calco del inglés</span><span>relleno</span></div>
+        <div class="veredicto" style="color:#ff8a7e"><b>🔴 7</b>muletillas de IA en 5 frases</div>
+      </div>
+      <div class="fila bien rv d2">
+        <div class="et"><i></i>Después · con tu huella de voz</div>
+        <p class="txt"><mark class="h">El faro de Punta Gaviota nunca salvó a nadie.</mark> Ojo: no es que fallara. Según los papeles, funcionó todas las noches. Y aun así, tres barcos terminaron contra las piedras con la luz prendida. <mark class="h">Algo no cierra.</mark></p>
+        <div class="notas"><span>arranca con un dato</span><span>frases cortas</span><span>voseo: "ojo"</span><span>remate seco</span></div>
+        <div class="veredicto" style="color:var(--oro)"><b>🟢 0</b>muletillas · suena a una persona</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section class="sec herrs" id="herramientas" data-f="revelacion">
+  <div class="wrap">
+    <div class="cab">
+      <div><div class="eb rv">Las herramientas</div>
+        <h2 class="rv d1" style="margin-top:14px">Cinco herramientas.<br><em>Cero costo de IA.</em></h2></div>
+      <p class="lead rv d2" style="max-width:440px">Funcionan en tu navegador, sin cuenta y sin pagar nada. Cuando hace falta pensar, te arman el texto para que lo pegues en tu Claude o tu ChatGPT.</p>
+    </div>
+    <div class="lista-h" id="lista-h"></div>
+  </div>
+</section>
+
+<!-- POR DÓNDE EMPIEZO -->
+<section class="papel" id="empezar" data-f="climax">
+  <div class="wrap">
+    <div class="eb rv">¿Por dónde empiezo?</div>
+    <h2 class="rv d1" style="margin-top:14px">Elegí tu<br><em>camino.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">No hace falta usar todo. Fijate cuál se parece más a vos y seguí los pasos en orden.</p>
+    <div class="caminos">
+      <div class="camino rv"><div class="k">Camino A</div><h3>Empiezo de cero</h3>
+        <ol><li><b>Bajá la skill</b> e instalala en Claude (dos minutos).</li><li>Escribile <code>prompt-guion</code>: primero te pregunta por tu canal.</li><li>Pegale textos tuyos y de 3 competidores para que aprenda tu voz.</li><li>Pedile "quiero un guion nuevo" y seguí los 7 pasos.</li></ol>
+        <a class="ir" href="#instalar">Instalar la skill →</a></div>
+      <div class="camino rv d1"><div class="k">Camino B</div><h3>Ya tengo un guion</h3>
+        <ol><li>Abrí <b>Revisá tu guion</b> y pegalo.</li><li>Mirá el semáforo: duración, gancho, huecos, muletillas de IA.</li><li>Si querés, probalo en <b>otras estructuras</b> y compará.</li><li>Cuando esté listo, abrí <b>Preparalo para grabar</b>: teleprompter o partes para ElevenLabs.</li></ol>
+        <a class="ir" href="herramientas.html#revisar">Revisar mi guion →</a></div>
+      <div class="camino rv d2"><div class="k">Camino C</div><h3>Uso ChatGPT, no Claude</h3>
+        <ol><li>Abrí <b>Enseñale a la IA cómo hablás</b> y completá la ficha de tu canal.</li><li>Copiá el texto y pegalo en ChatGPT: te devuelve tu perfil de canal.</li><li>Guardalo en un Proyecto de ChatGPT con el nombre del canal.</li><li>Usá "Escribí mi guion con este perfil" para cada video.</li></ol>
+        <a class="ir" href="herramientas.html#entrenar">Enseñarle a mi IA →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIONISTAS -->
+<section class="sec" id="guionistas">
+  <div class="fondo-video"><video data-src="media/bomba.mp4" poster="media/bomba.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="wrap">
+    <div class="cab">
+      <div><div class="eb rv">Aprendé de los que escriben</div>
+        <h2 class="rv d1" style="margin-top:14px">Los grandes<br><em>ya lo resolvieron.</em></h2></div>
+      <p class="lead rv d2" style="max-width:460px">Guionistas de cine, series y YouTube, con su idea principal explicada en simple, cómo usarla en tu canal y entrevistas para ver en YouTube.</p>
+    </div>
+    <div class="guion-grid" id="guion-prev"></div>
+    <div class="rv" style="margin-top:30px;text-align:center"><a class="cta sec2" href="herramientas.html#guionistas" id="ver-todos">Ver todos los guionistas</a></div>
+  </div>
+</section>
+
+<!-- INSTALAR -->
+<section class="sec" id="instalar" data-f="cierre">
+  <div class="wrap">
+    <div class="eb rv">Cómo se instala</div>
+    <h2 class="rv d1" style="margin-top:14px">Tres pasos.<br><em>Dos minutos.</em></h2>
+    <p class="lead rv d2" style="margin-top:18px">Funciona con Claude, con el plan que ya tenés (también el gratis). No hay servidor ni API, y no se paga nada extra.</p>
+    <div class="pasos">
+      <div class="paso rv"><h3>Descargá el zip</h3><p>Bajá <code>prompt-guion-skill-v1.zip</code> desde esta página. En la app de Claude no hace falta descomprimirlo.</p></div>
+      <div class="paso rv d1"><h3>Instalala en Claude</h3><p><b>App o web de Claude:</b> Configuración → Capacidades → Skills → subí el zip. Si no ves "Skills", activá antes "Ejecución de código".<br><b>Claude Code:</b> descomprimí y mové la carpeta <code>prompt-guion</code> a <code>~/.claude/skills/</code>.</p></div>
+      <div class="paso rv d2"><h3>Pedí tu guion</h3><p>Abrí una conversación nueva y <b>empezá con <code>prompt-guion</code></b>, seguido de lo que querés: <code>prompt-guion: quiero un guion sobre el faro que nunca salvó a nadie</code>.</p></div>
+    </div>
+    <div class="inst2">
+      <div class="terminal rv"><div class="barra"><i></i><i></i><i></i></div><pre id="term"></pre></div>
+      <div class="proyecto rv d1"><div class="eb">Consejo de oro</div><h3>Un Proyecto por canal</h3>
+        <p>Claude no se acuerda solo de tu canal entre conversaciones. Por eso: creá un <b>Proyecto</b> en Claude con el nombre de tu canal, pegá ahí tu <b>perfil de canal</b> (la skill te lo arma) y abrí cada guion nuevo adentro de ese proyecto.</p>
+        <p>¿Tenés dos canales? Dos proyectos y dos perfiles. Así cada uno suena distinto.</p>
+        <p>¿Usás ChatGPT? Hacé lo mismo con sus Proyectos y armá el perfil en <a href="herramientas.html#entrenar" style="color:var(--oro)">Enseñale a la IA cómo hablás</a>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESCARGA -->
+<section class="sec precio" id="descargar">
+  <div class="fv"><video data-src="media/gen/pared.mp4" poster="media/gen/pared.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="wrap">
+    <div class="tarjeta rv">
+      <div class="eb">Para alumnos SEN6</div>
+      <div class="monto">GRATIS</div>
+      <div class="unico">Versión <b style="color:var(--glow)">V1</b> · <span id="fecha"></span> · te avisamos en cada actualización</div>
+      <ul>
+        <li>La skill Prompt Guion para Claude, lista para instalar</li>
+        <li>Ficha de tu canal y entrenamiento con tus textos y los de tu competencia</li>
+        <li>Recorrido de 7 pasos con aprobación en cada uno</li>
+        <li id="li-bib">Biblioteca de estructuras, ganchos y re-ganchos</li>
+        <li>Revisión con semáforo, incluidas las reglas de YouTube para anunciantes</li>
+        <li>Cinco herramientas web gratis en esta misma página</li>
+      </ul>
+      <a class="cta" href="prompt-guion-skill-v1.zip" download>Descargar Prompt Guion V1</a>
+      <div class="extra">Sirve con cualquier plan de Claude. Las herramientas web también sirven si escribís con ChatGPT o Gemini.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS -->
+<section class="sec" id="preguntas" style="padding-top:110px">
+  <div class="wrap">
+    <div class="eb rv" style="text-align:center">Preguntas</div>
+    <h2 class="rv d1" style="text-align:center;margin-top:14px">Antes de escribir</h2>
+    <div class="faq">
+      <details class="rv"><summary>¿Tengo que pagar algo?</summary><p>No. La skill corre dentro de Claude con el plan que ya tenés, también el gratis (con mensajes más cortos). Las herramientas de esta página funcionan en tu navegador y no usan IA paga.</p></details>
+      <details class="rv"><summary>¿Qué es una skill?</summary><p>Es un paquete de instrucciones que le enseña a Claude a hacer una tarea de una forma concreta. Lo instalás una vez y después, cuando escribís <b>prompt-guion</b>, Claude ya sabe cómo guiarte con los guiones.</p></details>
+      <details class="rv"><summary>¿Sirve con ChatGPT?</summary><p>La skill es para Claude. Pero las herramientas web sí sirven con ChatGPT: en <b>Enseñale a la IA cómo hablás</b> armás el texto que le pegás a ChatGPT para que aprenda tu canal y te guíe paso a paso.</p></details>
+      <details class="rv"><summary>¿Qué es un gancho?</summary><p>Es el arranque del video: los primeros segundos donde prometés algo concreto para que la persona se quede. En los videos que analizamos dura entre 50 y 70 segundos en español. Un <b>re-gancho</b> es lo mismo pero en el medio: algo que renueva las ganas de seguir mirando.</p></details>
+      <details class="rv"><summary>¿Mis textos se suben a algún lado?</summary><p>No. Las herramientas trabajan en tu navegador y lo que escribís queda guardado solo en tu compu, para que no lo pierdas si cerrás la pestaña. Solo sale de ahí lo que vos copies y pegues en tu IA.</p></details>
+      <details class="rv"><summary>¿La IA me escribe todo el guion?</summary><p>Puede, pero la idea es que decidas vos: elegís tema, estructura y gancho, y aprobás el esqueleto antes de escribir. Así el guion tiene tu criterio, y eso también te cuida de la regla de YouTube contra el "contenido no auténtico".</p></details>
+      <details class="rv"><summary>¿La revisión me asegura que YouTube me pague?</summary><p>No. Es una ayuda para revisar, no una garantía: la decisión final la toma YouTube, que también mira imágenes, miniatura, título y descripción.</p></details>
+      <details class="rv"><summary>¿Funciona en Windows y en el celular?</summary><p>Sí. La skill funciona en la app y la web de Claude en cualquier sistema. Las herramientas se abren en cualquier navegador; para pegar guiones largos es más cómodo la compu.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="cierre">
+  <div class="fv"><video data-src="media/cierre.mp4" poster="media/cierre.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="wrap">
+    <div class="eb rv">Continuará…</div>
+    <h2 class="rv d1" style="margin-top:14px">Tu próximo guion<br><em>ya tiene voz.</em></h2>
+    <p class="lead rv d2">La tuya. Descargá la skill o probá las herramientas con un ejemplo.</p>
+    <div class="rv d3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="cta" href="prompt-guion-skill-v1.zip" download>Descargar Prompt Guion <small>gratis</small></a>
+      <a class="cta sec2" href="herramientas.html#revisar&amp;demo">Probar con un ejemplo</a>
+    </div>
+  </div>
+</section>
+
+<footer>Prompt Guion · una skill de SEN6 · Videos del curso "¿Qué es un guion?" · <a href="herramientas.html">Herramientas</a></footer>
+
+<div class="fija" id="fija"><a class="cta" href="prompt-guion-skill-v1.zip" download>Descargar Prompt Guion · gratis</a></div>
+
+<script src="datos.js"></script>
+<script>
+(function(){
+'use strict';
+var B = window.BIBLIOTECA || null;
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* cuentas desde la biblioteca */
+if (B) {
+  ['n-estr','d-estr'].forEach(function(id){ $('#' + id).textContent = B.estructuras.length; });
+  $('#n-ganch').textContent = B.ganchos.length;
+  ['n-ia','d-ia'].forEach(function(id){ $('#' + id).textContent = B.anti_ia.length; });
+  $('#li-bib').textContent = 'Biblioteca: ' + B.estructuras.length + ' estructuras, ' + B.ganchos.length + ' ganchos, ' + B.retencion.funciones.length + ' formas de re-gancho, ' + B.cierres.length + ' cierres y ' + B.anti_ia.length + ' muletillas de IA';
+  $('#fecha').textContent = 'oct 2026';
+}
+
+/* ---------- herramientas ---------- */
+var HERR = [
+  { id:'revisar', v:'montana', n:'Revisá tu guion', q:'Pegás tu guion y te dice cuánto dura, cuánto tarda el gancho, en qué minuto se te puede ir la gente y qué frases suenan a IA.', c:'Cuando ya escribiste un guion y querés saber qué arreglar antes de grabar.', p:['Pegá tu guion en la caja grande.', 'Elegí la velocidad de tu voz y cuántos minutos querés que dure.', 'Mirá el semáforo y tocá lo marcado para ver cómo arreglarlo.'] },
+  { id:'comparar', v:'actos', n:'Probá tu guion en otras estructuras', q:'Arma un texto para que tu IA reordene tu mismo guion en 2 o 3 estructuras distintas, y te las muestra una al lado de la otra.', c:'Cuando sentís que tu guion es aburrido o está contado "en orden" y no sabés cómo mejorarlo.', p:['Pegá tu guion y elegí 2 o 3 estructuras.', 'Copiá cada texto en tu Claude o ChatGPT.', 'Pegá las respuestas y compará cuál retiene mejor.'] },
+  { id:'entrenar', v:'pagina', n:'Enseñale a la IA cómo hablás', q:'Completás la ficha de tu canal y pegás textos tuyos y de tu competencia. Te arma el texto que le enseña a tu IA tu forma de hablar.', c:'Si escribís con ChatGPT (o Claude sin la skill) y querés que el guion suene a vos.', p:['Completá la ficha de tu canal.', 'Pegá textos tuyos y transcripciones de 3 competidores.', 'Copiá el texto, pegalo en tu IA y guardá el perfil que te devuelve.'] },
+  { id:'voz', v:'practica', img:'gen/microfono.jpg', n:'Preparalo para grabar', q:'Si grabás con tu voz, te muestra el guion en un teleprompter. Si usás una voz con IA, lo corta en partes listas para ElevenLabs.', c:'Cuando el guion ya está listo y te toca grabar o generar la voz.', p:['Pegá el guion (o usá el que ya revisaste).', '¿Lo grabás vos? Abrí el teleprompter y elegí letra y velocidad.', '¿Usás ElevenLabs? Cortalo y copiá cada parte.'] },
+  { id:'biblioteca', v:'heroe', n:'Biblioteca de estructuras y ganchos', q:'Todas las estructuras dibujadas como una línea de minutos, los tipos de gancho con ejemplos, cómo mantener la atención y las reglas de YouTube.', c:'Cuando estás planeando un video y no sabés cómo arrancarlo ni en qué orden contarlo.', p:['Filtrá por tipo de video y duración.', 'Tocá cada bloque para ver qué pasa en ese minuto.', 'Elegí una estructura y un gancho para tu próximo video.'] }
+];
+$('#lista-h').innerHTML = HERR.map(function(h, i){
+  return '<article class="herr rv"><div class="hv">' + (h.img ? '<img src="media/' + h.img + '" alt="" loading="lazy">' : '<video data-src="media/' + h.v + '.mp4" poster="media/' + h.v + '.jpg" muted loop playsinline preload="none"></video>') + '<span class="num">HERRAMIENTA 0' + (i + 1) + '</span><div class="hud"><span><i></i>TOMA 0' + (i + 1) + '</span><span>' + esc(h.n.split(' ')[0].toUpperCase()) + '</span></div></div>'
+    + '<div class="hc"><h3>' + esc(h.n) + '</h3><p class="que">' + esc(h.q) + '</p><p class="cuando"><b>Cuándo usarla</b>' + esc(h.c) + '</p><ol>' + h.p.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>'
+    + '<div class="acc"><a class="cta chica" href="herramientas.html#' + h.id + '">Abrir</a><a class="cta chica sec2" href="herramientas.html#' + h.id + '&amp;demo">Probar con un ejemplo</a></div></div></article>';
+}).join('');
+
+/* ---------- collage del hero ---------- */
+var COL = [['gancho','CAM A · GANCHO','0:00'],['reganchos','CAM B · RE-GANCHO','1:30'],['actos','CAM C · ESTRUCTURA','3:00']];
+if (innerWidth > 980) $('#collage').innerHTML = COL.map(function(c, i){ return '<div class="t" style="transition-delay:' + (0.6 + i * 0.18) + 's"><video src="media/' + c[0] + '.mp4" poster="media/' + c[0] + '.jpg" autoplay muted loop playsinline preload="metadata"></video><span>' + c[1] + '</span><i>' + c[2] + '</i></div>'; }).join('');
+requestAnimationFrame(function(){ setTimeout(function(){ $('#hero').classList.add('abierto'); }, 60); });
+
+
+/* ---------- guionistas: adelanto ---------- */
+function tarjetaGuionista(g){
+  var vids = g.videos.slice(0, 2).map(function(v){ return '<a class="vid" href="https://www.youtube.com/watch?v=' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener"><span class="vmini"><img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg" alt="" loading="lazy"><b class="' + (v.idioma === 'en' ? 'en' : '') + '">' + (v.idioma === 'en' ? 'EN' : 'ES') + '</b>' + (v.min ? '<i>' + v.min + ' min</i>' : '') + '</span><span>' + esc(v.titulo) + '</span></a>'; }).join('');
+  return '<article class="gn rv"><div><h3>' + esc(g.nombre) + '</h3><div class="meta">' + esc([g.pais, g.obras].filter(Boolean).join(' · ')) + '</div></div><p class="quien">' + esc(g.quien) + '</p>'
+    + '<div><span class="k">Su idea, en pocas palabras</span><p class="idea">' + esc(g.consejo) + '</p></div>'
+    + '<div class="yt"><span class="k">Aplicalo en YouTube</span>' + esc(g.aplicalo) + '</div><div class="vids">' + vids + '</div></article>';
+}
+(function(){
+  var G = B && B.guionistas || [];
+  if (!G.length) { $('#guion-prev').outerHTML = '<div class="vacio" style="margin-top:40px">El índice de guionistas llega en la próxima actualización.</div>'; $('#ver-todos').style.display = 'none'; return; }
+  var DEST = ['Guillermo Arriaga', 'Damián Szifron', 'Juan José Campanella', 'Aaron Sorkin', 'Robert McKee', 'Dan Harmon'];
+  var sel = DEST.map(function(n){ return G.filter(function(g){ return g.nombre === n; })[0]; }).filter(Boolean);
+  G.forEach(function(g){ if (sel.length < 6 && sel.indexOf(g) < 0) sel.push(g); });
+  $('#guion-prev').innerHTML = sel.slice(0, 6).map(tarjetaGuionista).join('');
+  $('#ver-todos').textContent = 'Ver los ' + G.length + ' guionistas';
+})();
+
+/* ---------- videos perezosos: se cargan y se reproducen solo cuando se ven ---------- */
+var ioV = new IntersectionObserver(function(es){ es.forEach(function(e){
+  var v = e.target;
+  if (e.isIntersecting) { if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.preload = 'metadata'; } var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+  else if (v.src) v.pause();
+}); }, { rootMargin: '200px 0px' });
+$$('video[data-src]').forEach(function(v){ ioV.observe(v); });
+
+/* ---------- apariciones, barra, regla lateral ---------- */
+if (/captura/.test(location.hash + location.search)) { var st = document.createElement('style'); st.textContent = '*{transition:none!important}.rv{opacity:1!important;transform:none!important}.franja{display:none}.hero,.cierre{min-height:900px!important}'; document.head.appendChild(st); $('#hero').classList.add('abierto'); }
+var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }); }, { threshold: .12 });
+$$('.rv').forEach(function(el){ io.observe(el); });
+var top = $('#top'), fija = $('#fija'), regla = $('#regla');
+var FN = { gancho:['Gancho','--f-gancho'], contexto:['Contexto','--f-contexto'], 're-gancho':['Re-gancho','--f-re'], giro:['Giro','--f-giro'], revelacion:['Revelación','--f-rev'], climax:['Clímax','--f-climax'], cierre:['Cierre','--f-cierre'] };
+var tramos = ['gancho'].concat($$('[data-f]').map(function(s){ return s.dataset.f; }));
+$('#regla-pista').insertAdjacentHTML('afterbegin', tramos.map(function(f){ return '<i style="background:var(' + FN[f][1] + ')"></i>'; }).join(''));
+function onScroll(){
+  var y = scrollY, h = document.documentElement.scrollHeight - innerHeight, t = Math.max(0, Math.min(1, y / h));
+  top.classList.toggle('solida', y > 40);
+  fija.classList.toggle('on', y > innerHeight * .8);
+  var tapa = ['.mesa', '.contraste', '.terminal'].some(function(s){ var r = $(s).getBoundingClientRect(); return r.top < innerHeight * .6 && r.bottom > innerHeight * .4; });
+  regla.classList.toggle('on', y > innerHeight * .6 && !tapa);
+  $('#regla-cab').style.top = (t * 100) + '%';
+  var seg = Math.round(t * 720); $('#regla-min').textContent = String(Math.floor(seg / 60)).padStart(2, '0') + ':' + String(seg % 60).padStart(2, '0');
+  var f = tramos[Math.min(tramos.length - 1, Math.floor(t * tramos.length))]; $('#regla-fn').textContent = FN[f][0];
+}
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+/* timecode del REC */
+var t0 = performance.now();
+(function tc(){ var f = Math.floor((performance.now() - t0) / 1000 * 24), p = function(n){ return String(n).padStart(2, '0'); };
+  $('#tc').textContent = p(Math.floor(f / 86400)) + ':' + p(Math.floor(f / 1440) % 60) + ':' + p(Math.floor(f / 24) % 60) + ':' + p(f % 24);
+  requestAnimationFrame(tc); })();
+
+/* ---------- mesa de montaje: una estructura real de la biblioteca ---------- */
+(function(){
+  if (!B) return;
+  var est = B.estructuras.filter(function(e){ return e.id === 'misterio-en-capas'; })[0] || B.estructuras[0], TOTAL = 720;
+  var mm = function(s){ s = Math.round(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+  var norm = function(f){ f = String(f).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); return FN[f] ? f : 'contexto'; };
+  var L = est.beats.map(function(b, i){ var p1 = i + 1 < est.beats.length ? est.beats[i + 1].pct : 100; return { f: norm(b.funcion), t0: b.pct / 100 * TOTAL, t1: p1 / 100 * TOTAL, q: b.que_pasa }; });
+  $('#hero-nombre').textContent = est.nombre + ' · 12 min';
+  var oscuro = { contexto:1, 're-gancho':1 };
+  var cont = $('#mesa-linea');
+  var reg = ''; for (var m = 0; m <= 12; m++) if (m % (innerWidth < 600 ? 3 : 1) === 0) reg += '<i style="left:' + (m / 12 * 100) + '%"><b>' + (m < 12 ? m + ':00' : '') + '</b></i>';
+  cont.innerHTML = '<div class="reg">' + reg + '</div><div class="pist">' + L.map(function(b){ return '<div class="bl" style="width:' + ((b.t1 - b.t0) / TOTAL * 100) + '%;background:var(' + FN[b.f][1] + ');color:' + (oscuro[b.f] ? '#1A1A1A' : '#fff') + '"><b>' + FN[b.f][0] + '</b><small>' + mm(b.t0) + '</small></div>'; }).join('') + '</div><div class="play"></div>';
+  $$('#mesa-linea .bl').forEach(function(el){ el.classList.toggle('mini', el.offsetWidth < 34); });
+  $('#mesa-leyenda').innerHTML = Object.keys(FN).map(function(f){ return '<span><i style="background:var(' + FN[f][1] + ')"></i>' + FN[f][0] + '</span>'; }).join('');
+  var play = $('#mesa-linea .play'), ult = -1, inicio = performance.now(), visible = false;
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(cont);
+  (function cuadro(now){
+    if (visible || reduce) {
+      var t = reduce ? TOTAL * .36 : ((now - inicio) / 1000 * 50) % TOTAL;
+      play.style.left = (t / TOTAL * 100) + '%';
+      $('#mesa-tc').textContent = (t < 600 ? '0' : '') + mm(t);
+      var i = L.findIndex(function(b){ return t >= b.t0 && t < b.t1; });
+      if (i !== ult && i >= 0) { ult = i; $('#mesa-aire').innerHTML = '<b style="color:var(' + FN[L[i].f][1] + ');margin-right:8px;font:600 15px Oswald;text-transform:uppercase;letter-spacing:.05em">' + FN[L[i].f][0] + '</b>' + esc(L[i].q); }
+    }
+    if (!reduce) requestAnimationFrame(cuadro);
+  })(performance.now());
+})();
+
+/* ---------- terminal: así se ve la skill en Claude ---------- */
+var GUION = [
+  ['u', '› '], ['', 'prompt-guion: quiero un guion sobre el faro que nunca salvó a nadie\n\n'],
+  ['d', '⏺ Skill(prompt-guion)\n'], ['g', '  ⎿ Perfil: Faros y naufragios · voseo, frases cortas, ironía seca\n\n'],
+  ['', 'Paso 1 de 7  ●○○○○○○  TEMA\n'],
+  ['', 'Promete: por qué un faro que funcionaba no evitó tres naufragios.\n'],
+  ['', 'Para quién: gente que mira misterios históricos, 25-45 años.\n'],
+  ['', 'Riesgo: dos canales de tu nicho ya contaron "faros malditos".\n'],
+  ['', '       Tu ángulo distinto: el cuaderno escondido, no la maldición.\n\n'],
+  ['u', '¿Seguimos con este ángulo?  '], ['d', '1) Sí  2) Probemos otro  3) Contame más']
+];
+var termHecho = false;
+new IntersectionObserver(function(es, o){ if (!es[0].isIntersecting || termHecho) return; termHecho = true; o.disconnect();
+  var pre = $('#term'), s = 0, c = 0, span = null;
+  (function paso(){
+    if (s >= GUION.length) return;
+    var cl = GUION[s][0], tx = GUION[s][1];
+    if (c === 0) { span = document.createElement('span'); if (cl) span.className = cl; pre.appendChild(span); }
+    span.textContent += tx[c++];
+    if (c >= tx.length) { s++; c = 0; }
+    setTimeout(paso, reduce ? 0 : (cl === 'd' || cl === 'g') ? 6 : 16);
+  })();
+}, { threshold: .35 }).observe($('#term'));
+})();
+</script>
+</body>
+</html>
