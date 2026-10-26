@@ -63,3 +63,8 @@
   for = "/prompt-guion-d4ecbef7/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-voz-f72e7577/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
