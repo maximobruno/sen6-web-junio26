@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Edita · SEN6</title>
+<meta name="description" content="La skill Edita de SEN6: Claude Code edita tus videos de YouTube con Remotion y HyperFrames, con reglas distintas para canales de marca personal y faceless.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0D12">
+<link rel="icon" href="img/sen6.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* === Sistema SEN6 (mismos tokens que la familia Prompt) === */
+:root{
+  --ink:#0B0D12; --ink2:#12161F; --cream:#F5F3EF; --dim:rgba(245,243,239,.68); --line:rgba(245,243,239,.14);
+  --naranja:#D4450A; --glow:#F26A2E; --oro:#E8C27A; --verde:#7BD88F; --rojo:#ff5a4f; --teal:#22B8C8;
+  --ac:var(--glow); --ac-rgb:242,106,46;
+}
+body[data-modo="faceless"]{--ac:var(--teal); --ac-rgb:34,184,200}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit} button{font-family:inherit;color:inherit;cursor:pointer} p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eb{font:700 12px 'Space Mono',monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--ac);transition:color .5s}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:.98}
+h2{font-size:clamp(38px,5.6vw,70px)}
+h1 em,h2 em,h3 em{font-style:normal;color:var(--ac);transition:color .5s}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--dim);max-width:660px}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+.grano{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grano .9s steps(6) infinite}
+@keyframes grano{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-5%)}75%{transform:translate(-6%,-2%)}100%{transform:translate(0,0)}}
+.cta{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:999px;padding:17px 28px;font:800 16px/1 Inter,sans-serif;color:#fff;text-decoration:none;
+  background:linear-gradient(135deg,#FF9A4D,var(--glow) 45%,var(--naranja));box-shadow:0 22px 50px -14px rgba(242,106,46,.85),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s}
+.cta:hover{transform:translateY(-2px)}
+.cta.alt{background:rgba(245,243,239,.06);box-shadow:none;border:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(245,243,239,.05);border-radius:10px;padding:9px 13px;font:700 13px Inter,sans-serif;text-decoration:none;transition:border-color .2s,background .2s}
+.btn:hover{border-color:rgba(var(--ac-rgb),.6);background:rgba(var(--ac-rgb),.08)}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.on{opacity:1;transform:none}
+.brillo{position:relative;isolation:isolate}
+.brillo::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(var(--ac-rgb),.15),transparent 65%)}
+.brillo:hover::before{opacity:1}
+/* solo de un modo */
+body[data-modo="personal"] [data-solo="faceless"],body[data-modo="faceless"] [data-solo="personal"]{display:none!important}
+.flash{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 12%,rgba(var(--ac-rgb),.5),rgba(var(--ac-rgb),.1) 40%,transparent 75%)}
+.flash.go{animation:flash .9s ease-out}
+@keyframes flash{0%{opacity:0}18%{opacity:1}35%{opacity:.35}48%{opacity:.9}100%{opacity:0}}
+
+/* barra */
+.top{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.top.solida{background:rgba(11,13,18,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.marca{display:flex;align-items:center;gap:10px;font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.14em;font-size:18px;text-transform:uppercase;text-decoration:none}
+.marca img{width:30px;height:30px;border-radius:8px}
+.marca em{font-style:normal;color:var(--ac);transition:color .5s}
+.top nav{display:flex;align-items:center;gap:18px}
+.top nav a{font-size:14px;font-weight:600;color:var(--dim);text-decoration:none}
+.top nav a:hover{color:var(--cream)}
+/* interruptor de modo */
+.modo{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.35)}
+.modo button{position:relative;z-index:1;border:0;background:transparent;padding:9px 16px;font:800 13px Inter,sans-serif;color:var(--dim);white-space:nowrap;transition:color .3s}
+.modo button[aria-pressed="true"]{color:#fff}
+.modo i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:999px;background:var(--ac);box-shadow:0 8px 24px -6px rgba(var(--ac-rgb),.8);transition:transform .45s cubic-bezier(.2,.8,.2,1),background .5s}
+body[data-modo="faceless"] .modo i{transform:translateX(100%)}
+.modo.grande button{padding:14px 26px;font-size:16px}
+
+/* portada */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.fondo-hero{position:absolute;inset:0;z-index:-4;background:#07090D}
+.fondo-hero video{width:100%;height:100%;object-fit:cover;object-position:var(--px,50%) 50%;transform:scale(1.05);animation:respira 30s ease-in-out infinite alternate;transition:object-position 1.2s cubic-bezier(.2,.8,.2,1)}
+body[data-modo="personal"] .fondo-hero video{--px:22%} body[data-modo="faceless"] .fondo-hero video{--px:80%}
+@keyframes respira{to{transform:scale(1.12)}}
+.velo{position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,rgba(7,9,13,.95) 0%,rgba(7,9,13,.78) 42%,rgba(7,9,13,.25) 75%,rgba(7,9,13,.45) 100%),linear-gradient(0deg,var(--ink) 0%,rgba(11,13,18,0) 35%),linear-gradient(180deg,rgba(7,9,13,.7),rgba(7,9,13,0) 25%)}
+.luz{position:absolute;inset:0;z-index:-2;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(620px 440px at var(--lx,75%) var(--ly,40%),rgba(var(--ac-rgb),.2),transparent 70%);transition:background .6s}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;padding-top:150px;padding-bottom:110px;width:100%}
+.hero h1{font-size:clamp(48px,7.2vw,104px)}
+.hero .lead{margin-top:24px;color:rgba(245,243,239,.86)}
+.hero .acciones{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero .elige{margin-top:34px;display:flex;flex-direction:column;gap:10px}
+.hero .elige small{font:700 11px 'Space Mono',monospace;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+.entra>*{opacity:0;transform:translateY(26px);animation:sube .9s cubic-bezier(.2,.8,.2,1) forwards}
+.entra>*:nth-child(2){animation-delay:.12s}.entra>*:nth-child(3){animation-delay:.24s}.entra>*:nth-child(4){animation-delay:.36s}.entra>*:nth-child(5){animation-delay:.48s}
+@keyframes sube{to{opacity:1;transform:none}}
+/* terminal */
+.term{border-radius:16px;overflow:hidden;background:#141413;border:1px solid rgba(255,255,255,.09);box-shadow:0 40px 90px -30px rgba(0,0,0,.9)}
+.term .barra{height:40px;background:#1F1E1C;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.term .barra i{width:12px;height:12px;border-radius:50%;background:#FF5F57}.term .barra i:nth-child(2){background:#FEBC2E}.term .barra i:nth-child(3){background:#28C840}
+.term .barra span{flex:1;text-align:center;font:500 12px 'JetBrains Mono',monospace;color:#8A8880;margin-right:50px}
+.term pre{margin:0;padding:16px 18px;font:12.5px/1.55 'JetBrains Mono',monospace;color:#E8E6DC;white-space:pre;overflow-x:auto;max-height:var(--alto,420px);overflow:auto}
+.term pre .p{color:#D97757}.term pre .ok{color:#7FB069}.term pre .g{color:#8A8880}
+.real{display:inline-flex;align-items:center;gap:6px;font:700 10px 'Space Mono',monospace;letter-spacing:.16em;color:var(--verde);text-transform:uppercase;margin-top:10px}
+.real::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--verde);box-shadow:0 0 10px var(--verde)}
+.tipeo{min-height:1.5em}
+.tipeo::after{content:"▍";color:#D97757;animation:parp 1s steps(2) infinite;margin-left:2px}
+@keyframes parp{50%{opacity:0}}
+
+/* secciones */
+section{position:relative}
+.sec{padding:120px 0}
+.cab{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:46px}
+.cab .eb{display:block;margin-bottom:16px}
+.nota{margin-top:22px;font-size:14px;color:var(--dim);border-left:2px solid var(--oro);padding-left:14px;max-width:820px}
+/* 1 · instalar */
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:p}
+.paso{border:1px solid var(--line);border-radius:20px;padding:22px;background:#10141C;display:flex;flex-direction:column;gap:12px}
+.paso .n{font:700 11px 'Space Mono',monospace;letter-spacing:.2em;color:var(--ac)}
+.paso b{font:600 22px Oswald,sans-serif;text-transform:uppercase}
+.paso p{color:var(--dim);font-size:15px}
+.pedido{position:relative;border:1px solid rgba(var(--ac-rgb),.35);background:rgba(var(--ac-rgb),.06);border-radius:12px;padding:12px 14px 12px 14px;font:13px/1.5 'JetBrains Mono',monospace;color:var(--cream)}
+.pedido::before{content:"❯ ";color:#D97757}
+.pedido button{display:flex;margin-top:10px}
+.req{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.chip{border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(18,22,31,.6)}
+.chip b{display:block;font:700 15px Inter,sans-serif}
+.chip small{color:var(--dim);font-size:13px}
+.lic{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lic div{border-radius:14px;padding:14px 16px;font-size:14px;border:1px solid var(--line);background:rgba(18,22,31,.6)}
+.lic div b{display:block;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.lic .si b{color:var(--verde)} .lic .ojo b{color:var(--oro)} .lic .no b{color:#ff8d84}
+/* 2 · formulario */
+.form-zona{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+.preguntas{columns:2;column-gap:10px}
+.pq{break-inside:avoid}
+.preguntas{border:1px solid var(--line);border-radius:20px;background:#10141C;padding:10px}
+.pq{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;font-size:15px;transition:background .2s}
+.pq:hover{background:rgba(245,243,239,.04)}
+.pq .num{font:700 12px 'Space Mono',monospace;color:var(--dim)}
+.pq .tag{font:700 10px 'Space Mono',monospace;letter-spacing:.12em;padding:3px 7px;border-radius:5px;border:1px solid var(--line);color:var(--dim)}
+.pq[data-solo] .tag{border-color:rgba(var(--ac-rgb),.5);color:var(--ac)}
+.pq.nueva{animation:entraPq .6s both}
+@keyframes entraPq{from{opacity:0;transform:translateX(-12px)}}
+/* 3 · diferencias */
+.dif{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#10141C}
+.dif .fila{display:grid;grid-template-columns:200px 1fr 1fr;border-bottom:1px solid rgba(245,243,239,.07)}
+.dif .fila:last-child{border-bottom:0}
+.dif .fila>*{padding:16px 18px;font-size:15px}
+.dif .fila b{font:700 11px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:19px}
+.dif .cabf>*{font:600 20px Oswald,sans-serif;text-transform:uppercase;padding:18px}
+.dif .col-p{transition:background .5s,opacity .5s}.dif .col-f{transition:background .5s,opacity .5s}
+body[data-modo="personal"] .dif .col-p{background:rgba(242,106,46,.08)} body[data-modo="personal"] .dif .col-f{opacity:.45}
+body[data-modo="faceless"] .dif .col-f{background:rgba(34,184,200,.08)} body[data-modo="faceless"] .dif .col-p{opacity:.45}
+.cabf .col-p{color:var(--glow)} .cabf .col-f{color:var(--teal)}
+/* 4 · arrancar */
+.flujo{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.linea{position:relative;display:grid;gap:10px;padding-left:28px}
+.linea::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--ac),rgba(var(--ac-rgb),.1))}
+.lp{position:relative;border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:rgba(18,22,31,.6)}
+.lp::before{content:"";position:absolute;left:-25px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--ac)}
+.lp b{font:700 15px Inter,sans-serif;display:block}
+.lp small{color:var(--dim);font-size:13.5px}
+.demo{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#000}
+.demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.demo .pie{padding:12px 16px;background:#10141C;display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--dim);align-items:center;flex-wrap:wrap}
+.grilla{margin-top:18px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.grilla img{display:block;width:100%}
+.grilla .pie{padding:10px 14px;background:#10141C;font-size:13.5px;color:var(--dim)}
+/* 5 · referencias */
+.refs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tarj{border:1px solid var(--line);border-radius:20px;padding:22px;background:#10141C;display:flex;flex-direction:column;gap:10px}
+.tarj b{font:600 22px Oswald,sans-serif;text-transform:uppercase}
+.tarj p{color:var(--dim);font-size:15px}
+.kc{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 8px;border-radius:7px;background:#232836;border:1px solid rgba(255,255,255,.12);box-shadow:0 3px 0 #090B10;font:700 13px Inter,sans-serif;margin-right:4px}
+/* 6 · cambios */
+.cambios{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+.gen{border:1px solid var(--line);border-radius:22px;background:#10141C;padding:22px;display:flex;flex-direction:column;gap:12px}
+.cfila{display:grid;grid-template-columns:62px 62px 1fr 34px;gap:8px;align-items:center}
+.cfila input{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.3);color:var(--cream);border-radius:10px;padding:11px 10px;font:500 14.5px Inter,sans-serif;outline:none}
+.cfila input:focus{border-color:rgba(var(--ac-rgb),.6)}
+.cfila .x{border:1px solid var(--line);background:transparent;border-radius:10px;height:40px;color:var(--dim)}
+.salida{border:1px dashed rgba(var(--ac-rgb),.45);border-radius:14px;padding:14px;font:13px/1.6 'JetBrains Mono',monospace;white-space:pre-wrap;min-height:80px;color:var(--cream)}
+.salida.vacia{color:var(--dim)}
+.malbien{display:grid;gap:12px}
+.mb{border-radius:16px;padding:16px 18px;font-size:15px;border:1px solid var(--line)}
+.mb.mal{background:rgba(255,90,79,.07);border-color:rgba(255,90,79,.35)} .mb.bien{background:rgba(123,216,143,.07);border-color:rgba(123,216,143,.35)}
+.mb b{display:block;font:700 11px 'Space Mono',monospace;letter-spacing:.16em;margin-bottom:6px}
+.mb.mal b{color:#ff8d84}.mb.bien b{color:var(--verde)}
+/* 7 · errores */
+.errores{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.err{border:1px solid var(--line);border-radius:18px;padding:20px;background:#10141C;display:flex;flex-direction:column;gap:8px;transition:opacity .5s,border-color .5s}
+.err .t{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.err .t span{font:700 10px 'Space Mono',monospace;letter-spacing:.12em;padding:3px 7px;border-radius:5px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.err h3{font-size:22px}
+.err p{color:var(--dim);font-size:14.5px}
+.err .sol{color:var(--cream)} .err .sol::before{content:"Solución · ";font-weight:800;color:var(--verde)}
+body[data-modo="personal"] .err[data-tipo="faceless"],body[data-modo="faceless"] .err[data-tipo="personal"]{opacity:.38}
+body[data-modo="personal"] .err[data-tipo="personal"],body[data-modo="faceless"] .err[data-tipo="faceless"]{border-color:rgba(var(--ac-rgb),.55)}
+.final{border:1px solid var(--line);border-radius:26px;padding:40px;background:radial-gradient(700px 300px at 80% 0%,rgba(var(--ac-rgb),.15),transparent 70%),#10141C;display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+footer{padding:36px 22px 60px;text-align:center;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;z-index:95;background:var(--cream);color:var(--ink);font:700 14px Inter,sans-serif;padding:12px 18px;border-radius:12px;transition:all .3s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:960px){
+  .hero-in,.cab,.form-zona,.flujo,.cambios,.final{grid-template-columns:1fr}
+  .pasos,.refs,.errores,.lic{grid-template-columns:1fr} .req{grid-template-columns:1fr 1fr}
+  .top nav a{display:none}
+  .dif .fila{grid-template-columns:1fr 1fr} .dif .fila b{grid-column:1/-1;padding-bottom:0}
+  .dif .cabf>*:first-child{display:none}
+}
+@media (max-width:600px){ .preguntas{columns:1} .wrap.hero-in{padding-top:110px;padding-bottom:80px} .modo button{padding:9px 12px} .top .modo{display:none} .final{padding:24px} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body data-modo="personal">
+<div class="grano" aria-hidden="true"></div><div class="flash" id="flash"></div>
+
+<header class="top" id="top">
+  <a class="marca" href="#inicio"><img src="img/sen6.png" alt=""><span>Edi<em>ta</em></span></a>
+  <nav>
+    <a href="#instalar">Instalar</a><a href="#formulario">Formulario</a><a href="#diferencias">Diferencias</a><a href="#arrancar">Cada video</a><a href="#cambios">Cambios</a><a href="#errores">Errores</a>
+    <div class="modo" role="group" aria-label="Tipo de canal"><i></i><button type="button" data-modo="personal" aria-pressed="true">Personal</button><button type="button" data-modo="faceless" aria-pressed="false">Faceless</button></div>
+  </nav>
+</header>
+
+<!-- PORTADA -->
+<section class="hero" id="inicio">
+  <div class="fondo-hero"><video autoplay muted loop playsinline preload="auto" poster="media/hero.jpg"><source src="media/hero.mp4" type="video/mp4"></video></div>
+  <div class="velo"></div><div class="luz" id="luz"></div>
+  <div class="wrap hero-in">
+    <div class="entra">
+      <span class="eb">La skill de SEN6 para Claude Code</span>
+      <h1>Tu editor de video <em>vive en Claude</em></h1>
+      <p class="lead"><b data-solo="personal">Grabás, dejás el video en Descargas y escribís "Edita personal".</b><b data-solo="faceless">Dejás tu audio en Descargas y escribís "Edita faceless".</b> Claude corta, transcribe, anima con Remotion y HyperFrames, mezcla la música y te entrega un solo archivo, con tu estilo.</p>
+      <div class="elige"><small>¿Qué tipo de canal tenés?</small>
+        <div class="modo grande" role="group" aria-label="Tipo de canal"><i></i><button type="button" data-modo="personal" aria-pressed="true">Marca personal</button><button type="button" data-modo="faceless" aria-pressed="false">Faceless</button></div>
+      </div>
+      <div class="acciones"><a class="cta" href="descargas/edita.zip" download>Bajar la skill (.zip)</a><a class="cta alt" href="#instalar">Cómo instalarla</a></div>
+    </div>
+    <div class="term" aria-label="Claude Code" style="--alto:300px">
+      <div class="barra"><i></i><i></i><i></i><span>claude — ~/mi-canal</span></div>
+      <pre style="white-space:pre-wrap"><span class="p">❯ </span><span class="tipeo" id="tipeo"></span>
+<span class="g" id="tipeoResp"></span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · INSTALAR -->
+<section class="sec" id="instalar">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">01 · Instalar</span><h2>Tres pedidos <em>y listo</em></h2></div>
+      <p class="lead">No hace falta saber programar ni tocar la terminal. Copiás cada pedido, lo pegás en Claude Code y él hace el resto. Se hace una sola vez.</p></div>
+    <div class="pasos">
+      <div class="paso rv brillo"><span class="n">PASO 1</span><b>Prepará la compu</b><p>Revisa e instala lo que falta.</p>
+        <div class="pedido" data-copiar>Revisá si tengo instalados Node.js 22 o más nuevo, FFmpeg, Google Chrome y Python 3. Instalá lo que falte, explicándome cada paso, y cuando necesites la contraseña de la compu avisame, que la escribo yo.<button class="btn" type="button">Copiar pedido</button></div></div>
+      <div class="paso rv brillo"><span class="n">PASO 2</span><b>Las skills oficiales</b><p>Le enseñan a Claude a usar bien Remotion y HyperFrames.</p>
+        <div class="pedido" data-copiar>Instalá las skills oficiales de Remotion (npx skills add remotion-dev/skills) y el plugin de HyperFrames para Claude Code.<button class="btn" type="button">Copiar pedido</button></div></div>
+      <div class="paso rv brillo"><span class="n">PASO 3</span><b>La skill Edita</b><p>Bajala con el botón de arriba y dejala en Descargas.</p>
+        <div class="pedido" data-copiar>Acabo de bajar la skill edita.zip a mi carpeta de Descargas, instalala.<button class="btn" type="button">Copiar pedido</button></div></div>
+    </div>
+    <div class="req rv">
+      <div class="chip"><b>Claude Code</b><small>con un plan pago de Claude</small></div>
+      <div class="chip"><b>Node.js 22+</b><small>hace correr Remotion y HyperFrames</small></div>
+      <div class="chip"><b>FFmpeg + Chrome</b><small>cortar, unir y renderizar</small></div>
+      <div class="chip"><b>macOS 15+</b><small>en Mac, para Remotion. Si no, todo con HyperFrames</small></div>
+    </div>
+    <div class="lic rv">
+      <div class="si"><b>Gratis</b>HyperFrames, Whisper y FFmpeg: para todos, también empresas.</div>
+      <div class="ojo"><b>Remotion</b>Gratis para personas solas y equipos de hasta 3, aunque tu canal esté monetizado. Desde 4 personas: licencia de empresa.</div>
+      <div class="no"><b>Música</b>Mixkit sí en videos monetizados (sin registrarla en Content ID). La biblioteca de CapCut, no.</div>
+    </div>
+    <p class="nota">Si la terminal te pide la contraseña de tu compu, la escribís vos ahí (no se ve mientras tipeás). Nunca la pegues en el chat.</p>
+  </div>
+</section>
+
+<!-- 2 · FORMULARIO -->
+<section class="sec" id="formulario" style="background:linear-gradient(180deg,var(--ink),#0D1118 40%,var(--ink))">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">02 · La primera vez</span><h2>Primero te <em>conoce</em></h2></div>
+      <p class="lead">La primera vez, Claude no edita nada: te hace un formulario de a una pregunta, con opciones numeradas y una ★ recomendada. Con tus respuestas arma tu ficha de edición y desde ahí cada video sale con tu estilo.</p></div>
+    <div class="form-zona">
+      <div class="rv"><div class="term" style="--alto:520px"><div class="barra"><i></i><i></i><i></i><span>claude — ~/mi-canal</span></div><pre><span class="g">✻ Cogitated for 7s · done 11:46 PM</span>
+<span class="p">❯ Misterios reales de faros y barcos para adultos curiosos</span>
+<span class="p">⏺</span> ¡Buenísimo! Anoto: misterios reales de faros y barcos, para adultos curiosos. Como son casos reales, cada
+  dato que aparezca en pantalla tiene que tener su fuente.
+  ---
+  Pregunta 3 de 18 · ¿Qué formato hacés?
+  Hay dos tamaños de video:
+  - Largo horizontal (16:9): el video común de YouTube, el que se mira acostado en la pantalla.
+  - Vertical (9:16): Shorts, Reels y TikTok, el que se mira con el celular parado.
+  1. Solo largos horizontales (16:9)
+  2. Solo Shorts / Reels verticales (9:16)
+  3. Los dos ★ (recomendado: los Shorts te traen gente nueva a los videos largos)
+  4. No sé / elegí vos (uso la ★)
+  Contestá con el número.
+<span class="g">✻ Brewed for 4s · done 11:47 PM</span></pre></div><span class="real">Captura real de la skill Edita</span></div>
+      <div class="preguntas rv" id="preguntas"></div>
+    </div>
+    <p class="nota">¿Querés cambiar algo después? Le decís "Actualizá mi ficha: desde ahora los títulos van en amarillo" y queda para siempre.</p>
+  </div>
+</section>
+
+<!-- 3 · DIFERENCIAS -->
+<section class="sec" id="diferencias">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">03 · Dos canales, dos ediciones</span><h2>No se editan <em>igual</em></h2></div>
+      <p class="lead">Las mismas herramientas, reglas distintas. Si editás un faceless como si fuera de marca personal, el video se siente raro aunque esté bien hecho. Tocá el interruptor de arriba y mirá tu columna.</p></div>
+    <div class="dif rv">
+      <div class="fila cabf"><span></span><span class="col-p">Marca personal</span><span class="col-f">Faceless</span></div>
+      <div class="fila"><b>Punto de partida</b><span class="col-p">Tu video grabado: lo más valioso es tu cara y tu forma de hablar.</span><span class="col-f">Un audio: la pantalla está vacía y todo lo crea la edición.</span></div>
+      <div class="fila"><b>Quién manda</b><span class="col-p">Vos. Los gráficos te acompañan al costado o arriba de la cabeza.</span><span class="col-f">Lo visual. Nunca puede quedar vacío ni quieto.</span></div>
+      <div class="fila"><b>Ritmo</b><span class="col-p">Video largo: un gráfico nuevo cada 10–15 s, más cambios de encuadre.</span><span class="col-f">Una imagen cada 3–6 s, según el nicho.</span></div>
+      <div class="fila"><b>Shorts y Reels</b><span class="col-p">Algo nuevo cada 3–5 s.</span><span class="col-f">Algo nuevo cada 3–5 s.</span></div>
+      <div class="fila"><b>Cortes</b><span class="col-p">Tu cara salta en cada corte: la toma cambia de tamaño para disimularlo.</span><span class="col-f">Los cortes del audio no se ven: se puede cortar más.</span></div>
+      <div class="fila"><b>Herramienta</b><span class="col-p">Remotion, casi siempre.</span><span class="col-f">Remotion con capturas · HyperFrames para textos animados o 3D.</span></div>
+      <div class="fila"><b>Riesgos</b><span class="col-p">Taparte la cara · voz desfasada de los labios.</span><span class="col-f">Imágenes que no coinciden · repetidas · datos inventados.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · CADA VIDEO -->
+<section class="sec" id="arrancar" style="padding-top:40px">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">04 · Cada video</span><h2>Una frase <em>y arranca</em></h2></div>
+      <p class="lead">Así se ve lo que hace Claude, paso a paso. Todo pasa en tu computadora: no se sube nada a internet.</p></div>
+    <div class="flujo">
+      <div class="rv">
+        <div class="pedido" data-copiar data-solo="personal">Edita personal. Dejé el video en Descargas. Las capturas de referencia también están en Descargas.<button class="btn" type="button">Copiar frase</button></div>
+        <div class="pedido" data-copiar data-solo="faceless">Edita faceless. Dejé el audio y las imágenes en Descargas.<button class="btn" type="button">Copiar frase</button></div>
+        <div class="linea" style="margin-top:18px" data-solo="personal">
+          <div class="lp"><b>Prepara el material</b><small>Copia el video, corrige el HDR del iPhone y separa la voz.</small></div>
+          <div class="lp"><b>Transcribe</b><small>Whisper escribe cada palabra con su segundo exacto.</small></div>
+          <div class="lp"><b>Saca tomas repetidas y silencios</b><small>Y vuelve a transcribir lo cortado para que todo quede preciso.</small></div>
+          <div class="lp"><b>Mide tu cara</b><small>Los gráficos van al costado; si hace falta lugar, tu video se achica a una ventana.</small></div>
+          <div class="lp"><b>Guion visual</b><small>Cada gráfico pegado a la frase exacta, más reencuadres en los momentos clave.</small></div>
+          <div class="lp"><b>Revisa con fotos</b><small>Antes del render completo, para corregir rápido.</small></div>
+          <div class="lp"><b>Render, música y volumen</b><small>Render sin sonido + tu voz original, Mixkit, −14 LUFS y sincronía perfecta.</small></div>
+        </div>
+        <div class="linea" style="margin-top:18px" data-solo="faceless">
+          <div class="lp"><b>Prepara el audio</b><small>Tu voz o una voz con IA, con el guion revisado antes de grabar.</small></div>
+          <div class="lp"><b>Transcribe y corta</b><small>Silencios afuera; acá los cortes no se ven.</small></div>
+          <div class="lp"><b>Guion visual</b><small>Una idea, un elemento: capturas reales, imágenes con IA y gráficos con código.</small></div>
+          <div class="lp"><b>Elige la herramienta</b><small>Remotion para escenas con capturas; HyperFrames para textos animados.</small></div>
+          <div class="lp"><b>Revisa con fotos</b><small>Nada quieto más de lo que dice tu ficha.</small></div>
+          <div class="lp"><b>Render, música y volumen</b><small>Mixkit, −14 LUFS, un solo archivo final y el .srt para CapCut.</small></div>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="demo" data-solo="personal"><video controls preload="none" poster="video/personal.jpg" src="video/personal.mp4"></video><div class="pie"><span>Prueba real de la skill · 38 s de un video a cámara</span><span class="real" style="margin:0">Hecho con Edita personal</span></div></div>
+        <div data-solo="faceless">
+          <div class="demo"><video controls preload="none" poster="video/faceless.jpg" src="video/faceless.mp4"></video><div class="pie"><span>Faceless con imágenes · Remotion</span><span class="real" style="margin:0">Hecho con Edita faceless</span></div></div>
+          <div class="demo" style="margin-top:14px"><video controls preload="none" poster="video/faceless-texto.jpg" src="video/faceless-texto.mp4"></video><div class="pie"><span>El mismo audio en textos animados · HyperFrames</span></div></div>
+        </div>
+        <div class="grilla" data-solo="personal"><img src="img/revision-personal.webp" alt="Grilla de fotos de revisión del video a cámara" loading="lazy"><div class="pie">Las fotos de revisión que arma Claude antes del render completo.</div></div>
+        <div class="grilla" data-solo="faceless"><img src="img/revision-faceless.webp" alt="Grilla de fotos de revisión del video faceless" loading="lazy"><div class="pie">Las fotos de revisión que arma Claude antes del render completo.</div></div>
+      </div>
+    </div>
+    <div class="rv" style="margin-top:22px">
+      <div class="term" style="--alto:440px" data-solo="personal"><div class="barra"><i></i><i></i><i></i><span>claude — ~/mi-canal-personal</span></div><pre>  Ran 1 shell command
+<span class="p">⏺</span> Todo instalado. Preparo el video (convierte colores, separa la voz y saca cuadros de muestra para ubicar tu
+  cara).
+  Ran 1 shell command
+<span class="p">⏺</span> Video de 38 s, 1080p, sin HDR. La voz vino baja (−23,3 LUFS); al final la subo a −14 con un limitador para
+  que no suene rota. Ahora transcribo en la compu y miro dónde está tu cara.
+  Read 1 file, ran 1 shell command
+<span class="p">⏺</span> La transcripción salió bien (112 palabras). Miro el cuadro grande para medir la cara con precisión.
+  Read 1 file
+<span class="p">⏺</span> Cara en x=975, y=470: coincide con tu ficha. Ahora busco frases repetidas y corto los silencios largos, así</pre></div>
+      <div class="term" style="--alto:440px" data-solo="faceless"><div class="barra"><i></i><i></i><i></i><span>claude — ~/mi-canal</span></div><pre>  - Textos y gráficos: van con tu paleta y tus fuentes:
+    - lugar y fecha aparecen como etiquetas
+    - el &quot;3 guardianes&quot; cuenta desde cero
+    - &quot;Nadie salió a recibirlo&quot; sale como aviso
+    - las pistas se suman de a una a la derecha
+    - &quot;Tres guardianes&quot; se tacha
+    - &quot;Nadie sabe con certeza&quot; aparece como cita
+    - cierra el llamado a comentar de tu ficha
+  - Cambios respecto del video anterior: tu historial ya tenía un video sobre este faro, así que cambié la
+    forma en que aparecen los textos y el tipo de cada gráfico para no repetirlo.
+  - Sonido: la música es &quot;silk&quot;, la que pide tu ficha, y baja sola cuando hablás. Los efectos son suaves.
+  - Volumen y sincronía: quedó a −14 LUFS, el nivel que usa YouTube, sin picos recortados, y la voz está
+    perfectamente sincronizada con la imagen.
+  - Licencia: la música y los efectos de Mixkit se pueden usar gratis en YouTube sin nombrar al autor.
+  Tres cosas para que revises:
+  1. La carpeta del canal: tu ficha dice que el canal vive en /private/tmp/edita-prueba/canal-faceless, pero
+     la ficha estaba en mi-canal/, así que trabajé ahí, en mi-canal/faro-flannan/. Si la carpeta buena es la
+     otra, corregí esa línea de la ficha.
+  2. La fuente del número 3: le puse &quot;Northern Lighthouse Board, 1900&quot;, porque tu ficha pide fuente para los
+     datos reales. La saqué de lo que sé de la historia, no de un documento que me hayas pasado. Si no te
+     convence, la saco.
+  3. El tachado: la raya roja sobre &quot;Tres guardianes&quot; queda un poco más ancha que la palabra. Se nota poco; si
+     te molesta, lo ajusto.
+  Agregué este video al historial del canal. Si querés, te armo 5 títulos, la descripción, las etiquetas y 2–3
+  ideas de miniatura.
+<span class="g">✻ Sautéed for 3m 52s · done 11:53 PM</span></pre></div>
+      <span class="real">Captura real: Claude te cuenta qué hizo y qué conviene revisar</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · REFERENCIAS -->
+<section class="sec" id="referencias" style="padding-top:40px">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">05 · Referencias</span><h2>Mostrale <em>lo que te gusta</em></h2></div>
+      <p class="lead">Con dos o tres referencias buenas, Claude entiende más que con diez párrafos de explicación.</p></div>
+    <div class="refs">
+      <div class="tarj rv brillo"><b>Dónde buscar</b><p>En los canales grandes de tu nicho (los de habla inglesa suelen invertir más en edición) y en Behance o Pinterest con palabras como "motion graphics", "kinetic typography" o tu nicho.</p></div>
+      <div class="tarj rv brillo"><b>Cómo capturar</b><p>Sacá una captura del momento exacto y dejala en Descargas, o pegá el link del video con el minuto.</p><p><span class="kc">⌘</span><span class="kc">⇧</span><span class="kc">4</span> Mac &nbsp;·&nbsp; <span class="kc">⊞</span><span class="kc">⇧</span><span class="kc">S</span> Windows</p></div>
+      <div class="tarj rv brillo"><b>La idea, no el contenido</b><p>Claude recrea el estilo con tus colores, tus textos y tus imágenes. Nunca le pidas que use imágenes, música o clips de otros canales: eso te trae problemas de derechos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · CAMBIOS -->
+<section class="sec" id="cambios" style="padding-top:40px">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">06 · Revisar como director</span><h2>Pedidos <em>concretos</em></h2></div>
+      <p class="lead">Mirá el video completo, anotá minuto y segundo y mandá todos los cambios en un solo mensaje: Claude los corrige juntos y renderiza una sola vez.</p></div>
+    <div class="cambios">
+      <div class="gen rv">
+        <span class="eb">Armá tu pedido de cambios</span>
+        <div id="filas"></div>
+        <button class="btn" id="otra" type="button" style="align-self:flex-start">+ Otro cambio</button>
+        <div class="salida vacia" id="salida">Completá minuto, segundo y qué querés cambiar.</div>
+        <button class="cta" id="copiarCambios" type="button" style="align-self:flex-start;padding:13px 22px;font-size:14px">Copiar el mensaje</button>
+      </div>
+      <div class="malbien rv">
+        <div class="mb mal"><b>ASÍ NO</b>"No me gusta el principio."</div>
+        <div class="mb bien"><b>ASÍ SÍ</b>"En 1:10 el texto aparece antes de que lo diga: que entre cuando digo 'presupuesto'."</div>
+        <div class="mb bien"><b>PARA SIEMPRE</b>"Actualizá mi ficha: desde ahora los títulos van en amarillo."</div>
+        <div class="mb"><b style="color:var(--oro)">CAPCUT</b>Para un retoque chico con tus manos, importá el video final en CapCut. Si querés subtítulos editables, pedile el archivo .srt.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · ERRORES -->
+<section class="sec" id="errores" style="padding-top:40px">
+  <div class="wrap">
+    <div class="cab rv"><div><span class="eb">07 · Errores comunes</span><h2>Los 6 que <em>ya resolvimos</em></h2></div>
+      <p class="lead">Salieron de editar videos reales. La skill ya los evita, pero conviene saber por qué pasan. Se resaltan los de tu tipo de canal.</p></div>
+    <div class="errores">
+      <div class="err rv" data-tipo="personal"><div class="t"><h3>Labios desfasados</h3><span>MARCA PERSONAL</span></div><p>La voz va una fracción de segundo atrasada respecto de la boca.</p><p class="sol">render sin sonido y después se le une tu audio original.</p></div>
+      <div class="err rv" data-tipo="ambos"><div class="t"><h3>Gráficos adelantados</h3><span>LOS DOS</span></div><p>Aparecen antes de que lo digas, y el error crece hacia el final.</p><p class="sol">volver a transcribir el audio ya cortado.</p></div>
+      <div class="err rv" data-tipo="personal"><div class="t"><h3>Gráfico sobre la cara</h3><span>MARCA PERSONAL</span></div><p>O fuera de la zona segura de los Reels, donde Instagram tapa los bordes.</p><p class="sol">regla en la ficha; Claude lo revisa en las fotos antes del render.</p></div>
+      <div class="err rv" data-tipo="ambos"><div class="t"><h3>Render que falla al final</h3><span>LOS DOS</span></div><p>Después de media hora, casi siempre porque falta un archivo.</p><p class="sol">pasale todas las capturas antes de empezar.</p></div>
+      <div class="err rv" data-tipo="ambos"><div class="t"><h3>Audio roto en el celular</h3><span>LOS DOS</span></div><p>Sonaba bien en la compu, pero en el teléfono se oye roto.</p><p class="sol">grabá con buen volumen y que Claude controle los picos.</p></div>
+      <div class="err rv" data-tipo="faceless"><div class="t"><h3>Datos inventados</h3><span>FACELESS</span></div><p>Para llenar la pantalla, Claude puede inventar un número.</p><p class="sol">todo dato inventado lleva "EJEMPLO"; los reales, su fuente.</p></div>
+    </div>
+    <div class="final rv" style="margin-top:60px">
+      <div><span class="eb">Tu turno</span><h2 style="font-size:clamp(32px,4.4vw,54px);margin-top:12px">Cada video mejora <em>tu ficha</em></h2><p class="lead" style="margin-top:14px">Y tu ficha mejora el siguiente video. Misma estética siempre, elementos nuevos en cada video: Claude lleva el historial para no repetirse.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><a class="cta" href="descargas/edita.zip" download>Bajar la skill (.zip)</a><a class="cta alt" href="#instalar">Ver cómo instalarla</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>Edita · una skill de SEN6 · Capturas reales de Claude Code 2.1.308 corriendo la skill, octubre de 2026. Remotion, HyperFrames, CapCut y Mixkit son marcas de sus dueños; esta página no está asociada a ellos.</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const guardar=(k,v)=>{try{localStorage.setItem('ed-'+k,JSON.stringify(v))}catch(e){}};
+const leer=(k,d)=>{try{const v=localStorage.getItem('ed-'+k);return v?JSON.parse(v):d}catch(e){return d}};
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1800)};
+const copiar=(t,msg)=>navigator.clipboard?.writeText(t).then(()=>toast(msg||'Copiado'),()=>toast('No se pudo copiar'));
+
+/* modo */
+const FRASES={personal:['Edita personal. Dejé el video en Descargas.','Video de 38 s, 1080p. Transcribo y mido dónde está tu cara…'],faceless:['Edita faceless. Dejé el audio en Descargas.','Encontré la narración y 6 imágenes. Transcribo y armo el guion visual…']};
+let MODO=leer('modo','personal'),tt=null;
+function tipear(){clearTimeout(tt);const [a,b]=FRASES[MODO];const el=$('#tipeo'),r=$('#tipeoResp');el.textContent='';r.textContent='';let i=0;
+  const paso=()=>{if(i<=a.length){el.textContent=a.slice(0,i++);tt=setTimeout(paso,38)}else tt=setTimeout(()=>{r.textContent='⏺ Skill(edita)\n  ⎿  Successfully loaded skill\n⏺ '+b},500)};paso()}
+function ponerModo(m,anim){MODO=m;guardar('modo',m);document.body.dataset.modo=m;$$('.modo button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.modo===m));
+  if(anim){const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}tipear();preguntas()}
+$$('.modo button').forEach(b=>b.addEventListener('click',()=>ponerModo(b.dataset.modo,true)));
+
+/* preguntas del formulario */
+const PQ=[['1','¿Qué tipo de canal tenés?'],['2','¿De qué trata tu canal y para quién es?'],['3','¿Qué formato hacés? (16:9, 9:16 o los dos)'],['4','¿Cuánto duran tus videos?'],['5','¿En qué idioma hablás y con qué tono?'],
+ ['6','¿Cómo es tu lugar de grabación?','personal'],['7','¿Dónde queda tu cara en el cuadro?','personal'],['8','¿Cómo aparecen los gráficos sin taparte?','personal'],['9','¿Querés reencuadres?','personal'],['10','¿Cómo grabás? (iPhone, Android, cámara, webcam)','personal'],
+ ['6','¿De dónde sale la voz? (tuya o con IA)','faceless'],['7','¿Qué imágenes usás?','faceless'],['8','¿Qué estilo visual? (escenas o textos animados)','faceless'],['9','¿Cada cuánto cambia la imagen?','faceless'],
+ ['11','Paleta de colores'],['12','Tipografía (gratis, de Google Fonts)'],['13','¿Sobrio o con mucho movimiento?'],['14','¿Qué hago con los silencios?'],['15','¿Subtítulos quemados en el video?'],['16','¿Música y efectos de sonido?'],['17','Reglas que nunca se rompen'],['18','¿Tenés un llamado a la acción propio?'],['19','¿Dónde guardo todo?']];
+function preguntas(){$('#preguntas').innerHTML=PQ.filter(p=>!p[2]||p[2]===MODO).map((p,i)=>`<div class="pq nueva" style="animation-delay:${i*25}ms" ${p[2]?'data-solo="'+p[2]+'"':''}><span class="num">${String(p[0]).padStart(2,'0')}</span><span>${p[1]}</span><span class="tag">${p[2]?(p[2]==='personal'?'PERSONAL':'FACELESS'):'LOS DOS'}</span></div>`).join('')}
+
+/* copiar pedidos */
+$$('[data-copiar]').forEach(c=>c.querySelector('button').addEventListener('click',()=>copiar(c.childNodes[0].textContent.trim(),'Pedido copiado: pegalo en Claude Code')));
+
+/* generador de cambios */
+let CAMB=leer('cambios',[{m:'1',s:'10',q:'el texto aparece antes de que lo diga: que entre cuando digo "presupuesto"'}]);
+function filas(){$('#filas').innerHTML=CAMB.map((c,i)=>`<div class="cfila" style="margin-bottom:8px"><input inputmode="numeric" placeholder="min" value="${c.m}" data-i="${i}" data-k="m" aria-label="Minuto"><input inputmode="numeric" placeholder="seg" value="${c.s}" data-i="${i}" data-k="s" aria-label="Segundo"><input placeholder="Qué pasa y qué querés" value="${c.q.replace(/"/g,'&quot;')}" data-i="${i}" data-k="q" aria-label="Cambio"><button class="x" type="button" data-x="${i}" aria-label="Quitar">×</button></div>`).join('');
+  $$('#filas input').forEach(e=>e.addEventListener('input',()=>{CAMB[e.dataset.i][e.dataset.k]=e.value;guardar('cambios',CAMB);mensaje()}));
+  $$('#filas [data-x]').forEach(b=>b.addEventListener('click',()=>{CAMB.splice(+b.dataset.x,1);if(!CAMB.length)CAMB.push({m:'',s:'',q:''});guardar('cambios',CAMB);filas()}));mensaje()}
+function mensaje(){const ok=CAMB.filter(c=>c.q.trim());const t=ok.length?'Revisé el video completo. Estos son los cambios, todos juntos:\n'+ok.map(c=>`- En ${c.m||'0'}:${String(c.s||'0').padStart(2,'0')}, ${c.q.trim()}`).join('\n')+'\nCorregí todo y renderizá una sola vez.':'';
+  const s=$('#salida');s.textContent=t||'Completá minuto, segundo y qué querés cambiar.';s.classList.toggle('vacia',!t);return t}
+$('#otra').addEventListener('click',()=>{CAMB.push({m:'',s:'',q:''});guardar('cambios',CAMB);filas();$$('#filas input[data-k="m"]').pop().focus()});
+$('#copiarCambios').addEventListener('click',()=>{const t=mensaje();t?copiar(t,'Mensaje copiado: pegalo en Claude Code'):toast('Primero escribí algún cambio')});
+
+/* barra, luz, brillo, revelado */
+addEventListener('scroll',()=>$('#top').classList.toggle('solida',scrollY>40),{passive:true});
+$('#inicio').addEventListener('pointermove',e=>{const r=e.currentTarget.getBoundingClientRect();$('#luz').style.setProperty('--lx',((e.clientX-r.left)/r.width*100)+'%');$('#luz').style.setProperty('--ly',((e.clientY-r.top)/r.height*100)+'%')});
+document.addEventListener('pointermove',e=>{const c=e.target.closest('.brillo');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.1});
+$$('.rv').forEach(el=>io.observe(el));
+ponerModo(MODO,false);filas();
+</script>
+</body>
+</html>

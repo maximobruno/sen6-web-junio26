@@ -78,3 +78,8 @@
   for = "/prompt-edit-8f039971/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/edita-c96796d4/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
