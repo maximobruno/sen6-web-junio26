@@ -73,3 +73,8 @@
   for = "/prompt-code-1233bfba/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-edit-8f039971/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

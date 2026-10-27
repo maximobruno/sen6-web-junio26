@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prompt Edit · SEN6</title>
+<meta name="description" content="Atajos de CapCut, recetas de edición por nicho, 15 LUTs gratis de SEN6 y la checklist de exportación para YouTube. Para alumnos SEN6 que editan su canal en CapCut.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0D12">
+<link rel="icon" href="img/sen6.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* === Sistema SEN6 (mismos tokens que Prompt Cine, Camera, Guion, Voz y Code) === */
+:root{
+  --ink:#0B0D12; --ink2:#12161F; --ink3:#181D28; --cream:#F5F3EF; --dim:rgba(245,243,239,.68); --line:rgba(245,243,239,.14);
+  --naranja:#D4450A; --glow:#F26A2E; --oro:#E8C27A; --terra:#C8502A; --verde:#7BD88F; --rojo:#ff5a4f;
+  /* colores de pista, como en un editor */
+  --p-video:#22B8C8; --p-voz:#3B6FD9; --p-musica:#7B5CD6; --p-texto:#B4483C; --p-color:#E8C27A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button{font-family:inherit;color:inherit;cursor:pointer}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eb{font:700 12px 'Space Mono',monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--glow)}
+.mono{font-family:'Space Mono',ui-monospace,monospace}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:.98}
+h2{font-size:clamp(38px,5.6vw,72px)}
+h1 em,h2 em,h3 em{font-style:normal;color:var(--glow)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--dim);max-width:660px}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+.grano{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano .9s steps(6) infinite}
+@keyframes grano{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-5%)}75%{transform:translate(-6%,-2%)}100%{transform:translate(0,0)}}
+
+.cta{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:999px;padding:17px 28px;font:800 16px/1 Inter,sans-serif;color:#fff;text-decoration:none;
+  background:linear-gradient(135deg,#FF9A4D,var(--glow) 45%,var(--naranja));box-shadow:0 22px 50px -14px rgba(242,106,46,.85),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s}
+.cta:hover{transform:translateY(-2px)}
+.cta.alt{background:rgba(245,243,239,.06);box-shadow:none;border:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(245,243,239,.05);border-radius:10px;padding:10px 14px;font:700 13px Inter,sans-serif;text-decoration:none;transition:border-color .2s,background .2s}
+.btn:hover{border-color:rgba(242,106,46,.6);background:rgba(242,106,46,.08)}
+
+/* ===== barra superior + línea de tiempo de la página ===== */
+.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.top.solida{background:rgba(11,13,18,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px}
+.marca{display:flex;align-items:center;gap:10px;font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.14em;font-size:18px;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.marca img{width:30px;height:30px;border-radius:8px}
+.marca em{font-style:normal;color:var(--glow)}
+.top nav{display:flex;align-items:center;gap:20px}
+.top nav a{font-size:14px;font-weight:600;color:var(--dim);text-decoration:none}
+.top nav a:hover,.top nav a.act{color:var(--cream)}
+.tc{font:700 12px 'Space Mono',monospace;letter-spacing:.12em;color:var(--oro);padding:6px 10px;border:1px solid rgba(232,194,122,.35);border-radius:6px;background:rgba(232,194,122,.06);white-space:nowrap}
+/* la página entera como pista: un clip por sección + cabezal = scroll */
+.pista{position:relative;height:16px;margin:0 22px 8px;display:flex;gap:3px;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
+.top.solida .pista{opacity:1;transform:none}
+.pista a{flex:var(--w,1);border-radius:3px;background:var(--c);opacity:.45;font:700 9px/16px 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#081014;padding-left:6px;text-decoration:none;overflow:hidden;white-space:nowrap;transition:opacity .2s}
+.pista a:hover,.pista a.act{opacity:1}
+.cabezal{position:absolute;top:-5px;bottom:-5px;width:2px;background:#fff;left:0;box-shadow:0 0 10px #fff;pointer-events:none}
+.cabezal::before{content:"";position:absolute;top:-2px;left:-5px;border:6px solid transparent;border-top:7px solid #fff}
+
+/* ===== portada ===== */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.fondo-hero{position:absolute;inset:0;z-index:-4;background:#07090D}
+.fondo-hero video,.fondo-hero img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:respira 30s ease-in-out infinite alternate;filter:saturate(1.08) contrast(1.05)}
+@keyframes respira{to{transform:scale(1.12) translate(-1.5%,1%)}}
+.velo{position:absolute;inset:0;z-index:-3;pointer-events:none;background:linear-gradient(90deg,rgba(7,9,13,.96) 0%,rgba(7,9,13,.8) 40%,rgba(7,9,13,.3) 72%,rgba(7,9,13,.5) 100%),linear-gradient(0deg,var(--ink) 0%,rgba(11,13,18,0) 35%),linear-gradient(180deg,rgba(7,9,13,.7),rgba(7,9,13,0) 25%)}
+.luz{position:absolute;inset:0;z-index:-2;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity .8s;background:radial-gradient(560px 400px at var(--lx,70%) var(--ly,40%),rgba(34,184,200,.22),transparent 70%)}
+.hero:hover .luz{opacity:1}
+.hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-top:150px;padding-bottom:110px;width:100%}
+.hero h1{font-size:clamp(50px,7.6vw,112px)}
+.hero .lead{margin-top:24px;color:rgba(245,243,239,.86)}
+.hero .acciones{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.entra>*{opacity:0;transform:translateY(26px);animation:sube .9s cubic-bezier(.2,.8,.2,1) forwards}
+.entra>*:nth-child(2){animation-delay:.12s}.entra>*:nth-child(3){animation-delay:.24s}.entra>*:nth-child(4){animation-delay:.36s}
+@keyframes sube{to{opacity:1;transform:none}}
+/* mini editor de la portada: las pistas se arman solas */
+.mini{border:1px solid var(--line);border-radius:20px;padding:16px;background:linear-gradient(180deg,rgba(24,29,40,.86),rgba(14,17,24,.9));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);animation:enciende 1.4s .3s both}
+@keyframes enciende{0%{opacity:0;transform:translateY(30px) scale(.97)}60%{opacity:1}100%{transform:none}}
+.mini .vista{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.mini .vista img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:diapo 12s infinite}
+.mini .vista img:nth-child(2){animation-delay:3s}.mini .vista img:nth-child(3){animation-delay:6s}.mini .vista img:nth-child(4){animation-delay:9s}
+@keyframes diapo{0%{opacity:0;transform:scale(1)}4%{opacity:1}25%{opacity:1}29%{opacity:0;transform:scale(1.1)}100%{opacity:0}}
+.mini .rotulo{position:absolute;left:0;right:0;bottom:12%;text-align:center;font:700 clamp(14px,2vw,22px) Oswald,sans-serif;letter-spacing:.08em;text-shadow:0 2px 12px #000}
+.mini .pistas{margin-top:12px;display:grid;gap:6px;position:relative}
+.mini .fila{display:grid;grid-template-columns:62px 1fr;gap:8px;align-items:center}
+.mini .fila small{font:700 9px 'Space Mono',monospace;letter-spacing:.14em;color:var(--dim)}
+.mini .carril{height:20px;border-radius:4px;background:rgba(255,255,255,.04);display:flex;gap:2px;overflow:hidden}
+.mini .carril i{display:block;height:100%;border-radius:3px;background:var(--c);transform-origin:left;animation:clip .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+@keyframes clip{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
+.mini .ph{position:absolute;top:-4px;bottom:-4px;left:70px;width:2px;background:#fff;box-shadow:0 0 8px #fff;animation:ph 12s linear infinite}
+@keyframes ph{from{left:70px}to{left:100%}}
+.mini .pie{display:flex;justify-content:space-between;margin-top:12px;font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--dim)}
+.bajar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 10px 'Space Mono',monospace;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bajar i{width:1px;height:34px;background:linear-gradient(var(--glow),transparent);animation:baja 1.8s ease-in-out infinite}
+@keyframes baja{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
+
+/* ===== secciones ===== */
+section{position:relative}
+.sec{padding:120px 0}
+.sec .cab{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:46px}
+.sec .cab .eb{margin-bottom:16px;display:block}
+.num{font:700 12px 'Space Mono',monospace;color:var(--dim);letter-spacing:.2em}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.on{opacity:1;transform:none}
+.brillo{position:relative;isolation:isolate}
+.brillo::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(242,106,46,.15),transparent 65%)}
+.brillo:hover::before{opacity:1}
+.pastilla{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(0,0,0,.25)}
+.pastilla button{border:0;background:transparent;border-radius:999px;padding:9px 16px;font:700 13px Inter,sans-serif;color:var(--dim)}
+.pastilla button[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+
+/* ===== 1 · ATAJOS ===== */
+#atajos{background:linear-gradient(180deg,var(--ink),#0D1118 40%,var(--ink))}
+.teclado-zona{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}
+.teclado{border:1px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(180deg,#151A24,#0F131B);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.kfila{display:flex;gap:6px;margin-bottom:6px}
+.k{flex:var(--w,1);height:46px;border-radius:9px;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;color:rgba(245,243,239,.55);
+  background:linear-gradient(180deg,#232836,#1A1F2A);border:1px solid rgba(255,255,255,.07);box-shadow:0 4px 0 #090B10;transition:all .15s;user-select:none}
+.k.usa{color:var(--cream);border-color:rgba(232,194,122,.25)}
+.k.on{color:#081014;background:linear-gradient(180deg,#5FE3F0,var(--p-video));border-color:#8FF0F8;box-shadow:0 1px 0 #090B10,0 0 22px rgba(34,184,200,.75);transform:translateY(3px)}
+.k.mod.on{background:linear-gradient(180deg,#FFD38A,var(--oro));border-color:#FFE2AD;box-shadow:0 1px 0 #090B10,0 0 22px rgba(232,194,122,.7)}
+.lector{border:1px solid var(--line);border-radius:20px;padding:22px;background:rgba(18,22,31,.7);display:flex;flex-direction:column;gap:14px}
+.lector .que{font:600 clamp(26px,3vw,36px)/1.05 Oswald,sans-serif;text-transform:uppercase}
+.lector .combo{display:flex;gap:6px;flex-wrap:wrap}
+.kc{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 9px;border-radius:7px;background:#232836;border:1px solid rgba(255,255,255,.12);box-shadow:0 3px 0 #090B10;font:700 14px Inter,sans-serif}
+.lector .para{color:var(--dim);font-size:15px}
+.lector .estado{margin-top:auto;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;color:var(--oro)}
+.practica{border:1px dashed rgba(232,194,122,.4);border-radius:14px;padding:14px;display:none;gap:10px;flex-direction:column}
+body.practicando .practica{display:flex}
+.practica .preg{font:600 22px Oswald,sans-serif;text-transform:uppercase}
+.practica .marc{font:700 12px 'Space Mono',monospace;color:var(--verde);letter-spacing:.1em}
+.filtros{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:34px 0 18px}
+.buscar{flex:1;min-width:220px;max-width:360px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:0 14px;background:rgba(0,0,0,.25)}
+.buscar input{flex:1;background:transparent;border:0;color:var(--cream);font:500 15px Inter,sans-serif;padding:12px 0;outline:none}
+.grupo-t{font:700 12px 'Space Mono',monospace;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.grupo-t::after{content:"";flex:1;height:1px;background:var(--line)}
+.lista-at{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.at{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(18,22,31,.6);text-align:left;font:600 14px/1.25 Inter,sans-serif;transition:border-color .2s,transform .2s,background .2s}
+.at:hover,.at.sel{border-color:rgba(34,184,200,.6);background:rgba(34,184,200,.07)}
+.at.flash{animation:flashat .9s}
+@keyframes flashat{0%{background:rgba(34,184,200,.45);transform:scale(1.03)}100%{background:rgba(18,22,31,.6)}}
+.at .ks{display:flex;gap:4px;flex:none}
+.at .ks .kc{min-width:26px;height:26px;font-size:12px;padding:0 6px;box-shadow:0 2px 0 #090B10}
+.at .estrella{color:var(--oro);margin-right:4px}
+.nota{margin-top:22px;font-size:13.5px;color:var(--dim);border-left:2px solid var(--oro);padding-left:14px;max-width:820px}
+
+/* ===== 2 · RECETAS ===== */
+.nichos{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.nicho{border:1px solid var(--line);background:rgba(18,22,31,.6);border-radius:999px;padding:10px 16px;font:700 14px Inter,sans-serif;color:var(--dim);transition:all .2s}
+.nicho:hover{color:var(--cream);border-color:rgba(242,106,46,.5)}
+.nicho[aria-pressed="true"]{background:var(--glow);border-color:var(--glow);color:#fff;box-shadow:0 10px 30px -10px rgba(242,106,46,.8)}
+.receta{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#141922,#0E1219);overflow:hidden}
+.receta .rhead{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:24px 26px;border-bottom:1px solid var(--line)}
+.receta h3{font-size:clamp(30px,3.6vw,46px)}
+.receta .tono{color:var(--dim);margin-top:8px;max-width:640px}
+.rpistas{padding:10px 0}
+.rp{display:grid;grid-template-columns:150px 1fr;align-items:stretch;border-bottom:1px solid rgba(245,243,239,.06)}
+.rp:last-child{border-bottom:0}
+.rp .et{display:flex;align-items:center;gap:10px;padding:16px 18px;font:700 11px 'Space Mono',monospace;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+.rp .et i{width:12px;height:12px;border-radius:3px;background:var(--c);box-shadow:0 0 12px var(--c)}
+.rp .cl{margin:8px 18px 8px 0;border-radius:10px;padding:12px 16px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 22%,transparent),color-mix(in srgb,var(--c) 6%,transparent));border-left:3px solid var(--c);font-size:15px;opacity:0;transform:translateX(-14px);transition:opacity .5s,transform .5s}
+.receta.lista .rp .cl{opacity:1;transform:none}
+.rp .cl b{color:var(--cream)}
+.rp.error .cl{background:linear-gradient(90deg,rgba(255,90,79,.18),rgba(255,90,79,.04));border-left-color:var(--rojo)}
+.lut-mini{display:flex;align-items:center;gap:12px}
+.lut-mini img{width:92px;height:52px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+
+/* ===== 3 · LUTs ===== */
+#luts{background:radial-gradient(900px 500px at 80% 0%,rgba(232,194,122,.08),transparent 60%),var(--ink)}
+.lut-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.grid-luts{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.lut{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#10141C;transition:border-color .2s,transform .3s}
+.lut:hover{border-color:rgba(232,194,122,.5);transform:translateY(-3px)}
+.antes-despues{position:relative;aspect-ratio:16/9;overflow:hidden;cursor:ew-resize;touch-action:pan-y;user-select:none}
+.antes-despues img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.antes-despues .desp{clip-path:inset(0 0 0 var(--x,50%))}
+.antes-despues .div{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.6)}
+.antes-despues .div::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font:700 15px Inter,sans-serif}
+.antes-despues .rot{position:absolute;top:10px;font:700 10px 'Space Mono',monospace;letter-spacing:.16em;padding:4px 8px;border-radius:5px;background:rgba(0,0,0,.55)}
+.antes-despues .rot.a{left:10px}.antes-despues .rot.d{right:10px;color:var(--oro)}
+.lut .info{padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.lut .info h3{font-size:24px}
+.lut .info p{color:var(--dim);font-size:14.5px}
+.lut .info .acc{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:6px}
+.lut .info .acc small{font:700 10.5px 'Space Mono',monospace;color:var(--dim);letter-spacing:.06em}
+.pasos-lut{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.paso{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#10141C}
+.paso .img{aspect-ratio:16/9;overflow:hidden;background:#000}
+.paso .img img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);transform:scale(var(--z,1.6));transform-origin:var(--pos,50% 50%);transition:transform .6s}
+.paso:hover .img img{transform:scale(calc(var(--z,1.6) + .15))}
+.paso .tx{padding:16px 18px}
+.paso .tx b{font:600 20px Oswald,sans-serif;text-transform:uppercase;display:block;margin-bottom:6px}
+.paso .tx p{color:var(--dim);font-size:14.5px}
+.paso .n{font:700 11px 'Space Mono',monospace;color:var(--oro);letter-spacing:.2em}
+
+/* ===== 4 · EXPORTAR ===== */
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.check{border:1px solid var(--line);border-radius:22px;background:#10141C;padding:22px}
+.check .tit{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.check h3{font-size:28px}
+.anillo{width:64px;height:64px;flex:none}
+.anillo circle{fill:none;stroke-width:6}
+.anillo .fondo{stroke:rgba(245,243,239,.1)}
+.anillo .av{stroke:var(--verde);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .5s}
+.anillo text{fill:var(--cream);font:700 15px 'Space Mono',monospace}
+.it{display:flex;gap:12px;align-items:flex-start;padding:12px 10px;border-radius:12px;cursor:pointer;transition:background .2s}
+.it:hover{background:rgba(245,243,239,.04)}
+.it input{appearance:none;-webkit-appearance:none;width:24px;height:24px;flex:none;border-radius:7px;border:2px solid rgba(245,243,239,.35);margin:1px 0 0;display:grid;place-items:center;transition:all .2s;cursor:pointer}
+.it input:checked{background:var(--verde);border-color:var(--verde)}
+.it input:checked::after{content:"✓";color:#0B1A10;font:800 15px Inter,sans-serif}
+.it span{font-size:15.5px}
+.it span small{display:block;color:var(--dim);font-size:13.5px;margin-top:2px}
+.it input:checked + span{color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(123,216,143,.6)}
+.ajustes{border:1px solid var(--line);border-radius:22px;background:#10141C;overflow:hidden}
+.ajustes .img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#000}
+.ajustes .img img{position:absolute;width:200%;left:-50%;top:-27%;max-width:none}
+.tabla{padding:8px 22px 22px}
+.fila-a{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(245,243,239,.07);font-size:15px}
+.fila-a:last-child{border-bottom:0}
+.fila-a b{font:700 11px 'Space Mono',monospace;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;padding-top:3px}
+.fila-a .ok{color:var(--verde);font-weight:800}
+.alerta{margin:0 22px 22px;border:1px solid rgba(255,90,79,.4);background:rgba(255,90,79,.08);border-radius:14px;padding:14px 16px;font-size:14.5px}
+.alerta b{color:#ff8d84}
+.alerta.oro{border-color:rgba(232,194,122,.4);background:rgba(232,194,122,.07)}
+.alerta.oro b{color:var(--oro)}
+
+/* ===== 5 · PRÁCTICA ===== */
+.practica-sec{border:1px solid var(--line);border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;background:#10141C}
+.practica-sec .fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#000}
+.practica-sec .fotos img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:saturate(.95);transition:filter .3s,transform .4s}
+.practica-sec .fotos img:hover{filter:saturate(1.2);transform:scale(1.03)}
+.practica-sec .tx{padding:34px;display:flex;flex-direction:column;gap:16px}
+.practica-sec ol{margin:0;padding-left:20px;color:var(--dim);display:grid;gap:6px}
+.practica-sec ol b{color:var(--cream)}
+
+footer{padding:36px 22px 60px;text-align:center;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;z-index:95;background:var(--cream);color:var(--ink);font:700 14px Inter,sans-serif;padding:12px 18px;border-radius:12px;transition:all .3s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:960px){
+  .hero-in,.sec .cab,.teclado-zona,.exp,.practica-sec{grid-template-columns:1fr}
+  .pasos-lut{grid-template-columns:1fr}
+  .top nav a{display:none}
+  .teclado{display:none}
+  .rp{grid-template-columns:1fr}
+  .rp .et{padding:12px 16px 0}
+  .rp .cl{margin:8px 16px}
+}
+@media (max-width:600px){
+  .wrap.hero-in{padding-top:110px;padding-bottom:80px}
+  .grid-luts{grid-template-columns:1fr}
+  .tc{display:none}
+  .fila-a{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="marca" href="#inicio"><img src="img/sen6.png" alt="">Prompt <em>Edit</em></a>
+    <nav>
+      <a href="#atajos">Atajos</a><a href="#recetas">Recetas</a><a href="#luts">LUTs</a><a href="#exportar">Exportar</a><a href="#practica">Practicar</a>
+      <span class="tc" id="tc">00:00:00:00</span>
+    </nav>
+  </div>
+  <div class="pista" id="pista" aria-label="Secciones de la página">
+    <a href="#atajos" style="--c:var(--p-video);--w:1.2">Atajos</a>
+    <a href="#recetas" style="--c:var(--p-voz);--w:1.2">Recetas</a>
+    <a href="#luts" style="--c:var(--p-color);--w:1.4">LUTs</a>
+    <a href="#exportar" style="--c:var(--p-musica);--w:1">Exportar</a>
+    <a href="#practica" style="--c:var(--p-texto);--w:.7">Practicar</a>
+    <div class="cabezal" id="cabezal"></div>
+  </div>
+</header>
+
+<!-- ============ PORTADA ============ -->
+<section class="hero" id="inicio">
+  <div class="fondo-hero"><video autoplay muted loop playsinline preload="auto" poster="media/hero.jpg"><source src="media/hero.mp4" type="video/mp4"></video></div>
+  <div class="velo"></div><div class="luz" id="luz"></div>
+  <div class="wrap hero-in">
+    <div class="entra">
+      <span class="eb">Para editar tu canal en CapCut</span>
+      <h1>Editá como un <em>canal grande</em></h1>
+      <p class="lead">Los atajos reales de CapCut, recetas de edición para tu nicho, 15 LUTs gratis hechos por SEN6 y la checklist para exportar a YouTube sin errores. Todo comprobado en CapCut, no sacado de internet.</p>
+      <div class="acciones"><a class="cta" href="#atajos">Empezar por los atajos</a><a class="cta alt" href="#luts">Bajar los LUTs</a></div>
+    </div>
+    <div class="mini" aria-hidden="true">
+      <div class="vista">
+        <img src="img/pueblo-original.webp" alt=""><img src="img/pueblo-misterio.webp" alt=""><img src="img/escritorio-cine-calido.webp" alt=""><img src="img/pueblo-hora-dorada.webp" alt="">
+        <div class="rotulo">TU PRÓXIMO VIDEO</div>
+      </div>
+      <div class="pistas">
+        <div class="fila"><small>TEXTO</small><div class="carril"><i style="--c:var(--p-texto);width:18%;--d:1.4s"></i><i style="background:none;width:44%"></i><i style="--c:var(--p-texto);width:14%;--d:1.6s"></i></div></div>
+        <div class="fila"><small>IMÁGENES</small><div class="carril"><i style="--c:var(--p-video);width:22%;--d:.5s"></i><i style="--c:var(--p-video);width:19%;--d:.65s"></i><i style="--c:var(--p-video);width:25%;--d:.8s"></i><i style="--c:var(--p-video);width:20%;--d:.95s"></i><i style="--c:var(--p-video);width:14%;--d:1.1s"></i></div></div>
+        <div class="fila"><small>VOZ</small><div class="carril"><i style="--c:var(--p-voz);width:46%;--d:.2s"></i><i style="--c:var(--p-voz);width:52%;--d:.35s"></i></div></div>
+        <div class="fila"><small>MÚSICA</small><div class="carril"><i style="--c:var(--p-musica);width:100%;--d:1.2s"></i></div></div>
+        <div class="ph"></div>
+      </div>
+      <div class="pie"><span>16:9 · 1080P · 30 FPS</span><span>H.264 · MP4</span></div>
+    </div>
+  </div>
+  <a class="bajar" href="#atajos">Bajá<i></i></a>
+</section>
+
+<!-- ============ 1 · ATAJOS ============ -->
+<section class="sec" id="atajos">
+  <div class="wrap">
+    <div class="cab rv">
+      <div><span class="eb">01 · Atajos de teclado</span><h2>Tocá una tecla y <em>mirá qué hace</em></h2></div>
+      <p class="lead">Sacados de la ventana oficial de atajos de CapCut 9.5. Pasá el mouse por un atajo para verlo en el teclado, o apretalo de verdad: la página te dice qué hace. Con el modo práctica los aprendés en 5 minutos.</p>
+    </div>
+    <div class="teclado-zona rv">
+      <div class="teclado" id="teclado" aria-hidden="true"></div>
+      <div class="lector">
+        <span class="eb" id="lecEb">Probalo</span>
+        <div class="que" id="lecQue">Apretá cualquier atajo</div>
+        <div class="combo" id="lecCombo"></div>
+        <p class="para" id="lecPara">Por ejemplo ⌘ B (en Windows Ctrl B): divide el clip donde está el cabezal.</p>
+        <div class="practica" id="cajaPractica">
+          <span class="eb">Modo práctica</span>
+          <div class="preg" id="pregunta">—</div>
+          <span class="marc" id="marcador">0 aciertos</span>
+          <button class="btn" id="saltar" type="button">Saltar esta</button>
+        </div>
+        <div class="estado" id="estado">TECLADO ESCUCHANDO</div>
+      </div>
+    </div>
+    <div class="filtros">
+      <div class="pastilla" role="group" aria-label="Sistema"><button type="button" data-so="mac" aria-pressed="true">Mac</button><button type="button" data-so="win" aria-pressed="false">Windows</button></div>
+      <div class="pastilla" role="group" aria-label="Cuáles"><button type="button" data-ver="esenciales" aria-pressed="true">★ Los esenciales</button><button type="button" data-ver="todos" aria-pressed="false">Todos</button></div>
+      <label class="buscar"><span class="mono" style="color:var(--dim)">⌕</span><input id="buscar" type="search" placeholder="Buscar: dividir, deshacer, zoom…" autocomplete="off"></label>
+      <button class="cta" id="btnPractica" type="button" style="padding:13px 22px;font-size:14px">Modo práctica</button>
+    </div>
+    <div id="listaAtajos"></div>
+    <p class="nota">La lista oficial que capturamos es la de Mac. En Windows, CapCut usa <b>Ctrl</b> donde Mac usa ⌘ y <b>Alt</b> donde usa ⌥. Si alguno no responde en tu compu, abrí el ícono de teclado arriba a la derecha de CapCut: ahí está tu lista y hasta podés cambiarlos.</p>
+  </div>
+</section>
+
+<!-- ============ 2 · RECETAS ============ -->
+<section class="sec" id="recetas">
+  <div class="wrap">
+    <div class="cab rv">
+      <div><span class="eb">02 · Recetas de edición</span><h2>Cómo se edita <em>tu nicho</em></h2></div>
+      <p class="lead">Cada nicho tiene su ritmo. Elegí el tuyo y vas a ver la receta como si fuera una línea de tiempo: qué pasa en cada pista, qué LUT usar y el error que más se repite.</p>
+    </div>
+    <div class="nichos rv" id="nichos" role="group" aria-label="Nichos"></div>
+    <article class="receta rv" id="receta" aria-live="polite"></article>
+    <p class="nota">Son puntos de partida, no leyes. Mirá los videos que mejor funcionan en tu nicho, contá cada cuántos segundos cambian las imágenes y ajustá la receta a lo que ves.</p>
+  </div>
+</section>
+
+<!-- ============ 3 · LUTs ============ -->
+<section class="sec" id="luts">
+  <div class="wrap">
+    <div class="cab rv">
+      <div><span class="eb">03 · Biblioteca de LUTs</span><h2>15 looks de cine, <em>gratis</em></h2></div>
+      <p class="lead">Los hicimos en SEN6, así que los podés usar en videos monetizados sin problemas de licencia. Arrastrá la línea de cada foto para ver el antes y el después. Importarlos en CapCut es gratis: no hace falta Pro.</p>
+    </div>
+    <div class="lut-bar rv">
+      <div class="pastilla" role="group" aria-label="Foto de muestra"><button type="button" data-muestra="pueblo" aria-pressed="true">Paisaje</button><button type="button" data-muestra="escritorio" aria-pressed="false">Interior</button></div>
+      <a class="cta" href="descargas/LUTs-SEN6.zip" download>Bajar los 15 (.zip)</a>
+    </div>
+    <div class="grid-luts" id="gridLuts"></div>
+
+    <div class="pasos-lut">
+      <div class="paso rv brillo"><div class="img"><img src="img/21-importar-lut.webp" alt="Ventana de CapCut para importar un LUT con la lista de LUTs SEN6" style="--pos:52% 45%;--z:1.5"></div>
+        <div class="tx"><span class="n">PASO 1</span><b>Importalo</b><p>En la barra de arriba tocá <b>Ajuste</b>, después <b>LUT</b> a la izquierda y <b>Importar</b>. Elegí el archivo .cube que bajaste.</p></div></div>
+      <div class="paso rv brillo"><div class="img"><img src="img/22-lut-aplicado.webp" alt="Panel de CapCut con el LUT SEN6-misterio elegido" style="--pos:96% 38%;--z:2.3"></div>
+        <div class="tx"><span class="n">PASO 2</span><b>Aplicalo al clip</b><p>Seleccioná la imagen o el clip. A la derecha, en <b>Ajustar</b>, buscá <b>LUT</b> y elegilo en <b>Nombre</b>. Si querés, después tocá <b>Aplicar a todo</b>.</p></div></div>
+      <div class="paso rv brillo"><div class="img"><img src="img/23-lut-intensidad.webp" alt="Intensidad del LUT bajada a 60 en CapCut" style="--pos:96% 40%;--z:2.3"></div>
+        <div class="tx"><span class="n">PASO 3</span><b>Bajale la intensidad</b><p>Al 100 % casi siempre es demasiado. Probá entre <b>50 y 70</b> y usá el mismo LUT en todo el video para que el color sea parejo.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · EXPORTAR ============ -->
+<section class="sec" id="exportar">
+  <div class="wrap">
+    <div class="cab rv">
+      <div><span class="eb">04 · Checklist de exportación</span><h2>Antes de <em>subirlo</em></h2></div>
+      <p class="lead">Tildá cada punto antes de exportar. La lista se guarda en tu navegador; cuando termines un video, reiniciala para el próximo.</p>
+    </div>
+    <div class="exp">
+      <div class="check rv">
+        <div class="tit"><div><span class="eb">Revisión</span><h3>Los 8 puntos</h3></div>
+          <svg class="anillo" viewBox="0 0 64 64" aria-hidden="true"><circle class="fondo" cx="32" cy="32" r="26"/><circle class="av" id="anillo" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/><text x="32" y="37" text-anchor="middle" id="anilloTx">0/8</text></svg></div>
+        <div id="checklist"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap"><span class="mono" style="font-size:12px;color:var(--dim)" id="checkMsg">Faltan 8.</span><button class="btn" id="reiniciar" type="button">Reiniciar para el próximo video</button></div>
+      </div>
+      <div class="ajustes rv">
+        <div class="img"><img src="img/29-exportar-listo.webp" alt="Ventana Exportar de CapCut con 1080P, H.264, mp4 y 30 fps"></div>
+        <div class="tabla">
+          <div class="fila-a"><b>Resolución</b><span><span class="ok">1080P</span> · 4K solo si tus imágenes son de muy alta calidad (tarda y pesa mucho más).</span></div>
+          <div class="fila-a"><b>Códec</b><span><span class="ok">H.264</span> · CapCut trae elegido <b>HEVC</b>: cambialo.</span></div>
+          <div class="fila-a"><b>Formato</b><span><span class="ok">MP4</span></span></div>
+          <div class="fila-a"><b>Cuadros</b><span><span class="ok">30 fps</span> · o los mismos de tu material.</span></div>
+          <div class="fila-a"><b>Tasa de bits</b><span><span class="ok">Recomendada</span> · YouTube sugiere al menos 8 Mbps para 1080p.</span></div>
+        </div>
+        <div class="alerta"><b>Subtítulos automáticos = Pro.</b> La cuenta gratis trae un uso por mes. Si los usás sin Pro, al exportar CapCut te pide pagar: borralos o usá los de YouTube.</div>
+        <div class="alerta oro"><b>Sin marca de agua.</b> Nuestro video de práctica, exportado con la cuenta gratis en octubre de 2026, salió limpio. Si ves el interruptor "Eliminar la marca de agua" con rombo, no te preocupes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · PRÁCTICA ============ -->
+<section class="sec" id="practica" style="padding-top:40px">
+  <div class="wrap">
+    <div class="practica-sec rv">
+      <div class="fotos">
+        <img src="img/practica-01.webp" alt="Faro en la tormenta"><img src="img/practica-02.webp" alt="Barco llegando a la isla"><img src="img/practica-03.webp" alt="Escalera del faro">
+        <img src="img/practica-04.webp" alt="Mesa con comida servida"><img src="img/practica-05.webp" alt="Abrigo colgado"><img src="img/practica-06.webp" alt="Faro de noche">
+      </div>
+      <div class="tx">
+        <span class="eb">05 · Proyecto de práctica</span>
+        <h2 style="font-size:clamp(34px,4.4vw,56px)">El faro de <em>Flannan</em></h2>
+        <p class="lead" style="font-size:17px">El mismo material que usamos en el video: 6 imágenes y 25 segundos de narración con un silencio largo puesto a propósito para que practiques el corte.</p>
+        <ol>
+          <li>Proyecto nuevo en <b>16:9</b> a <b>30 fps</b>.</li>
+          <li>Importá todo y poné <b>la voz primero</b>.</li>
+          <li>Cortá el silencio con <b>⌘ B</b> (Ctrl B) y cerrá el hueco.</li>
+          <li>Imágenes en la pista principal, una por frase, con <b>zoom lento</b>.</li>
+          <li>Texto "ISLAS FLANNAN, 1900", música bajita y un <b>LUT al 60 %</b>.</li>
+          <li>Exportá en <b>1080p, MP4, H.264</b>.</li>
+        </ol>
+        <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="cta" href="descargas/proyecto-practica-faro.zip" download>Bajar el proyecto (.zip)</a></div>
+        <small class="mono" style="color:var(--dim);font-size:11.5px">La música no viene en el zip: bajá un tema de la Biblioteca de audio de YouTube.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Prompt Edit · una herramienta de SEN6 · Capturas y atajos comprobados en CapCut 9.5 (Mac), octubre de 2026. CapCut es marca de su dueño; esta página no está asociada a CapCut.</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- datos ---------- */
+// atajos: [grupo, nombre, para qué, teclas Mac, esencial]
+const AT=[
+ ['Línea de tiempo','Dividir','Corta el clip donde está el cabezal.',['⌘','B'],1],
+ ['Línea de tiempo','Dividir todo','Corta todas las pistas a la vez en el cabezal.',['⌘','⇧','B'],0],
+ ['Línea de tiempo','Borrar a la izquierda','Borra desde el cabezal hacia atrás en el clip seleccionado.',['Q'],1],
+ ['Línea de tiempo','Borrar a la derecha','Borra desde el cabezal hacia adelante en el clip seleccionado.',['W'],1],
+ ['Línea de tiempo','Imán de la pista principal','Activa o apaga el imán que cierra los huecos solos.',['P'],1],
+ ['Línea de tiempo','Acercar la línea de tiempo','Más detalle para cortes precisos.',['⌘','+'],1],
+ ['Línea de tiempo','Alejar la línea de tiempo','Ver el video entero.',['⌘','−'],1],
+ ['Línea de tiempo','Rebobinar','Retrocede; apretala varias veces para ir más rápido.',['J'],0],
+ ['Línea de tiempo','Detener','Frena la búsqueda rápida.',['K'],0],
+ ['Línea de tiempo','Avanzar rápido','Avanza; apretala varias veces para ir más rápido.',['L'],0],
+ ['Línea de tiempo','Agregar fotograma clave','Marca el estado del clip en ese momento (para el zoom lento).',['⇧','⌥','K'],1],
+ ['Línea de tiempo','Panel de fotogramas clave','Muestra u oculta el panel de fotogramas clave.',['⌥','K'],0],
+ ['Línea de tiempo','Modo selección','Vuelve al cursor normal.',['A'],0],
+ ['Línea de tiempo','Modo división','El cursor corta donde hacés clic.',['B'],0],
+ ['Línea de tiempo','Seleccionar hacia la izquierda','Selecciona todo lo que está antes del cabezal.',['['],0],
+ ['Línea de tiempo','Seleccionar hacia la derecha','Selecciona todo lo que está después del cabezal.',[']'],0],
+ ['Línea de tiempo','Ajuste automático','Hace que los clips se peguen solos al acercarlos.',['N'],0],
+ ['Línea de tiempo','Cambiar la vinculación','Une o separa clips vinculados.',['~'],0],
+ ['Línea de tiempo','Avanzar muchos fotogramas','Salta varios cuadros de una vez.',['⇧','←'],0],
+ ['Reproductor','Reproducir / pausar','Mirá y escuchá lo que estás editando.',['Espacio'],1],
+ ['Reproductor','Pantalla completa del reproductor','Mirá el video grande para revisarlo.',['⌘','⇧','F'],0],
+ ['Reproductor','Mostrar u ocultar reglas','Reglas para alinear textos e imágenes.',['⌘','⌥','R'],0],
+ ['Reproductor','Mostrar u ocultar guías','Guías de alineación en el reproductor.',['⌘',';'],0],
+ ['Reproductor','Ajustar el reproductor','Hace que el video entre justo en el reproductor.',['⌥','⇧','Z'],0],
+ ['Básico','Deshacer','Volvé un paso atrás. Se puede repetir.',['⌘','Z'],1],
+ ['Básico','Rehacer','Recupera lo que deshiciste.',['⌘','⇧','Z'],0],
+ ['Básico','Copiar','Copia el clip seleccionado.',['⌘','C'],1],
+ ['Básico','Pegar','Pega en el cabezal.',['⌘','V'],1],
+ ['Básico','Cortar','Copia y saca el clip.',['⌘','X'],0],
+ ['Básico','Copiar atributos','Copia el color, la escala o el movimiento de un clip.',['⌘','⇧','C'],1],
+ ['Básico','Pegar atributos','Aplica esos ajustes a otros clips de una vez.',['⌘','⇧','V'],1],
+ ['Básico','Eliminar','Borra el clip seleccionado.',['⌫'],1],
+ ['Básico','Importar archivos','Trae imágenes, audios y videos.',['⌘','I'],1],
+ ['Básico','Exportar','Abre la ventana de exportar.',['⌘','E'],1],
+ ['Básico','Nuevo proyecto','Empieza un proyecto nuevo.',['⌘','N'],0],
+ ['Básico','Cambiar de panel','Salta entre los paneles de materiales.',['⇥'],0],
+ ['Básico','Salir de pantalla completa','Vuelve a la vista normal.',['Esc'],0],
+];
+const WIN={'⌘':'Ctrl','⌥':'Alt','⇧':'Shift','⌫':'Retroceso','⇥':'Tab'};
+// los que el navegador no deja probar (cierran la pestaña, abren ventanas, etc.)
+const NO_PRACTICA=new Set(['Nuevo proyecto','Pantalla completa del reproductor','Salir de pantalla completa','Cambiar de panel','Importar archivos','Mostrar u ocultar reglas']);
+
+const LUTS=[
+ ['cine-calido','Cine cálido','Piel linda y negros suaves: el look de película cálida.'],
+ ['verde-naranja','Verde y naranja','Sombras verdosas, pieles naranjas: el clásico de Hollywood.'],
+ ['noir','Noir','Blanco y negro con mucho contraste, para misterio y crimen.'],
+ ['vintage','Vintage','Colores lavados y cálidos, como foto vieja.'],
+ ['noche-fria','Noche fría','Azulado y oscuro, para escenas nocturnas.'],
+ ['hora-dorada','Hora dorada','Luz de atardecer: dorado y suave.'],
+ ['documental','Documental','Natural, con un poco más de contraste y menos saturación.'],
+ ['misterio','Misterio','Sombras verde azuladas y poco color: tensión.'],
+ ['pastel','Pastel','Suave y luminoso, poco contraste: tranquilo y amable.'],
+ ['blanqueado','Blanqueado','Poco color y mucho contraste: crudo y dramático.'],
+ ['sepia','Sepia historia','Tono de archivo antiguo, para historia.'],
+ ['neon','Neón','Magentas y cianes, para tecnología y noche urbana.'],
+ ['invierno','Invierno','Frío y luminoso, blancos limpios.'],
+ ['terror','Terror','Verdoso, apagado y con negros profundos.'],
+ ['vivo','Vivo','Más color y contraste, sin exagerar: para curiosidades y Shorts.'],
+];
+
+// recetas: voz, imágenes, movimiento, texto, música, color (id LUT + intensidad), sonido, error
+const REC=[
+ {n:'Misterios',t:'Tensión que crece despacio. El espectador tiene que sentir que algo no cierra.',
+  voz:'Pausas cortas antes de cada dato raro: <b>no cortes todos los silencios</b>, dejá respirar los que generan suspenso.',
+  img:'Una imagen cada <b>4 a 6 s</b>; en el gancho, cada 2 a 3 s. Lugares, documentos, objetos.',
+  mov:'<b>Zoom lento hacia adentro</b> (100→110 %) en casi todas: da sensación de acercarse al secreto.',
+  tex:'Fechas y lugares en una fuente <b>serif clásica</b> (tipo Playfair o Cinzel), blanco sobre oscuro.',
+  mus:'Biblioteca de audio de YouTube → estado de ánimo <b>Oscuro</b> o <b>Dramático</b>, muy bajita (−18 a −22 dB).',
+  lut:['misterio',60],son:'Un golpe grave (impacto) cuando aparece la pista clave. Uno o dos por video, no más.',
+  err:'Música de terror todo el video: cansa y tapa la voz. El misterio lo pone la narración.'},
+ {n:'Historia',t:'Viaje en el tiempo con orden: mapas, fechas y personajes que se entienden.',
+  voz:'Ritmo pausado y claro. Cortá repeticiones pero no apures los nombres propios.',
+  img:'Una imagen cada <b>5 a 7 s</b>. Mapas, pinturas, grabados, retratos.',
+  mov:'<b>Paneo lateral</b> en mapas y pinturas anchas; zoom lento en retratos.',
+  tex:'Año y lugar en cada cambio de época (<b>"Roma, 44 a. C."</b>), en una serif sobria.',
+  mus:'Estado de ánimo <b>Dramático</b> o <b>Inspirador</b>; orquestal, sin voces.',
+  lut:['sepia',50],son:'Transición suave (un "whoosh" bajo) al cambiar de época.',
+  err:'Mezclar fotos modernas con época antigua sin avisar: el espectador se confunde.'},
+ {n:'True crime',t:'Serio y respetuoso. Los hechos mandan, no el morbo.',
+  voz:'Tono firme; silencios cortos después de cada dato fuerte.',
+  img:'Una imagen cada <b>4 a 6 s</b>. Lugares, documentos, recortes de diario, mapas del recorrido.',
+  mov:'Zoom lento sobre documentos para "leer" el detalle; paneo en mapas.',
+  tex:'Fechas, horas y nombres en <b>fuente de máquina de escribir</b>, como expediente.',
+  mus:'Estado de ánimo <b>Oscuro</b>; pulsos graves y mínimos.',
+  lut:['noir',55],son:'Clic de máquina de escribir cuando aparece un dato; nada de gritos ni sustos.',
+  err:'Usar fotos de víctimas sin cuidado o con efectos llamativos: se ve irrespetuoso y puede traer problemas.'},
+ {n:'Terror y relatos',t:'Atmósfera primero. Lo que no se ve asusta más que lo que se ve.',
+  voz:'Lenta, cercana, con silencios largos <b>a propósito</b> antes del giro.',
+  img:'Una imagen cada <b>5 a 8 s</b>, oscuras, con mucho espacio negro.',
+  mov:'Zoom muy lento hacia adentro; de vez en cuando, uno hacia afuera para "revelar".',
+  tex:'Casi nada de texto: solo el título del relato.',
+  mus:'Estado de ánimo <b>Oscuro</b>; drones y ambientes, sin melodía marcada.',
+  lut:['terror',60],son:'Ambientes (viento, crujidos) muy bajos todo el relato; un solo golpe en el clímax.',
+  err:'Sustos con sonido fuerte cada minuto: la gente se va o baja el volumen.'},
+ {n:'Curiosidades y listas',t:'Rápido y claro: un dato, una imagen, siguiente.',
+  voz:'<b>Cortá todos los silencios</b>; una voz enérgica y ágil.',
+  img:'Una imagen cada <b>2 a 4 s</b>; en cada número de la lista, una imagen nueva.',
+  mov:'Zoom un poco más marcado (100→115 %) y cortes directos.',
+  tex:'Número grande de la lista ("<b>#7</b>") en una fuente gruesa (tipo Montserrat ExtraBold).',
+  mus:'Estado de ánimo <b>Brillante</b> o <b>Feliz</b>, con ritmo.',
+  lut:['vivo',60],son:'Un "pop" o "whoosh" en cada número de la lista.',
+  err:'Una transición distinta en cada dato: parece amateur. Cortes directos.'},
+ {n:'Ciencia y espacio',t:'Asombro con claridad: grande, limpio, fácil de seguir.',
+  voz:'Explicaciones cortas; pausa de 1 segundo antes del dato que impresiona.',
+  img:'Una imagen cada <b>4 a 6 s</b>. Espacio, diagramas simples, comparaciones de tamaño.',
+  mov:'Zoom lento hacia adentro en el espacio; paneo en paisajes de otros planetas.',
+  tex:'Números grandes ("<b>4.600 millones de años</b>") en una sans moderna.',
+  mus:'Estado de ánimo <b>Inspirador</b> o <b>Tranquilo</b>; ambiental.',
+  lut:['noche-fria',50],son:'Un "riser" suave antes de un dato grande.',
+  err:'Llenar la pantalla de texto con la explicación: el texto es para el número, no para el párrafo.'},
+ {n:'Naturaleza y documental',t:'Calma y detalle. Que se sienta como un documental de televisión.',
+  voz:'Pausada, con aire entre frases.',
+  img:'Una imagen o clip cada <b>5 a 8 s</b>. Planos amplios y detalles.',
+  mov:'Paneos lentos en paisajes, zoom lento en animales. Velocidad 0,5x en clips de video para dar calma.',
+  tex:'Nombre del lugar o del animal abajo a la izquierda, chico.',
+  mus:'Estado de ánimo <b>Tranquilo</b> o <b>Inspirador</b>.',
+  lut:['documental',60],son:'Sonido ambiente (pájaros, agua, viento) muy bajo debajo de todo.',
+  err:'Colores exagerados: la naturaleza se ve falsa. Menos saturación, no más.'},
+ {n:'Biografías',t:'Una vida contada como película: infancia, ascenso, caída, legado.',
+  voz:'Cálida; cambiá un poco el tono en cada etapa de la vida.',
+  img:'Una imagen cada <b>4 a 6 s</b>. Fotos de época, lugares, objetos personales.',
+  mov:'Zoom lento en retratos, como en los documentales clásicos.',
+  tex:'Capítulos por etapa ("<b>1. Los primeros años</b>") en una serif elegante.',
+  mus:'Estado de ánimo <b>Inspirador</b>; uno más <b>Triste</b> para la caída.',
+  lut:['cine-calido',55],son:'Casi nada: la música y la voz alcanzan.',
+  err:'Mezclar fotos de distintas personas sin aclarar quién es quién.'},
+ {n:'Finanzas y negocios',t:'Profesional y concreto. Números claros, nada de ruido.',
+  voz:'Firme y directa; cortá todos los silencios.',
+  img:'Una imagen cada <b>3 a 5 s</b>. Gráficos simples, empresas, ciudades, objetos de dinero.',
+  mov:'Zoom suave; que los gráficos aparezcan con una animación de entrada simple.',
+  tex:'Cifras grandes con su fuente ("<b>US$ 2.000 millones</b>") en una sans limpia (tipo Inter).',
+  mus:'Estado de ánimo <b>Inspirador</b> o <b>Brillante</b>, corporativo y bajo.',
+  lut:['documental',40],son:'Un "tic" de caja registradora solo en el dato principal.',
+  err:'Gráficos ilegibles: si no se entiende en 2 segundos, sobra.'},
+ {n:'Tecnología e IA',t:'Moderno y ágil. Que se sienta el futuro sin marear.',
+  voz:'Rápida pero clara; cortá silencios.',
+  img:'Una imagen cada <b>3 a 4 s</b>. Capturas de pantalla, productos, ciudades de noche.',
+  mov:'Zoom hacia la parte de la captura que se explica, como hicimos en el video.',
+  tex:'Nombres de herramientas y cifras en una <b>fuente monoespaciada</b> o una sans moderna.',
+  mus:'Estado de ánimo <b>Brillante</b>; electrónica suave.',
+  lut:['neon',45],son:'Clics y "glitch" cortos al aparecer una pantalla.',
+  err:'Capturas chicas e ilegibles: siempre acercate a lo que estás explicando.'},
+ {n:'Motivación y reflexión',t:'Emoción con pausa. La frase importante tiene que pegar.',
+  voz:'Lenta, con silencios antes de la frase clave.',
+  img:'Una imagen cada <b>4 a 6 s</b>. Personas de espaldas, caminos, amaneceres.',
+  mov:'Zoom lento hacia adentro en la frase clave.',
+  tex:'La frase clave en grande, sola, en una fuente gruesa y alta (tipo Bebas Neue).',
+  mus:'Estado de ánimo <b>Inspirador</b>; que suba un poco en el final.',
+  lut:['hora-dorada',55],son:'Un "riser" que termina justo en la frase clave.',
+  err:'Frases en pantalla todo el tiempo: se pierde la que importa.'},
+ {n:'Para dormir',t:'Todo lento y oscuro. Nada debe despertar al que escucha.',
+  voz:'Muy pausada, volumen parejo, sin picos.',
+  img:'Una imagen cada <b>10 a 20 s</b>, oscuras y suaves.',
+  mov:'Zoom lentísimo (100→105 %) o nada. Transiciones con fundido largo.',
+  tex:'Ninguno, salvo el título al principio.',
+  mus:'Estado de ánimo <b>Tranquilo</b>; ambiente sin percusión, muy bajo.',
+  lut:['pastel',40],son:'Lluvia o mar de fondo, parejo, sin golpes.',
+  err:'Un sonido o un cambio de volumen brusco: despierta y la persona cierra el video.'},
+];
+
+const CHECK=[
+ ['La voz se entiende de principio a fin.','Escuchala con auriculares y con el parlante de la compu.'],
+ ['No hay silencios largos ni errores.','Cortaste repeticiones, trabas y pausas de más.'],
+ ['Las imágenes cambian a tiempo con lo que se dice.','Cada imagen entra cuando la voz nombra eso.'],
+ ['La música está baja y tiene licencia para YouTube.','Biblioteca de audio de YouTube o temas propios, no la de CapCut.'],
+ ['Los textos no tienen errores de ortografía.','Revisá nombres propios, fechas y tildes.'],
+ ['No queda ningún elemento Pro si estás en la versión gratis.','Efectos, filtros, transiciones o subtítulos con rombo violeta.'],
+ ['El color es parejo en todo el video.','Mismo LUT y misma intensidad en toda la escena.'],
+ ['Exportaste en 1080p, MP4, H.264 y lo miraste completo.','Abrilo fuera de CapCut antes de subirlo.'],
+];
+
+/* ---------- utilidades ---------- */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const guardar=(k,v)=>{try{localStorage.setItem('pe-'+k,JSON.stringify(v))}catch(e){}};
+const leer=(k,d)=>{try{const v=localStorage.getItem('pe-'+k);return v?JSON.parse(v):d}catch(e){return d}};
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1800)};
+
+/* ---------- barra, cabezal y código de tiempo ---------- */
+const top_=$('#top'), cab=$('#cabezal'), tc=$('#tc'), secs=['atajos','recetas','luts','exportar','practica'].map(id=>document.getElementById(id));
+function alScroll(){
+  const y=scrollY, H=document.documentElement.scrollHeight-innerHeight;
+  top_.classList.toggle('solida',y>40);
+  const p=H>0?y/H:0; cab.style.left=(p*100)+'%';
+  const s=p*960, f=Math.floor((s%1)*30); // 16 min de "video" = la página entera
+  tc.textContent=['00',String(Math.floor(s/60)).padStart(2,'0'),String(Math.floor(s%60)).padStart(2,'0'),String(f).padStart(2,'0')].join(':');
+  let act=null; secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)act=s.id});
+  $$('.pista a, .top nav a').forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+act));
+}
+addEventListener('scroll',alScroll,{passive:true});alScroll();
+// luz que sigue al mouse en la portada
+$('#inicio').addEventListener('pointermove',e=>{const r=e.currentTarget.getBoundingClientRect();$('#luz').style.setProperty('--lx',((e.clientX-r.left)/r.width*100)+'%');$('#luz').style.setProperty('--ly',((e.clientY-r.top)/r.height*100)+'%')});
+// brillo en tarjetas
+document.addEventListener('pointermove',e=>{const c=e.target.closest('.brillo');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+// revelado
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+const observar=()=>$$('.rv:not(.on)').forEach(el=>io.observe(el));
+
+/* ---------- 1 · atajos ---------- */
+let SO=leer('so','mac'), VER='esenciales', practicando=false, pregunta=null, aciertos=0;
+const tec=t=>SO==='win'&&WIN[t]?WIN[t]:t;
+const kc=t=>`<span class="kc">${tec(t)}</span>`;
+const FILAS=[
+ [['Esc',1.3],['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8'],['9'],['0'],['−'],['+'],['⌫',1.6]],
+ [['⇥',1.5],['Q'],['W'],['E'],['R'],['T'],['Y'],['U'],['I'],['O'],['P'],['['],[']'],['~',1.3]],
+ [['',1.8],['A'],['S'],['D'],['F'],['G'],['H'],['J'],['K'],['L'],[';'],['',2.2]],
+ [['⇧',2.3],['Z'],['X'],['C'],['V'],['B'],['N'],['M'],['←'],['⇧',2.6]],
+ [['⌃',1.2],['⌥',1.2],['⌘',1.5],['Espacio',6.5],['⌘',1.5],['⌥',1.2]],
+];
+const MODS=new Set(['⌘','⌥','⇧','⌃']);
+function dibujarTeclado(){
+  const usadas=new Set(AT.flatMap(a=>a[3]));
+  $('#teclado').innerHTML=FILAS.map(f=>`<div class="kfila">${f.map(([t,w])=>`<div class="k${MODS.has(t)?' mod':''}${usadas.has(t)?' usa':''}" data-k="${t}" style="--w:${w||1}">${t?tec(t):''}</div>`).join('')}</div>`).join('');
+}
+function encender(teclas){ $$('.k').forEach(k=>k.classList.toggle('on',teclas.includes(k.dataset.k)&&k.dataset.k!=='')) }
+function mostrar(a,origen){
+  $('#lecEb').textContent=a[0]; $('#lecQue').textContent=a[1]; $('#lecCombo').innerHTML=a[3].map(kc).join(''); $('#lecPara').textContent=a[2];
+  encender(a[3]);
+  if(origen==='tecla'){const b=$(`.at[data-i="${AT.indexOf(a)}"]`);if(b){b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash')}}
+}
+function dibujarLista(){
+  const q=$('#buscar').value.trim().toLowerCase();
+  const grupos={};
+  AT.forEach((a,i)=>{ if(VER==='esenciales'&&!a[4]&&!q) return; if(q&&!(a[1]+' '+a[2]).toLowerCase().includes(q)) return; (grupos[a[0]]??=[]).push([a,i]) });
+  $('#listaAtajos').innerHTML=Object.entries(grupos).map(([g,l])=>`<div class="grupo-t">${g}</div><div class="lista-at">${l.map(([a,i])=>`<button class="at brillo" type="button" data-i="${i}"><span>${a[4]?'<span class="estrella">★</span>':''}${a[1]}</span><span class="ks">${a[3].map(kc).join('')}</span></button>`).join('')}</div>`).join('')||'<p class="lead">No hay atajos con esa palabra.</p>';
+  $$('.at').forEach(b=>{const a=AT[b.dataset.i];b.addEventListener('mouseenter',()=>mostrar(a));b.addEventListener('focus',()=>mostrar(a));b.addEventListener('click',()=>mostrar(a))});
+}
+// leer el teclado real
+const norm=e=>{const t=[];if(e.metaKey||e.ctrlKey)t.push('⌘');if(e.altKey)t.push('⌥');if(e.shiftKey)t.push('⇧');
+  let k=e.code==='Space'?'Espacio':e.key==='Backspace'||e.key==='Delete'?'⌫':e.key==='Escape'?'Esc':e.key==='Tab'?'⇥':e.key==='ArrowLeft'?'←':
+    e.code==='Equal'||e.key==='+'?'+':e.code==='Minus'||e.key==='-'?'−':e.code==='BracketLeft'?'[':e.code==='BracketRight'?']':e.code==='Semicolon'?';':e.code==='Backquote'||e.key==='~'?'~':
+    e.code&&e.code.startsWith('Key')?e.code.slice(3):e.key.length===1?e.key.toUpperCase():'';
+  return {t,k}};
+const igual=(a,b)=>a.length===b.length&&a.every(x=>b.includes(x));
+addEventListener('keydown',e=>{
+  if(e.target.closest?.('input,textarea'))return;
+  const r=$('#atajos').getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight)return; // solo cuando se ve la sección
+  const {t,k}=norm(e); if(!k||MODS.has(k))return;
+  const combo=[...t,k];
+  encender(combo);
+  const a=AT.find(a=>igual(a[3],combo));
+  if(practicando&&pregunta){
+    if(e.key!=='Tab')e.preventDefault();
+    if(a===pregunta){aciertos++;$('#marcador').textContent=aciertos+' acierto'+(aciertos===1?'':'s')+' ✓';toast('¡Bien! '+a[1]);setTimeout(nueva,500)}
+    else $('#estado').textContent='ESO NO ES · PROBÁ DE NUEVO';
+    return;
+  }
+  if(a){ if(!['⌫','Esc','⇥'].includes(k)&&!(t.length===0&&k==='Espacio'))e.preventDefault(); else if(k==='Espacio')e.preventDefault(); mostrar(a,'tecla'); $('#estado').textContent='¡ESO ES "'+a[1].toUpperCase()+'"!' }
+  else $('#estado').textContent='ESA COMBINACIÓN NO ES UN ATAJO DE CAPCUT';
+});
+function nueva(){const pool=AT.filter(a=>a[4]&&!NO_PRACTICA.has(a[1])&&a!==pregunta);pregunta=pool[Math.floor(Math.random()*pool.length)];$('#pregunta').textContent=pregunta[1];$('#estado').textContent='APRETÁ EL ATAJO';encender([]);$('#lecCombo').innerHTML='';$('#lecQue').textContent='¿Cómo se hace?';$('#lecPara').textContent=pregunta[2];$('#lecEb').textContent='Modo práctica'}
+$('#btnPractica').addEventListener('click',()=>{practicando=!practicando;document.body.classList.toggle('practicando',practicando);$('#btnPractica').textContent=practicando?'Salir de la práctica':'Modo práctica';aciertos=0;$('#marcador').textContent='0 aciertos';if(practicando){nueva();$('#teclado').scrollIntoView({behavior:'smooth',block:'center'})}else{$('#estado').textContent='TECLADO ESCUCHANDO';$('#lecQue').textContent='Apretá cualquier atajo'}});
+$('#saltar').addEventListener('click',()=>{toast('Era: '+pregunta[3].map(tec).join(' '));nueva()});
+$$('[data-so]').forEach(b=>b.addEventListener('click',()=>{SO=b.dataset.so;guardar('so',SO);$$('[data-so]').forEach(x=>x.setAttribute('aria-pressed',x===b));dibujarTeclado();dibujarLista()}));
+$$('[data-ver]').forEach(b=>b.addEventListener('click',()=>{VER=b.dataset.ver;$$('[data-ver]').forEach(x=>x.setAttribute('aria-pressed',x===b));dibujarLista()}));
+$('#buscar').addEventListener('input',dibujarLista);
+$$('[data-so]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.so===SO));
+dibujarTeclado();dibujarLista();
+
+/* ---------- 2 · recetas ---------- */
+const nombreLut=id=>(LUTS.find(l=>l[0]===id)||[])[1];
+function receta(i){
+  const r=REC[i];guardar('nicho',i);
+  $$('.nicho').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  const el=$('#receta');el.classList.remove('lista');
+  const fila=(c,et,html,cls='')=>`<div class="rp ${cls}" style="--c:${c}"><div class="et"><i></i>${et}</div><div class="cl">${html}</div></div>`;
+  el.innerHTML=`<div class="rhead"><div><span class="eb">Receta</span><h3>${r.n}</h3><p class="tono">${r.t}</p></div><button class="btn" id="copiarRec" type="button">Copiar receta</button></div>
+   <div class="rpistas">
+    ${fila('var(--p-voz)','Voz',r.voz)}
+    ${fila('var(--p-video)','Imágenes',r.img)}
+    ${fila('var(--p-video)','Movimiento',r.mov)}
+    ${fila('var(--p-texto)','Texto',r.tex)}
+    ${fila('var(--p-musica)','Música',r.mus)}
+    ${fila('var(--p-color)','Color',`<div class="lut-mini"><img src="img/pueblo-${r.lut[0]}.webp" alt=""><span>LUT <b>SEN6 ${nombreLut(r.lut[0])}</b> al <b>${r.lut[1]} %</b> · <a href="luts/SEN6-${r.lut[0]}.cube" download>bajarlo</a></span></div>`)}
+    ${fila('#9AA3B2','Sonido',r.son)}
+    ${fila('var(--rojo)','Error típico',r.err,'error')}
+   </div>`;
+  $$('#receta .cl').forEach((c,k)=>c.style.transitionDelay=(k*70)+'ms');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('lista')));
+  $('#copiarRec').addEventListener('click',()=>{const txt=el.querySelector('h3').textContent+'\n'+[...el.querySelectorAll('.rp')].map(p=>p.querySelector('.et').textContent.trim()+': '+p.querySelector('.cl').textContent.trim()).join('\n');
+    navigator.clipboard?.writeText(txt).then(()=>toast('Receta copiada'),()=>toast('No se pudo copiar'))});
+}
+$('#nichos').innerHTML=REC.map((r,i)=>`<button class="nicho" type="button" aria-pressed="false">${r.n}</button>`).join('');
+$$('.nicho').forEach((b,i)=>b.addEventListener('click',()=>receta(i)));
+receta(Math.min(leer('nicho',0),REC.length-1));
+
+/* ---------- 3 · LUTs ---------- */
+let MUESTRA='pueblo';
+function dibujarLuts(){
+  $('#gridLuts').innerHTML=LUTS.map(([id,n,d])=>`<article class="lut rv">
+    <div class="antes-despues" data-id="${id}" style="--x:50%"><img src="img/${MUESTRA}-original.webp" alt="Foto original" loading="lazy"><img class="desp" src="img/${MUESTRA}-${id}.webp" alt="Foto con el LUT ${n}" loading="lazy"><div class="div"></div><span class="rot a">ANTES</span><span class="rot d">${n.toUpperCase()}</span></div>
+    <div class="info"><h3>${n}</h3><p>${d}</p><div class="acc"><small>SEN6-${id}.cube</small><a class="btn" href="luts/SEN6-${id}.cube" download>Bajar .cube</a></div></div></article>`).join('');
+  $$('.antes-despues').forEach(ad=>{
+    const mover=e=>{const r=ad.getBoundingClientRect();ad.style.setProperty('--x',Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+'%')};
+    ad.addEventListener('pointerdown',e=>{ad.setPointerCapture(e.pointerId);ad._d=1;mover(e)});
+    ad.addEventListener('pointermove',e=>{if(ad._d||e.pointerType==='mouse')mover(e)});
+    ad.addEventListener('pointerup',()=>ad._d=0);
+    ad.addEventListener('pointerleave',()=>{if(!ad._d)ad.style.setProperty('--x','50%')});
+  });
+  // barrido automático la primera vez que se ve cada tarjeta
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io2.unobserve(e.target);const ad=e.target;let t0=null;
+    const anim=ts=>{t0??=ts;const p=(ts-t0)/1600;if(p>1){ad.style.setProperty('--x','50%');return}ad.style.setProperty('--x',(50+45*Math.sin(p*Math.PI*2))+'%');requestAnimationFrame(anim)};requestAnimationFrame(anim)}),{threshold:.6});
+  $$('.antes-despues').forEach(ad=>io2.observe(ad));
+  observar();
+}
+$$('[data-muestra]').forEach(b=>b.addEventListener('click',()=>{MUESTRA=b.dataset.muestra;$$('[data-muestra]').forEach(x=>x.setAttribute('aria-pressed',x===b));dibujarLuts();$$('.lut').forEach(l=>l.classList.add('on'))}));
+dibujarLuts();
+
+/* ---------- 4 · checklist ---------- */
+let HECHOS=leer('check',[]);
+function dibujarCheck(){
+  $('#checklist').innerHTML=CHECK.map(([a,b],i)=>`<label class="it"><input type="checkbox" data-i="${i}" ${HECHOS.includes(i)?'checked':''}><span>${i+1}. ${a}<small>${b}</small></span></label>`).join('');
+  $$('#checklist input').forEach(c=>c.addEventListener('change',()=>{const i=+c.dataset.i;HECHOS=c.checked?[...new Set([...HECHOS,i])]:HECHOS.filter(x=>x!==i);guardar('check',HECHOS);progreso();if(HECHOS.length===CHECK.length)toast('¡Listo para subir!')}));
+  progreso();
+}
+function progreso(){const n=HECHOS.length,t=CHECK.length;$('#anillo').style.strokeDashoffset=163.4*(1-n/t);$('#anilloTx').textContent=n+'/'+t;$('#checkMsg').textContent=n===t?'Todo revisado. A exportar.':'Faltan '+(t-n)+'.'}
+$('#reiniciar').addEventListener('click',()=>{HECHOS=[];guardar('check',HECHOS);dibujarCheck();toast('Lista reiniciada')});
+dibujarCheck();
+observar();
+</script>
+</body>
+</html>
