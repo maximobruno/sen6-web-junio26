@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prompt Flow · Mantener personaje y lugar en Google Flow · SEN6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D12;--ink2:#12161F;--ink3:#181D28;--cream:#F5F3EF;--dim:rgba(245,243,239,.68);--line:rgba(245,243,239,.14);
+  --naranja:#D4450A;--glow:#F26A2E;--oro:#E8C27A;--terra:#C8502A;--verde:#7BD88F;--rojo:#ff5a4f;--azul:#6FA8DC;
+  --oswald:'Oswald',Impact,sans-serif;--inter:'Inter',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;
+  --riel:196px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{background:var(--ink);color:var(--cream);font-family:var(--inter);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+h1,h2,h3{font-family:var(--oswald);font-weight:600;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+b{font-weight:600}
+
+/* ---------- riel lateral (en celu pasa a tira arriba) ---------- */
+.riel{position:fixed;left:0;top:0;bottom:0;width:var(--riel);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;gap:22px;background:var(--ink);z-index:40}
+.logo{font-family:var(--oswald);font-size:26px;line-height:1;letter-spacing:.04em;white-space:nowrap}
+.logo b{display:block;color:var(--glow);font-weight:600}
+.riel nav{display:flex;flex-direction:column;gap:2px}
+.riel a{display:flex;gap:9px;font-size:13px;line-height:1.3;color:var(--dim);text-decoration:none;padding:7px 8px;border-left:2px solid transparent;white-space:nowrap}
+.riel a i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--oro);padding-top:1px}
+.riel a:hover{color:var(--cream)}
+.riel a.on{color:var(--cream);border-left-color:var(--glow);background:var(--ink2)}
+.riel small{margin-top:auto;font-family:var(--mono);font-size:10px;line-height:1.5;color:var(--dim)}
+main,footer{margin-left:var(--riel)}
+.caja{max-width:1160px;margin:0 auto;padding:0 40px}
+
+/* ---------- hero ---------- */
+.hero{padding:44px 0 56px;border-bottom:1px solid var(--line)}
+.hero .caja{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center}
+.ante{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--oro);margin-bottom:16px}
+.hero h1{font-size:clamp(36px,4.1vw,60px);font-weight:600}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero h1 u{text-decoration:none;color:var(--oro)}
+.monitor{background:#000;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.monitor video{width:100%;aspect-ratio:16/9}
+.pie{font-family:var(--mono);font-size:11px;color:var(--dim);padding:9px 12px;border-top:1px solid var(--line);background:var(--ink2)}
+.aviso{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding:14px 16px;border:1px dashed rgba(232,194,122,.5);border-radius:6px;font-size:14px}
+.aviso b{color:var(--oro);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;padding-top:2px}
+
+/* ---------- secciones ---------- */
+section{padding:76px 0;border-bottom:1px solid var(--line)}
+.cab{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px 20px;margin-bottom:36px}
+.cab .n{font-family:var(--oswald);font-size:72px;line-height:.95;color:transparent;-webkit-text-stroke:1.5px var(--glow)}
+.cab h2{font-size:clamp(30px,4vw,48px);margin-bottom:10px}
+.cab p{color:var(--dim);font-size:16px;max-width:720px}
+.nota{font-size:13px;color:var(--dim);margin-top:14px;max-width:820px}
+.mono{font-family:var(--mono)}
+
+/* receta */
+.receta{list-style:none;border-top:1px solid var(--line)}
+.receta li{display:grid;grid-template-columns:84px minmax(0,1fr) 190px;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.receta .num{font-family:var(--oswald);font-size:60px;line-height:1;color:var(--glow)}
+.receta p{font-size:clamp(17px,1.7vw,21px);line-height:1.4}
+.receta img{width:100%;height:96px;object-fit:cover;border-radius:4px;cursor:zoom-in;background:var(--ink2)}
+.regla{margin-top:24px;font-family:var(--oswald);font-size:clamp(20px,2.4vw,28px);line-height:1.25;color:var(--oro);text-transform:uppercase}
+
+/* paso a paso */
+.pasos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:18px}
+.grupo{background:var(--ink3);border:1px solid var(--line);border-radius:6px;padding:24px;display:flex;flex-direction:column;justify-content:center}
+.grupo .et{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--oro);margin-bottom:8px}
+.grupo h3{font-size:30px;margin-bottom:8px}
+.grupo p{color:var(--dim);font-size:15px}
+.paso{background:var(--ink2);border:1px solid var(--line);border-radius:6px;overflow:hidden;min-width:0}
+.cap{position:relative;cursor:zoom-in;background:#000;line-height:0}
+.cap img{width:100%}
+.mk{position:absolute;border:2px solid var(--glow);border-radius:4px;box-shadow:0 0 0 2px rgba(11,13,18,.7);pointer-events:none}
+.paso .txt{padding:14px 16px 18px;display:grid;grid-template-columns:34px minmax(0,1fr);gap:6px}
+.paso .txt>b{font-family:var(--oswald);font-size:26px;line-height:1.1;color:var(--glow);font-weight:500}
+.paso .txt p{font-size:15px}
+.paso .txt p+p{margin-top:8px}
+.paso .sub{color:var(--dim);font-size:14px}
+.tilde{margin-top:10px;padding:10px 12px;border-left:3px solid var(--oro);background:rgba(232,194,122,.08);font-size:14px}
+.tilde b{color:var(--oro)}
+
+/* instrucciones: imitan el panel de Flow */
+.dos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.instr{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.instr .fila{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.instr .llave{width:28px;height:16px;border-radius:9px;background:var(--dim);position:relative;flex:none}
+.instr .llave::after{content:"";position:absolute;right:2px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.instr h3{font-family:var(--inter);font-size:16px;font-weight:600;text-transform:none;letter-spacing:0;flex:1 1 150px;min-width:0}
+.instr .cuerpo{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px}
+.instr .ref{cursor:zoom-in}
+.instr .ref img{width:84px;height:84px;object-fit:cover;object-position:top;border-radius:4px}
+.instr .ref span{display:block;font-family:var(--mono);font-size:10px;line-height:1.3;color:var(--oro);margin-top:5px}
+pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12.5px;line-height:1.55;color:#D9D6CF}
+.caja-pre{background:#07080C;border:1px solid var(--line);border-radius:4px;padding:12px;min-width:0}
+.ph{color:var(--glow)}
+.copiar{background:var(--naranja);color:var(--cream);border:0;border-radius:3px;padding:7px 12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.copiar.sec{background:transparent;border:1px solid var(--line)}
+.copiar.ok{background:var(--verde);color:var(--ink);border-color:var(--verde)}
+.acciones{display:flex;justify-content:flex-end;gap:8px;margin-top:10px;flex-wrap:wrap}
+.bloque{margin-top:30px}
+.bloque>h3{font-size:22px;margin-bottom:6px}
+.bloque>p{color:var(--dim);font-size:14px;margin-bottom:14px;max-width:760px}
+.plantilla .instr{border:1px dashed rgba(232,194,122,.55);background:transparent}
+.sello{display:inline-block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);background:var(--oro);padding:3px 8px;border-radius:3px;margin-bottom:8px}
+
+/* pruebas */
+.pestanas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:18px}
+.pestanas button{background:var(--ink2);border:0;border-right:1px solid var(--line);padding:14px;text-align:left;min-width:0}
+.pestanas button:last-child{border-right:0}
+.pestanas button small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--oro);margin-bottom:3px}
+.pestanas button span{font-family:var(--oswald);font-size:18px;line-height:1.15;text-transform:uppercase;display:block}
+.pestanas button[aria-selected=true]{background:var(--cream);color:var(--ink)}
+.pestanas button[aria-selected=true] small{color:var(--naranja)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chip{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:3px;border:1px solid var(--line);color:var(--dim)}
+.chip.si{border-color:rgba(123,216,143,.5);color:var(--verde)}
+.chip.cam{border-color:rgba(242,106,46,.6);color:var(--glow)}
+.grilla{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fot{cursor:zoom-in;min-width:0}
+.fot img{width:100%;aspect-ratio:1376/768;object-fit:cover;border-radius:3px;background:var(--ink2)}
+.fot figcaption{font-size:12px;line-height:1.35;padding:6px 1px 4px}
+.fot figcaption b{font-family:var(--mono);font-size:10px;font-weight:400;color:var(--oro);display:block;text-transform:uppercase;letter-spacing:.04em}
+.fot figcaption em{font-style:normal;color:var(--rojo)}
+.balance{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.bal{padding:14px 16px;border-radius:4px;font-size:14px;min-width:0}
+.bal h4{font-family:var(--mono);font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.bal.bien{background:rgba(123,216,143,.07);border-left:3px solid var(--verde)}.bal.bien h4{color:var(--verde)}
+.bal.mal{background:rgba(255,90,79,.07);border-left:3px solid var(--rojo)}.bal.mal h4{color:var(--rojo)}
+.limite{font-size:13px;color:var(--dim);margin-top:12px}
+.limite b{color:var(--cream)}
+
+/* comparación */
+.cortos{margin-bottom:34px}
+.segm{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.segm button{background:transparent;border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:999px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.segm button[aria-selected=true]{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.medidas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
+.medidas div{background:var(--ink2);padding:14px 16px;font-family:var(--mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.medidas b{display:block;font-family:var(--oswald);font-size:30px;line-height:1.1;font-weight:500;color:var(--cream)}
+.reglas{list-style:none;margin-bottom:34px;font-size:14px;color:var(--dim)}
+.reglas li{padding:7px 0 7px 16px;border-left:2px solid var(--oro);margin-bottom:6px}
+.reglas b{color:var(--cream)}
+.selplano{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-bottom:16px}
+.selplano button{background:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:8px 9px;text-align:left;min-width:0}
+.selplano b{display:block;font-family:var(--oswald);font-size:30px;line-height:1;color:var(--glow);font-weight:500}
+.selplano span{display:block;font-size:11px;line-height:1.25;color:var(--dim);margin-top:4px}
+.selplano button[aria-selected=true]{background:var(--cream);border-color:var(--cream)}
+.selplano button[aria-selected=true] b{color:var(--naranja)}
+.selplano button[aria-selected=true] span{color:var(--ink)}
+.barra-plano{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.barra-plano h3{font-size:24px}
+.tomas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.toma{background:var(--ink2);border:1px solid var(--line);border-radius:6px;overflow:hidden;min-width:0}
+.toma video{width:100%;aspect-ratio:16/9;background:#000}
+.toma .d{padding:10px 12px 14px}
+.toma h4{font-family:var(--oswald);font-size:17px;font-weight:500;text-transform:uppercase;letter-spacing:.01em}
+.toma .m{font-family:var(--mono);font-size:10px;color:var(--oro);margin-bottom:7px}
+.toma p{font-size:13.5px;line-height:1.45}
+.toma p.mal::before{content:"Falló · ";color:var(--rojo);font-family:var(--mono);font-size:10px;text-transform:uppercase}
+.toma p.bien::before{content:"Aguantó · ";color:var(--verde);font-family:var(--mono);font-size:10px;text-transform:uppercase}
+.toma p.neu{color:var(--dim)}
+.toma p+p{margin-top:5px}
+
+/* prompts */
+.prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.pr{background:var(--ink2);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.pr .top{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;margin-bottom:10px}
+.pr .top img{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:3px}
+.pr h3{font-size:18px;margin-bottom:5px}
+.alerta{margin-top:10px;font-size:13px;padding:9px 11px;border-left:3px solid var(--oro);background:rgba(232,194,122,.08)}
+
+/* precios */
+.precio{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px;align-items:start}
+.tabla{border:1px solid var(--line);border-radius:6px;background:var(--ink2);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--oro);font-weight:400}
+td.c{font-family:var(--oswald);font-size:18px;line-height:1.2;white-space:nowrap}
+.gasto{margin-top:34px}
+.gasto .cifra{font-family:var(--oswald);font-size:clamp(46px,7vw,84px);line-height:1;margin-bottom:12px}
+.gasto .cifra small{font-size:.4em;color:var(--dim)}
+.bar{display:flex;height:44px;border-radius:4px;overflow:hidden;margin-bottom:10px}
+.bar div{display:flex;align-items:center;justify-content:center;font-family:var(--oswald);font-size:18px;color:var(--ink)}
+.ley{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;font-size:12.5px;line-height:1.35}
+.ley b{display:block;font-family:var(--oswald);font-size:20px;font-weight:500}
+.ley i{display:block;width:12px;height:12px;border-radius:2px;margin-bottom:5px}
+.capmini{margin-top:14px}
+.capmini .cap{border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.capmini p{font-size:12.5px;color:var(--dim);margin:6px 0 14px}
+
+footer{padding:34px 0 50px;color:var(--dim);font-size:13px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,6,9,.96);display:none;flex-direction:column;align-items:center;justify-content:center;padding:14px;gap:10px}
+.lb.on{display:flex}
+.lb img{max-height:84vh;max-width:100%;border-radius:4px;min-height:0}
+.lb p{font-family:var(--mono);font-size:12px;color:var(--cream);text-align:center;max-width:820px}
+.lb .ctl{display:flex;gap:8px}
+.lb button{background:var(--ink3);border:1px solid var(--line);border-radius:3px;padding:8px 14px;font-family:var(--mono);font-size:11px;text-transform:uppercase}
+
+@media (max-width:1100px){
+  .riel{position:sticky;top:0;bottom:auto;width:auto;flex-direction:row;align-items:center;gap:12px;padding:8px 14px;border-right:0;border-bottom:1px solid var(--line)}
+  .logo{font-size:15px}.logo b{display:inline}
+  .riel nav{flex-direction:row;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+  .riel nav::-webkit-scrollbar{display:none}
+  .riel a{border-left:0;border-bottom:2px solid transparent;padding:5px 7px;font-size:12px}
+  .riel a.on{border-bottom-color:var(--glow);background:transparent}
+  .riel small{display:none}
+  main,footer{margin-left:0}
+  html{scroll-padding-top:56px}
+  .caja{padding:0 24px}
+}
+@media (max-width:820px){
+  .caja{padding:0 16px}
+  .hero{padding:24px 0 36px}
+  .hero .caja{grid-template-columns:minmax(0,1fr);gap:20px}
+  .hero h1{font-size:clamp(32px,9vw,46px)}
+  section{padding:52px 0}
+  .cab{grid-template-columns:minmax(0,1fr)}
+  .cab .n{font-size:46px}
+  .receta li{grid-template-columns:44px minmax(0,1fr);gap:10px 12px}
+  .receta .num{font-size:40px}
+  .receta img{grid-column:2;height:auto;aspect-ratio:16/9}
+  .pasos,.dos,.prompts,.precio,.balance{grid-template-columns:minmax(0,1fr)}
+  .pestanas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pestanas button:nth-child(2){border-right:0}
+  .pestanas button:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grilla{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .selplano{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tomas{grid-template-columns:minmax(0,1fr)}
+  .medidas div{padding:10px}
+  .medidas b{font-size:24px}
+  .medidas div{font-size:10px}
+  .ley{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aviso{grid-template-columns:minmax(0,1fr);gap:4px}
+  th,td{padding:9px 8px}
+}
+@media (max-width:520px){
+  .instr .cuerpo{grid-template-columns:minmax(0,1fr)}
+  .instr .ref{display:flex;align-items:center;gap:10px}
+  .instr .ref img{width:56px;height:56px}
+  .instr .ref span{margin-top:0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<aside class="riel">
+  <div class="logo">PROMPT <b>FLOW</b></div>
+  <nav aria-label="Secciones">
+    <a href="#receta"><i>01</i>La receta</a>
+    <a href="#pasos"><i>02</i>Paso a paso</a>
+    <a href="#copiar"><i>03</i>Para copiar</a>
+    <a href="#pruebas"><i>04</i>Las 4 pruebas</a>
+    <a href="#video"><i>05</i>Video por plano</a>
+    <a href="#prompts"><i>06</i>Prompts</a>
+    <a href="#precios"><i>07</i>Precios y costo</a>
+  </nav>
+  <small>Una sola corrida por prueba. Es un ejemplo, no una medición.</small>
+</aside>
+
+<main>
+
+<div class="hero">
+  <div class="caja">
+    <div>
+      <p class="ante">Clase SEN6 · Flow vs. Kling · La relojera</p>
+      <h1><em>Personajes</em> mantiene a la persona. Una <u>imagen de referencia</u> mantiene al lugar.</h1>
+    </div>
+    <div class="monitor">
+      <video id="heroV" src="clips/corto-flow.mp4" poster="img/pv-corto-flow.jpg" controls muted loop playsinline preload="metadata"></video>
+      <div class="pie">El corto hecho con Flow · 25,5 s · activá el sonido en el reproductor</div>
+    </div>
+    <div class="aviso"><b>Aclaración</b><span>Cada camino y cada prueba se hicieron una sola vez, con una automatización, en modo rápido. Es una comparación de ejemplo, no una medición científica. Vos lo podés hacer a mano en la web de Flow, con los mismos botones.</span></div>
+  </div>
+</div>
+
+<!-- 01 RECETA -->
+<section id="receta"><div class="caja">
+  <div class="cab"><div class="n">01</div><div><h2>La receta completa</h2><p>Cinco pasos, en este orden.</p></div></div>
+  <ol class="receta">
+    <li><span class="num">1</span><p>Cargá a tu protagonista en Personajes, con una foto clara, y ponele nombre.</p><img src="img/24-personaje-foto-y-nombre.jpg" alt="Ficha de Inés en Personajes, con foto y nombre" loading="lazy" data-lb data-cap="Personajes: foto y nombre"></li>
+    <li><span class="num">2</span><p>Creá una instrucción para el personaje, con su referencia.</p><img src="img/23-instrucciones-con-titulos.jpg" alt="Panel de instrucciones del agente" loading="lazy" style="object-position:right top" data-lb data-cap="Instrucciones del agente"></li>
+    <li><span class="num">3</span><p>Creá otra para el lugar, con una imagen del lugar como referencia.</p><img src="img/taller-master.jpg" alt="Imagen del taller usada como referencia" loading="lazy" data-lb data-cap="La imagen del taller usada como referencia"></li>
+    <li><span class="num">4</span><p>Generá tus fotogramas y revisalos uno por uno.</p><img src="img/u5.jpg" alt="Fotograma de Inés en el taller" loading="lazy" data-lb data-cap="Un fotograma de la prueba con una foto, ficha y 2 instrucciones"></li>
+    <li><span class="num">5</span><p>Pasá a video usando esos fotogramas como fotograma inicial, en clips cortos, con el prompt completo y aclarándole al agente que no lo acorte.</p><img src="img/pv-o4.jpg" alt="Cuadro del clip de la pared de relojes" loading="lazy" data-lb data-cap="Cuadro del clip de los péndulos con Omni 1.1 Flash"></li>
+  </ol>
+  <p class="regla">Mirá cada resultado como lo miraría el espectador. Si algo te hace dudar, a él también.</p>
+</div></section>
+
+<!-- 02 PASO A PASO -->
+<section id="pasos"><div class="caja">
+  <div class="cab"><div class="n">02</div><div><h2>Personajes e Instrucciones, en Flow</h2><p>Capturas reales. Tocá cualquiera para verla en grande.</p></div></div>
+  <div class="pasos" id="pasosA"></div>
+  <div class="pasos" id="pasosB"></div>
+</div></section>
+
+<!-- 03 COPIAR -->
+<section id="copiar"><div class="caja">
+  <div class="cab"><div class="n">03</div><div><h2>Las instrucciones, para copiar</h2><p>Estas son las que usé, con Inés y su taller. Cada una lleva su referencia al lado.</p></div></div>
+  <div class="dos" id="instrReales"></div>
+  <div class="bloque plantilla">
+    <span class="sello">Plantilla · no probada</span>
+    <h3>Para tu personaje y tu lugar</h3>
+    <p>Es la misma estructura con corchetes para que la adaptes. Esta versión no se probó: lo que se probó son las de arriba.</p>
+    <div class="dos" id="instrPlantilla"></div>
+  </div>
+  <div class="bloque">
+    <h3>El pedido al agente</h3>
+    <p>El mismo en todas las pruebas: una imagen por plano, y el lugar descrito con todo detalle.</p>
+    <div class="caja-pre"><pre id="pedido"></pre></div>
+    <div class="acciones"><button class="copiar" data-copiar="pedido">Copiar</button></div>
+  </div>
+</div></section>
+
+<!-- 04 PRUEBAS -->
+<section id="pruebas"><div class="caja">
+  <div class="cab"><div class="n">04</div><div><h2>Las 4 pruebas de fotogramas</h2><p>Mismo pedido al agente, con Nano Banana 2.1. Con mi plan, estas imágenes no descontaron créditos. Acá los fotogramas van siempre ordenados del plano 1 al 6, así comparás lugar por lugar al cambiar de pestaña.</p></div></div>
+  <div class="pestanas" role="tablist" id="tabsPrueba"></div>
+  <div class="chips" id="confPrueba"></div>
+  <div class="grilla" id="grillaPrueba"></div>
+  <div class="balance" id="balPrueba"></div>
+  <p class="limite" id="limPrueba"></p>
+  <p class="nota">Las pruebas no se corrieron en este orden: la de solo personaje fue la última. Acá van de menos a más para ver qué agrega cada herramienta. Ojo: entre la primera y la segunda también cambió la referencia (de una foto a la hoja de 4 vistas con ficha). Las instrucciones las redacté yo, y las pruebas corrieron con el texto y la referencia, pero sin título guardado. Estos fotogramas no se animaron.</p>
+</div></section>
+
+<!-- 05 VIDEO -->
+<section id="video"><div class="caja">
+  <div class="cab"><div class="n">05</div><div><h2>El video, plano por plano</h2><p>Una sola toma de cada plano por camino. Elegí un plano y mirá qué hizo cada uno.</p></div></div>
+  <div class="cortos">
+    <div class="segm" role="tablist" id="tabsCorto"></div>
+    <div class="monitor"><video id="vCorto" controls playsinline preload="none"></video><div class="pie" id="pieCorto"></div></div>
+  </div>
+  <div class="medidas"><div><b>5 s</b>Kling</div><div><b>8 s</b>Veo 3.1 Lite</div><div><b>4 s</b>Omni 1.1 Flash</div></div>
+  <ul class="reglas">
+    <li><b>Las duraciones son distintas.</b> Más duración es más tiempo para desviarse, así que no es una carrera pareja.</li>
+    <li><b>Los créditos de Higgsfield y los de Flow no son la misma moneda.</b> No compares esos números directamente.</li>
+    <li><b>Los fotogramas del corto no se hicieron en Flow.</b> Son los de la clase anterior, hechos en Higgsfield. Lo que se compara es la animación.</li>
+  </ul>
+  <div class="selplano" role="tablist" id="selPlano"></div>
+  <div class="barra-plano"><h3 id="tituloPlano"></h3><button class="copiar sec" id="playTodos">Reproducir todos juntos</button></div>
+  <div class="tomas" id="tomas"></div>
+</div></section>
+
+<!-- 06 PROMPTS -->
+<section id="prompts"><div class="caja">
+  <div class="cab"><div class="n">06</div><div><h2>Los prompts de movimiento</h2><p>Los de Prompt Camera, tal cual, los mismos que usé con Kling y con Flow a mano. En la segunda vuelta el agente los acortó sin avisar. Con la frase "no acortes los prompts", los respetó.</p></div></div>
+  <div class="prompts" id="listaPrompts"></div>
+</div></section>
+
+<!-- 07 PRECIOS -->
+<section id="precios"><div class="caja">
+  <div class="cab"><div class="n">07</div><div><h2>Precios de Flow Plus y costo real</h2><p>Lo que mostró mi cuenta en el plan Plus, el 30 de octubre de 2026: 250 créditos por mes.</p></div></div>
+  <div class="precio">
+    <div>
+      <div class="tabla"><table>
+        <thead><tr><th>Modelo</th><th>Clip</th><th>Créditos</th></tr></thead>
+        <tbody>
+          <tr><td>Nano Banana 2.1 (imagen)</td><td>—</td><td class="c">0</td></tr>
+          <tr><td>Veo 3.1 Lite</td><td>8 s, 720p</td><td class="c">10</td></tr>
+          <tr><td>Omni 1.1 Flash</td><td>4 s, 720p</td><td class="c">7</td></tr>
+          <tr><td>Omni 1.1 Flash</td><td>8 s, 720p</td><td class="c">12</td></tr>
+          <tr><td>Veo 3.1 Fast</td><td>8 s, 720p</td><td class="c">20</td></tr>
+          <tr><td>Veo 3.1 Quality</td><td>8 s, 720p</td><td class="c">100</td></tr>
+        </tbody>
+      </table></div>
+      <p class="nota">El 0 de las imágenes es lo que vi con mi plan. Omni deja elegir 4, 6, 8 o 10 s y 360p o 720p. Descarga: 270p GIF, 720p original, 1080p reescalado; 4K pide actualizar el plan.</p>
+      <p class="nota"><b style="color:var(--cream)">Mi primer error:</b> Flow me había quedado en Veo Quality. Lo vi antes de generar, pero seis clips eran 600 créditos. Antes de cada lote, mirá qué modelo está elegido.</p>
+    </div>
+    <div class="capmini">
+      <div class="cap" data-lb data-src="img/02-imagen-0-creditos.jpg" data-cap="Nano Banana 2.1: la generación usará 0 créditos"><img src="img/02-imagen-0-creditos.jpg" alt="Selector de imagen con 0 créditos" loading="lazy"><span class="mk" style="left:50.2%;top:90%;width:8%;height:1.8%"></span></div>
+      <p>La imagen con Nano Banana 2.1 marcaba 0 créditos.</p>
+      <div class="cap" data-lb data-src="img/04-modelos-video.jpg" data-cap="Selector de modelos de video. Los 24 créditos son por x2: dos clips, no el precio por clip"><img src="img/04-modelos-video.jpg" alt="Selector de modelos de video" loading="lazy"><span class="mk" style="left:48.3%;top:62.8%;width:11.8%;height:13.4%"></span></div>
+      <p>Si ves 24 créditos como acá, es porque está en x2: son dos clips de Omni de 8 s.</p>
+    </div>
+  </div>
+  <div class="gasto">
+    <div class="cifra">208 <small>de 250 créditos</small></div>
+    <div class="bar" role="img" aria-label="60 a mano, 60 agente sin guía, 60 agente guiado, 28 Omni, 42 sin usar">
+      <div style="width:24%;background:var(--oro)">60</div>
+      <div style="width:24%;background:var(--glow)">60</div>
+      <div style="width:24%;background:var(--terra)">60</div>
+      <div style="width:11.2%;background:var(--azul)">28</div>
+      <div style="width:16.8%;background:var(--ink3);color:var(--dim)">42</div>
+    </div>
+    <div class="ley">
+      <div><i style="background:var(--oro)"></i><b>60</b>Flow a mano, 6 clips de Veo Lite</div>
+      <div><i style="background:var(--glow)"></i><b>60</b>Agente sin guía, 6 clips de Veo Lite</div>
+      <div><i style="background:var(--terra)"></i><b>60</b>Agente guiado, 6 clips de Veo Lite</div>
+      <div><i style="background:var(--azul)"></i><b>28</b>Agente con Omni, 4 clips de 4 s</div>
+      <div><i style="background:var(--ink3);border:1px solid var(--line)"></i><b>42</b>Quedaron disponibles</div>
+    </div>
+    <p class="nota">60 + 60 + 60 + 28 = 208. El saldo en pantalla después de las 4 pruebas de imagen fue 42: coincide con 250 − 208, o sea que las imágenes no descontaron nada. Los créditos se restablecen el 27 de noviembre. El banner hablaba de "+50 diarios", pero el saldo no los reflejó.</p>
+  </div>
+</div></section>
+
+</main>
+
+<footer><div class="caja">Prompt Flow · SEN6 · La web de la clase "Flow vs. Kling"</div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+  <img alt="" id="lbImg">
+  <p id="lbCap"></p>
+  <div class="ctl"><button id="lbPrev">Anterior</button><button id="lbNext">Siguiente</button><button id="lbX">Cerrar</button></div>
+</div>
+
+<script>
+/* ===== DATOS ===== */
+var PVID = [{"n":1,"t":"General · master","cam":"slow push-in, dolly in","pVid":"slow push-in, dolly in toward the woman working at the workbench. She stays bent over the open pocket watch, small precise hand movements with tweezers. Rain streams down the arched window, the green lamp glows steadily, pendulums of the wall clocks swing gently. Sound: steady rain on glass, many clocks ticking out of sync, faint metallic clicks of tweezers. No music."},{"n":2,"t":"Detalle · la mano","cam":"static shot, locked-off camera","pVid":"static shot, locked-off camera, macro. The ink-stained hand slowly lowers the tiny brass gear with the tweezers and seats it precisely into the open pocket watch movement; the balance wheel starts to oscillate and the tiny gears begin turning. Sound: delicate metallic click, soft ticking of the pocket watch, distant rain. No music."},{"n":3,"t":"Primer plano · el monóculo","cam":"very slow zoom in","pVid":"very slow zoom in on her face. She adjusts the brass monocle loupe on her forehead with her fingertips, keeps it resting on her forehead, lowers her hand and looks down toward her work with quiet concentration, a slow breath. Rain drops run down the window behind her. Sound: rain on glass, clocks ticking in the background, a soft exhale. No music."},{"n":4,"t":"La pared de relojes","cam":"static shot, locked-off camera","pVid":"static shot, locked-off camera. Timeline: from 0 to 2 seconds every brass pendulum on the wall swings left and right clearly and rhythmically. At exactly 2 seconds ALL the pendulums stop abruptly at the same instant, hanging perfectly still and vertical at the bottom of their arc, and every clock's second hand stops. From 2 to 5 seconds the clocks are completely motionless; only the cold blue rain-streak shadows keep sliding slowly down the wall. Sound: dozens of clocks ticking loudly, then sudden total silence of the clocks, only soft rain remains. No music."},{"n":5,"t":"Primer plano · la sorpresa","cam":"dolly zoom, Hitchcock vertigo effect","pVid":"dolly zoom, Hitchcock vertigo effect: the camera dollies in while zooming out, her face stays the same size while the background with the out-of-focus clocks stretches away behind her. She stays frozen looking over her shoulder, eyes wide, holding her breath. Sound: deep silence, only rain, a low tense hum rising. No music."},{"n":6,"t":"Contraplano · el final","cam":"pull-out, dolly out reveal","pVid":"pull-out, dolly out reveal: the camera slowly moves back toward the door, the room grows around her. She stands still facing the silent wall of frozen clocks, slowly closes her hand around the tiny gold key on her necklace. Rain falls outside the windows, the green lamp glows. Sound: only rain on the windows, floorboards creak once. No music."}];
+
+var I_PERSONA = "Cuando aparezca Ines, usá siempre esta referencia y mantene exactamente la misma persona: misma cara, mismo rodete gris, mismo monóculo de un solo lente en la frente, mismo cárdigan verde y delantal de cuero. Copiá a la persona, no el fondo ni la luz de la referencia. Ubicala siempre en la escena pedida.";
+var I_LUGAR = "Todas las escenas pasan en el taller de esta referencia, siempre de noche con lluvia afuera: misma ventana arqueada a la izquierda de la mesa, misma pared de relojes a la derecha, misma puerta al fondo, misma lámpara verde como luz principal cálida, luz azul fría de la calle por la ventana. Misma paleta de color y misma luz en todas las imágenes. Nunca de día, nunca otra habitación.";
+var PEDIDO = "Generá 6 FOTOGRAMAS (solo imágenes fijas, nada de video) con Nano Banana 2.1, formato 16:9, una imagen por plano, usando a Ines como personaje. Todos pasan en el mismo lugar: un taller de relojes angosto del siglo XIX, de noche con lluvia, mesa de nogal bajo una ventana arqueada a la IZQUIERDA, lámpara de banquero verde como luz principal, pared DERECHA cubierta de relojes antiguos de péndulo, puerta de vidrio esmerilado al fondo. Plano 1: general, Ines sentada en la mesa reparando un reloj de bolsillo. Plano 2: detalle de su mano derecha con pinza colocando un engranaje en el reloj. Plano 3: primer plano de perfil, se acomoda el monóculo en la frente. Plano 4: la pared de relojes de frente, sin personas. Plano 5: primer plano, gira la cabeza sorprendida hacia los relojes. Plano 6: general desde la puerta, Ines de pie mirando la pared de relojes, con la mano sobre la llavecita del cuello.";
+
+var INSTR = [
+  {t:"Ines siempre igual",x:I_PERSONA,img:"img/ines-una-foto.jpg",ref:"Referencia: el personaje"},
+  {t:"El taller siempre igual",x:I_LUGAR,img:"img/taller-master.jpg",ref:"Referencia: imagen del taller"}
+];
+var PLANT = [
+  {t:"[NOMBRE] siempre igual",x:"Cuando aparezca [NOMBRE], usá siempre esta referencia y mantené exactamente la misma persona: misma cara, mismo [PEINADO], mismo [DETALLE QUE LA IDENTIFICA], mismo [VESTUARIO]. Copiá a la persona, no el fondo ni la luz de la referencia. Ubicala siempre en la escena pedida.",ref:"Referencia: tu personaje"},
+  {t:"[LUGAR] siempre igual",x:"Todas las escenas pasan en [LUGAR] de esta referencia, siempre [MOMENTO Y CLIMA]: [QUÉ HAY A LA IZQUIERDA], [QUÉ HAY A LA DERECHA], [QUÉ HAY AL FONDO], [LUZ PRINCIPAL], [OTRA LUZ]. Misma paleta de color y misma luz en todas las imágenes. Nunca [LO QUE NO QUERÉS], nunca otra habitación.",ref:"Referencia: imagen de tu lugar"}
+];
+
+function caja(l,t,w,h,W,H){return {l:l/W*100,t:t/H*100,w:w/W*100,h:h/H*100};}
+var PASOS_A = {et:"Parte A",tit:"Personajes",txt:"Sostiene a la persona. No se la describas cada vez: cargala como personaje y llamala por su nombre.",p:[
+  {n:1,img:"22-personajes-seccion",mk:[caja(11,118,140,32,1568,741),caja(163,101,162,164,1568,741)],h:"<p>Entrá a <b>Personajes</b> y tocá <b>Personaje nuevo</b>.</p>"},
+  {n:2,img:"18-personaje-nuevo",mk:[caja(356,423,112,16,941,445)],h:"<p>Tocá <b>Subir</b> y cargá una sola foto.</p><p class=\"sub\">Usé una foto clara, de cuerpo entero, sobre un fondo liso. Nada de hojas ni fichas.</p>"},
+  {n:3,img:"24-personaje-foto-y-nombre",mk:[caja(291,105,230,30,1568,741)],h:"<p>Ponele un <b>nombre</b>. Para esta prueba fue lo mínimo: foto y nombre.</p><p class=\"sub\">Información del personaje es un texto que el agente puede leer para crear las escenas. También hay un botón Crear cuerpo y podés elegir una voz. En esa prueba no toqué nada de eso.</p>"}
+]};
+var PASOS_B = {et:"Parte B",tit:"Instrucciones del agente",txt:"Una para la persona y otra para el lugar. Un texto describe, pero una imagen fija: \"ventana a la izquierda\" admite mil ventanas, la imagen deja una sola.",p:[
+  {n:4,img:"25-pedido-y-seis-fotogramas",mk:[caja(1473,688,24,24,1568,741)],h:"<p>Al lado del cuadro de texto hay un ícono: <b>Instrucciones del agente</b>.</p>"},
+  {n:5,img:"21-instrucciones-del-agente",mk:[caja(1157,86,398,26,1568,741)],h:"<p>Tocá <b>Agregar instrucción</b>. Cada una tiene un título, un texto y una casilla de referencia.</p>"},
+  {n:6,img:"23-instrucciones-con-titulos",mk:[caja(1157,80,398,88,1568,741),caja(1157,180,398,88,1568,741)],h:"<p>Creá las dos: la del personaje, con su referencia, y la del lugar, con una imagen del lugar.</p><div class=\"tilde\"><b>Confirmá el título con el tilde.</b> Si no, no se guarda: al volver a abrir el proyecto, mis títulos estaban vacíos. Escritos con el tilde, siguieron ahí al recargar.</div>"}
+]};
+
+var NOM = {1:"General en la mesa",2:"Detalle de la mano",3:"Perfil, el monóculo",4:"La pared de relojes",5:"La sorpresa",6:"General desde la puerta"};
+/* orden: plano 1 a 6 → archivo. La nota es la falla anotada de ese fotograma. */
+var PRUEBAS = [
+  {id:"s",k:"Prueba 1",t:"Solo personaje",
+   conf:[["Una foto + nombre",1],["Sin ficha",0],["Sin instrucción de persona",0],["Sin instrucción de lugar",0]],
+   f:{1:["s3","La ventana cambia de forma"],2:["s6",""],3:["s2","Dos lámparas; el monóculo, en la mano"],4:["s4","Pared de ladrillo"],5:["s5",""],6:["s1","Roperos de péndulo; puerta en primer plano con texto espejado"]},
+   bien:"Inés se reconoce en todas: la cara, el rodete, el cárdigan, el delantal.",
+   mal:"El lugar. Aunque el pedido describía el taller con detalle, cada imagen es un taller distinto: cambia la ventana, aparecen dos lámparas, ladrillo y roperos de péndulo.",
+   lim:"Lo que deja: la casilla Personajes sostiene a la persona; el lugar necesita su propia referencia. Una corrida, con foto limpia."},
+  {id:"g",k:"Prueba 2",t:"+ instrucción del personaje",
+   conf:[["Hoja de 4 vistas + ficha",1],["Instrucción de persona",1],["Sin instrucción de lugar",0]],
+   f:{1:["g1",""],2:["g2","Monóculo de doble lente"],3:["g3",""],4:["g4","Ladrillo verde"],5:["g5","Cuarto verde"],6:["g6","De día, con paredes blancas"]},
+   bien:"Inés parecida, no igual. La persona sigue siendo reconocible.",
+   mal:"El lugar se siguió rompiendo: un plano de día con paredes blancas y otro en un cuarto verde. El monóculo varía: sale de doble lente en el plano 2.",
+   lim:"Lo que deja: le di una referencia de la persona, pero no del lugar. Una corrida."},
+  {id:"h",k:"Prueba 3",t:"+ instrucción del lugar, con hoja",
+   conf:[["Hoja de 4 vistas + ficha",1],["Instrucción de persona",1],["Instrucción de lugar + imagen",1]],
+   f:{1:["h5",""],2:["h3",""],3:["h6","Se ve más vieja"],4:["h2",""],5:["h4","Se ve más vieja"],6:["h1","Monóculo apenas legible; puerta en primer plano con cartel espejado"]},
+   bien:"Taller, noche, ventana a la izquierda y relojes a la derecha se sostienen en los 6. Vestuario, rodete y monóculo de un lente, correctos.",
+   mal:"Inés se ve más vieja y arrugada que la referencia, sobre todo en los primeros planos. En el plano 6, monóculo apenas legible y una puerta en primer plano con el cartel espejado.",
+   lim:"Límites: una corrida, en el mismo proyecto que ya tenía las imágenes de la prueba anterior y la imagen del taller."},
+  {id:"u",k:"Prueba 4",t:"Una foto + ficha + 2 instrucciones",
+   conf:[["Una foto + ficha",1],["Instrucción de persona",1],["Instrucción de lugar + imagen",1],["Proyecto nuevo",1]],
+   f:{1:["u5",""],2:["u3","Monóculo bajado a la cara, cara oscura"],3:["u2","Se ve algo más vieja"],4:["u6",""],5:["u4","Se ve algo más vieja"],6:["u1","Monóculo poco legible"]},
+   bien:"Igual de consistente que la anterior, sin la puerta espejada. La foto única no rompió ni a Inés ni al taller. Generó en menos de 40 s y sin aprobación de créditos.",
+   mal:"Inés algo más vieja en los primeros planos, monóculo poco legible en el general y bajado a la cara en el detalle. Por eso revisá cada fotograma: queda reconocible, pero no te prometo que salga igual siempre.",
+   lim:"Límites: una corrida, con una foto limpia de cuerpo entero sobre fondo gris, y además la ficha escrita. Si tu foto es oscura o está cortada, puede costarle más."}
+];
+
+var CAM = {
+  c:{t:"Kling",m:"Fotograma inicial · Kling 3.0 · 5 s"},
+  k4:{t:"Kling 4.0",m:"Fotograma inicial · Kling 4.0 · 5 s · 16,25 créditos Higgsfield"},
+  k3:{t:"Kling 3.0",m:"Fotograma inicial · Kling 3.0 · 5 s"},
+  f:{t:"Flow a mano",m:"Fotograma inicial · prompt completo · Veo 3.1 Lite · 8 s"},
+  a:{t:"Agente sin guía",m:"Sin fotograma, solo hojas · Veo 3.1 Lite · 8 s"},
+  b:{t:"Agente guiado",m:"Fotograma inicial · prompt acortado · Veo 3.1 Lite · 8 s"},
+  o:{t:"Agente con Omni",m:"Prompt completo · Omni 1.1 Flash · 4 s · 7 créditos Flow"}
+};
+/* [cámara, archivo, [[clase, texto], ...]] */
+var COMPARA = {
+ 1:[["c","c1",[["bien","En el plano general no me inventó nada."]]],
+    ["f","f1",[["mal","Acercamiento mucho más fuerte que el pedido: termina en plano medio. Hacia el final no se ve el monóculo en la frente (quedó a confirmar a resolución completa)."],["bien","La cara se mantiene."]]],
+    ["a","a1",[["bien","Respeta bastante el taller y a Inés."]]],
+    ["b","b1",[["mal","Fundido fantasma desde ~2,7 s. Push-in muy fuerte y, a los 4 s, el monóculo se convierte en anteojos."],["neu","Por eso en el corto este clip queda recortado a 2,5 s."]]],
+    ["o","o1",[["mal","A los 2 s hace un fundido fantasma (doble exposición) a un plano más cerrado."],["neu","No entró al corto."]]]],
+ 2:[["c","c2",[["neu","Con el mismo fotograma, este plano simple quedó muy parejo con Flow."]]],
+    ["f","f2",[["bien","Bien, parecido a Kling."],["neu","La mano se aleja al final."]]],
+    ["a","a2",[["mal","La mano tiene un puño de camisa blanca y no tiene tinta: es otra persona."]]],
+    ["b","b2",[["bien","Al nivel de Kling. Chau mano ajena."]]]],
+ 3:[["c","c3",[["neu","Con el mismo fotograma, este plano simple quedó muy parejo con Flow."]]],
+    ["f","f3",[["bien","Muy bien: deja el monóculo en la frente y aguanta los 8 s."]]],
+    ["a","a3",[["mal","Se coló el fondo gris de la hoja: parece un estudio de fotos. El monóculo pasa a ser lentes dobles de joyero."]]],
+    ["b","b3",[["bien","Al nivel de Kling. Chau fondo gris."]]]],
+ 4:[["k3","c4-kling3",[["mal","Los péndulos no se frenan."]]],
+    ["k4","c4",[["bien","Se frenan, con los tiempos escritos en el prompt."]]],
+    ["f","f4",[["mal","Los péndulos no se frenan: medido cuadro por cuadro, el movimiento sube. Flow lo tituló \"Brass pendulums stop swinging\". Que el título lo diga no significa que pase."],["bien","La identidad del lugar se sostiene."]]],
+    ["a","a4",[["mal","En vez de la pared de relojes hizo un general del cuarto, y los péndulos no se frenan de forma clara."]]],
+    ["b","b4",[["mal","Los péndulos no se frenan: el movimiento sube a partir de 2,5 s. A los 8 s aparece lluvia cayendo sobre la pared, adentro del cuarto."]]],
+    ["o","o4",[["bien","Se balancean ~1,25 s y quedan quietos y verticales, comprobado cuadro por cuadro. El primero de Flow que lo logró en esta prueba."]]]],
+ 5:[["c","c5",[["neu","La bitácora no anota fallas en este clip."]]],
+    ["f","f5",[["bien","Aguanta los 8 s."],["neu","El fondo se deforma tipo vértigo a mitad del clip."]]],
+    ["a","a5",[["mal","Se coló el fondo gris de la hoja, y el monóculo pasa a ser lentes dobles o vincha con lupa."]]],
+    ["b","b5",[["mal","El dolly zoom se ve y deforma la ventana, pero termina de espaldas y se pierde la cara."]]],
+    ["o","o5",[["bien","Vértigo suave, mantiene la cara y el monóculo."]]]],
+ 6:[["c","c6",[["neu","La bitácora no anota fallas en este clip."]]],
+    ["f","f6",[["mal","Se da vuelta hacia cámara, el gesto de la llave no se ve claro y en el último cuadro desaparece: queda el banquito vacío."]]],
+    ["a","a6",[["mal","Inés queda de frente a cámara, no de espaldas mirando los relojes."],["bien","Respeta bastante el taller y a Inés."]]],
+    ["b","b6",[["mal","Camina hacia cámara y le aparece una linterna en la frente."]]],
+    ["o","o6",[["bien","Se queda en el lugar mirando los relojes, sin linterna."]]]]
+};
+var CORTOS = [
+  {t:"Lado a lado",src:"lado-a-lado",pie:"Kling a la izquierda, Flow a la derecha. Sin sonido."},
+  {t:"Corto Flow",src:"corto-flow",pie:"25,5 s: b1 (2,5 s) + b2 (5 s) + b3 (6 s) + o4 + o5 + o6 (4 s cada uno). Los planos 2 y 3 no se rehicieron con Omni."},
+  {t:"Corto Kling",src:"corto-kling",pie:"El corto de la clase anterior, con Kling 3.0 y Kling 4.0 en los péndulos."}
+];
+
+/* ===== RENDER ===== */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function marcar(s){return esc(s).replace(/\[[^\]]+\]/g,function(m){return '<span class="ph">'+m+'</span>';});}
+
+function pasoHTML(p){
+  var mk=p.mk.map(function(b){return '<span class="mk" style="left:'+b.l.toFixed(2)+'%;top:'+b.t.toFixed(2)+'%;width:'+b.w.toFixed(2)+'%;height:'+b.h.toFixed(2)+'%"></span>';}).join('');
+  return '<article class="paso"><div class="cap" data-lb data-src="img/'+p.img+'.jpg" data-cap="Paso '+p.n+'"><img src="img/'+p.img+'.jpg" alt="Captura de Flow del paso '+p.n+'" loading="lazy">'+mk+'</div><div class="txt"><b>'+p.n+'</b><div>'+p.h+'</div></div></article>';
+}
+function grupoHTML(g){return '<div class="grupo"><span class="et">'+g.et+'</span><h3>'+g.tit+'</h3><p>'+esc(g.txt)+'</p></div>'+g.p.map(pasoHTML).join('');}
+$('pasosA').innerHTML=grupoHTML(PASOS_A);
+$('pasosB').innerHTML=grupoHTML(PASOS_B);
+
+var uid=0;
+function instrHTML(i){
+  var a='t'+(uid++),b='t'+(uid++);
+  var ref=i.img?'<div class="ref" data-lb data-src="'+i.img+'" data-cap="'+esc(i.ref)+'"><img src="'+i.img+'" alt="'+esc(i.ref)+'" loading="lazy"><span>'+esc(i.ref)+'</span></div>':'<div class="ref" style="cursor:default"><span>'+esc(i.ref)+'</span></div>';
+  return '<article class="instr"><div class="fila"><span class="llave" aria-hidden="true"></span><h3 id="'+a+'">'+marcar(i.t)+'</h3></div><div class="cuerpo">'+ref+'<div class="caja-pre"><pre id="'+b+'">'+marcar(i.x)+'</pre></div></div><div class="acciones"><button class="copiar sec" data-copiar="'+a+'">Copiar título</button><button class="copiar" data-copiar="'+b+'">Copiar</button></div></article>';
+}
+$('instrReales').innerHTML=INSTR.map(instrHTML).join('');
+$('instrPlantilla').innerHTML=PLANT.map(instrHTML).join('');
+$('pedido').textContent=PEDIDO;
+
+/* pruebas */
+$('tabsPrueba').innerHTML=PRUEBAS.map(function(p,i){return '<button role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'"><small>'+p.k+'</small><span>'+esc(p.t)+'</span></button>';}).join('');
+function pintarPrueba(i){
+  var p=PRUEBAS[i];
+  [].forEach.call($('tabsPrueba').children,function(b,j){b.setAttribute('aria-selected',j===i);});
+  $('confPrueba').innerHTML=p.conf.map(function(c){return '<span class="chip'+(c[1]?' si':'')+'">'+esc(c[0])+'</span>';}).join('');
+  $('grillaPrueba').innerHTML=[1,2,3,4,5,6].map(function(n){
+    var f=p.f[n],src='img/'+f[0]+'.jpg',cap='Plano '+n+' · '+NOM[n]+(f[1]?' · '+f[1]:'');
+    return '<figure class="fot" data-lb data-src="'+src+'" data-cap="'+esc(cap)+'"><img src="'+src+'" alt="'+esc(cap)+'" loading="lazy"><figcaption><b>Plano '+n+' · '+esc(NOM[n])+'</b>'+(f[1]?'<em>'+esc(f[1])+'</em>':'')+'</figcaption></figure>';
+  }).join('');
+  $('balPrueba').innerHTML='<div class="bal bien"><h4>Qué se sostuvo</h4>'+esc(p.bien)+'</div><div class="bal mal"><h4>Qué falló</h4>'+esc(p.mal)+'</div>';
+  $('limPrueba').textContent=p.lim;
+}
+$('tabsPrueba').addEventListener('click',function(e){var b=e.target.closest('button');if(b)pintarPrueba(+b.dataset.i);});
+pintarPrueba(0);
+
+/* cortos */
+$('tabsCorto').innerHTML=CORTOS.map(function(c,i){return '<button role="tab" data-i="'+i+'">'+esc(c.t)+'</button>';}).join('');
+function pintarCorto(i){
+  var c=CORTOS[i],v=$('vCorto');
+  [].forEach.call($('tabsCorto').children,function(b,j){b.setAttribute('aria-selected',j===i);});
+  v.pause();v.poster='img/pv-'+c.src+'.jpg';v.src='clips/'+c.src+'.mp4';
+  $('pieCorto').textContent=c.pie;
+}
+$('tabsCorto').addEventListener('click',function(e){var b=e.target.closest('button');if(b)pintarCorto(+b.dataset.i);});
+pintarCorto(0);
+
+/* comparación por plano */
+$('selPlano').innerHTML=[1,2,3,4,5,6].map(function(n){return '<button role="tab" data-n="'+n+'"><b>'+n+'</b><span>'+esc(NOM[n])+'</span></button>';}).join('');
+function pintarPlano(n){
+  [].forEach.call($('selPlano').children,function(b){b.setAttribute('aria-selected',+b.dataset.n===n);});
+  $('tituloPlano').textContent='Plano '+n+' · '+NOM[n];
+  [].forEach.call($('tomas').querySelectorAll('video'),function(v){v.pause();});
+  $('tomas').innerHTML=COMPARA[n].map(function(t){
+    var c=CAM[t[0]];
+    return '<article class="toma"><video src="clips/'+t[1]+'.mp4" poster="img/pv-'+t[1]+'.jpg" controls muted playsinline preload="none"></video><div class="d"><h4>'+esc(c.t)+'</h4><div class="m">'+esc(c.m)+'</div>'+t[2].map(function(x){return '<p class="'+x[0]+'">'+esc(x[1])+'</p>';}).join('')+'</div></article>';
+  }).join('');
+}
+$('selPlano').addEventListener('click',function(e){var b=e.target.closest('button');if(b)pintarPlano(+b.dataset.n);});
+pintarPlano(1);
+$('playTodos').addEventListener('click',function(){
+  [].forEach.call($('tomas').querySelectorAll('video'),function(v){try{v.currentTime=0;}catch(e){}var p=v.play();if(p&&p.catch)p.catch(function(){});});
+});
+
+/* prompts */
+$('listaPrompts').innerHTML=PVID.map(function(p){
+  var id='pv'+p.n;
+  var alerta=p.n===4?'<div class="alerta"><b>Flow a mano usó este plano con la línea de tiempo adaptada a 8 s.</b> Este texto es el original, con el tramo final hasta los 5 s: si tu clip dura otra cosa, ajustá esos tiempos.</div>':'';
+  return '<article class="pr"><div class="top"><img src="img/pv-c'+p.n+'.jpg" alt="" loading="lazy"><div><h3>'+p.n+' · '+esc(p.t)+'</h3><span class="chip cam">'+esc(p.cam)+'</span></div></div><div class="caja-pre"><pre id="'+id+'">'+esc(p.pVid)+'</pre></div>'+alerta+'<div class="acciones"><button class="copiar" data-copiar="'+id+'">Copiar</button></div></article>';
+}).join('');
+
+/* copiar: file:// no es contexto seguro, por eso el plan B */
+function copiarViejo(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();var r=false;try{r=document.execCommand('copy');}catch(e){}a.remove();return r;}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-copiar]');if(!b)return;
+  var t=$(b.dataset.copiar).textContent,orig=b.dataset.orig||(b.dataset.orig=b.textContent);
+  var ok=function(){b.textContent='Copiado';b.classList.add('ok');setTimeout(function(){b.textContent=orig;b.classList.remove('ok');},1600);};
+  var mal=function(){b.textContent='Seleccioná y copiá';setTimeout(function(){b.textContent=orig;},2200);};
+  var viejo=function(){copiarViejo(t)?ok():mal();};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,viejo);}else{viejo();}
+});
+
+/* lightbox con anterior y siguiente */
+var lb=$('lb'),lista=[],pos=0;
+function verLb(){var el=lista[pos];$('lbImg').src=el.dataset.src||el.getAttribute('src');$('lbImg').alt=el.dataset.cap||'';$('lbCap').textContent=el.dataset.cap||'';}
+document.addEventListener('click',function(e){
+  var f=e.target.closest('[data-lb]');if(!f)return;
+  lista=[].slice.call((f.closest('.grilla,.pasos,.receta,.capmini,.dos')||document).querySelectorAll('[data-lb]'));
+  pos=Math.max(0,lista.indexOf(f));verLb();lb.classList.add('on');$('lbX').focus();
+});
+function mover(d){pos=(pos+d+lista.length)%lista.length;verLb();}
+$('lbPrev').addEventListener('click',function(){mover(-1);});
+$('lbNext').addEventListener('click',function(){mover(1);});
+$('lbX').addEventListener('click',function(){lb.classList.remove('on');});
+lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('on');});
+document.addEventListener('keydown',function(e){
+  if(!lb.classList.contains('on'))return;
+  if(e.key==='Escape')lb.classList.remove('on');
+  if(e.key==='ArrowRight')mover(1);
+  if(e.key==='ArrowLeft')mover(-1);
+});
+
+/* riel activo */
+var enl=[].slice.call(document.querySelectorAll('.riel a'));
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){enl.forEach(function(a){var on=a.getAttribute('href')==='#'+en.target.id;a.classList.toggle('on',on);if(on&&window.innerWidth<=1100){var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-20;}});}});},{rootMargin:'-40% 0px -55% 0px'});
+  [].forEach.call(document.querySelectorAll('section[id]'),function(s){io.observe(s);});
+}
+
+/* el corto del hero arranca solo, sin sonido, salvo movimiento reducido */
+if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)){var hv=$('heroV').play();if(hv&&hv.catch)hv.catch(function(){});}
+</script>
+</body>
+</html>

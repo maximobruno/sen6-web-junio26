@@ -88,3 +88,8 @@
   for = "/prompt-cast-d69977c4/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-flow-f98d7443/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
