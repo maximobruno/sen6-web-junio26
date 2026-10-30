@@ -83,3 +83,8 @@
   for = "/edita-c96796d4/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/prompt-cast-d69977c4/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

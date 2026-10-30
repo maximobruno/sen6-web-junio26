@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prompt Cast · Contact sheets para cine con IA · SEN6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D12;--ink2:#12161F;--ink3:#181D28;--cream:#F5F3EF;--dim:rgba(245,243,239,.68);--line:rgba(245,243,239,.14);
+  --naranja:#D4450A;--glow:#F26A2E;--oro:#E8C27A;--terra:#C8502A;--verde:#7BD88F;--rojo:#ff5a4f;--azul:#6FA8DC;
+  --oswald:'Oswald',Impact,sans-serif;--inter:'Inter',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--inter);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:var(--glow)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--mono)}
+h1,h2,h3{font-family:var(--oswald);font-weight:600;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+
+/* ---------- barra superior: claqueta ---------- */
+.claqueta{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.claqueta .franja{height:7px;background:repeating-linear-gradient(-45deg,var(--cream) 0 14px,var(--ink) 14px 28px);opacity:.9}
+.claqueta nav{display:flex;align-items:center;gap:6px;overflow-x:auto;padding:10px 20px;max-width:1180px;margin:0 auto;scrollbar-width:none}
+.claqueta nav::-webkit-scrollbar{display:none}
+.claqueta .marca{font-family:var(--oswald);font-size:18px;letter-spacing:.06em;margin-right:14px;white-space:nowrap}
+.claqueta .marca b{color:var(--glow)}
+.claqueta a.tab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);text-decoration:none;padding:6px 10px;border:1px solid transparent;border-radius:3px;white-space:nowrap}
+.claqueta a.tab:hover,.claqueta a.tab.on{color:var(--cream);border-color:var(--line)}
+.claqueta a.tab i{font-style:normal;color:var(--oro);margin-right:5px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,18,.2) 0%,rgba(11,13,18,.35) 45%,var(--ink) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:56px;width:100%}
+.hero .escena{font-family:var(--mono);font-size:12px;color:var(--oro);letter-spacing:.14em;text-transform:uppercase;display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.hero h1{font-size:clamp(46px,9vw,118px);font-weight:700;max-width:11ch}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero p.baja{font-size:clamp(17px,2vw,21px);color:var(--dim);max-width:640px;margin-top:18px}
+.aviso{margin-top:24px;display:inline-flex;gap:12px;align-items:flex-start;max-width:660px;padding:14px 16px;border:1px dashed rgba(232,194,122,.5);border-radius:6px;background:rgba(11,13,18,.6);font-size:14px;color:var(--cream)}
+.aviso b{color:var(--oro);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;padding-top:2px}
+
+/* ---------- secciones ---------- */
+section{padding:88px 0;border-bottom:1px solid var(--line)}
+.rotulo{display:flex;align-items:baseline;gap:14px;margin-bottom:10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--oro)}
+.rotulo .n{color:var(--glow);font-size:13px}
+section h2{font-size:clamp(34px,5vw,58px);margin-bottom:14px}
+section .intro{color:var(--dim);font-size:17px;max-width:720px;margin-bottom:40px}
+
+/* método: tira de película */
+.tira{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tira div{background:var(--ink2);padding:20px 18px 22px;position:relative}
+.tira div .k{font-family:var(--mono);font-size:11px;color:var(--glow)}
+.tira div h3{font-size:19px;margin:6px 0 8px}
+.tira div p{font-size:14px;color:var(--dim)}
+
+/* hojas: tablero */
+.selector{display:flex;gap:8px;margin-bottom:26px;flex-wrap:wrap}
+.selector button{background:transparent;border:1px solid var(--line);color:var(--dim);padding:9px 16px;border-radius:999px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.selector button.on{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.hoja{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;padding:26px;background:var(--ink2);border:1px solid var(--line);border-radius:8px;margin-bottom:22px}
+.hoja figure{position:relative;cursor:zoom-in}
+.hoja figure img{border-radius:4px;width:100%}
+.hoja figure figcaption{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:11px;background:rgba(11,13,18,.82);padding:4px 8px;border-radius:3px;color:var(--oro)}
+.hoja h3{font-size:28px;margin-bottom:6px}
+.hoja .para{color:var(--cream);margin-bottom:14px}
+.ficha-tec{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--mono);font-size:12px;margin-bottom:16px;padding:12px 14px;border:1px solid var(--line);border-radius:4px}
+.ficha-tec dt{color:var(--dim)}
+.ficha-tec dd{color:var(--cream)}
+.error{border-left:3px solid var(--rojo);padding:10px 14px;background:rgba(255,90,79,.07);font-size:14px;margin-top:14px;border-radius:0 4px 4px 0}
+.error b{color:var(--rojo);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:4px}
+.prompt{position:relative;margin-top:12px}
+.prompt pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12px;line-height:1.55;background:#07080C;border:1px solid var(--line);border-radius:4px;padding:14px 14px 44px;color:#D9D6CF;max-height:240px;overflow:auto}
+.prompt pre .ph{color:var(--glow)}
+.copiar{position:absolute;right:8px;bottom:8px;background:var(--naranja);color:var(--cream);border:0;border-radius:3px;padding:6px 12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.copiar.ok{background:var(--verde);color:var(--ink)}
+
+/* constructor ADN */
+.adn{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.adn form{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;align-content:start}
+.adn label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+.adn label.full{grid-column:1/-1}
+.adn input,.adn select{background:var(--ink2);border:1px solid var(--line);color:var(--cream);border-radius:4px;padding:10px 11px;font-family:var(--inter);font-size:14px;text-transform:none;letter-spacing:0}
+.adn input:focus,.adn select:focus{outline:2px solid var(--glow);outline-offset:1px}
+.adn .salida{position:sticky;top:90px;align-self:start}
+.adn .salida h3{font-size:20px;margin-bottom:8px}
+.adn .salida pre{min-height:220px;max-height:none}
+.nota{font-size:13px;color:var(--dim);margin-top:10px}
+.modo{display:flex;gap:8px;margin-bottom:18px}
+
+/* corto desarmado */
+.planos{display:grid;gap:22px}
+.plano{display:grid;grid-template-columns:90px 1fr 1fr;gap:22px;padding:22px;background:var(--ink2);border:1px solid var(--line);border-radius:8px}
+.plano .num{font-family:var(--oswald);font-size:64px;line-height:1;color:var(--glow)}
+.plano .num small{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px;letter-spacing:.06em}
+.plano video{border-radius:4px;width:100%;background:#000}
+.plano h3{font-size:22px;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 6px}
+.chip{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:3px;border:1px solid var(--line);color:var(--dim)}
+.chip.cam{border-color:rgba(242,106,46,.6);color:var(--glow)}
+.chip.ref{border-color:rgba(232,194,122,.45);color:var(--oro)}
+details{margin-top:8px}
+summary{cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--cream);text-transform:uppercase;letter-spacing:.06em;padding:6px 0}
+
+/* comparador */
+.comparar{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.cmp{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:18px}
+.cmp h3{font-size:20px;margin-bottom:4px}
+.cmp p{font-size:14px;color:var(--dim);margin-bottom:12px}
+.desliz{position:relative;overflow:hidden;border-radius:4px;aspect-ratio:16/9;user-select:none;touch-action:none;cursor:ew-resize}
+.desliz img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.desliz .arriba{clip-path:inset(0 50% 0 0)}
+.desliz .barra{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--cream);box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.desliz .barra::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--cream);color:var(--ink);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:16px}
+.desliz .et{position:absolute;bottom:8px;font-family:var(--mono);font-size:10px;text-transform:uppercase;background:rgba(11,13,18,.85);padding:3px 7px;border-radius:3px}
+.desliz .et.i{left:8px;color:var(--rojo)}.desliz .et.d{right:8px;color:var(--verde)}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.par div{position:relative}
+.par span{position:absolute;left:6px;top:6px;font-family:var(--mono);font-size:10px;text-transform:uppercase;background:rgba(11,13,18,.85);padding:3px 7px;border-radius:3px}
+.par video{border-radius:4px;width:100%}
+
+/* tabla de modelos y costos */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--oro);font-weight:400}
+td b{font-family:var(--oswald);font-weight:500;font-size:16px;letter-spacing:.02em}
+.tabla{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--ink2)}
+.total{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px}
+.total div{font-family:var(--oswald);font-size:42px;line-height:1}
+.total div small{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px}
+
+/* errores */
+.errores{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.err{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:18px}
+.err h3{font-size:18px;margin-bottom:6px}
+.err .que{font-size:14px;color:var(--dim)}
+.err .fix{font-size:14px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.err .fix b{color:var(--verde);font-family:var(--mono);font-size:11px;text-transform:uppercase}
+
+/* checklist */
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.grupo{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:18px}
+.grupo h3{font-size:18px;margin-bottom:10px}
+.grupo label{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:14px;cursor:pointer;border-bottom:1px solid rgba(245,243,239,.06)}
+.grupo input{accent-color:var(--glow);margin-top:4px;flex:none}
+.grupo label.hecho span{color:var(--dim);text-decoration:line-through}
+.progreso{font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:16px}
+.progreso b{color:var(--verde)}
+
+footer{padding:50px 0 70px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,6,9,.95);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-height:94vh;max-width:96vw;border-radius:4px}
+
+@media (max-width:860px){
+  .hoja,.adn,.comparar,.plano{grid-template-columns:1fr}
+  .plano .num{font-size:44px}
+  .adn .salida{position:static}
+  section{padding:64px 0}
+}
+@media (max-width:520px){
+  .adn form{grid-template-columns:1fr}
+  .par{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.hero video{display:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="claqueta">
+  <div class="franja"></div>
+  <nav>
+    <span class="marca">PROMPT <b>CAST</b></span>
+    <a class="tab" href="#metodo"><i>01</i>Método</a>
+    <a class="tab" href="#hojas"><i>02</i>Las 7 hojas</a>
+    <a class="tab" href="#adn"><i>03</i>Ficha ADN</a>
+    <a class="tab" href="#corto"><i>04</i>El corto</a>
+    <a class="tab" href="#comparar"><i>05</i>Comparar</a>
+    <a class="tab" href="#modelos"><i>06</i>Modelos y costos</a>
+    <a class="tab" href="#errores"><i>07</i>Errores</a>
+    <a class="tab" href="#checklist"><i>08</i>Checklist</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <video src="clips/hero.mp4" autoplay muted loop playsinline></video>
+  <div class="wrap">
+    <div class="escena"><span>Escena 01 · La relojera</span><span>6 planos · 30 s</span><span>Clase SEN6 · Cine con IA</span></div>
+    <h1>Que tu personaje <em>no cambie</em> de un plano al otro</h1>
+    <p class="baja">Contact sheets de personaje y de escenario: el método del cine para mantener la consistencia cuando hacés video con IA. Con cada prompt, cada modelo y cada error real del corto de ejemplo.</p>
+    <div class="aviso"><b>Aclaración</b><span>El corto de ejemplo se generó con una automatización, en modo rápido, solo para mostrar el método. Vos lo hacés a mano en la web de Higgsfield con los mismos pasos, los mismos modelos y los mismos prompts que tenés acá.</span></div>
+  </div>
+</div>
+
+<!-- 01 MÉTODO -->
+<section id="metodo">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">01</span>El método</div>
+    <h2>De la ficha al plano, en orden</h2>
+    <p class="intro">Cada paso usa al anterior como referencia. Si te salteás uno, el siguiente no tiene de dónde copiar.</p>
+    <div class="tira" id="tira"></div>
+  </div>
+</section>
+
+<!-- 02 HOJAS -->
+<section id="hojas">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">02</span>Las 7 hojas</div>
+    <h2>Plantillas de contact sheets</h2>
+    <p class="intro">Cada plantilla trae el prompt listo. Donde dice <span class="mono" style="color:var(--glow)">[ADN]</span> pegás tu ficha (la armás en la sección 03). Abajo de cada una, el ejemplo real de La relojera y lo que salió mal.</p>
+    <div class="selector" id="selHojas">
+      <button data-g="personaje" class="on">Personaje · 3</button>
+      <button data-g="locacion">Locación · 4</button>
+    </div>
+    <div id="listaHojas"></div>
+  </div>
+</section>
+
+<!-- 03 ADN -->
+<section id="adn">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">03</span>Constructor</div>
+    <h2>Tu ficha ADN</h2>
+    <p class="intro">El párrafo fijo que va en todos tus prompts. Regla de oro: <b>nunca se reescribe, se copia y se pega</b>. Completá en español; los campos de texto libre se traducen al inglés.</p>
+    <div class="modo selector" id="modoAdn">
+      <button data-m="personaje" class="on">Personaje</button>
+      <button data-m="locacion">Locación</button>
+    </div>
+    <div class="adn">
+      <form id="formAdn" autocomplete="off"></form>
+      <div class="salida">
+        <h3>Tu ADN en inglés</h3>
+        <div class="prompt"><pre id="salidaAdn"></pre><button class="copiar" data-copiar="salidaAdn">Copiar</button></div>
+        <p class="nota" id="notaAdn"></p>
+        <button class="copiar" style="position:static;margin-top:10px;background:transparent;border:1px solid var(--line)" id="ejemploAdn">Cargar el ejemplo de La relojera</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CORTO -->
+<section id="corto">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">04</span>El corto desarmado</div>
+    <h2>Plano por plano</h2>
+    <p class="intro">Primer fotograma con <b>Prompt Cine</b> (6 cajas, referencia: Darius Khondji) + las hojas como referencia en Nano Banana Pro. Movimiento con <b>Prompt Camera</b> en Kling. Sonido: solo efectos, sin música.</p>
+    <div style="margin-bottom:30px"><video src="clips/corto.mp4" controls playsinline preload="metadata" poster="img/p1.jpg" style="width:100%;border-radius:8px;border:1px solid var(--line)"></video></div>
+    <div class="planos" id="planos"></div>
+  </div>
+</section>
+
+<!-- 05 COMPARAR -->
+<section id="comparar">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">05</span>Antes y después</div>
+    <h2>Lo que cambia cada decisión</h2>
+    <p class="intro">Arrastrá la barra en las imágenes. En los videos, dale play a los dos.</p>
+    <div class="comparar">
+      <div class="cmp">
+        <h3>Prompt a mano vs Prompt Cine</h3>
+        <p>Mismo plano, mismas hojas de referencia. Cambia solo cómo está escrito el prompt.</p>
+        <div class="desliz" data-desliz><img src="img/p1.jpg" alt="Con Prompt Cine"><img class="arriba" src="img/v1-p1-inicio.jpg" alt="Prompt a mano"><div class="barra"></div><span class="et i">A mano</span><span class="et d">Prompt Cine</span></div>
+      </div>
+      <div class="cmp">
+        <h3>La ventana que no existía</h3>
+        <p>En la pared de relojes no hay ventanas (mirá la planta). Se corrigió diciendo qué queda detrás de la cámara.</p>
+        <div class="desliz" data-desliz><img src="img/p4.jpg" alt="Corregido"><img class="arriba" src="img/v1-p4-inicio.jpg" alt="Con error"><div class="barra"></div><span class="et i">Error</span><span class="et d">Corregido</span></div>
+      </div>
+      <div class="cmp">
+        <h3>Kling 3.0 vs Kling 4.0</h3>
+        <p>"Los péndulos se detienen todos a la vez". Kling 3.0 no lo entendió (2 intentos). Kling 4.0, con los tiempos escritos en el prompt, sí.</p>
+        <div class="par"><div><video src="clips/c4-kling3.mp4" controls muted playsinline preload="metadata"></video><span style="color:var(--rojo)">Kling 3.0</span></div><div><video src="clips/c4.mp4" controls muted playsinline preload="metadata"></video><span style="color:var(--verde)">Kling 4.0</span></div></div>
+      </div>
+      <div class="cmp">
+        <h3>Camino A vs camino B</h3>
+        <p>A: primer fotograma + Kling 3.0 (control total). B: Kling 3.0 Omni con las hojas directo (más rápido de armar, perdió el monóculo y movió de más la cámara).</p>
+        <div class="par"><div><video src="clips/c1.mp4" controls muted playsinline preload="metadata"></video><span>Camino A</span></div><div><video src="clips/caminoB.mp4" controls muted playsinline preload="metadata"></video><span>Camino B</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 MODELOS -->
+<section id="modelos">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">06</span>Modelos y costos</div>
+    <h2>Qué usé y por qué</h2>
+    <p class="intro">Todo dentro de Higgsfield. Costos medidos en las transacciones reales del corto.</p>
+    <div class="tabla"><table>
+      <thead><tr><th>Para qué</th><th>Modelo</th><th>Por qué este</th><th>Costo</th></tr></thead>
+      <tbody>
+        <tr><td>Las 7 hojas y los primeros fotogramas</td><td><b>Nano Banana Pro</b><br><span class="mono" style="font-size:11px;color:var(--dim)">2k</span></td><td>Escribe texto legible (etiquetas, planta), hace diagramas y acepta imágenes de referencia: cada hoja copia a la anterior. A veces el trabajo figura como "Nano Banana 2": se cobra como Pro, es el mismo.</td><td class="mono">2 créditos / imagen</td></tr>
+        <tr><td>Video, camino A (recomendado)</td><td><b>Kling 3.0</b><br><span class="mono" style="font-size:11px;color:var(--dim)">pro · 5 s · sonido</span></td><td>Con primer fotograma: el encuadre ya está aprobado, Kling solo lo anima.</td><td class="mono">10 créditos / clip</td></tr>
+        <tr><td>Acciones difíciles</td><td><b>Kling 4.0</b><br><span class="mono" style="font-size:11px;color:var(--dim)">image-to-video · 1080p · 5 s</span></td><td>Entendió "se detienen todos a la vez" cuando Kling 3.0 no.</td><td class="mono">16,25 créditos / clip</td></tr>
+        <tr><td>Video, camino B (exploración)</td><td><b>Kling 3.0 Omni</b><br><span class="mono" style="font-size:11px;color:var(--dim)">hasta 7 referencias</span></td><td>Le pasás las hojas directo, sin primer fotograma. Menos control fino y tarda más.</td><td class="mono">10 créditos / clip</td></tr>
+      </tbody>
+    </table></div>
+    <div class="total">
+      <div>142<small>créditos el corto completo</small></div>
+      <div>≈ US$5,80<small>con el plan Ultimate</small></div>
+      <div>23<small>imágenes (hojas + fotogramas + correcciones)</small></div>
+      <div>9<small>clips de video (6 del corto + pruebas)</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ERRORES -->
+<section id="errores">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">07</span>Errores reales</div>
+    <h2>Lo que salió mal y cómo se arregló</h2>
+    <p class="intro">Nada de esto se escondió: son los errores que te van a pasar a vos.</p>
+    <div class="errores" id="listaErrores"></div>
+  </div>
+</section>
+
+<!-- 08 CHECKLIST -->
+<section id="checklist">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">08</span>Antes de animar</div>
+    <h2>Checklist de continuidad</h2>
+    <p class="intro">Revisá cada fotograma antes de mandarlo a Kling: rehacer una imagen cuesta 2 créditos, rehacer un video cuesta 10 o más. Se guarda en este navegador.</p>
+    <div class="progreso" id="progreso"></div>
+    <div class="check" id="listaCheck"></div>
+    <p class="nota"><button class="copiar" style="position:static;background:transparent;border:1px solid var(--line)" id="limpiar">Empezar de nuevo</button></p>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>Prompt Cast · SEN6 · Clase de cine con IA</span><span>Hermana de <b>Prompt Cine</b> y <b>Prompt Camera</b></span></div></footer>
+
+<div class="lb" id="lb"><img alt=""></div>
+
+<script>
+/* ===================== DATOS ===================== */
+var ADN_INES = "INES: a 58-year-old Mediterranean watchmaker woman, lean face with high cheekbones, deep-set hazel eyes, a thin white scar across her left eyebrow, silver-grey hair pulled back in a low bun with loose strands, a single small brass watchmaker monocle loupe pushed up on her forehead, olive skin with fine wrinkles around the eyes. Wardrobe: dark green wool cardigan over a cream collarless shirt, sleeves rolled to the forearms, a worn brown leather apron with brass rivets, a thin gold chain with a tiny key around her neck. Ink-stained fingertips on the right hand.";
+var ADN_TALLER = "THE WORKSHOP: a narrow 19th-century clock repair workshop at night, dark walnut workbench under a tall arched window on the LEFT wall facing a rainy cobblestone street, a single green-shaded brass desk lamp as key light, the RIGHT wall entirely covered with dozens of antique wall clocks all showing different times, a back wall with a door with frosted glass and painted gold lettering, wooden drawers with tiny brass labels, scattered gears and springs on green felt.";
+
+var METODO = [
+  ["Paso 1","Ficha ADN","Párrafo fijo en inglés del personaje y del lugar. Se pega igual en todos los prompts."],
+  ["Paso 2","Turnaround","Cuatro vistas, fondo gris, luz plana. La referencia maestra."],
+  ["Paso 3","Expresiones","Grilla 3×3 con nueve emociones, mirando al turnaround."],
+  ["Paso 4","Detalles","Manos, objetos y vestuario para los insertos."],
+  ["Paso 5","Master + contraplano","El lugar desde los dos lados, para que nada se mude."],
+  ["Paso 6","Planta + luces","Cámaras, eje de 180° y el mismo lugar de día, tarde y noche."],
+  ["Paso 7","Lista de planos","Qué cámara, qué emoción y qué hojas usa cada plano."],
+  ["Paso 8","Primer fotograma","Prompt Cine (6 cajas) + 2 o 3 hojas como referencia."],
+  ["Paso 9","Video","Kling con la palabra clave de Prompt Camera. Solo efectos de sonido."]
+];
+
+var HOJAS = [
+  {g:"personaje",id:"turnaround",t:"Turnaround",img:"01-turnaround-ines.jpg",para:"La referencia maestra de cuerpo y vestuario. Fondo gris y luz plana para que el modelo copie a la persona, no la iluminación.",formato:"21:9",modelo:"Nano Banana Pro · 2k",refs:"Ninguna (es la primera)",
+   prompt:"Professional film character turnaround model sheet, four full-body views of the SAME person standing side by side in a row, evenly spaced: front view, three-quarter view, side profile facing right, back view. Same person, same outfit, same proportions and height in every view. [ADN]. Neutral relaxed pose, arms at the sides, neutral expression. Seamless flat mid-grey studio background, soft even flat lighting with no dramatic shadows, 50mm lens, eye-level camera, photorealistic, sharp focus, true-to-life skin texture. Small clean sans-serif labels under each figure: FRONT, 3/4, PROFILE, BACK. Original unique face, not a celebrity.",
+   error:["La cicatriz no aparece y la lupa sale como monóculo","Los detalles chicos se pierden primero. El monóculo se aceptó y se corrigió la ficha ADN: la ficha manda, no el primer resultado."]},
+  {g:"personaje",id:"expresiones",t:"Expresiones 3×3",img:"02-expresiones-ines.jpg",para:"Para pedir una emoción por su nombre en cada plano sin que cambie la cara.",formato:"1:1",modelo:"Nano Banana Pro · 2k",refs:"Turnaround",
+   prompt:"Character expression sheet of the EXACT same person shown in the reference image: a 3x3 grid of nine head-and-shoulders portraits, identical framing, identical camera height and distance in every cell, 85mm lens. Same face, same hair, same wardrobe in all nine. [ADN]. Expressions, left to right, top to bottom: neutral, focused concentration, gentle smile, laughing, surprised, worried, angry, sad with teary eyes, exhausted. Seamless flat mid-grey studio background, soft even flat lighting, photorealistic, true-to-life skin texture. Small clean sans-serif label under each cell: NEUTRAL, FOCUSED, SMILE, LAUGH, SURPRISE, WORRY, ANGER, SADNESS, TIRED. Thin white gutters between cells.",
+   error:["La cicatriz sigue sin aparecer, aun pedida","Si un detalle chico importa, hacé un plano detalle donde se vea grande. Si no importa, sacalo de la ficha."]},
+  {g:"personaje",id:"detalles",t:"Detalles",img:"03b-detalles-ines.jpg",para:"Manos, objetos y vestuario para los insertos: los planos cortos que cuentan mucho.",formato:"16:9",modelo:"Nano Banana Pro · 2k",refs:"Turnaround",
+   prompt:"Props and details sheet for the character in the reference image, a clean grid of six close-up detail photographs on a seamless flat mid-grey background, soft even lighting, macro and 100mm lens, photorealistic. The hands belong to the person of the reference: [EDAD] years old, same skin tone, [TEXTURA DE PIEL: age spots, visible veins, wrinkles...]. 1) right hand [ACCIÓN/OBJETO]; 2) left hand [DETALLE]; 3) [OBJETO CLAVE]; 4) [ACCESORIO]; 5) [PRENDA]; 6) [CALZADO]. Same materials and colors as the reference. Small clean sans-serif labels under each cell. Thin white gutters.",
+   error:["Las manos salieron jóvenes","Las celdas no heredan la edad. Repetí la edad y la textura de la piel en el prompt de la hoja."]},
+  {g:"locacion",id:"master",t:"Master",img:"04-taller-master.jpg",para:"El lugar vacío en gran angular. Define dónde está cada cosa: de este plano copian todos los demás.",formato:"21:9",modelo:"Nano Banana Pro · 2k",refs:"Ninguna",
+   prompt:"Establishing master wide shot of a film location, empty set, no people. [ADN DEL LUGAR]. Camera at the front of the room looking toward the back, 24mm lens, eye level, symmetrical one-point perspective, photorealistic, 35mm film grain, [LUZ].",
+   error:null},
+  {g:"locacion",id:"contraplano",t:"Contraplano",img:"05-taller-contraplano.jpg",para:"El mismo lugar visto desde el lado opuesto. Sin esta hoja, cuando filmás desde el otro lado el modelo inventa un cuarto nuevo.",formato:"21:9",modelo:"Nano Banana Pro · 2k",refs:"Master",
+   prompt:"Reverse angle of the EXACT same room shown in the reference image, empty set, no people. The camera now stands at the back looking toward the front, so the sides are mirrored: [LO QUE ESTABA A LA IZQUIERDA] is now on the RIGHT side of frame, and [LO QUE ESTABA A LA DERECHA] is now on the LEFT side of frame. Same floor, same props, same lighting. 24mm lens, eye level, photorealistic, 35mm film grain.",
+   error:null},
+  {g:"locacion",id:"planta",t:"Planta",img:"06b-taller-planta.jpg",para:"El lugar visto desde arriba, con las cámaras y el eje de 180°. Sirve para planificar planos y descubrir errores de geografía.",formato:"16:9",modelo:"Nano Banana Pro · 2k",refs:"Master",
+   prompt:"Professional film location floor plan of the place shown in the reference image, clean architectural top-down blueprint drawing, cream paper, thin dark ink lines, orange accent marks. [DESCRIBÍ CADA PARED: qué hay en la de arriba, abajo, izquierda y derecha]. Mark the actor position with a small figure labeled [NOMBRE]. Add numbered camera icons with view cones in orange: CAM A (MASTER), CAM B (REVERSE), CAM C (CLOSE-UPS). Draw the 180-degree axis line as a dashed orange line through the actor. Title block in the corner. Clear legible labels, technical drawing style.",
+   error:["Escribió una etiqueta copiada de mi prompt","El modelo escribe textual lo que describís. Se arregló pidiendo cambiar solo esa etiqueta y dejar todo igual."]},
+  {g:"locacion",id:"luces",t:"Luces",img:"07-taller-luces.jpg",para:"El mismo encuadre de día, al atardecer y de noche. Si tu historia pasa el tiempo, solo cambia la luz.",formato:"21:9",modelo:"Nano Banana Pro · 2k",refs:"Master",
+   prompt:"Lighting continuity sheet: three panels side by side of the EXACT same room, same camera position, same framing and same props as the reference image, only the light changes. Panel 1 DAY: [LUZ DE DÍA]. Panel 2 DUSK: [LUZ DE ATARDECER]. Panel 3 NIGHT: [LUZ DE NOCHE]. Photorealistic, 35mm film grain. Small clean sans-serif labels under each panel: DAY, DUSK, NIGHT. Thin white gutters.",
+   error:null}
+];
+
+var PLANOS = [
+  {n:1,t:"General · master",clip:"c1.mp4",img:"p1.jpg",cam:"slow push-in, dolly in",para:"Sube la intensidad y concentra la atención en ella.",refs:["Turnaround","Master"],modelo:"Kling 3.0 pro · 5 s",
+   pImg:"wide master shot, symmetrical one-point perspective, eye level, INES, the exact woman from the character reference (...ADN...), sitting on a stool at the walnut workbench under the arched rainy window on the LEFT, bent over an open pocket watch, the wall of antique clocks on the RIGHT, frosted glass door at the back, exactly the room of the location reference, deep focus, 24mm, 35mm film, silver retention, dim practical lamp with sickly yellow-green tungsten glow from a green-shaded banker lamp, constant rain with cold blue light through the window, deep shadow pockets, desaturated with crushed deep blacks, sepia amber against cold blue",
+   pVid:"slow push-in, dolly in toward the woman working at the workbench. She stays bent over the open pocket watch, small precise hand movements with tweezers. Rain streams down the arched window, the green lamp glows steadily, pendulums of the wall clocks swing gently. Sound: steady rain on glass, many clocks ticking out of sync, faint metallic clicks of tweezers. No music."},
+  {n:2,t:"Detalle · la mano",clip:"c2.mp4",img:"p2.jpg",cam:"static shot, locked-off camera",para:"Cámara quieta: que mande el gesto.",refs:["Detalles"],modelo:"Kling 3.0 pro · 5 s",
+   pImg:"extreme close-up insert, high angle, the exact right hand from the details reference (mature olive skin, age spots, visible veins, ink-stained fingertips) holding fine steel tweezers and placing a tiny brass gear into an open antique pocket watch movement on green felt on a dark walnut workbench, shallow focus, 100mm macro, 35mm film, silver retention, dim practical lamp with sickly yellow-green tungsten glow from above, cold blue rim light from a rainy window, desaturated with crushed deep blacks, sepia amber and nicotine yellow",
+   pVid:"static shot, locked-off camera, macro. The ink-stained hand slowly lowers the tiny brass gear with the tweezers and seats it precisely into the open pocket watch movement; the balance wheel starts to oscillate and the tiny gears begin turning. Sound: delicate metallic click, soft ticking of the pocket watch, distant rain. No music."},
+  {n:3,t:"Primer plano · el monóculo",clip:"c3.mp4",img:"p3.jpg",cam:"very slow zoom in",para:"Tensión que crece.",refs:["Expresiones","Turnaround"],modelo:"Kling 3.0 pro · 5 s",
+   pImg:"claustrophobic close-up in a dark room, eye level, INES, the exact woman from the character references (...), seated at the workbench facing the rainy window on the LEFT of frame, adjusting with her right fingertips the single small brass watchmaker monocle loupe that rests pushed up on her forehead, focused expression as in the expression sheet, shallow focus, 85mm, long lens compression, 35mm film, silver retention, dim practical lamp with sickly yellow-green tungsten glow from below frame, constant rain with cold blue light on her profile, deep shadow pockets, desaturated with crushed deep blacks, sepia amber against cold blue",
+   pVid:"very slow zoom in on her face. She adjusts the brass monocle loupe on her forehead with her fingertips, keeps it resting on her forehead, lowers her hand and looks down toward her work with quiet concentration, a slow breath. Rain drops run down the window behind her. Sound: rain on glass, clocks ticking in the background, a soft exhale. No music."},
+  {n:4,t:"La pared de relojes",clip:"c4.mp4",img:"p4.jpg",cam:"static shot, locked-off camera",para:"Cámara quieta para que se note el instante en que todo se detiene.",refs:["Master","Planta"],modelo:"Kling 4.0 · 1080p · 5 s",
+   pImg:"medium shot of a wall filled edge to edge with dozens of dark wooden antique pendulum wall clocks with cream dials and brass pendulums, all showing different times, straight on, slightly low angle, no windows, no doors, no furniture in frame, deep focus, 50mm, 35mm film, silver retention, constant rain casting cold blue rain-streak shadows across the clock faces from a window behind the camera, a faint sickly yellow-green tungsten glow on the lower left of the wall, deep shadow pockets, desaturated with crushed deep blacks, sepia amber and cold blue",
+   pVid:"static shot, locked-off camera. Timeline: from 0 to 2 seconds every brass pendulum on the wall swings left and right clearly and rhythmically. At exactly 2 seconds ALL the pendulums stop abruptly at the same instant, hanging perfectly still and vertical at the bottom of their arc, and every clock's second hand stops. From 2 to 5 seconds the clocks are completely motionless; only the cold blue rain-streak shadows keep sliding slowly down the wall. Sound: dozens of clocks ticking loudly, then sudden total silence of the clocks, only soft rain remains. No music."},
+  {n:5,t:"Primer plano · la sorpresa",clip:"c5.mp4",img:"p5.jpg",cam:"dolly zoom, Hitchcock vertigo effect",para:"Pánico, revelación terrible.",refs:["Expresiones","Plano 3"],modelo:"Kling 3.0 pro · 5 s",
+   pImg:"claustrophobic close-up in a dark room, eye level, INES, the exact woman from the references (...), seated at the workbench with the rainy window on the LEFT of frame, she has just turned her head sharply over her shoulder toward the RIGHT of frame where out-of-focus antique wall clocks hang, surprise expression as in the expression sheet, eyes wide, lips parted, shallow focus, 85mm, 35mm film, silver retention, dim practical lamp with sickly yellow-green tungsten glow from a green-shaded banker lamp, cold blue rim light from the rain, deep shadow pockets, desaturated with crushed deep blacks, sepia amber against cold blue",
+   pVid:"dolly zoom, Hitchcock vertigo effect: the camera dollies in while zooming out, her face stays the same size while the background with the out-of-focus clocks stretches away behind her. She stays frozen looking over her shoulder, eyes wide, holding her breath. Sound: deep silence, only rain, a low tense hum rising. No music."},
+  {n:6,t:"Contraplano · el final",clip:"c6.mp4",img:"p6.jpg",cam:"pull-out, dolly out reveal",para:"Revelación, final de escena.",refs:["Contraplano","Turnaround","Detalles"],modelo:"Kling 3.0 pro · 5 s",
+   pImg:"corridor composition with deep shadow pockets, wide reverse shot from the back door, eye level, exactly the reverse-angle room of the location reference: wall of antique clocks on the LEFT, walnut workbench with the green-shaded lamp and arched rainy windows on the RIGHT, shop-front window at the far end, INES, the exact woman from the character reference (...), standing small in frame beside her stool, turned toward the clock wall, her right hand clutching the tiny antique gold key on the thin chain around her neck, deep focus, 24mm, 35mm film, silver retention, dim practical lamp with sickly yellow-green tungsten glow, constant rain with cold overcast blue light from the street, desaturated with crushed deep blacks, sepia amber against cold blue",
+   pVid:"pull-out, dolly out reveal: the camera slowly moves back toward the door, the room grows around her. She stands still facing the silent wall of frozen clocks, slowly closes her hand around the tiny gold key on her necklace. Rain falls outside the windows, the green lamp glows. Sound: only rain on the windows, floorboards creak once. No music."}
+];
+
+var ERRORES = [
+  ["La cicatriz que nunca apareció","Pedida en el turnaround y en las expresiones, no salió ni una vez.","Los detalles chicos se pierden primero. Si importa, plano detalle; si no, sacalo de la ficha."],
+  ["Pedí anteojos, salió un monóculo","El primer resultado contradijo la ficha.","Se aceptó el monóculo y se corrigió la ficha ADN. La ficha manda: si no la corregís, el modelo recibe órdenes contradictorias."],
+  ["Manos jóvenes en la hoja de detalles","Cada celda no sabe que la mano es de una mujer de 58 años.","Repetir edad y textura de piel en el prompt. Aun así quedó una mancha de tinta de más: deriva que hay que ver."],
+  ["Una etiqueta copiada del prompt","La planta escribió literal la descripción que le di.","Rehacer pidiendo cambiar solo esa etiqueta."],
+  ["El monóculo que vuelve a la frente","En el plano 3 se lo bajaba al ojo y en el plano 5 aparecía otra vez en la frente (raccord roto). Rehacer el plano no alcanzó.","Cambiar la acción del plano 3 para que se lo acomode en la frente: cuando el modelo se resiste a un detalle, ajustá el guion."],
+  ["Una ventana donde no hay ventanas","La pared de relojes apareció con una ventana al costado.","Mirar la planta y decir qué queda detrás de la cámara: lo que está atrás solo entra como luz."],
+  ["Un elemento que confunde","La lámpara asomando hacía dudar de dónde estaba la mesa.","Si algo hace dudar al espectador, se saca del cuadro (se recortó, sin gastar créditos)."],
+  ["Higgsfield cambia tu prompt por un preset","Sugirió el preset \"In the dark\" en lugar de mandar el trabajo.","Rechazarlo para que use tu prompt."],
+  ["Los péndulos que no se frenaban","Kling 3.0 no entendió \"se detienen todos a la vez\". Congelar la imagen quedó trucho.","Escribir los tiempos de la acción y probar otro modelo: Kling 4.0 lo hizo."]
+];
+
+var CHECK = [
+  ["Personaje",["Es la misma cara que en el turnaround","El pelo y el peinado coinciden","Tiene todos los detalles que delatan la deriva (en el ejemplo: monóculo, rodete, llave, delantal)","El vestuario y sus colores coinciden","La edad se ve igual (manos y piel incluidas)","La expresión es la pedida en la hoja de expresiones"]],
+  ["Lugar",["Cada pared tiene lo que dice la planta","Lo que está detrás de cámara solo aparece como luz","La luz principal viene del mismo lado que en el master","Los objetos fijos siguen en su lugar"]],
+  ["Continuidad entre planos",["La mirada va hacia donde está lo que mira","No crucé el eje de 180°","Los objetos que el personaje tocó siguen como quedaron (raccord)","El momento del día y el clima son los mismos","Nada en el cuadro hace dudar de dónde está cada cosa"]]
+];
+
+/* ===================== RENDER ===================== */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function marcar(s){return esc(s).replace(/\[[^\]]+\]/g,function(m){return '<span class="ph">'+m+'</span>';});}
+var uid=0;
+
+document.getElementById('tira').innerHTML = METODO.map(function(m){return '<div><span class="k">'+m[0]+'</span><h3>'+m[1]+'</h3><p>'+m[2]+'</p></div>';}).join('');
+
+function pintarHojas(g){
+  document.getElementById('listaHojas').innerHTML = HOJAS.filter(function(h){return h.g===g;}).map(function(h){
+    var id='pr'+(uid++);
+    return '<article class="hoja"><figure data-lb="img/'+h.img+'"><img src="img/'+h.img+'" alt="'+esc(h.t)+' de ejemplo" loading="lazy"><figcaption>Ejemplo · La relojera</figcaption></figure><div>'+
+      '<h3>'+esc(h.t)+'</h3><p class="para">'+esc(h.para)+'</p>'+
+      '<dl class="ficha-tec"><dt>Modelo</dt><dd>'+esc(h.modelo)+'</dd><dt>Formato</dt><dd>'+esc(h.formato)+'</dd><dt>Referencias</dt><dd>'+esc(h.refs)+'</dd></dl>'+
+      '<div class="prompt"><pre id="'+id+'">'+marcar(h.prompt)+'</pre><button class="copiar" data-copiar="'+id+'">Copiar</button></div>'+
+      (h.error?'<div class="error"><b>Lo que salió mal</b>'+esc(h.error[0])+'. '+esc(h.error[1])+'</div>':'')+
+    '</div></article>';
+  }).join('');
+}
+pintarHojas('personaje');
+document.getElementById('selHojas').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  [].forEach.call(this.children,function(x){x.classList.toggle('on',x===b);});
+  pintarHojas(b.dataset.g);
+});
+
+document.getElementById('planos').innerHTML = PLANOS.map(function(p){
+  var a='pi'+(uid++), b='pv'+(uid++);
+  return '<article class="plano"><div class="num">'+p.n+'<small>5 s</small></div>'+
+    '<div><video src="clips/'+p.clip+'" poster="img/'+p.img+'" controls playsinline preload="none"></video></div>'+
+    '<div><h3>'+esc(p.t)+'</h3><div class="chips"><span class="chip cam">'+esc(p.cam)+'</span><span class="chip">'+esc(p.modelo)+'</span>'+p.refs.map(function(r){return '<span class="chip ref">ref: '+esc(r)+'</span>';}).join('')+'</div>'+
+    '<p style="font-size:14px;color:var(--dim)">'+esc(p.para)+'</p>'+
+    '<details><summary>Prompt de imagen (Prompt Cine)</summary><div class="prompt"><pre id="'+a+'">'+esc(p.pImg)+'</pre><button class="copiar" data-copiar="'+a+'">Copiar</button></div></details>'+
+    '<details><summary>Prompt de video (Prompt Camera)</summary><div class="prompt"><pre id="'+b+'">'+esc(p.pVid)+'</pre><button class="copiar" data-copiar="'+b+'">Copiar</button></div></details>'+
+    '</div></article>';
+}).join('');
+
+document.getElementById('listaErrores').innerHTML = ERRORES.map(function(e){return '<div class="err"><h3>'+esc(e[0])+'</h3><p class="que">'+esc(e[1])+'</p><p class="fix"><b>Arreglo · </b>'+esc(e[2])+'</p></div>';}).join('');
+
+/* ---------- checklist con guardado local ---------- */
+var CK='promptcast-check';
+function leerCk(){try{return JSON.parse(localStorage.getItem(CK))||{};}catch(e){return {};}}
+function guardarCk(o){try{localStorage.setItem(CK,JSON.stringify(o));}catch(e){}}
+function pintarCheck(){
+  var est=leerCk(), total=0, hechos=0;
+  document.getElementById('listaCheck').innerHTML = CHECK.map(function(g,gi){
+    return '<div class="grupo"><h3>'+esc(g[0])+'</h3>'+g[1].map(function(it,ii){
+      var k=gi+'-'+ii, on=!!est[k]; total++; if(on) hechos++;
+      return '<label class="'+(on?'hecho':'')+'"><input type="checkbox" data-k="'+k+'"'+(on?' checked':'')+'><span>'+esc(it)+'</span></label>';
+    }).join('')+'</div>';
+  }).join('');
+  document.getElementById('progreso').innerHTML = '<b>'+hechos+'</b> de '+total+' revisados';
+}
+pintarCheck();
+document.getElementById('listaCheck').addEventListener('change',function(e){
+  if(!e.target.dataset.k) return; var o=leerCk(); o[e.target.dataset.k]=e.target.checked; guardarCk(o); pintarCheck();
+});
+document.getElementById('limpiar').addEventListener('click',function(){guardarCk({});pintarCheck();});
+
+/* ---------- copiar ---------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-copiar]'); if(!b) return;
+  var t=document.getElementById(b.dataset.copiar).innerText;
+  var ok=function(){b.textContent='Copiado';b.classList.add('ok');setTimeout(function(){b.textContent='Copiar';b.classList.remove('ok');},1600);};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,function(){viejo(t);ok();});}else{viejo(t);ok();}
+});
+function viejo(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(e){}a.remove();}
+
+/* ---------- lightbox ---------- */
+var lb=document.getElementById('lb');
+document.addEventListener('click',function(e){var f=e.target.closest('[data-lb]'); if(f){lb.querySelector('img').src=f.dataset.lb;lb.classList.add('on');}});
+lb.addEventListener('click',function(){lb.classList.remove('on');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on');});
+
+/* ---------- deslizadores ---------- */
+[].forEach.call(document.querySelectorAll('[data-desliz]'),function(d){
+  var arriba=d.querySelector('.arriba'), barra=d.querySelector('.barra');
+  function mover(x){var r=d.getBoundingClientRect(),p=Math.max(0,Math.min(100,(x-r.left)/r.width*100));arriba.style.clipPath='inset(0 '+(100-p)+'% 0 0)';barra.style.left=p+'%';}
+  var on=false;
+  d.addEventListener('pointerdown',function(e){on=true;d.setPointerCapture(e.pointerId);mover(e.clientX);});
+  d.addEventListener('pointermove',function(e){if(on)mover(e.clientX);});
+  d.addEventListener('pointerup',function(){on=false;});
+});
+
+/* ---------- pestaña activa ---------- */
+var tabs=[].slice.call(document.querySelectorAll('.claqueta a.tab'));
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){tabs.forEach(function(t){t.classList.toggle('on',t.getAttribute('href')==='#'+en.target.id);});}});},{rootMargin:'-40% 0px -55% 0px'});
+  [].forEach.call(document.querySelectorAll('section[id]'),function(s){io.observe(s);});
+}
+
+/* ===================== CONSTRUCTOR ADN ===================== */
+var CAMPOS = {
+  personaje:[
+    {k:"nombre",l:"Nombre (etiqueta)",tipo:"txt",ph:"INES",full:false,trad:false},
+    {k:"edad",l:"Edad",tipo:"num",ph:"58"},
+    {k:"genero",l:"Género",tipo:"sel",op:[["woman","Mujer"],["man","Hombre"],["person","Sin especificar"]]},
+    {k:"origen",l:"Rasgos / origen",tipo:"txt",ph:"mediterránea"},
+    {k:"oficio",l:"Oficio o rol",tipo:"txt",ph:"relojera"},
+    {k:"cara",l:"Cara",tipo:"txt",ph:"cara delgada, pómulos marcados",full:true},
+    {k:"ojos",l:"Ojos",tipo:"txt",ph:"ojos color avellana, hundidos"},
+    {k:"piel",l:"Piel",tipo:"txt",ph:"piel oliva, arrugas finas"},
+    {k:"pelo",l:"Pelo y peinado",tipo:"txt",ph:"pelo gris recogido en un rodete bajo",full:true},
+    {k:"marca",l:"Marca distintiva",tipo:"txt",ph:"monóculo de latón en la frente",full:true},
+    {k:"arriba",l:"Ropa de arriba",tipo:"txt",ph:"cárdigan verde botella sobre camisa crema",full:true},
+    {k:"abajo",l:"Ropa de abajo y calzado",tipo:"txt",ph:"delantal de cuero marrón, botas de cuero",full:true},
+    {k:"accesorio",l:"Accesorio",tipo:"txt",ph:"cadenita dorada con una llave chiquita",full:true}
+  ],
+  locacion:[
+    {k:"nombre",l:"Nombre (etiqueta)",tipo:"txt",ph:"THE WORKSHOP",trad:false},
+    {k:"momento",l:"Momento",tipo:"sel",op:[["at night","Noche"],["at dawn","Amanecer"],["in the daytime","Día"],["at dusk","Atardecer"]]},
+    {k:"lugar",l:"Qué lugar es",tipo:"txt",ph:"un taller de relojes angosto del siglo XIX",full:true},
+    {k:"izq",l:"Lado IZQUIERDO",tipo:"txt",ph:"una ventana arqueada con lluvia y la mesa de trabajo",full:true},
+    {k:"der",l:"Lado DERECHO",tipo:"txt",ph:"cubierta de relojes antiguos de pared",full:true},
+    {k:"fondo",l:"Al FONDO",tipo:"txt",ph:"una puerta con vidrio esmerilado y letras doradas",full:true},
+    {k:"luz",l:"Luz principal",tipo:"txt",ph:"una lámpara de banquero verde",full:true},
+    {k:"detalle",l:"Detalles del lugar",tipo:"txt",ph:"engranajes sobre paño verde, cajones con etiquetas",full:true}
+  ]
+};
+var modo='personaje', cache={};
+function pintarForm(){
+  document.getElementById('formAdn').innerHTML = CAMPOS[modo].map(function(c){
+    var cls=c.full?' class="full"':'';
+    if(c.tipo==='sel') return '<label'+cls+'>'+esc(c.l)+'<select name="'+c.k+'">'+c.op.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>';}).join('')+'</select></label>';
+    return '<label'+cls+'>'+esc(c.l)+'<input name="'+c.k+'" type="'+(c.tipo==='num'?'number':'text')+'" placeholder="'+esc(c.ph)+'"></label>';
+  }).join('');
+  armar();
+}
+function traducir(t){
+  t=t.trim(); if(!t) return Promise.resolve('');
+  if(cache[t]) return Promise.resolve(cache[t]);
+  return traductorChrome().then(function(tr){
+    if(tr) return conTope(tr.translate(t),3000).then(function(s){return s||t;});
+    return fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(t)+'&langpair=es|en').then(function(r){return r.json();}).then(function(j){
+      // MyMemory a veces devuelve memorias raras ("641 FISHERMEN"): se descartan las que traen números o mayúsculas que el original no tiene
+      var limpio=function(s){return s&&!(/\d/.test(s)&&!/\d/.test(t))&&!(s===s.toUpperCase()&&t!==t.toUpperCase());};
+      var s=j&&j.responseData&&j.responseData.translatedText;
+      if(!limpio(s)) s=((j&&j.matches)||[]).map(function(m){return m.translation;}).filter(limpio)[0];
+      return s||t;
+    });
+  }).then(function(s){s=String(s).trim();cache[t]=s;return s;}).catch(function(){return t;});
+}
+// El traductor de Chrome a veces no contesta nunca: todo lleva tope de tiempo y, si no responde, queda MyMemory
+function conTope(p,ms){return Promise.race([p,new Promise(function(r){setTimeout(function(){r(null);},ms);})]);}
+var _tr;
+function traductorChrome(){
+  if(_tr!==undefined) return Promise.resolve(_tr);
+  try{
+    if(!('Translator' in self)) return Promise.resolve(_tr=null);
+    return conTope(Translator.availability({sourceLanguage:'es',targetLanguage:'en'}),1500).then(function(a){
+      if(a!=='available') return (_tr=null);
+      return conTope(Translator.create({sourceLanguage:'es',targetLanguage:'en'}),1500).then(function(x){return (_tr=x||null);});
+    }).catch(function(){return (_tr=null);});
+  }catch(e){return Promise.resolve(_tr=null);}
+}
+// Las palabras sueltas se traducen mal sin contexto ("pescador" → "seats"): se mandan todos los campos en un solo
+// texto, una línea numerada por campo, y se vuelven a separar. Si no vuelven las mismas líneas, se traduce campo por campo.
+function traducirJuntos(lista){
+  if(!lista.length) return Promise.resolve([]);
+  var texto=lista.map(function(s,i){return (i+1)+'. '+s+'.';}).join('\n');
+  return traducir(texto).then(function(r){
+    var lineas=String(r).split(/\n+/).map(function(l){return l.replace(/^\s*\d+\s*[.)-]\s*/,'').replace(/\.\s*$/,'').trim();}).filter(Boolean);
+    if(lineas.length===lista.length) return lineas;
+    return Promise.all(lista.map(traducir));
+  });
+}
+var timer;
+document.getElementById('formAdn').addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(armar,600);});
+function val(n){var e=document.querySelector('#formAdn [name="'+n+'"]');return e?e.value.trim():'';}
+function armar(){
+  var f=CAMPOS[modo], vals={};
+  f.forEach(function(c){vals[c.k]=val(c.k);});
+  var claves=f.filter(function(c){return c.tipo==='txt'&&c.trad!==false&&vals[c.k];}).map(function(c){return c.k;});
+  traducirJuntos(claves.map(function(k){return vals[k];})).then(function(tr){
+    var en={}; claves.forEach(function(k,i){en[k]=String(tr[i]||vals[k]).replace(/\.$/,'').trim();});
+    var out;
+    if(modo==='personaje'){
+      var partes=[];
+      var algo=f.some(function(c){return c.tipo!=='sel'&&c.k!=='nombre'&&vals[c.k];});
+      if(!algo){document.getElementById('salidaAdn').textContent='Completá los campos de la izquierda (o cargá el ejemplo de La relojera).';return;}
+      var quien=[vals.edad?('a '+vals.edad+'-year-old'):'',en.origen,en.oficio,vals.genero].filter(Boolean).join(' ');
+      if(quien) partes.push(quien);
+      ['cara','ojos','marca','pelo','piel'].forEach(function(k){if(en[k])partes.push(en[k]);});
+      out=(vals.nombre||'NAME').toUpperCase()+': '+(partes.join(', ')||'[completá los campos]')+'.';
+      var ropa=[en.arriba,en.abajo,en.accesorio].filter(Boolean);
+      if(ropa.length) out+=' Wardrobe: '+ropa.join(', ')+'.';
+    }else{
+      if(!f.some(function(c){return c.tipo!=='sel'&&c.k!=='nombre'&&vals[c.k];})){document.getElementById('salidaAdn').textContent='Completá los campos de la izquierda (o cargá el ejemplo de La relojera).';return;}
+      out=(vals.nombre||'THE PLACE').toUpperCase()+': '+[en.lugar?en.lugar+' '+vals.momento:'',en.izq?'on the LEFT side: '+en.izq:'',en.der?'on the RIGHT side: '+en.der:'',en.fondo?'at the back: '+en.fondo:'',en.luz?en.luz+' as key light':'',en.detalle].filter(Boolean).join(', ')+'.';
+      if(out.slice(-3)===': .') out=out.slice(0,-1)+'[completá los campos].';
+    }
+    document.getElementById('salidaAdn').textContent=out;
+  });
+}
+document.getElementById('modoAdn').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  [].forEach.call(this.children,function(x){x.classList.toggle('on',x===b);});
+  modo=b.dataset.m; pintarForm();
+  document.getElementById('notaAdn').textContent = modo==='personaje' ? 'Sumá también, aparte, los 4 o 5 detalles que delatan si el modelo se desvía: los vas a revisar en cada plano.' : 'Los lados fijos (izquierda, derecha, fondo) son los que evitan que una ventana "se mude" entre planos.';
+});
+document.getElementById('ejemploAdn').addEventListener('click',function(){
+  document.getElementById('salidaAdn').textContent = modo==='personaje' ? ADN_INES : ADN_TALLER;
+});
+document.getElementById('notaAdn').textContent='Sumá también, aparte, los 4 o 5 detalles que delatan si el modelo se desvía: los vas a revisar en cada plano.';
+pintarForm();
+</script>
+</body>
+</html>
