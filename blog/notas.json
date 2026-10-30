@@ -1,5 +1,44 @@
 [
  {
+  "titulo": "Canal cancelado por spam: YouTube prueba darte 30 días para limpiarlo",
+  "bajada": "En una prueba, algunos canales que iban a ser cancelados por la política de spam quedan bloqueados 30 días para corregir o borrar lo que infringe.",
+  "fecha": "2026-10-29",
+  "categoria": "Políticas",
+  "url": "https://sen6.online/blog/youtube-canal-cancelado-spam-30-dias-limpiar/",
+  "hechos": [
+   "YouTube anunció el 29 de octubre, en su hilo oficial de pruebas, un experimento para canales que enfrentan la cancelación inmediata por ciertas infracciones de la política de spam.",
+   "En lugar de cerrar el canal en el acto, los canales elegibles entran en un bloqueo de 30 días. El dueño recibe el aviso por correo y en YouTube Studio en la computadora. Mientras dura el bloqueo no se pueden subir videos nuevos ni publicar comentarios, entre otras acciones.",
+   "Hay tres salidas. La primera: editar o borrar los videos que infringen, por ejemplo con el editor de Studio, y esperar la revisión. La segunda: eliminar todos los videos del canal, lo que lo desbloquea en el momento. La tercera: apelar, si creés que la decisión fue un error.",
+   "Según YouTube, la opción de borrar todo permite empezar de nuevo conservando los suscriptores, el identificador del canal y la condición de socio del Programa de Socios. Si la limpieza manual se rechaza, todavía se puede elegir esa opción dentro de los 30 días.",
+   "Si pasan los 30 días sin resolver el problema, o no se hace nada, el canal se cancela."
+  ],
+  "mirada": [
+   "Este cambio les habla directo a los canales faceless, que son los que más se cruzan con las reglas de spam y contenido repetitivo. Hasta ahora, en estos casos la respuesta era una sola: el canal desaparecía y quedaba la apelación.",
+   "Que exista una instancia para corregir no significa que YouTube afloje con el contenido masivo o reciclado. Las reglas siguen igual; lo que cambia es que, para algunos casos, la sanción deja de ser de un solo golpe y pasa a tener un margen para sacar lo que no corresponde.",
+   "La lectura de SEN6 es la de siempre: el activo que más vale es un canal que no tenga nada que limpiar. Esta prueba es una red de seguridad, no un permiso. Y es una prueba: no todos los canales van a ser elegibles ni sabemos todavía si va a quedar."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/18138167?hl=en&msgid=475278045"
+ },
+ {
+  "titulo": "YouTube prueba bajar el pago mínimo de AdSense de 100 a 20 dólares",
+  "bajada": "YouTube prueba con un grupo al azar de creadores de Estados Unidos, India e Indonesia cobrar desde US$20 en vez de esperar a juntar US$100.",
+  "fecha": "2026-10-29",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-umbral-pago-20-dolares-prueba/",
+  "hechos": [
+   "YouTube anunció el 26 de octubre, en su hilo oficial de pruebas y experimentos, que está probando bajar el umbral mínimo de pago de las ganancias de YouTube de 100 a 20 dólares, o su equivalente en moneda local.",
+   "Es un experimento temporal. Se aplica desde los pagos de octubre de 2026 y solo para un grupo de creadores elegidos al azar en Estados Unidos, India e Indonesia. No hay forma de anotarse.",
+   "Los canales que entren en la prueba reciben un aviso y pueden seguir su actividad de pagos desde la app de YouTube Studio en el celular.",
+   "Si a un creador incluido en la prueba le conviene seguir cobrando con un umbral más alto, puede cambiarlo desde AdSense para YouTube, como ya se podía hacer hasta ahora."
+  ],
+  "mirada": [
+   "Para un canal grande, cobrar desde 20 o desde 100 dólares no cambia nada. Para un canal que recién entra al Programa de Socios, sí: hoy puede pasar varios meses con plata ganada que todavía no puede retirar. Cobrar antes mejora la caja justo en la etapa en la que más cuesta sostener la constancia.",
+   "La señal de fondo es que YouTube está mirando la experiencia de los canales chicos que ya monetizan. Junto con los pilotos de bonos de Shorts, muestra una plataforma que prueba distintas formas de que el primer ingreso llegue antes.",
+   "Por ahora no aplica a ningún país de habla hispana. Si la prueba se extiende, lo vas a ver como aviso en Studio. Mientras tanto, no cambia en nada lo que importa: el umbral define cuándo cobrás, no cuánto ganás."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/18138167?hl=en&msgid=474743694"
+ },
+ {
   "titulo": "Bono mensual de Shorts: YouTube prueba pagar por subir con constancia",
   "bajada": "YouTube prueba, solo por invitación, un bono mensual para socios que suben una cantidad mínima de Shorts, con un extra según las vistas.",
   "fecha": "2026-10-23",
