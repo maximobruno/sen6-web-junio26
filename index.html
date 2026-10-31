@@ -295,6 +295,38 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
 .rev-nav button:hover{border-color:var(--accent);color:var(--accent)}
 .rev-hint{font-size:.8rem;color:var(--gray-ink);margin:2px 0 0}
 @media (min-width:900px){.reviews{margin:0;padding:4px 0 14px;scroll-padding:0}.rev-nav{display:flex}.rev-hint{display:none}}
+
+/* muro de posteos de la pestaña Reseñas de Skool (copia manual en assets/resenas-posteos.json) */
+.muro-sec{margin-top:44px}
+.muro-sec h3{margin:0;font-size:clamp(1.35rem,3.4vw,1.8rem);line-height:1.15;letter-spacing:-.02em;font-weight:800}
+.muro-sub{margin:8px 0 18px;color:var(--gray-ink);font-size:.95rem}
+.muro{display:grid;grid-template-columns:1fr;gap:12px;height:560px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent)}
+.muro-col{min-width:0;overflow:hidden}
+.muro-col:nth-child(n+2){display:none}
+.muro-pista{will-change:transform;animation:muro-sube var(--dur,120s) linear infinite}
+.muro-col.baja .muro-pista{animation-name:muro-baja}
+.muro:hover .muro-pista,.muro:has(:focus-visible) .muro-pista{animation-play-state:paused}
+@keyframes muro-sube{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes muro-baja{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.muro-card{display:block;width:100%;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 16px;margin:0 0 12px;box-shadow:var(--shadow);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.muro-card:hover{border-color:var(--accent);box-shadow:var(--shadow-lg)}
+.muro-card b{display:block;font-size:.98rem;line-height:1.3;font-weight:800;margin-bottom:6px}
+.muro-card span{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;font-size:.9rem;line-height:1.48;color:var(--gray-ink)}
+.muro-card small{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:.78rem;font-weight:600;color:var(--ink)}
+.muro-card small i{font-style:normal;color:var(--accent-ink)}
+.muro-pop{width:min(620px,calc(100vw - 32px));max-height:min(82vh,760px);padding:0;border:0;border-radius:var(--r-lg);background:var(--white);color:var(--ink);box-shadow:var(--shadow-lg);overflow:hidden}
+.muro-pop[open]{display:flex;flex-direction:column;animation:muro-abre .22s cubic-bezier(.2,.8,.2,1)}
+.muro-pop::backdrop{background:rgba(17,17,17,.55)}
+@keyframes muro-abre{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.muro-pop header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:20px 22px 12px;border-bottom:1px solid var(--line)}
+.muro-pop h4{margin:0;font-size:1.15rem;line-height:1.25;font-weight:800}
+.muro-pop header span{display:block;margin-top:4px;font-size:.84rem;font-weight:600;color:var(--gray-ink)}
+.muro-pop button{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line2);background:var(--white);font-size:1.15rem;line-height:1;cursor:pointer}
+.muro-pop button:hover{border-color:var(--accent);color:var(--accent)}
+.muro-pop div{padding:16px 22px 24px;overflow-y:auto;white-space:pre-line;font-size:.98rem;line-height:1.6;overflow-wrap:anywhere}
+@media (min-width:640px){.muro{grid-template-columns:1fr 1fr;height:620px}.muro-col:nth-child(2){display:block}}
+@media (min-width:900px){.muro{grid-template-columns:repeat(3,1fr);height:680px}.muro-col:nth-child(3){display:block}}
+@media (prefers-reduced-motion:reduce){.muro-pista,.muro-pop[open]{animation:none}.muro-col{overflow-y:auto}.muro-col.baja .muro-pista{transform:none}}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0P90HLK476"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-0P90HLK476");</script>
@@ -421,6 +453,15 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
       <div class="rev-nav"><button type="button" data-rev="-" aria-label="Reseñas anteriores">‹</button><button type="button" data-rev="+" aria-label="Más reseñas">›</button></div>
       <p class="rev-hint" aria-hidden="true">Deslizá para ver más reseñas →</p>
     </div>
+    <div class="muro-sec rv" id="muro">
+      <h3>Lo que cuentan adentro de la comunidad</h3>
+      <p class="muro-sub">Posteos que los alumnos publicaron en la sección Reseñas de Skool. Tocá uno para leerlo completo.</p>
+      <div class="muro" id="muro-cols"></div>
+    </div>
+    <dialog class="muro-pop" id="muro-pop" aria-labelledby="muro-pop-t">
+      <header><h4 id="muro-pop-t"></h4><button type="button" id="muro-cerrar" aria-label="Cerrar">×</button></header>
+      <div id="muro-pop-x"></div>
+    </dialog>
     <p class="disclaimer">Experiencias individuales contadas por cada alumno. Los resultados dependen del nicho, la constancia y el trabajo de cada persona.</p>
   </div>
 </section>
@@ -904,6 +945,49 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   try{ fetch('https://oficina-sen6.onrender.com/skool/resenas').then(function(r){return r.ok?r.json():null;}).then(pintar).catch(function(){}); }catch(e){}
   document.querySelectorAll('[data-rev]').forEach(function(b){ b.addEventListener('click',function(){
     box.scrollBy({left:(b.getAttribute('data-rev')==='+'?1:-1)*Math.min(box.clientWidth*.9,680),behavior:'smooth'}); }); });
+})();
+</script>
+<script>
+/* Muro de posteos de Reseñas: 3 columnas que pasan y pop-up con el texto completo. Se carga recién cuando se acerca a la pantalla. */
+(function(){
+  var sec=document.getElementById('muro'), cols=document.getElementById('muro-cols'), pop=document.getElementById('muro-pop');
+  if(!sec||!cols||!pop) return;
+  var POST=[], cargado=false;
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function tarjeta(p,i,copia){
+    return '<button type="button" class="muro-card" data-i="'+i+'"'+(copia?' tabindex="-1" aria-hidden="true"':'')+'><b>'+esc(p.t)+'</b><span>'+esc(p.x.replace(/\s+/g,' ').slice(0,260))+'</span><small>'+esc(p.n)+'<i>Leer completo</i></small></button>';
+  }
+  function pintar(d){
+    POST=d;
+    var html='';
+    [0,1,2].forEach(function(c){
+      var uno=[],dos=[];
+      POST.forEach(function(p,i){ if(i%3===c){uno.push(tarjeta(p,i,false));dos.push(tarjeta(p,i,true));} });
+      html+='<div class="muro-col'+(c===1?' baja':'')+'"><div class="muro-pista">'+uno.join('')+dos.join('')+'</div></div>';
+    });
+    cols.innerHTML=html;
+    cols.querySelectorAll('.muro-pista').forEach(function(t){ t.style.setProperty('--dur',(Math.round(t.offsetHeight/2/26)||150)+'s'); });
+    sec.classList.add('in');
+  }
+  function abrir(i){
+    var p=POST[i]; if(!p) return;
+    document.getElementById('muro-pop-t').innerHTML=esc(p.t)+'<span></span>';
+    document.querySelector('#muro-pop-t span').textContent=p.n+' · Skool';
+    var x=document.getElementById('muro-pop-x'); x.textContent=p.x; x.scrollTop=0;
+    pop.showModal();
+  }
+  cols.addEventListener('click',function(e){ var b=e.target.closest('.muro-card'); if(b) abrir(+b.getAttribute('data-i')); });
+  document.getElementById('muro-cerrar').addEventListener('click',function(){ pop.close(); });
+  pop.addEventListener('click',function(e){ if(e.target===pop) pop.close(); });
+  function cargar(){
+    if(cargado) return; cargado=true;
+    fetch('/assets/resenas-posteos.json').then(function(r){return r.ok?r.json():null;}).then(function(d){ if(d&&d.length) pintar(d); else sec.hidden=true; }).catch(function(){ sec.hidden=true; });
+  }
+  var ancla=document.getElementById('resenas');
+  if('IntersectionObserver' in window&&ancla){
+    var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){io.disconnect();cargar();} },{rootMargin:'800px 0px'});
+    io.observe(ancla);
+  } else cargar();
 })();
 </script>
 </body>
