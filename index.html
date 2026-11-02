@@ -83,7 +83,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .hero::before{content:"";position:absolute;width:760px;height:760px;left:50%;top:-430px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(242,106,46,.20),rgba(242,106,46,0));pointer-events:none}
 .hero .wrap{position:relative;display:flex;flex-direction:column;align-items:center}
 .hero h1{max-width:12em}
-.hero .lead{margin:20px auto 30px;max-width:30em}
+.hero .lead{margin:20px auto 30px;max-width:30em;color:#2b2925;font-weight:500}
 .hero .btn{width:100%;max-width:420px}
 .hero-note{margin-top:12px;font-size:.86rem;color:var(--gray-ink)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:36px;width:100%;max-width:560px}
@@ -327,6 +327,22 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
 @media (min-width:640px){.muro{grid-template-columns:1fr 1fr;height:620px}.muro-col:nth-child(2){display:block}}
 @media (min-width:900px){.muro{grid-template-columns:repeat(3,1fr);height:680px}.muro-col:nth-child(3){display:block}}
 @media (prefers-reduced-motion:reduce){.muro-pista,.muro-pop[open]{animation:none}.muro-col{overflow-y:auto}.muro-col.baja .muro-pista{transform:none}}
+/* fondo del hero: copia del muro de reseñas pasando, muy tenue, detrás del titular */
+.hero{isolation:isolate}
+.hero-muro{position:absolute;inset:0;z-index:-1;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 12px;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.6s ease;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 72%,transparent 100%)}
+.hero-muro.in{opacity:.32}
+.hero-muro::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 62% 48% at 50% 46%,rgba(245,243,239,.92),rgba(245,243,239,.55) 55%,rgba(245,243,239,0) 85%)}
+.hero-muro>div{min-width:0;overflow:hidden}
+.hero-muro>div:nth-child(n+3){display:none}
+.hero-muro .pista{animation:muro-sube var(--dur,140s) linear infinite}
+.hero-muro>div:nth-child(even) .pista{animation-name:muro-baja}
+.hero-muro p{margin:0 0 12px;padding:14px 15px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);font-size:.82rem;line-height:1.45;color:var(--gray-ink)}
+.hero-muro p b{display:block;margin-bottom:4px;color:var(--ink);font-size:.86rem;font-weight:800}
+@media (min-width:640px){.hero-muro{grid-template-columns:repeat(3,1fr)}.hero-muro>div:nth-child(3){display:block}}
+@media (min-width:900px){.hero-muro{grid-template-columns:repeat(5,1fr);gap:16px;padding:0 16px}.hero-muro>div:nth-child(n+4){display:block}}
+@media (prefers-reduced-motion:reduce){.hero-muro .pista{animation:none}}
+
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0P90HLK476"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-0P90HLK476");</script>
@@ -345,6 +361,7 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
 <main id="top">
 <!-- 1. HERO -->
 <section class="hero" aria-labelledby="h-hero">
+  <div class="hero-muro" id="hero-muro" aria-hidden="true"></div>
   <div class="wrap">
     <div class="eyebrow rv">Academia de YouTube faceless con IA</div>
     <h1 id="h-hero" class="rv d1">Tu canal de YouTube sin mostrar la cara, <span class="k">con IA y con método.</span></h1>
@@ -945,6 +962,25 @@ footer.site{padding:32px 0 40px;border-top:1px solid var(--line);font-size:.86re
   try{ fetch('https://oficina-sen6.onrender.com/skool/resenas').then(function(r){return r.ok?r.json():null;}).then(pintar).catch(function(){}); }catch(e){}
   document.querySelectorAll('[data-rev]').forEach(function(b){ b.addEventListener('click',function(){
     box.scrollBy({left:(b.getAttribute('data-rev')==='+'?1:-1)*Math.min(box.clientWidth*.9,680),behavior:'smooth'}); }); });
+})();
+</script>
+<script>
+/* Fondo del hero: las mismas reseñas del muro, en 5 columnas que pasan despacio (decorativo, sin clics). */
+(function(){
+  var el=document.getElementById('hero-muro'); if(!el) return;
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  fetch('/assets/resenas-posteos.json').then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d||!d.length) return;
+    var html='';
+    for(var c=0;c<5;c++){
+      var uno=[];
+      d.forEach(function(p,i){ if(i%5===c) uno.push('<p><b>'+esc(p.t)+'</b>'+esc(p.x.replace(/\s+/g,' ').slice(0,150))+'…</p>'); });
+      html+='<div><div class="pista">'+uno.join('')+uno.join('')+'</div></div>';
+    }
+    el.innerHTML=html;
+    el.querySelectorAll('.pista').forEach(function(t){ t.style.setProperty('--dur',(Math.round(t.offsetHeight/2/18)||140)+'s'); });
+    requestAnimationFrame(function(){ el.classList.add('in'); });
+  }).catch(function(){});
 })();
 </script>
 <script>
