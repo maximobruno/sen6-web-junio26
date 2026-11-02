@@ -1,5 +1,25 @@
 [
  {
+  "titulo": "YouTube Studio ya corta Shorts y clips de tus videos largos con IA",
+  "bajada": "Desde YouTube Studio en la compu podés sacar Shorts y clips de un video que ya subiste, con sugerencias de IA también en español.",
+  "fecha": "2026-11-02",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/youtube-studio-clips-shorts-videos-largos/",
+  "hechos": [
+   "En el resumen mensual de novedades del 30 de octubre, el canal oficial YouTube Creators anunció que ya se pueden convertir momentos de un video en clips y Shorts sin salir de YouTube Studio en la versión de escritorio. El anuncio se centró en los podcasts, pero el Centro de Ayuda describe la herramienta para cualquier video largo que ya tengas subido.",
+   "El camino es Contenido > Videos, elegís el video y entrás en «Clips y Shorts» desde el menú de la izquierda. Ahí marcás el tramo resaltando el texto de la transcripción, o usás el esquema y las sugerencias de momentos que arma la IA.",
+   "Las sugerencias con IA no están en todos lados. Según el Centro de Ayuda funcionan en Brasil, Canadá, Francia, Alemania, India, México, Corea del Sur, España, Reino Unido y Estados Unidos, y en inglés, francés, alemán, hindi, coreano, portugués y español. Sin sugerencias, el recorte manual sigue disponible.",
+   "Cuando el resultado es un Short, el video horizontal se recorta solo a formato vertical. Las partes que no llenan la pantalla se completan con una versión desenfocada del mismo video. Los subtítulos automáticos salen de la transcripción y les podés cambiar color, fuente, estilo y posición, o sacarlos.",
+   "El video original se agrega solo como video relacionado del Short, salvo que el Short sea privado, oculto o esté marcado como contenido para chicos. Y el Centro de Ayuda aclara que reutilizar así tu propio contenido no te penaliza."
+  ],
+  "mirada": [
+   "Sacar Shorts de los videos largos es una práctica muy común, y casi siempre se hace con editores o servicios externos. Que YouTube lo meta en Studio, con sugerencias de IA en español y el enlace al video original automático, le baja el costo de entrada a cualquier canal que ya tiene un catálogo largo.",
+   "El enlace automático al video completo es lo que más pesa: convierte cada Short en una puerta hacia el video que realmente retiene y monetiza, sin tener que acordarte de configurarlo uno por uno.",
+   "Para un canal faceless, la herramienta resuelve el corte, no el criterio. Las sugerencias de la IA encuentran momentos, pero un Short funciona cuando se entiende solo en los primeros segundos, y eso sigue dependiendo de cómo está armado el video original. Y ojo: que tu propio contenido recortado no se penalice no cambia las reglas sobre contenido reutilizado de terceros."
+  ],
+  "fuente": "https://www.youtube.com/watch?v=B4M3VlMs3IU"
+ },
+ {
   "titulo": "Canal cancelado por spam: YouTube prueba darte 30 días para limpiarlo",
   "bajada": "En una prueba, algunos canales que iban a ser cancelados por la política de spam quedan bloqueados 30 días para corregir o borrar lo que infringe.",
   "fecha": "2026-10-29",
