@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prompt Faceless</title>
+<meta name="description" content="Videos faceless hechos con código en un solo plano continuo: generador de prompt, mundos, cámara de bolsillo, caso real y skill.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<!-- ===================== PORTADA ===================== -->
+<header class="portada">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="capa-grano" aria-hidden="true"></div>
+  <div class="capa-vineta" aria-hidden="true"></div>
+  <div class="portada-txt">
+    <div class="marca">SEN6 · PROMPT</div>
+    <h1>Prompt<br><span>Faceless</span></h1>
+    <p class="bajada">Videos faceless hechos <b>100&nbsp;% con código</b>, en <b>un solo plano</b> que nunca corta. Armá tu prompt, elegí tu mundo, probá la cámara y bajá la skill.</p>
+    <div class="rec"><i></i>REC · PLANO 01 · SIN CORTES</div>
+  </div>
+  <a class="bajar" href="#generador">Empezar ↓</a>
+</header>
+
+<!-- riel de paradas (la "cámara" de la página) -->
+<nav class="riel" aria-label="Secciones">
+  <a href="#generador"><b>01</b><span>Tu prompt</span></a>
+  <a href="#mundos"><b>02</b><span>Mundos</span></a>
+  <a href="#camara"><b>03</b><span>Cámara</span></a>
+  <a href="#caso"><b>04</b><span>Caso real</span></a>
+  <a href="#kit"><b>05</b><span>Instalar</span></a>
+  <a href="#skill"><b>06</b><span>Skill</span></a>
+</nav>
+
+<main>
+
+<!-- ===================== 01 GENERADOR ===================== -->
+<section id="generador" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 01</div>
+    <h2>Armá tu prompt</h2>
+    <p>Completá lo que sepas. El prompt se escribe solo a la derecha, con todas las reglas del plano continuo adentro. Copialo y pegalo en Claude Code.</p>
+  </div>
+
+  <div class="gen">
+    <form class="gen-form" id="genForm" autocomplete="off">
+      <fieldset>
+        <legend>1 · La historia</legend>
+        <label>¿De qué trata el video?
+          <input name="tema" placeholder="Ej.: la vida de Cristóbal Colón hasta 1492">
+        </label>
+        <label>¿Para quién es?
+          <input name="publico" placeholder="Ej.: adultos curiosos, sin conocimientos previos">
+        </label>
+        <div class="fila">
+          <label>Duración aprox.
+            <select name="duracion">
+              <option value="la de la locución">La de la locución</option>
+              <option value="30 segundos">30 s</option>
+              <option value="60 segundos">60 s</option>
+              <option value="3 minutos">3 min</option>
+              <option value="5 minutos">5 min</option>
+              <option value="10 minutos">10 min</option>
+            </select>
+          </label>
+          <label>Formato
+            <select name="formato">
+              <option value="16:9, 1920x1080, 30 fps (YouTube)">16:9 · YouTube</option>
+              <option value="9:16, 1080x1920, 30 fps (Reels / Shorts / TikTok), con todo dentro de la zona segura de Reels">9:16 · Reels</option>
+              <option value="1:1, 1080x1080, 30 fps">1:1 · Feed</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2 · El mundo</legend>
+        <div class="chips" id="chipsMundo"></div>
+        <p class="nota">¿No sabés cuál? Miralos andar en la <a href="#mundos">parada 02</a>.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>3 · Estética</legend>
+        <div class="chips" id="chipsEstetica"></div>
+        <label>Referencias de estilo
+          <select name="refs">
+            <option value="tengo">Tengo capturas en una carpeta</option>
+            <option value="no">No tengo: proponé vos</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>4 · Insumos</legend>
+        <div class="fila">
+          <label>Voz
+            <select name="voz">
+              <option value="tengo">Ya tengo la locución</option>
+              <option value="eleven">Generarla con ElevenLabs</option>
+              <option value="local">Voz local gratis (Qwen)</option>
+              <option value="guion">Solo tengo el guion</option>
+            </select>
+          </label>
+          <label>Fotos reales
+            <select name="fotos">
+              <option value="tengo">Tengo las mías</option>
+              <option value="wiki">Buscalas en Wikimedia</option>
+              <option value="ambas">Las mías + Wikimedia</option>
+            </select>
+          </label>
+        </div>
+        <label>Música
+          <select name="musica">
+            <option value="mixkit">Mixkit (libre, sin atribución)</option>
+            <option value="mia">Tengo la mía</option>
+            <option value="no">Sin música</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>5 · Movimientos que querés sí o sí</legend>
+        <div class="chips multi" id="chipsEfectos"></div>
+        <p class="nota">Todos están en la <a href="#camara">cámara de bolsillo</a>, para que veas cómo se ven antes de pedirlos.</p>
+      </fieldset>
+    </form>
+
+    <div class="gen-salida">
+      <div class="salida-cab">
+        <div class="tabs" role="tablist">
+          <button class="tab on" data-modo="completo">Prompt completo</button>
+          <button class="tab" data-modo="skill">Con la skill</button>
+        </div>
+        <button class="btn" id="copiarPrompt">Copiar</button>
+      </div>
+      <pre id="prompt" class="prompt"></pre>
+      <p class="nota" id="notaModo">Pegalo en Claude Code, dentro de la carpeta de tu proyecto. Funciona sin instalar nada más que el <a href="#kit">kit</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 MUNDOS ===================== -->
+<section id="mundos" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 02</div>
+    <h2>Elegí el mundo</h2>
+    <p>Todo el video pasa sobre una sola superficie gigante. La cámara la recorre sin cortar: empuja sobre un detalle, se aleja para viajar y vuelve a entrar. Estos mundos están hechos con three.js, en vivo, como los haría Claude.</p>
+  </div>
+
+  <div class="mundos">
+    <div class="visor">
+      <canvas id="mundoCanvas"></canvas>
+      <div class="capa-grano" aria-hidden="true"></div>
+      <div class="capa-vineta" aria-hidden="true"></div>
+      <div class="visor-hud">
+        <span id="mundoParada">PARADA 1/5</span>
+        <span id="mundoNombre"></span>
+      </div>
+    </div>
+    <div class="mundo-lista" id="mundoLista"></div>
+  </div>
+</section>
+
+<!-- ===================== 03 CÁMARA ===================== -->
+<section id="camara" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 03</div>
+    <h2>La cámara de bolsillo</h2>
+    <p>Tocá un movimiento y miralo andar. Después apagá el resorte o la cámara en mano y vas a ver por qué un video "se siente filmado" y otro "se siente PowerPoint". Abajo de cada efecto está la frase exacta para pedírselo a Claude.</p>
+  </div>
+
+  <div class="cam">
+    <div class="cam-visor">
+      <canvas id="camCanvas" width="1280" height="720"></canvas>
+      <div class="capa-grano" id="camGrano" aria-hidden="true"></div>
+      <div class="capa-vineta" id="camVineta" aria-hidden="true"></div>
+      <div class="capa-glow" id="camGlow" aria-hidden="true"></div>
+      <div class="cam-hud"><span id="camEfecto">LIBRE</span><span id="camVel">vel 0</span></div>
+    </div>
+
+    <div class="cam-panel">
+      <div class="efectos" id="efectos"></div>
+      <div class="pedido">
+        <div class="pedido-et">PEDÍSELO A CLAUDE</div>
+        <p id="pedidoTxt">Elegí un movimiento.</p>
+        <button class="btn chico" id="copiarPedido">Copiar frase</button>
+      </div>
+      <div class="ajustes">
+        <div class="ajustes-et">LA SALSA (prendé y apagá)</div>
+        <label class="sw"><input type="checkbox" id="optResorte" checked><span>Resorte (ease in/out)</span></label>
+        <label class="sw"><input type="checkbox" id="optDeriva" checked><span>Deriva en las pausas</span></label>
+        <label class="sw"><input type="checkbox" id="optMano" checked><span>Cámara en mano</span></label>
+        <label class="sw"><input type="checkbox" id="optBlur" checked><span>Motion blur</span></label>
+        <label class="sw"><input type="checkbox" id="optGrano" checked><span>Grano</span></label>
+        <label class="sw"><input type="checkbox" id="optVineta" checked><span>Viñeta</span></label>
+        <label class="sw"><input type="checkbox" id="optGlow" checked><span>Glow</span></label>
+        <label class="rango">Rigidez del resorte <b id="rigVal">1.2</b>
+          <input type="range" id="optRig" min="0.4" max="3" step="0.1" value="1.2">
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 CASO REAL ===================== -->
+<section id="caso" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 04</div>
+    <h2>Caso real: Colón</h2>
+    <p>Un demo de 5:25 sobre Cristóbal Colón, hecho con este método de punta a punta: guion, voz en ElevenLabs, una carta náutica dibujada en código y una sola cámara que la recorre. Acá tenés un minuto (desde "gracias a un error de cálculo"), cómo se armó y todo lo que salió mal.</p>
+  </div>
+
+  <div class="caso">
+    <div class="caso-video">
+      <video src="media/colon-demo.mp4" poster="media/colon-poster.jpg" controls playsinline preload="metadata"></video>
+    </div>
+    <div class="caso-datos">
+      <div class="dato"><b>5:25</b><span>de video, un solo plano</span></div>
+      <div class="dato"><b>38</b><span>beats anclados a la palabra</span></div>
+      <div class="dato"><b>7</b><span>imágenes reales de Wikimedia</span></div>
+      <div class="dato"><b>0</b><span>videos generados con IA</span></div>
+      <div class="dato"><b>24 min</b><span>de render en la compu</span></div>
+      <div class="dato"><b>~115</b><span>anclas de tiempo en t.json</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">La cadena, paso a paso</h3>
+  <ol class="cadena">
+    <li><b>Guion</b><span>1.700 palabras, datos verificables, tono cercano.</span></li>
+    <li><b>Voz</b><span>ElevenLabs, voz del canal. Solo la parte 1: no alcanzaron los créditos para la 2.</span></li>
+    <li><b>Tiempos</b><span>Whisper saca cada palabra con su segundo; <code>tiempos.py</code> arma las anclas.</span></li>
+    <li><b>Beats</b><span>Tabla de 38 filas: tiempo, narración, protagonista, texto. Aprobada antes de construir.</span></li>
+    <li><b>Mundo</b><span>Costas reales de Natural Earth sobre pergamino; barcos, sellos y monasterio dibujados en SVG.</span></li>
+    <li><b>Cámara</b><span>Resorte precalculado, deriva, cámara en mano, golpes en los sellos y blur en los viajes.</span></li>
+    <li><b>Revisión</b><span>Grillas de stills por beat antes del render. Ahí aparecieron casi todos los errores.</span></li>
+    <li><b>Sonido</b><span>Música de Mixkit, papel en cada foto, golpe en cada sello. −14 LUFS.</span></li>
+  </ol>
+
+  <h3 class="sub">Así se ve en distintos momentos</h3>
+  <div class="tira">
+    <figure><img src="media/colon-9.jpg" alt="La carabela de noche, el grito de tierra" loading="lazy"><figcaption>0:09 · "¡Tierra!" golpea en la palabra</figcaption></figure>
+    <figure><img src="media/colon-36.jpg" alt="El retrato de Colón cae sobre el mapa" loading="lazy"><figcaption>0:36 · La foto real cae como una lámina</figcaption></figure>
+    <figure><img src="media/colon-47.jpg" alt="Un sello de lacre con la palabra sabemos" loading="lazy"><figcaption>0:47 · Un protagonista por línea</figcaption></figure>
+    <figure><img src="media/colon-100.jpg" alt="La ruta punteada hacia 1476" loading="lazy"><figcaption>1:40 · La ruta se dibuja mientras habla</figcaption></figure>
+    <figure><img src="media/colon-160.jpg" alt="Flechas de ida y vuelta de los vientos" loading="lazy"><figcaption>2:40 · Plano general para explicar</figcaption></figure>
+    <figure><img src="media/colon-196.jpg" alt="La regla de 2.400 millas" loading="lazy"><figcaption>3:16 · Una idea, una imagen</figcaption></figure>
+    <figure><img src="media/colon-250.jpg" alt="El monasterio de La Rábida" loading="lazy"><figcaption>4:10 · La escena vive donde pasa</figcaption></figure>
+    <figure><img src="media/colon-318.jpg" alt="Las Capitulaciones de Santa Fe" loading="lazy"><figcaption>5:18 · Documento real + títulos</figcaption></figure>
+  </div>
+
+  <h3 class="sub">Bitácora de errores</h3>
+  <p class="intro-tabla">Lo más valioso del caso. Son errores que te van a pasar a vos también; con esto los arreglás en un mensaje.</p>
+  <div class="tabla-wrap">
+    <table class="bitacora">
+      <thead><tr><th>Qué pasó</th><th>Por qué</th><th>Cómo se arregló</th></tr></thead>
+      <tbody>
+        <tr><td>Textos viejos encimados sobre los planos generales</td><td>Los protagonistas no salían después de su beat</td><td>Cada texto se desvanece del todo 0,6 s después de su beat; lo de fondo baja a 12 %.</td></tr>
+        <tr><td>Anclas corridas: lo visual llegaba antes de la palabra</td><td>Whisper se "comió" San Vicente</td><td>Anclar en una frase vecina que sí escribió.</td></tr>
+        <tr><td>La tierra se confundía con el mar</td><td>Mismo tono de papel</td><td>Tierra más oscura + ondas grabadas en la costa.</td></tr>
+        <tr><td>Las costas no aparecían</td><td>La simplificación de polígonos cerrados devolvía cero puntos</td><td>Partir cada contorno en dos mitades antes de simplificar.</td></tr>
+        <tr><td>Rutas que mostraban un punto antes de tiempo</td><td>Una condición mal puesta</td><td>No dibujar nada mientras el progreso es 0.</td></tr>
+        <tr><td>Documento con fondo azul</td><td>El escaneo del archivo histórico</td><td>Recorte automático al preparar las imágenes.</td></tr>
+        <tr><td>Wikimedia cortaba las descargas</td><td>Muchas descargas seguidas (error 429)</td><td>Identificarse con un User-Agent y reintentar con pausas.</td></tr>
+        <tr><td>El plano final se iba demasiado lejos</td><td>Zoom final muy bajo</td><td>Zoom 0,8 con resorte lento.</td></tr>
+        <tr><td>La música no se oía</td><td>Quedó 20 dB debajo de la voz</td><td>Música a −15 dB y todo normalizado a −14 LUFS.</td></tr>
+        <tr><td>Faltó la segunda mitad del video</td><td>No alcanzaron los créditos de ElevenLabs</td><td>Calcular créditos antes de generar o usar voz local para el borrador.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mejoraria">
+    <div class="mej-et">QUÉ LE FALTA (y lo que vas a hacer mejor)</div>
+    <p><b>Más fotografías reales.</b> El demo usa solo 7: el resto son dibujos en código. Cada beat con una lámina real (grabados de época, mapas, retratos) lo vuelve mucho más dinámico. <b>Dibujos con más rayado de grabado</b>, para que no se vean de caricatura. Y <b>menos tiempo en el mismo encuadre</b>: si una idea dura más de 8 segundos, la cámara tiene que moverse a un detalle.</p>
+  </div>
+</section>
+
+<!-- ===================== 05 KIT ===================== -->
+<section id="kit" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 05</div>
+    <h2>Kit de instalación</h2>
+    <p>Lo hacés una sola vez. Unos 30 minutos. Si algo falla, copiá el error entero y pegáselo a Claude.</p>
+  </div>
+
+  <ol class="pasos">
+    <li>
+      <div class="paso-n">1</div>
+      <div class="paso-c">
+        <h4>Claude con la pestaña Code</h4>
+        <p>Necesitás <b>Claude Pro o Max</b> y la app de escritorio. Adentro, la pestaña <b>Code</b> es Claude Code: el que puede crear archivos y ejecutar programas en tu compu. En el chat común esto no funciona.</p>
+      </div>
+    </li>
+    <li>
+      <div class="paso-n">2</div>
+      <div class="paso-c">
+        <h4>Una carpeta para el video</h4>
+        <p>Creá una carpeta en el Escritorio, por ejemplo <code>mi-faceless</code>. En Claude → Code → nueva sesión → elegí esa carpeta. Adentro creá una subcarpeta <code>referencias</code> con tus capturas de estilo y otra <code>fuentes</code> con tus fotos.</p>
+      </div>
+    </li>
+    <li>
+      <div class="paso-n">3</div>
+      <div class="paso-c">
+        <h4>Que Claude instale todo</h4>
+        <p>Pegale este mensaje. Cuando pida permiso para ejecutar, leé qué va a hacer y aceptá. Si te pide la contraseña de la Mac, escribila vos en la Terminal (no se ve mientras la escribís, es normal).</p>
+        <div class="bloque"><button class="btn chico copiar">Copiar</button><pre>Soy principiante. Preparame esta compu para hacer videos con código. Revisá qué hay instalado y sumá solo lo que falte, explicándome en una línea qué es cada cosa:
+1. Homebrew (instalador de programas en Mac).
+2. Node.js versión 20 o más (lo necesita Remotion).
+3. Python 3 y uv (para preparar imágenes, audio y tiempos).
+4. ffmpeg (corta, une y comprime audio y video).
+5. faster-whisper con uv (saca el segundo exacto de cada palabra de la locución).
+6. Un proyecto de Remotion vacío en la carpeta remotion/ (npx create-video@latest, plantilla en blanco, TypeScript).
+Al final, hacé una prueba: renderizá un video de 3 segundos con un texto que diga "funciona" y decime dónde quedó.</pre></div>
+      </div>
+    </li>
+    <li>
+      <div class="paso-n">4</div>
+      <div class="paso-c">
+        <h4>La voz (opcional)</h4>
+        <p>Si vas a generar la locución con <b>ElevenLabs</b>, conectalo: en la app de Claude, <b>Configuración → Conectores → ElevenLabs → Conectar</b>. Mirá cuántos créditos te quedan antes de generar: un guion de 10 minutos ronda los 10.000 caracteres. Si querés gastar cero, pedile a Claude una voz local (Qwen) para los borradores.</p>
+      </div>
+    </li>
+    <li>
+      <div class="paso-n">5</div>
+      <div class="paso-c">
+        <h4>Material libre</h4>
+        <ul class="libre">
+          <li><b>Música y efectos:</b> mixkit.co, libres para YouTube y redes, sin atribución.</li>
+          <li><b>Fotos, grabados, mapas y documentos:</b> Wikimedia Commons. Dominio público o CC: anotá el crédito de cada una (las CC BY-SA piden atribución en la descripción).</li>
+          <li><b>Mapas y costas reales:</b> Natural Earth, dominio público.</li>
+          <li><b>Referencias de estilo:</b> Pinterest, solo para mirar el clima. No se publican.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="paso-n">6</div>
+      <div class="paso-c">
+        <h4>Instalá la skill</h4>
+        <p>Con la skill, Claude ya sabe todo el método y no tenés que pegar el prompt largo. Está en la <a href="#skill">parada 06</a>.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ===================== 06 SKILL ===================== -->
+<section id="skill" class="sec">
+  <div class="sec-cab">
+    <div class="parada">PARADA 06</div>
+    <h2>La skill</h2>
+    <p>Todo el método en una carpeta que Claude lee sola: pide los insumos, saca los tiempos, arma la tabla de beats, te la muestra, construye el mundo, mueve la cámara, revisa stills, renderiza y mezcla.</p>
+  </div>
+
+  <div class="skill">
+    <div class="skill-caja">
+      <div class="cartucho">
+        <div class="cart-et">SKILL</div>
+        <div class="cart-nom">faceless-plano-continuo</div>
+        <ul>
+          <li><code>SKILL.md</code> las instrucciones, paso a paso</li>
+          <li><code>referencias/prompt.md</code> el prompt original</li>
+          <li><code>referencias/camara.ts</code> la cámara de Colón, lista para usar</li>
+          <li><code>referencias/tiempos.py</code> anclas frase → segundo</li>
+          <li><code>referencias/reglas.md</code> reglas + checklist antes del render</li>
+          <li><code>referencias/bitacora-colon.md</code> los errores del caso real</li>
+        </ul>
+        <a class="btn grande" href="media/faceless-plano-continuo.zip" download>Descargar la skill (.zip)</a>
+      </div>
+    </div>
+    <div class="skill-instalar">
+      <h4>Cómo instalarla</h4>
+      <ol>
+        <li>Descargá el .zip. Queda en tu carpeta <b>Descargas</b>.</li>
+        <li>En Claude Code, pegá este mensaje:</li>
+      </ol>
+      <div class="bloque"><button class="btn chico copiar">Copiar</button><pre>Acabo de bajar una skill a mi carpeta Descargas: faceless-plano-continuo.zip. Descomprimila e instalala en ~/.claude/skills/ para que la pueda usar en todos mis proyectos. Después confirmame que la ves en la lista de skills.</pre></div>
+      <ol start="3">
+        <li>Desde ahí, en cualquier carpeta de proyecto:</li>
+      </ol>
+      <div class="bloque"><button class="btn chico copiar">Copiar</button><pre>Usá la skill faceless-plano-continuo. La locución está en locucion/, las referencias de estilo en referencias/ y las fotos en fuentes/. Formato 16:9. Empezá por la tabla de beats.</pre></div>
+      <p class="nota">También podés armar el mensaje con el <a href="#generador">generador</a>, pestaña "Con la skill".</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="marca">SEN6 · PROMPT FACELESS</div>
+  <p>Hecho con el mismo método que enseña: código, un plano, cero cortes.</p>
+</footer>
+
+<script src="media/three.min.js"></script>
+<script src="mundos.js"></script>
+<script src="camara.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
