@@ -94,6 +94,11 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+[[headers]]
+  for = "/prompt-stick-dabc8755/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # Cazadores de Nichos: taller suspendido el 7 nov 2026; landing retirada temporalmente
 # (copia en AREAS/TRABAJO/SEN6/taller-0-a-canal/landing-publicada-cazadores). Volver a publicarla = restaurar la carpeta y borrar estas dos reglas.
 [[redirects]]

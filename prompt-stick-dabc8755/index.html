@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prompt Stick · Canal de stickman con IA · SEN6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D12;--ink2:#12161F;--ink3:#181D28;--cream:#F5F3EF;--paper:#EFEAE0;--dim:rgba(245,243,239,.68);--line:rgba(245,243,239,.14);
+  --naranja:#D4450A;--glow:#F26A2E;--oro:#E8C27A;--terra:#C8502A;--verde:#7BD88F;--rojo:#ff5a4f;
+  --oswald:'Oswald',Impact,sans-serif;--inter:'Inter',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--inter);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+.marco video,.marco>img{width:100%}
+a{color:var(--glow)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--oswald);font-weight:600;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+
+/* espiral del cuaderno */
+.espiral{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.espiral .aros{height:12px;background:radial-gradient(circle at 50% 100%,var(--ink) 4px,transparent 5px) 0 0/26px 12px repeat-x,linear-gradient(var(--paper),var(--paper));opacity:.9}
+.espiral nav{display:flex;align-items:center;gap:4px;overflow-x:auto;padding:9px 20px;max-width:1180px;margin:0 auto;scrollbar-width:none}
+.espiral nav::-webkit-scrollbar{display:none}
+.espiral .marca{font-family:var(--oswald);font-size:18px;letter-spacing:.06em;margin-right:14px;white-space:nowrap}
+.espiral .marca b{color:var(--glow)}
+.espiral a{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);text-decoration:none;padding:6px 9px;border-radius:3px;white-space:nowrap}
+.espiral a:hover,.espiral a.on{color:var(--ink);background:var(--oro)}
+
+/* hero */
+.hero{position:relative;min-height:86vh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,18,.15) 0%,rgba(11,13,18,.4) 50%,var(--ink) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:56px;width:100%}
+.hero .meta{font-family:var(--mono);font-size:12px;color:var(--oro);letter-spacing:.14em;text-transform:uppercase;display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.hero h1{font-size:clamp(44px,8.5vw,112px);font-weight:700;max-width:12ch}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero p{font-size:clamp(17px,2vw,21px);color:var(--dim);max-width:660px;margin-top:18px}
+.cifras{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px}
+.cifras div{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.cifras b{display:block;font-family:var(--oswald);font-size:34px;color:var(--cream);letter-spacing:0;font-weight:600}
+
+/* secciones */
+section{padding:88px 0;border-bottom:1px solid var(--line)}
+.rotulo{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--oro)}
+.rotulo .n{color:var(--glow)}
+section h2{font-size:clamp(32px,5vw,56px);margin-bottom:14px}
+.intro{color:var(--dim);font-size:17px;max-width:740px;margin-bottom:40px}
+.intro b{color:var(--cream)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.marco{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--ink2)}
+.marco figcaption{font-family:var(--mono);font-size:11px;color:var(--dim);padding:10px 14px;border-top:1px solid var(--line)}
+.zoom{cursor:zoom-in}
+
+/* hoja de cuaderno */
+.hoja-papel{background:var(--paper);color:#1b1d22;border-radius:6px;padding:28px 28px 28px 64px;position:relative;
+  background-image:linear-gradient(90deg,transparent 46px,rgba(212,69,10,.45) 46px,rgba(212,69,10,.45) 48px,transparent 48px),repeating-linear-gradient(180deg,transparent 0 29px,rgba(30,60,120,.13) 29px 30px)}
+.hoja-papel h3{font-size:22px;margin-bottom:8px;color:#0B0D12}
+.hoja-papel p,.hoja-papel li{font-size:15px;line-height:30px}
+.hoja-papel ol{padding-left:20px}
+
+/* datos */
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:24px}
+.datos div{background:var(--ink2);padding:18px}
+.datos b{display:block;font-family:var(--oswald);font-size:30px;color:var(--oro);font-weight:600}
+.datos span{font-size:13px;color:var(--dim)}
+
+/* prompts */
+.prompt{position:relative;margin-top:14px}
+.prompt .tit{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--oro);margin-bottom:6px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.prompt pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12.5px;line-height:1.6;background:#07080C;border:1px solid var(--line);border-radius:5px;padding:16px;color:#D9D6CF;max-height:420px;overflow:auto}
+.prompt pre .v{color:var(--glow);background:rgba(242,106,46,.12);border-radius:2px;padding:0 3px}
+.copiar{background:var(--cream);color:var(--ink);border:0;border-radius:3px;padding:5px 11px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.copiar.ok{background:var(--verde)}
+.donde{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(232,194,122,.14);color:var(--oro);text-transform:uppercase;letter-spacing:.08em;margin-left:8px}
+
+/* pasos */
+.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.pasos a{background:var(--ink2);padding:18px 16px 20px;text-decoration:none;color:var(--cream);transition:background .2s}
+.pasos a:hover{background:var(--ink3)}
+.pasos .k{font-family:var(--mono);font-size:11px;color:var(--glow)}
+.pasos h3{font-size:18px;margin:6px 0}
+.pasos p{font-size:13px;color:var(--dim)}
+
+/* comparador */
+.compara{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);user-select:none;aspect-ratio:16/9;background:#000}
+.compara img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compara .arriba{clip-path:inset(0 50% 0 0)}
+.compara .barra{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--glow);transform:translateX(-50%);pointer-events:none}
+.compara .barra::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--glow);color:var(--ink);font-weight:700;width:38px;height:38px;border-radius:50%;display:grid;place-items:center}
+.compara input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.compara .et{position:absolute;top:12px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:3px;background:rgba(11,13,18,.85);text-transform:uppercase;letter-spacing:.08em}
+.compara .et.i{left:12px;color:var(--rojo)} .compara .et.d{right:12px;color:var(--verde)}
+
+/* par */
+.par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.par figure{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.par img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.par .et{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:3px;background:rgba(11,13,18,.85);text-transform:uppercase;letter-spacing:.08em}
+.par .et.i{color:var(--rojo)} .par .et.d{color:var(--verde)}
+
+/* guion → escenas */
+.flujo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.parrafos{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--ink2)}
+.parrafos button{display:flex;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 16px;color:var(--dim);font-size:14.5px;line-height:1.5}
+.parrafos button .pn{font-family:var(--mono);font-size:11px;color:var(--oro);min-width:30px;padding-top:2px}
+.parrafos button .ct{font-family:var(--mono);font-size:10px;color:var(--ink);background:var(--oro);border-radius:2px;padding:1px 6px;margin-left:auto;align-self:flex-start;white-space:nowrap}
+.parrafos button.on{background:var(--ink3);color:var(--cream);box-shadow:inset 3px 0 var(--glow)}
+.panel-esc{position:sticky;top:70px}
+.panel-esc .vacio{color:var(--dim);font-size:14px}
+.mini-esc{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--ink2);margin-bottom:16px}
+.mini-esc img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.mini-esc .pie{padding:12px 14px}
+.mini-esc .pie .id{font-family:var(--mono);font-size:11px;color:var(--glow)}
+.mini-esc .pie p{font-size:13px;color:var(--dim);margin-top:4px}
+.mini-esc .acciones{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{background:transparent;border:1px solid var(--line);color:var(--cream);padding:6px 12px;border-radius:3px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.btn:hover{border-color:var(--oro);color:var(--oro)}
+.tag-fallo{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:2px;background:rgba(255,90,79,.15);color:var(--rojo);text-transform:uppercase}
+
+/* storyboard */
+.story{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:30px}
+.story .c{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);cursor:pointer;background:var(--ink2)}
+.story .c img{aspect-ratio:16/9;object-fit:cover;width:100%;transition:transform .4s}
+.story .c:hover img{transform:scale(1.05)}
+.story .c span{position:absolute;left:8px;top:8px;font-family:var(--mono);font-size:10px;background:rgba(11,13,18,.85);padding:2px 7px;border-radius:2px;color:var(--oro)}
+.story .c i{position:absolute;right:8px;top:8px;font-style:normal;font-family:var(--mono);font-size:10px;background:var(--rojo);color:var(--ink);padding:2px 6px;border-radius:2px}
+
+/* fórmula */
+.formula{display:flex;flex-wrap:wrap;gap:0;border-radius:6px;overflow:hidden;border:1px solid var(--line);margin-bottom:22px}
+.formula div{flex:1 1 220px;padding:16px;background:var(--ink2);border-right:1px solid var(--line)}
+.formula div:last-child{border-right:0}
+.formula .k{font-family:var(--mono);font-size:11px;color:var(--glow);text-transform:uppercase;letter-spacing:.08em}
+.formula h3{font-size:18px;margin:4px 0}
+.formula p{font-size:13px;color:var(--dim)}
+
+/* formularios */
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px}
+.form label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);display:flex;flex-direction:column;gap:5px}
+.form input,.form select,.form textarea{background:#07080C;border:1px solid var(--line);color:var(--cream);border-radius:4px;padding:9px 10px;font-family:var(--inter);font-size:14px;text-transform:none;letter-spacing:0}
+.form textarea{min-height:76px;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--glow)}
+.form .ancho{grid-column:1/-1}
+
+/* fallos */
+.fallos{display:grid;gap:26px}
+.fallo{display:grid;grid-template-columns:1fr;gap:20px;padding:24px;background:var(--ink2);border:1px solid var(--line);border-radius:8px}
+.fallo h3{font-size:24px;margin-bottom:6px}
+.fallo h3 small{font-family:var(--mono);font-size:11px;color:var(--rojo);display:block;letter-spacing:.1em;margin-bottom:6px}
+.fallo p{color:var(--dim);font-size:15px}
+.arreglo{margin-top:12px;border-left:3px solid var(--verde);padding:10px 14px;background:rgba(123,216,143,.07);font-size:14px;border-radius:0 4px 4px 0}
+.arreglo b{color:var(--verde);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:4px}
+
+/* tabla */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--oro);font-weight:400}
+td b{color:var(--cream)}
+td{color:var(--dim)}
+
+
+
+/* checklist */
+.check{display:grid;gap:8px}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--ink2);cursor:pointer;font-size:15px}
+.check input{accent-color:var(--verde);width:18px;height:18px;margin-top:3px;flex:none}
+.check label:has(input:checked){border-color:rgba(123,216,143,.5);color:var(--dim)}
+.barra-prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.barra-prog div{height:100%;background:var(--verde);width:0;transition:width .3s}
+
+/* alerta */
+.alerta{border:1px solid rgba(255,90,79,.45);background:rgba(255,90,79,.07);border-radius:6px;padding:18px 20px;margin-bottom:18px;max-width:860px}
+.alerta>b{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--rojo);margin-bottom:8px}
+.alerta p,.alerta li{font-size:15px;color:var(--cream)}
+.alerta ul{margin:8px 0 8px 20px}
+.alerta li{margin-bottom:4px}
+/* dónde */
+.filtros{display:flex;gap:8px;margin-bottom:16px}
+.filtros button{background:transparent;border:1px solid var(--line);color:var(--dim);padding:7px 15px;border-radius:999px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.filtros button.on{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.tabla-donde{border:1px solid var(--line);border-radius:8px;overflow-x:auto;background:var(--ink2)}
+.tabla-donde table{min-width:760px}
+.tabla-donde td.pos{font-family:var(--oswald);font-size:22px;color:var(--oro)}
+.tabla-donde .sub{display:block;font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:3px}
+.tabla-donde .precio{font-family:var(--oswald);font-size:22px;color:var(--cream);white-space:nowrap}
+.tabla-donde .precio.g{color:var(--verde)}
+.tabla-donde td.si{color:var(--verde);font-size:13px}
+.tabla-donde tr.dest{background:rgba(232,194,122,.07);box-shadow:inset 3px 0 var(--oro)}
+.tabla-donde tr.nuestro{background:rgba(242,106,46,.07);box-shadow:inset 3px 0 var(--glow)}
+.tabla-donde code{font-family:var(--mono);font-size:12px;color:var(--oro)}
+/* mirada */
+.mirada{margin-top:30px;border:1px solid rgba(232,194,122,.45);background:linear-gradient(135deg,rgba(232,194,122,.10),rgba(242,106,46,.05));border-radius:8px;padding:24px 26px}
+.mirada .k{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--oro)}
+.mirada h3{font-size:26px;margin:6px 0 10px}
+.mirada p{color:var(--cream);font-size:15.5px;max-width:820px}
+.mirada-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:18px 0}
+.mirada-g div{background:var(--ink);border:1px solid var(--line);border-radius:5px;padding:14px}
+.mirada-g b{display:block;font-family:var(--oswald);text-transform:uppercase;font-size:16px;color:var(--glow);margin-bottom:4px;font-weight:500}
+.mirada-g span{font-size:14px;color:var(--dim);font-style:italic}
+.mirada .nota{font-size:13.5px;color:var(--dim)}
+/* voces */
+.voces{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.voz-card.propia{border-color:rgba(232,194,122,.5);background:linear-gradient(160deg,rgba(232,194,122,.08),var(--ink2) 60%)}
+.voz-card{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:22px}
+.voz-card .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.voz-card .top b{font-family:var(--oswald);font-size:28px;text-transform:uppercase;font-weight:600}
+.voz-card .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);background:var(--oro);padding:3px 8px;border-radius:2px;white-space:nowrap}
+.voz-card p{font-size:14.5px;color:var(--dim)}
+.voz-card ul{margin:12px 0 12px 18px;font-size:14px;color:var(--cream)}
+.voz-card li{margin-bottom:5px}
+.voz-card .dato{font-family:var(--mono);font-size:12px;padding:10px 12px;border:1px dashed rgba(232,194,122,.45);border-radius:4px;color:var(--cream);margin-bottom:10px}
+.voz-card .dato b{color:var(--oro)}
+.voz-card .cuando{color:var(--cream);font-size:14px}
+@media (max-width:860px){.voces{grid-template-columns:1fr}}
+/* asterisco */
+.asterisco{display:flex;gap:10px;margin-top:18px;padding:14px 16px;border-left:3px solid var(--oro);background:rgba(232,194,122,.06);border-radius:0 5px 5px 0}
+.asterisco span{font-family:var(--oswald);font-size:26px;line-height:1;color:var(--oro)}
+.asterisco p{font-size:14.5px;color:var(--dim)}
+.asterisco b{color:var(--cream)}
+/* ideas */
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.ideas button{text-align:left;background:var(--ink2);border:1px solid var(--line);border-radius:5px;padding:14px;color:var(--cream);font-size:14.5px;line-height:1.4}
+.ideas button:hover{border-color:var(--oro)}
+.ideas button small{display:block;font-family:var(--mono);font-size:10px;color:var(--oro);margin-top:6px;text-transform:uppercase;letter-spacing:.08em}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,6,9,.94);z-index:100;display:none;place-items:center;padding:20px}
+.modal.on{display:grid}
+.modal img{max-height:88vh;max-width:96vw;border-radius:6px}
+.modal .cerrar{position:absolute;top:16px;right:20px;background:var(--cream);color:var(--ink);border:0;border-radius:50%;width:40px;height:40px;font-size:20px;font-weight:700}
+
+footer{padding:60px 0 80px;color:var(--dim);font-size:13px;text-align:center}
+footer b{font-family:var(--oswald);color:var(--cream);font-size:20px;letter-spacing:.06em;display:block;margin-bottom:8px}
+
+@media (max-width:860px){
+  .dos,.flujo,.fallo{grid-template-columns:1fr}
+  .panel-esc{position:static}
+  .parrafos{max-height:360px}
+  .hoja-papel{padding:22px 18px 22px 52px}
+  section{padding:64px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="espiral">
+  <div class="aros"></div>
+  <nav>
+    <span class="marca">PROMPT <b>STICK</b></span>
+    <a href="#episodio">00 Episodio</a>
+    <a href="#caso">01 Caso</a>
+    <a href="#guion">02 Guion</a>
+    <a href="#voz">03 Voz en off</a>
+    <a href="#hoja">04 Personaje</a>
+    <a href="#escenas">05 Escenas</a>
+    <a href="#imagenes">06 Imágenes</a>
+    <a href="#fallos">07 Fallos</a>
+    <a href="#montaje">08 Montaje</a>
+    <a href="#donde">09 Dónde</a>
+    <a href="#extras">10 Extras</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <video src="clips/hero.mp4" autoplay muted loop playsinline></video>
+  <div class="wrap">
+    <div class="meta"><span>Clase SEN6</span><span>Canal faceless de stickman</span><span>Todo con IA</span></div>
+    <h1>Un personaje, <em>una hoja,</em> una historia</h1>
+    <p>Cómo armamos un episodio de 1:47 de un canal de stickman con el mismo personaje en las 25 imágenes. Acá tenés los prompts reales que usamos, los fallos que salieron y el método para que lo repitas con tu tema.</p>
+    <div class="cifras">
+      <div><b>25</b>imágenes</div>
+      <div><b>1</b>hoja de personaje</div>
+      <div><b>68</b>créditos</div>
+      <div><b>US$3</b>en total</div>
+    </div>
+  </div>
+</div>
+
+<!-- 00 -->
+<section id="episodio">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">00</span> El resultado</div>
+    <h2>Esto es lo que vamos a construir</h2>
+    <p class="intro">Episodio completo: <b>«¿Cómo se lavaban los dientes los humanos antiguos?»</b>. Lo hicimos con una automatización en modo rápido, pero cada paso lo podés hacer a mano en la web de Higgsfield con los mismos prompts.</p>
+    <div class="marco"><video id="vidEp" src="clips/episodio.mp4" controls playsinline preload="metadata" poster="img/esc/s04.jpg"></video></div>
+    <div class="pasos" style="margin-top:28px">
+      <a href="#guion"><div class="k">PASO 1</div><h3>Guion</h3><p>Párrafos cortos, cada uno con una idea visual.</p></a>
+      <a href="#voz"><div class="k">PASO 2</div><h3>Voz en off</h3><p>La locución entera, para saber cuánto dura cada párrafo.</p></a>
+      <a href="#hoja"><div class="k">PASO 3</div><h3>Personaje</h3><p>Una hoja con todas las vistas, expresiones y poses.</p></a>
+      <a href="#escenas"><div class="k">PASO 4</div><h3>Guion → escenas</h3><p>La IA divide el guion en una imagen cada 3–5 s.</p></a>
+      <a href="#imagenes"><div class="k">PASO 5</div><h3>Imágenes</h3><p>Cada escena con la hoja adjunta como referencia.</p></a>
+      <a href="#montaje"><div class="k">PASO 6</div><h3>Montaje</h3><p>Cortes en la palabra y la cámara siempre en movimiento.</p></a>
+    </div>
+  </div>
+</section>
+<!-- 01 -->
+<section id="caso">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">01</span> El caso real</div>
+    <h2>Por qué este formato</h2>
+    <div class="dos">
+      <div>
+        <p class="intro" style="margin-bottom:18px">La referencia es <b>Human Origins</b>, un canal en inglés creado el 9 de octubre de 2026. Con 10 videos ya tiene 386 mil vistas. Uno solo, de 7:12, se llevó 369.676 vistas en 13 días.</p>
+        <p class="intro" style="margin-bottom:0">Lo que copiamos es la <b>estructura</b>, no el personaje: un stickman simple sobre fondos ilustrados detallados, preguntas curiosas sobre cómo vivía la gente antes y <b>una imagen nueva cada 3,2 segundos</b>. El personaje es nuestro: el pelo, la ropa y los accesorios los inventamos.</p>
+      </div>
+      <figure class="marco"><img src="img/canal.jpg" alt="Canal de referencia" class="zoom"><figcaption>Captura real del canal de referencia · 8 nov 2026</figcaption></figure>
+    </div>
+    <div class="datos">
+      <div><b>369K</b><span>vistas del outlier en 13 días</span></div>
+      <div><b>7:12</b><span>duración del outlier; los de 12 min rinden menos</span></div>
+      <div><b>38</b><span>cambios de imagen en 2 minutos</span></div>
+      <div><b>No</b><span>monetizado todavía (NexLev, 8 nov)</span></div>
+    </div>
+  </div>
+</section>
+<!-- 02 -->
+<section id="guion">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">02</span> Paso 1 · El guion</div>
+    <h2>Cómo escribimos el guion</h2>
+    <p class="intro">El guion lo escribió la IA (Claude) con este pedido, y después revisamos cada dato. Salieron <b>15 párrafos y 290 palabras</b>, unos 2 minutos de voz. La regla que importa: <b>cada párrafo es una idea que se puede dibujar</b>.</p>
+    <div class="dos">
+      <div class="prompt" style="margin-top:0"><div class="tit"><span>Prompt para escribir el guion <span class="donde">Claude / ChatGPT</span></span><button class="copiar" data-c="pGuion">Copiar</button></div>
+<pre id="pGuion">Actuá como guionista de un canal faceless de YouTube de historia para curiosos, con un personaje dibujado que recorre cada época.
+
+Tema: <span class="v">¿Cómo se lavaban los dientes los humanos antiguos?</span>
+Duración: <span class="v">2</span> minutos de locución (unas <span class="v">290</span> palabras; calculá 145 por minuto).
+Idioma: <span class="v">español neutro</span>.
+Protagonista: <span class="v">un chico prehistórico de palito, curioso, que viaja de hoy al pasado</span>.
+
+Reglas:
+1. La primera frase compara con algo que el espectador hace hoy.
+2. La pregunta del título aparece antes de los 10 segundos.
+3. Un dato sorprendente antes de los 15 segundos.
+4. Cada dato real lleva lugar, antigüedad y fuente (estudio, revista, año). Si un dato está discutido, decilo. No inventes nada: si no estás seguro, no lo pongas.
+5. Párrafos de 1 a 3 frases. Cada párrafo es UNA idea que se puede dibujar.
+6. Nada de "en este video vamos a ver" ni pedidos de suscripción.
+7. El cierre vuelve al presente y al protagonista.
+8. Dejá marcados con [MI MIRADA] 2 o 3 lugares donde yo voy a agregar mi punto de vista: una opinión, una comparación con hoy o algo que me sorprendió. No los escribas vos.
+
+Devolveme:
+- El guion en párrafos separados por una línea en blanco, listo para leer en voz alta (números escritos con letras).
+- Abajo, la lista de fuentes con el dato que respalda cada una.</pre></div>
+      <div class="hoja-papel">
+        <h3>Lo que revisamos a mano</h3>
+        <ol>
+          <li><b>Villabruna, Italia:</b> caries raspada con sílex hace unos 14.000 años (Scientific Reports, 2015).</li>
+          <li><b>Mehrgarh, Pakistán:</b> 11 muelas perforadas en personas vivas hace unos 9.000 años (Nature, 2006).</li>
+          <li><b>Surcos «de palillo»</b> de casi 2 millones de años: un estudio de 2025 dice que podrían ser naturales, así que el guion lo aclara.</li>
+          <li><b>Caries y agricultura:</b> suben con los granos y la comida blanda.</li>
+        </ol>
+        <p style="margin-top:10px">Si la IA no te da la fuente, el dato no entra.</p>
+      </div>
+    </div>
+    <div class="mirada">
+      <div class="k">Recomendación SEN6</div>
+      <h3>Intervení el guion: poné tu punto de vista</h3>
+      <p>No subas el guion tal como sale de la IA. Leelo, cambiá lo que no dirías vos y <b>escribí tu propia mirada</b> en los lugares marcados con [MI MIRADA]. Es lo que hace que el canal sea tuyo y no uno más con el mismo texto que cualquiera puede pedirle a la IA.</p>
+      <div class="mirada-g">
+        <div><b>Una opinión</b><span>«Lo que más me impresiona es que lo hacían sin anestesia.»</span></div>
+        <div><b>Un puente con hoy</b><span>«Ese palito hoy se vende en farmacias como algo natural.»</span></div>
+        <div><b>Una pregunta tuya</b><span>«¿Te animarías a dejar que te taladren una muela con una piedra?»</span></div>
+      </div>
+      <p class="nota">Además cuida la monetización: YouTube no paga por contenido inauténtico, hecho en serie y sin aporte propio. Tu punto de vista es ese aporte.</p>
+    </div>
+  </div>
+</section>
+<!-- 03 -->
+<section id="voz">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">03</span> Paso 2 · La voz en off</div>
+    <h2>La voz va antes que las imágenes</h2>
+    <p class="intro">Con la locución grabada sabés <b>cuánto dura cada párrafo</b>, y eso te dice cuántas imágenes necesita: un párrafo de 9 segundos lleva 2 o 3; uno de 3 segundos, una sola. Por eso la voz va antes de dividir el guion en escenas.</p>
+    <div class="dos">
+      <div class="hoja-papel">
+        <h3>Cómo la hicimos</h3>
+        <ol>
+          <li><b>ElevenLabs</b>, voz <b>Edoardo</b>, modelo <b>Multilingual v2</b>.</li>
+          <li>Una sola toma con el guion entero: 1.545 caracteres, unos US$0,28.</li>
+          <li>Números escritos con letras, así la voz no los lee mal.</li>
+          <li>Después, la transcripción con tiempos por palabra (Whisper) para saber dónde cortar.</li>
+        </ol>
+      </div>
+      <div class="hoja-papel">
+        <h3>Antes de seguir</h3>
+        <ol>
+          <li>Escuchala entera: si una palabra suena mal, corregí el texto y regenerá solo ese tramo.</li>
+          <li>Anotá cuánto dura cada párrafo (o sacá la transcripción con tiempos).</li>
+          <li>Con esos tiempos vas al paso 4.</li>
+        </ol>
+      </div>
+    </div>
+    <h3 style="font-size:24px;margin:44px 0 14px">Tres opciones que recomendamos</h3>
+    <div class="voces">
+      <div class="voz-card propia">
+        <div class="top"><b>Tu propia voz</b><span class="tag">US$0</span></div>
+        <p>Grabada con el teléfono y limpiada con <b>Adobe Podcast</b>. Es la opción más auténtica: tu voz y tu punto de vista hacen que el canal sea tuyo.</p>
+        <ul>
+          <li><b>Grabá</b> con la app de notas de voz, en un cuarto chico con ropa o cortinas, a un palmo del teléfono y en modo avión.</li>
+          <li><b>Limpiá</b> el audio en Adobe Podcast → <b>Enhance Speech</b>: saca el eco y el ruido y la deja con sonido de estudio.</li>
+          <li><b>Gratis:</b> alrededor de 1 hora por día, archivos de hasta 30 minutos.</li>
+        </ul>
+        <div class="dato">Un episodio de 2 min entra de sobra en el plan gratis</div>
+        <p class="cuando">Elegila si querés empezar sin gastar y que el canal suene a vos.</p>
+      </div>
+      <div class="voz-card">
+        <div class="top"><b>ElevenLabs</b><span class="tag">la que usamos</span></div>
+        <p>La de mejor calidad en español y la más natural para narrar. Tiene una biblioteca enorme de voces, clonación de tu propia voz y control del tono.</p>
+        <ul>
+          <li><b>Gratis:</b> 10.000 créditos por mes, sin licencia comercial.</li>
+          <li><b>Starter, US$6/mes:</b> 30.000 créditos, uso comercial y clonación instantánea.</li>
+          <li><b>Creator, US$22/mes:</b> 121.000 créditos y clonación profesional.</li>
+        </ul>
+        <div class="dato">Nuestro episodio: 1.545 caracteres ≈ <b>US$0,28</b></div>
+        <p class="cuando">Elegila si querés la mejor voz y una narración con tono de documental.</p>
+      </div>
+      <div class="voz-card">
+        <div class="top"><b>Fish Audio</b><span class="tag">más minutos por dólar</span></div>
+        <p>Muy buena calidad a menor precio, clonación de voz a partir de pocos segundos de audio y miles de voces públicas.</p>
+        <ul>
+          <li><b>Gratis:</b> 8.000 créditos por mes, hasta 7 minutos y 500 caracteres por generación.</li>
+          <li><b>Plus, US$15/mes:</b> 250.000 créditos (hasta unos 200 minutos), 15.000 caracteres por generación y uso comercial.</li>
+          <li><b>Pro, US$100/mes:</b> 2.000.000 de créditos, para producir mucho.</li>
+        </ul>
+        <div class="dato">Con Plus entran unos <b>100 episodios</b> como este por mes</div>
+        <p class="cuando">Elegila si vas a publicar seguido, en varios canales o idiomas.</p>
+      </div>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:12px">Precios oficiales de ElevenLabs y Fish Audio consultados el 8 nov 2026, sin promociones (las dos tienen descuentos del primer mes o del primer año). El cupo gratis de Adobe Podcast puede cambiar: mirá el que te muestra tu cuenta. Para un canal que va a monetizar, usá un plan con licencia comercial.</p>
+  </div>
+</section>
+<!-- 04 -->
+<section id="hoja">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">04</span> Paso 3 · Contact sheet del personaje</div>
+    <h2>Un personaje que nunca cambia</h2>
+    <p class="intro">Con el guion y la voz listos, armás al personaje. Si generás las escenas sin una hoja, <b>cada imagen te inventa un personaje distinto</b>. La hoja es una sola imagen con el personaje de frente, de tres cuartos, de perfil y de espaldas, más sus expresiones y poses. Después la adjuntás como referencia en cada escena.</p>
+
+    <div class="par"><figure><img src="img/fallo-sin-hoja.jpg" class="zoom"><span class="et i">Sin hoja</span></figure><figure><img src="img/esc01.jpg" class="zoom"><span class="et d">Con hoja</span></figure></div>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:8px">A la izquierda, sin hoja: sale otro chico, con otro trazo, sin la bolsita y con los pies sin dedos. A la derecha, con la hoja adjunta: es el de la hoja.</p>
+
+    <div class="dos" style="margin-top:44px">
+      <figure class="marco"><img src="img/hoja-personaje.jpg" alt="Hoja de personaje" class="zoom"><figcaption>Nuestra hoja · Nano Banana Pro · 16:9 · 2K · 2 créditos · salió al primer intento</figcaption></figure>
+      <div>
+        <div class="hoja-papel">
+          <h3>Qué tiene que tener la hoja</h3>
+          <ol>
+            <li><b>4 vistas de cuerpo entero:</b> FRONT, 3/4, SIDE, BACK.</li>
+            <li><b>6 expresiones:</b> las que va a necesitar tu historia.</li>
+            <li><b>4 poses de acción:</b> caminar, sentarse, señalar, dormir.</li>
+            <li><b>Tira de colores:</b> la paleta exacta.</li>
+            <li><b>Fondo liso y luz pareja:</b> sin sombras ni escenario.</li>
+            <li><b>Un rasgo único</b> que se vea en todas: la bolsita marrón a la derecha.</li>
+          </ol>
+        </div>
+        <figure class="marco" style="margin-top:18px"><img src="img/cap-hoja.jpg" alt="Captura de Higgsfield" class="zoom"><figcaption>Dónde va: Higgsfield → Imagen → Nano Banana Pro · 16:9 · 2K</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="prompt" style="margin-top:36px">
+      <div class="tit"><span>Prompt real de nuestra hoja <span class="donde">Higgsfield · Nano Banana Pro</span></span><button class="copiar" data-c="pHojaReal">Copiar</button></div>
+      <pre id="pHojaReal">character reference sheet on a clean warm off-white paper background, eye level orthographic views, a prehistoric stick-figure boy for an educational cartoon: pure white thin stick body and limbs with clean black ink outline, big round white head, simple dot eyes and small curved mouth, messy spiky ginger-orange hair tuft, short grey wolf-fur tunic tied with a thin rope belt, small brown leather pouch at the hip, barefoot. Layout: top row four full-body turnaround views labeled FRONT, 3/4, SIDE, BACK; bottom left six head close-ups with expressions labeled curious, happy, scared, thinking, tired, surprised; bottom right four action poses: walking, sitting on a rock, pointing, sleeping; small color swatch strip of the palette. Hand-drawn storybook illustration style with clean black linework and soft flat colors, sharp even focus, soft even studio light without shadows, warm earthy palette of ochre, grey and ginger</pre>
+    </div>
+
+    <h3 style="font-size:26px;margin:52px 0 6px">Armá el prompt de tu hoja</h3>
+    <p class="intro" style="margin-bottom:20px">Completá los campos y el prompt se arma solo. Sirve para un stickman o para cualquier personaje dibujado.</p>
+    <div class="form" id="fHoja">
+      <label>Qué es<input data-k="que" value="a prehistoric stick-figure boy"></label>
+      <label>Cuerpo<input data-k="cuerpo" value="pure white thin stick body and limbs with clean black ink outline, big round white head, simple dot eyes and small curved mouth"></label>
+      <label>Pelo<input data-k="pelo" value="messy spiky ginger-orange hair tuft"></label>
+      <label>Ropa<input data-k="ropa" value="short grey wolf-fur tunic tied with a thin rope belt"></label>
+      <label>Rasgo único<input data-k="rasgo" value="small brown leather pouch at the hip, barefoot"></label>
+      <label>Para qué canal<input data-k="canal" value="an educational cartoon"></label>
+      <label>6 expresiones<input data-k="expr" value="curious, happy, scared, thinking, tired, surprised"></label>
+      <label>4 poses<input data-k="poses" value="walking, sitting on a rock, pointing, sleeping"></label>
+      <label>Estilo de dibujo<select data-k="estilo">
+        <option value="Hand-drawn storybook illustration style with clean black linework and soft flat colors">Cuento ilustrado (el nuestro)</option>
+        <option value="Flat vector cartoon style with thick uniform outlines and solid colors">Vector plano</option>
+        <option value="Pencil sketchbook style on lined notebook paper with light watercolor fill">Cuaderno a lápiz</option>
+        <option value="Bold comic book style with heavy ink and halftone shading">Cómic</option>
+        <option value="Soft 3D clay render style with rounded shapes and matte materials">Plastilina 3D</option>
+      </select></label>
+      <label>Paleta<input data-k="paleta" value="warm earthy palette of ochre, grey and ginger"></label>
+    </div>
+    <div class="prompt"><div class="tit"><span>Tu prompt de hoja</span><button class="copiar" data-c="pHoja">Copiar</button></div><pre id="pHoja"></pre></div>
+
+    <div class="hoja-papel" style="margin-top:30px">
+      <h3>Hoja del elenco secundario (opcional, recomendado)</h3>
+      <p>Si en tu historia aparecen otras personas seguido (el cazador, la curandera), hacé también una hoja para ellos. Así no salen como clones de tu protagonista (mirá el fallo 2) y se mantienen iguales en todo el episodio.</p>
+    </div>
+    <div class="prompt"><div class="tit"><span>Prompt de hoja del elenco</span><button class="copiar" data-c="pElenco">Copiar</button></div>
+<pre id="pElenco">cast lineup reference sheet on a clean warm off-white paper background, eye level, <span class="v">three</span> supporting characters for an educational cartoon standing side by side, each labeled with a name: <span class="v">GRANDMOTHER: an old prehistoric woman with long grey braids and a deer-hide cape; HUNTER: a tall bearded man with a spear and a bear-fur vest; HEALER: a thin woman with a bone necklace and a pouch of herbs</span>. They are normal cartoon humans with skin tone and hair, NOT stick figures. Under each one, three small head close-ups: neutral, happy, angry. <span class="v">Hand-drawn storybook illustration style with clean black linework and soft flat colors</span>, soft even studio light without shadows, <span class="v">warm earthy palette</span></pre></div>
+  </div>
+</section>
+<!-- 05 -->
+<section id="escenas">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">05</span> Paso 4 · Dividir el guion en escenas</div>
+    <h2>De 15 párrafos a 25 imágenes</h2>
+    <p class="intro">Este paso es el que más tiempo te ahorra. Le pasás el guion a la IA y te devuelve <b>la lista de escenas con el plano de cada una, ya escrita en inglés</b> para pegar en el generador. La cuenta es simple: una imagen cada 3 a 5 segundos de voz. Un párrafo largo lleva 2 o 3 imágenes y uno corto, una.</p>
+
+    <div class="prompt"><div class="tit"><span>Prompt para dividir el guion en escenas <span class="donde">Claude / ChatGPT</span></span><button class="copiar" data-c="pDividir">Copiar</button></div>
+<pre id="pDividir">Te paso el guion de un video faceless y la descripción de mi personaje. Dividilo en escenas para generar una imagen por escena.
+
+Personaje: <span class="v">a stick-figure boy (pure white stick body, big round white head, messy ginger-orange hair, grey wolf-fur tunic with rope belt, small brown pouch on his right hip)</span>
+Duración real de la voz: <span class="v">1:46</span>
+Ritmo: una imagen cada <span class="v">3 a 5</span> segundos de locución (145 palabras = 1 minuto). Un párrafo largo lleva 2 o 3 escenas; uno corto, 1.
+
+Para cada escena escribí, EN INGLÉS y en este orden:
+encuadre (wide shot / medium shot / close-up / extreme close-up) + ángulo si hace falta + qué hace el personaje en UNA acción congelada + dónde está + la luz.
+
+Reglas:
+1. Alterná los encuadres: nunca dos iguales seguidos.
+2. El personaje aparece en la mayoría de las escenas, pero no en todas: también hay detalles y objetos en primer plano.
+3. Si aparecen otras personas, describilas como adultos normales, NO como el personaje.
+4. Si el guion habla de algo abstracto (bacterias, azúcar, una fecha), convertilo en una metáfora visual que se pueda dibujar.
+5. Ninguna escena lleva texto ni letras.
+6. No repitas el estilo de dibujo en cada escena: eso lo agrego yo después.
+
+Devolveme:
+A) Una tabla: ID (s01, s02…) | Párrafo (P1…) | Frase del guion donde entra la imagen | Escena en inglés.
+B) Las mismas escenas en un bloque de código, una por línea: s01 | P1 | escena en inglés
+
+GUION:
+<span class="v">[pegá acá tu guion, con los párrafos separados por una línea en blanco]</span></pre></div>
+
+    <h3 style="font-size:24px;margin:50px 0 6px">Así quedó el nuestro, párrafo por párrafo</h3>
+    <p class="intro" style="margin-bottom:22px">Tocá un párrafo para ver qué escenas salieron de él, el prompt de cada una y el momento exacto del episodio donde aparece.</p>
+    <div class="flujo">
+      <div class="parrafos" id="listaP"></div>
+      <div class="panel-esc" id="panelEsc"><p class="vacio">Elegí un párrafo de la izquierda.</p></div>
+    </div>
+
+    <div class="story" id="story"></div>
+    <div class="asterisco"><span>*</span><p>Al revisar la página nos dimos cuenta de que en la primera imagen (S01) la expresión del reflejo en el espejo no es la misma que la del chico. <b>Aprendizaje: prestale atención a los detalles para un video de alta calidad.</b> Tanto como para cambiar una imagen, no tanto como para frenar tu video.</p></div>
+  </div>
+</section>
+<!-- 06 -->
+<section id="imagenes">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">06</span> Paso 5 · Una imagen por escena</div>
+    <h2>La fórmula de cada prompt</h2>
+    <p class="intro">Cada prompt de escena tiene 3 partes. La primera y la última son <b>siempre iguales</b>: describen al personaje y el estilo. Solo cambia la del medio, que es la escena que te dio la IA en el paso 4. Y en cada generación <b>adjuntás la hoja</b> como imagen de referencia.</p>
+    <div class="formula">
+      <div><div class="k">A · fija</div><h3>Referencia</h3><p>«La imagen adjunta es solo una referencia», más el personaje descrito con sus rasgos únicos.</p></div>
+      <div><div class="k">B · cambia</div><h3>Escena</h3><p>Encuadre, acción, lugar y luz. Sale del paso 4.</p></div>
+      <div><div class="k">C · fija</div><h3>Estilo</h3><p>El dibujo, el fondo, la paleta y «no text, no letters».</p></div>
+    </div>
+
+    <div class="form" id="fEsc">
+      <label class="ancho">A · Referencia (ya trae los arreglos de los fallos)<textarea data-k="a">The attached image is ONLY a character reference: do not copy its layout, labels, turnaround views or expression circles. Draw ONE single illustrated scene with only ONE copy of this stick-figure boy (pure white stick body and limbs, big round white head, dot eyes, messy ginger-orange hair, grey wolf-fur tunic with rope belt, small brown pouch on his right hip, barefoot); his head and limbs stay pure white even under warm or colored light. Every other person is a normal cartoon adult with skin tone and hair, NOT a stick figure. Scene:</textarea></label>
+      <label class="ancho">B · Escena (pegá la del paso 4)<textarea data-k="b">medium shot, the boy snapping a thin green twig off a bush near a river, holding it up with an idea expression, morning sun rays</textarea></label>
+      <label class="ancho">C · Estilo<textarea data-k="c" style="min-height:52px">hand-drawn storybook illustration with clean black linework, detailed painted background, earthy palette, no text, no letters</textarea></label>
+    </div>
+    <div class="prompt"><div class="tit"><span>Prompt final de la escena <span class="donde">Nano Banana Pro · 16:9 · 2K · hoja adjunta</span></span><button class="copiar" data-c="pEsc">Copiar</button></div><pre id="pEsc"></pre></div>
+
+    <div class="dos" style="margin-top:36px">
+      <figure class="marco"><img src="img/cap-escena.jpg" alt="Escena con hoja adjunta" class="zoom"><figcaption>En Higgsfield: la hoja va en el botón de imagen de referencia, al lado del prompt.</figcaption></figure>
+      <div class="hoja-papel">
+        <h3>Ajustes que usamos</h3>
+        <ol>
+          <li>Modelo: <b>Nano Banana Pro</b>. Es el que mejor respeta la hoja.</li>
+          <li>Formato <b>16:9</b> y calidad <b>2K</b>: 2 créditos por imagen.</li>
+          <li><b>Una imagen por escena.</b> No pidas 4 variantes: se cuadruplica el gasto.</li>
+          <li>Tandas de <b>12 como máximo</b> si usás la automatización.</li>
+          <li><b>21 de 25</b> salieron bien a la primera. Las otras 4, en la sección siguiente.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 07 -->
+<section id="fallos">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">07</span> Lo que salió mal</div>
+    <h2>Los 3 fallos y cómo los arreglamos</h2>
+    <p class="intro">Son fallos reales del episodio. A la izquierda el fallo, a la derecha la imagen rehecha. Tocá una imagen para verla grande. Los tres arreglos ya están incluidos en la parte A del armador de arriba.</p>
+    <div class="fallos">
+      <div class="fallo">
+        <div class="par"><figure><img src="img/s12-hoja-copiada.jpg" class="zoom"><span class="et i">Fallo</span></figure><figure><img src="img/s12-ok.jpg" class="zoom"><span class="et d">Arreglo</span></figure></div>
+        <div><h3><small>FALLO 1 · 3 escenas</small>Copió la hoja dentro de la escena</h3><p>El modelo pegó las vistas FRONT, 3/4 y SIDE, y los círculos de expresiones, dentro del dibujo. Pasó en la ramita, en las bacterias y en el baño.</p>
+        <div class="arreglo"><b>Arreglo</b>Empezar el prompt así: «The attached image is ONLY a character reference: do not copy its layout, labels, turnaround views or expression circles. Draw ONE single scene with only ONE copy of the boy».</div></div>
+      </div>
+      <div class="fallo">
+        <div class="par"><figure><img src="img/s18-clon.jpg" class="zoom"><span class="et i">Fallo</span></figure><figure><img src="img/s18-ok.jpg" class="zoom"><span class="et d">Arreglo</span></figure></div>
+        <div><h3><small>FALLO 2 · 1 escena</small>Los demás salen clones del protagonista</h3><p>Pedimos «un joven» como paciente y lo dibujó igual al chico, con el mismo pelo y la misma túnica. Con la hoja adjunta, cualquier persona tiende a parecerse al personaje.</p>
+        <div class="arreglo"><b>Arreglo</b>«Only ONE character is the stick-figure boy; every other person is a normal cartoon prehistoric adult with skin tone and dark hair, NOT a stick figure.»</div></div>
+      </div>
+      <div class="fallo">
+        <div class="par"><figure><img src="img/esc03.jpg" class="zoom"><span class="et i">Fuego</span></figure><figure><img src="img/esc02.jpg" class="zoom"><span class="et d">Luz de día</span></figure></div>
+        <div><h3><small>FALLO 3 · prueba inicial</small>La luz del fuego le cambió el color</h3><p>Junto al fuego, la cara blanca se volvió color piel y la bolsita pasó al frente. Las luces cálidas o de colores tiñen al personaje.</p>
+        <div class="arreglo"><b>Arreglo</b>«His head and limbs stay pure white even under warm or colored light.» Con esa frase, en las escenas de fuego del episodio ya no volvió a pasar.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 08 -->
+<section id="montaje">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">08</span> Paso 6 · Montaje</div>
+    <h2>Que la imagen nunca se quede quieta</h2>
+    <div class="dos">
+      <div class="hoja-papel">
+        <h3>El montaje</h3>
+        <ol>
+          <li><b>Corte en la palabra:</b> cada imagen entra justo cuando la voz dice la frase de su escena.</li>
+          <li><b>Una imagen cada 3–4 s</b> (la referencia hace una cada 3,2 s).</li>
+          <li><b>Cámara siempre en movimiento:</b> acercar, alejar, paneo, uno distinto por plano.</li>
+          <li>Fundido corto de 0,25 s entre planos y una viñeta suave.</li>
+          <li>Música baja: voz a −16 LUFS y música a −31.</li>
+        </ol>
+      </div>
+      <div class="hoja-papel">
+        <h3>El orden en el editor</h3>
+        <ol>
+          <li>Pista 1: la voz en off entera.</li>
+          <li>Pista 2: las imágenes en orden, cada una en su segundo.</li>
+          <li>Pista 3: la música, por debajo de la voz.</li>
+          <li>Exportás en 16:9, 1080p.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="prompt" style="margin-top:30px"><div class="tit"><span>Prompt para que la IA te arme la lista de cortes <span class="donde">Claude / ChatGPT</span></span><button class="copiar" data-c="pCortes">Copiar</button></div>
+<pre id="pCortes">Te paso dos cosas: la transcripción de mi locución con el tiempo de cada frase y la lista de escenas (s01 | P1 | frase del guion | escena).
+Armame la lista de cortes para el editor: para cada escena, el segundo exacto en que empieza (el inicio de su frase en la transcripción) y un movimiento de cámara que no se repita con el plano anterior (acercar / alejar / paneo izquierda / paneo derecha / subir).
+Si una escena dura más de 6 segundos, avisame para partirla en dos.
+Devolvé una tabla: ID | entra en (s) | dura (s) | movimiento.
+
+TRANSCRIPCIÓN:
+<span class="v">[pegá la transcripción con tiempos]</span>
+
+ESCENAS:
+<span class="v">[pegá la lista del paso 4]</span></pre></div>
+  </div>
+</section>
+<!-- 09 -->
+<section id="donde">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">09</span> Otras herramientas</div>
+    <h2>Dónde más podés hacerlo, de la más barata a la más cara</h2>
+    <p class="intro">Nosotros usamos Higgsfield con Nano Banana Pro, pero el método funciona en cualquier herramienta que <b>acepte una imagen de referencia</b>: subís la hoja y pegás el prompt A + B + C. Ordenamos las opciones de menor a mayor costo mensual. Precios oficiales consultados el 8 nov 2026, en dólares de EE. UU. En cada país pueden cambiar.</p>
+
+    <div class="filtros" id="filtroDonde">
+      <button class="on" data-f="todas">Todas</button>
+      <button data-f="gratis">Gratis</button>
+      <button data-f="pago">Pago</button>
+    </div>
+    <div class="tabla-donde">
+      <table>
+        <thead><tr><th>#</th><th>Herramienta</th><th>Precio por mes</th><th>Qué te da para este trabajo</th><th>¿Usa la hoja?</th></tr></thead>
+        <tbody>
+          <tr data-t="gratis"><td class="pos">1</td><td><b>App de Gemini</b><span class="sub">Nano Banana</span></td><td><span class="precio g">US$0</span></td><td>Imágenes con cupo limitado que se va recargando. Google no publica un número fijo y lo cambia seguido. Alcanza para la hoja y unas cuantas escenas por día: el episodio sale en varios días.</td><td class="si">Sí, adjuntás la imagen</td></tr>
+          <tr data-t="gratis"><td class="pos">2</td><td><b>ChatGPT Gratis</b></td><td><span class="precio g">US$0</span></td><td>«Creación limitada de imágenes». Sirve para probar la hoja y un par de escenas, no para un episodio entero.</td><td class="si">Sí, adjuntás la imagen</td></tr>
+          <tr data-t="pago" class="dest"><td class="pos">3</td><td><b>Google Flow + plan Google AI Plus</b><span class="sub">Nano Banana dentro de Flow</span></td><td><span class="precio">≈US$5–8</span></td><td><b>Las imágenes no gastan créditos</b> (lo medimos en nuestra clase de Flow, oct 2026). Los 200 créditos del plan quedan para video. Es la opción paga más barata para hacer el episodio entero.</td><td class="si">Sí, como referencia de personaje</td></tr>
+          <tr data-t="pago"><td class="pos">4</td><td><b>ChatGPT Go</b></td><td><span class="precio">US$8</span></td><td>Más imágenes que el plan gratis, pero sin la generación de imágenes con razonamiento, que es la que mejor sigue instrucciones largas.</td><td class="si">Sí</td></tr>
+          <tr data-t="pago"><td class="pos">5</td><td><b>Midjourney Basic</b></td><td><span class="precio">US$10</span><span class="sub">US$8 pagando el año</span></td><td>3,3 horas rápidas por mes. La referencia de personaje se llama <b>Omni Reference</b> y el prompt cambia: la hoja va como referencia con <code>--oref</code> y su fuerza con <code>--ow</code>. No tiene plan gratis.</td><td class="si">Sí, con Omni Reference</td></tr>
+          <tr data-t="pago"><td class="pos">6</td><td><b>Leonardo Essential</b></td><td><span class="precio">US$12</span><span class="sub">gratis: 150 tokens/día</span></td><td>8.500 tokens rápidos por mes y más de 80 modelos. Tiene Character Reference. Con el plan gratis se puede probar, pero solo con el modelo automático.</td><td class="si">Sí, Character Reference</td></tr>
+          <tr data-t="pago"><td class="pos">7</td><td><b>Google AI Pro</b><span class="sub">Gemini + Flow</span></td><td><span class="precio">≈US$20</span></td><td>Lo mismo que AI Plus con más cupo (1.000 créditos de Flow). Solo conviene si además vas a hacer mucho video.</td><td class="si">Sí</td></tr>
+          <tr data-t="pago"><td class="pos">8</td><td><b>Ideogram Plus</b></td><td><span class="precio">US$20</span><span class="sub">US$15 pagando el año</span></td><td>2.400 créditos prioritarios, créditos lentos ilimitados y <b>consistencia de personaje ilimitada</b>.</td><td class="si">Sí, Character</td></tr>
+          <tr data-t="pago"><td class="pos">9</td><td><b>ChatGPT Plus</b></td><td><span class="precio">US$20</span></td><td>«Creación de imágenes más complejas y precisas», con razonamiento. Es la mejor opción de ChatGPT para seguir el prompt A + B + C al pie de la letra.</td><td class="si">Sí</td></tr>
+          <tr data-t="pago" class="nuestro"><td class="pos">10</td><td><b>Higgsfield</b><span class="sub">lo que usamos: Nano Banana Pro</span></td><td><span class="precio">US$49</span><span class="sub">1.200 créditos</span></td><td>2 créditos por imagen a 2K. <b>Este episodio de 1:46 min costó US$2,77</b> (68 créditos), pero el plan sirve para muchos episodios más y trae todos los modelos de imagen y video en un mismo lugar.</td><td class="si">Sí, imagen de referencia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dos" style="margin-top:30px">
+      <div class="hoja-papel">
+        <h3>Qué elegir</h3>
+        <ol>
+          <li><b>Sin gastar nada:</b> la app de Gemini, en tandas a lo largo de varios días.</li>
+          <li><b>Lo más barato pagando:</b> Google Flow con AI Plus. Las imágenes no gastan créditos.</li>
+          <li><b>Si ya pagás ChatGPT:</b> Plus sigue mejor el prompt largo que Go.</li>
+          <li><b>Si vas a hacer también video:</b> Higgsfield o Google AI Pro.</li>
+        </ol>
+      </div>
+      <div class="hoja-papel">
+        <h3>Lo mismo en todas</h3>
+        <ol>
+          <li>La hoja tiene que salir bien antes de generar escenas.</li>
+          <li>En cada escena, la hoja adjunta y el prompt A + B + C.</li>
+          <li>Formato 16:9. Si la herramienta no lo tiene, pedilo en el prompt.</li>
+          <li>Los cupos gratis cambian seguido: mirá el que te muestra tu cuenta, no el que dice un blog.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 10 -->
+<section id="extras">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">10</span> Herramientas extra</div>
+    <h2>Para que salga el segundo episodio</h2>
+
+    <h3 style="font-size:24px;margin:10px 0 14px">Antes de montar, revisá cada imagen</h3>
+    <div class="barra-prog"><div id="progCheck"></div></div>
+    <div class="check" id="check">
+      <label><input type="checkbox"> Hay un solo protagonista en la imagen y no hay vistas de la hoja pegadas.</label>
+      <label><input type="checkbox"> El rasgo único está y en su lugar (la bolsita a la derecha).</label>
+      <label><input type="checkbox"> La cabeza y el cuerpo siguen blancos aunque haya fuego o luz de color.</label>
+      <label><input type="checkbox"> Las otras personas son adultos normales, no copias del personaje.</label>
+      <label><input type="checkbox"> No hay letras ni textos raros en la imagen.</label>
+      <label><input type="checkbox"> Este encuadre es distinto del de la imagen anterior.</label>
+      <label><input type="checkbox"> La imagen muestra lo que dice la voz en ese momento.</label>
+    </div>
+
+    <h3 style="font-size:24px;margin:52px 0 6px">Miniatura</h3>
+    <p class="intro" style="margin-bottom:16px">La referencia <b>no usa al stickman en la miniatura</b>: usa personajes cartoon a color y 3 palabras en amarillo grueso. Eso sí lo podés tomar. Lo que <b>no</b> te recomendamos copiar es su tema.</p>
+    <div class="alerta">
+      <b>Lo que no recomendamos</b>
+      <p>Nada de palabras como <b>SEX</b> u otras sexuales o morbosas en la miniatura ni en el título. El video más visto del canal de referencia puede ser motivo de <b>rechazo de la monetización</b>, por dos razones:</p>
+      <ul>
+        <li><b>La miniatura:</b> YouTube revisa título y miniatura, y el lenguaje sexual limita o quita los anuncios.</li>
+        <li><b>El contenido:</b> es un video que busca clics con imágenes desagradables (privacidad, intimidad, cuerpos), y eso choca con las políticas de contenido apto para anunciantes de YouTube.</li>
+      </ul>
+      <p>Que un video tenga 369 mil vistas no quiere decir que genere dinero: el canal todavía no está monetizado. La curiosidad tiene que salir del tema, no del morbo.</p>
+    </div>
+    <div class="prompt"><div class="tit"><span>Prompt de miniatura <span class="donde">Nano Banana Pro · 16:9</span></span><button class="copiar" data-c="pMini">Copiar</button></div>
+<pre id="pMini">YouTube thumbnail, 16:9, bold colorful cartoon illustration: <span class="v">a prehistoric man with a shocked face holding a sharp flint stone next to an open mouth with a painful molar</span>, warm cave background with firelight, big expressive faces, thick black outlines, saturated colors, strong contrast, simple composition with one clear focal point on the left, large bold yellow text with black outline on the right that reads "<span class="v">NO DENTISTS?</span>", no other text</pre></div>
+
+    <h3 style="font-size:24px;margin:52px 0 6px">20 temas con la misma fórmula</h3>
+    <p class="intro" style="margin-bottom:16px">Tocá un tema y queda cargado en el prompt del guion (paso 1), listo para copiar. Todos son aptos para anunciantes: curiosos sin ser morbosos.</p>
+    <div class="ideas" id="ideas"></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><b>SEN6</b>Clase interna · material para alumnos · no compartir el enlace</div></footer>
+
+<div class="modal" id="modal"><button class="cerrar" aria-label="Cerrar">×</button><img alt=""></div>
+
+<script>
+const D = {"escenas": [{"id": "s01", "p": 1, "esc": "medium shot, eye level, the boy standing at a modern bathroom sink holding a plastic toothbrush and a tube of toothpaste, puzzled, mirror and tiles, soft morning window light", "t": 0.0, "fallo": null}, {"id": "s02", "p": 1, "esc": "close-up, the boy's hand squeezing a stripe of white toothpaste onto a toothbrush over a sink, shallow depth of field, bright clean light", "t": 3.04, "fallo": null}, {"id": "s03", "p": 2, "esc": "wide shot, the boy stepping out of a modern bathroom doorway that opens directly onto a wild prehistoric forest with a river, the room half-swallowed by vines and grass, soft daylight", "t": 5.64, "fallo": null}, {"id": "s04", "p": 3, "esc": "wide shot, slightly high angle, the boy standing on a grassy hill with his hand on his chin thinking, looking down at a hunter-gatherer camp of hide huts and smoke by a river, golden afternoon light", "t": 9.9, "fallo": null}, {"id": "s05", "p": 4, "esc": "medium shot, eye level, the boy looking surprised at a smiling old prehistoric man who shows a full set of healthy white teeth, fire glow in the background", "t": 16.18, "fallo": null}, {"id": "s06", "p": 5, "esc": "wide shot, prehistoric hunters roasting meat on a spit over a campfire while the boy watches sitting on a log, dusk light, sparks", "t": 18.4, "fallo": null}, {"id": "s07", "p": 5, "esc": "medium shot, the boy carrying a woven basket full of wild berries and roots next to women gathering in tall grass, soft morning light", "t": 22.16, "fallo": null}, {"id": "s08", "p": 6, "esc": "close-up of a giant cartoon tooth like a white mountain, tiny round green cartoon bacteria sitting around it with empty plates looking bored and hungry, the boy tiny at the foot of the tooth looking up, playful, bright flat light", "t": 24.94, "fallo": null}, {"id": "s09", "p": 7, "esc": "medium shot, a prehistoric woman grinding seeds on a flat grinding stone, little grains of grit flying into a bowl of food, the boy kneeling next to her watching, warm daylight", "t": 33.2, "fallo": null}, {"id": "s10", "p": 7, "esc": "close-up, the boy biting a very hard strip of dried meat and wincing, eyes squeezed, warm light", "t": 30.46, "fallo": null}, {"id": "s11", "p": 7, "esc": "close-up, an old prehistoric woman smiling wide showing very worn flat teeth, the boy in the soft background curious, firelight", "t": 36.3, "fallo": null}, {"id": "s12", "p": 8, "esc": "medium shot, the boy snapping a thin green twig off a bush near the river, holding it up with an idea expression, morning sun rays", "t": 39.38, "fallo": "copiada"}, {"id": "s13", "p": 9, "esc": "extreme close-up, the boy's hand holding a twig whose end has been chewed into soft frayed bristles like a small brush, river sparkles blurred behind, shallow depth of field", "t": 47.7, "fallo": null}, {"id": "s14", "p": 10, "esc": "wide shot, the boy sitting in a circle with children of many cultures from today in a sunny village square, all holding small chewing sticks and smiling, warm midday light", "t": 50.26, "fallo": null}, {"id": "s15", "p": 11, "esc": "medium close-up, the boy picking between his teeth with a thin pointed bone toothpick, focused expression, campfire glow", "t": 56.68, "fallo": null}, {"id": "s16", "p": 11, "esc": "medium shot, the boy in a quiet museum hall looking through a magnifying glass at a giant fossil tooth with fine horizontal grooves on a pedestal, thinking expression, soft museum spotlight", "t": 57.92, "fallo": null}, {"id": "s17", "p": 12, "esc": "medium shot, the boy holding his swollen cheek in pain, tired eyes, sitting alone on a rock at night, cold blue moonlight", "t": 68.68, "fallo": null}, {"id": "s18", "p": 12, "esc": "medium shot, inside a rocky alpine rock shelter, a prehistoric healer carefully scraping inside the open mouth of a young man with a tiny pointed flint tool, the boy watching scared from the side, flickering firelight", "t": 74.3, "fallo": "clon"}, {"id": "s19", "p": 12, "esc": "extreme close-up of a tiny sharp flint point held between fingers, chipped stone texture, firelight, shallow depth of field", "t": 77.44, "fallo": null}, {"id": "s20", "p": 13, "esc": "medium shot, early farmers in a mud-brick village, a man lying down while another spins a small bow drill with a stone tip against his molar, the boy watching wide-eyed and scared, warm afternoon light", "t": 80.34, "fallo": null}, {"id": "s21", "p": 14, "esc": "wide shot, the boy standing at the edge of the first wheat fields with mud-brick houses and farmers harvesting, golden sunset", "t": 88.28, "fallo": null}, {"id": "s22", "p": 14, "esc": "medium shot, the boy eating a sticky bowl of porridge and a piece of flatbread with his fingers, crumbs everywhere, warm indoor light", "t": 90.52, "fallo": null}, {"id": "s23", "p": 14, "esc": "close-up of a giant cartoon tooth with cavities, tiny round green cartoon bacteria partying and eating bread crumbs on it, the boy tiny at the foot looking shocked, playful bright light", "t": 94.46, "fallo": "copiada"}, {"id": "s24", "p": 15, "esc": "medium shot, the boy back in the modern bathroom brushing his teeth with a toothbrush, foam on his mouth, smiling at the mirror, morning light", "t": 96.66, "fallo": "copiada"}, {"id": "s25", "p": 15, "esc": "wide shot, the boy sitting on a rock at the river bank at sunset holding his chewed twig, peaceful smile, warm golden light reflecting on the water", "t": 100.0, "fallo": null}], "parrafos": ["Hoy te cepillas los dientes sin pensarlo: cepillo, pasta y agua del grifo.", "Pero durante casi toda la historia humana no existió nada de eso.", "Entonces, ¿cómo cuidaban sus dientes los humanos antiguos?", "Empecemos por algo raro: tenían menos caries que nosotros.", "Los cazadores recolectores casi no comían azúcar. Carne, raíces y frutos silvestres.", "Sin azúcar, las bacterias que pican los dientes tenían muy poco de qué alimentarse.", "Pero comer así también tenía un costo. La arena de las piedras de moler y la comida dura limaban los dientes hasta dejarlos planos.", "Para limpiarlos usaban lo que tenían a mano: una ramita.", "Mascaban la punta hasta deshilacharla y la frotaban contra los dientes. Un cepillo hecho por la naturaleza.", "Ese truco nunca desapareció. En muchas partes del mundo todavía se limpian los dientes con ramitas.", "También había palillos. En dientes de casi dos millones de años aparecen surcos que parecen marcas de palillo. Aunque un estudio de 2025 dice que podrían ser naturales.", "¿Y cuando dolía una muela? Hace catorce mil años, en lo que hoy es Italia, alguien raspó una caries con una punta de piedra. Es el arreglo dental más antiguo que se conoce.", "Y hace unos nueve mil años, en lo que hoy es Pakistán, perforaban muelas de personas vivas con taladros de piedra.", "Todo cambió con la agricultura. Pan, granos, comida blanda y pegajosa. Y las caries se multiplicaron.", "Así que la próxima vez que te cepilles, piensa en él: un chico con una ramita a la orilla del río, inventando sin saberlo tu rutina de cada mañana."]};
+
+/* copiar */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.copiar'); if(!b) return;
+  const t=document.getElementById(b.dataset.c).innerText;
+  const listo=()=>{const o=b.textContent;b.textContent='Copiado';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok')},1400)};
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(listo).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();listo()});
+});
+
+/* comparadores */
+document.querySelectorAll('.compara').forEach(c=>{
+  const r=c.querySelector('input'),a=c.querySelector('.arriba'),bar=c.querySelector('.barra');
+  const f=()=>{a.style.clipPath=`inset(0 0 0 ${r.value}%)`;bar.style.left=r.value+'%'};
+  r.addEventListener('input',f);f();
+});
+
+/* zoom */
+const modal=document.getElementById('modal');
+document.addEventListener('click',e=>{
+  const i=e.target.closest('.zoom'); if(i){modal.querySelector('img').src=i.dataset.full||i.src;modal.classList.add('on');return}
+  if(e.target===modal||e.target.closest('.cerrar'))modal.classList.remove('on');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('on')});
+
+/* armador de hoja */
+const fH=document.getElementById('fHoja');
+function armaHoja(){
+  const v={};fH.querySelectorAll('[data-k]').forEach(x=>v[x.dataset.k]=x.value.trim());
+  document.getElementById('pHoja').textContent=`character reference sheet on a clean warm off-white paper background, eye level orthographic views, ${v.que} for ${v.canal}: ${v.cuerpo}, ${v.pelo}, ${v.ropa}, ${v.rasgo}. Layout: top row four full-body turnaround views labeled FRONT, 3/4, SIDE, BACK; bottom left six head close-ups with expressions labeled ${v.expr}; bottom right four action poses: ${v.poses}; small color swatch strip of the palette. ${v.estilo}, sharp even focus, soft even studio light without shadows, ${v.paleta}`;
+}
+fH.addEventListener('input',armaHoja);armaHoja();
+
+/* armador de escena */
+const fE=document.getElementById('fEsc');
+function armaEsc(){
+  const v={};fE.querySelectorAll('[data-k]').forEach(x=>v[x.dataset.k]=x.value.trim());
+  document.getElementById('pEsc').textContent=`${v.a} ${v.b}, ${v.c}`;
+}
+fE.addEventListener('input',armaEsc);armaEsc();
+
+/* guion → escenas */
+const REF='The attached image is ONLY a character reference: do not copy its layout, labels, turnaround views or expression circles. Draw ONE single illustrated scene with only ONE copy of this stick-figure boy (pure white stick body and limbs, big round white head, dot eyes, messy ginger-orange hair, grey wolf-fur tunic with rope belt, small brown pouch on his right hip, barefoot); his head and limbs stay pure white even under warm or colored light. Every other person is a normal cartoon adult with skin tone and hair, NOT a stick figure. Scene: ';
+const SUF=', hand-drawn storybook illustration with clean black linework, detailed painted background, earthy palette, no text, no letters';
+const lista=document.getElementById('listaP'),panel=document.getElementById('panelEsc'),vid=document.getElementById('vidEp');
+const mmss=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+D.parrafos.forEach((t,i)=>{
+  const n=D.escenas.filter(e=>e.p===i+1).length;
+  const b=document.createElement('button');
+  b.innerHTML=`<span class="pn">P${i+1}</span><span>${t}</span><span class="ct">${n} img</span>`;
+  b.onclick=()=>verP(i+1,b);
+  lista.appendChild(b);
+});
+function verP(p,btn){
+  lista.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===btn));
+  const es=D.escenas.filter(e=>e.p===p);
+  panel.innerHTML=es.map(e=>`
+    <div class="mini-esc"><img src="img/esc/${e.id}.jpg" alt="${e.id}" class="zoom">
+      <div class="pie"><span class="id">${e.id.toUpperCase()} · entra en ${mmss(e.t)}</span>${e.fallo?`<span class="tag-fallo">rehecha</span>`:''}
+        <p>${e.esc}</p>
+        <div class="acciones"><button class="btn" data-ver="${e.t}">Ver en el episodio</button><button class="btn" data-cp="${e.id}">Copiar prompt completo</button></div>
+      </div></div>`).join('');
+}
+panel.addEventListener('click',e=>{
+  const v=e.target.closest('[data-ver]');
+  if(v){vid.currentTime=+v.dataset.ver+0.05;vid.play();document.getElementById('episodio').scrollIntoView({behavior:'smooth'});return}
+  const c=e.target.closest('[data-cp]');
+  if(c){const es=D.escenas.find(x=>x.id===c.dataset.cp);const t=REF+es.esc+SUF;
+    navigator.clipboard.writeText(t).then(()=>{c.textContent='Copiado';setTimeout(()=>c.textContent='Copiar prompt completo',1400)})}
+});
+verP(1,lista.querySelector('button'));
+
+const story=document.getElementById('story');
+D.escenas.forEach(e=>{
+  const d=document.createElement('div');d.className='c';
+  d.innerHTML=`<img src="img/esc/${e.id}.jpg" alt="${e.id}" loading="lazy"><span>${e.id.toUpperCase()} · P${e.p}</span>${e.fallo?'<i>rehecha</i>':''}`;
+  d.onclick=()=>{const b=lista.querySelectorAll('button')[e.p-1];verP(e.p,b);b.scrollIntoView({block:'nearest'});document.getElementById('listaP').scrollIntoView({behavior:'smooth',block:'start'})};
+  story.appendChild(d);
+});
+
+const $=id=>document.getElementById(id);
+
+const ch=document.getElementById('check');
+ch.addEventListener('change',()=>{const t=ch.querySelectorAll('input').length,k=ch.querySelectorAll('input:checked').length;$('progCheck').style.width=(k/t*100)+'%'});
+
+/* ideas */
+const IDEAS=[
+ ['¿Cómo se bañaban los humanos antiguos?','higiene'],['¿Qué hacían cuando les dolía la cabeza?','medicina'],
+ ['¿Cómo dormían sin colchón ni almohada?','vida diaria'],['¿Cómo hacían fuego la primera vez?','tecnología'],
+ ['¿Cómo se cortaban el pelo?','higiene'],['¿Qué comían en invierno cuando no había nada?','comida'],
+ ['¿Cómo se curaban una herida infectada?','medicina'],['¿Cómo contaban el tiempo sin relojes?','tecnología'],
+ ['¿Cómo se protegían del frío extremo?','vida diaria'],['¿Cómo criaban a los bebés?','familia'],
+ ['¿Cómo se comunicaban antes de las palabras?','lenguaje'],['¿Qué hacían para divertirse?','vida diaria'],
+ ['¿Cómo conservaban la carne sin heladera?','comida'],['¿Cómo se orientaban sin mapas?','tecnología'],
+ ['¿Cómo se casaban los humanos antiguos?','familia'],['¿Cómo enterraban a sus muertos?','creencias'],
+ ['¿Cómo cazaban un mamut?','comida'],['¿Cómo se hacían la ropa?','vida diaria'],
+ ['¿Cómo trataban un hueso roto?','medicina'],['¿Cómo eran sus primeras casas?','vida diaria'],
+];
+const ideas=document.getElementById('ideas');
+IDEAS.forEach(([t,c])=>{const b=document.createElement('button');b.innerHTML=`${t}<small>${c}</small>`;
+  b.onclick=()=>{const pre=$('pGuion');const v=pre.querySelector('.v');v.textContent=t;document.getElementById('guion').scrollIntoView({behavior:'smooth'})};
+  ideas.appendChild(b)});
+
+/* filtro dónde */
+document.getElementById('filtroDonde').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filtroDonde button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.tabla-donde tbody tr').forEach(r=>r.style.display=(b.dataset.f==='todas'||r.dataset.t===b.dataset.f)?'':'none')});
+
+/* nav activo */
+const links=[...document.querySelectorAll('.espiral a')];
+const obs=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
