@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Prompt Archivo · SEN6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D12;--ink2:#12161F;--ink3:#181D28;--cream:#F5F3EF;--paper:#EFEAE0;--dim:rgba(245,243,239,.68);--line:rgba(245,243,239,.14);
+  --naranja:#D4450A;--glow:#F26A2E;--oro:#E8C27A;--verde:#7BD88F;--rojo:#ff5a4f;--ambar:#F2B84B;
+  --oswald:'Oswald',Impact,sans-serif;--inter:'Inter',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--inter);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--glow)}
+button,input,select,textarea{font:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--oswald);font-weight:600;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+
+/* barra superior con filo dorado de marco de galería */
+.barra{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.barra .filo{height:4px;background:linear-gradient(90deg,#6b5326,var(--oro),#6b5326)}
+.barra nav{display:flex;align-items:center;gap:4px;overflow-x:auto;padding:9px 20px;max-width:1180px;margin:0 auto;scrollbar-width:none}
+.barra nav::-webkit-scrollbar{display:none}
+.barra .marca{font-family:var(--oswald);font-size:18px;letter-spacing:.06em;margin-right:14px;white-space:nowrap}
+.barra .marca b{color:var(--glow)}
+.barra a{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);text-decoration:none;padding:6px 9px;border-radius:3px;white-space:nowrap}
+.barra a:hover{color:var(--ink);background:var(--oro)}
+
+/* hero: el cuadro en un marco */
+.hero{position:relative;min-height:80vh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .fondo{position:absolute;inset:0;background:url(img/obra.jpg) center/cover;opacity:.42;animation:paneo 40s ease-in-out infinite alternate}
+@keyframes paneo{from{transform:scale(1.05) translateX(-1.5%)}to{transform:scale(1.14) translateX(1.5%)}}
+.hero .fondo video{width:100%;height:100%;object-fit:cover;display:block}
+@media (prefers-reduced-motion:reduce){.hero .fondo{animation:none}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,18,.2) 0%,rgba(11,13,18,.5) 50%,var(--ink) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:56px;width:100%}
+.meta{font-family:var(--mono);font-size:12px;color:var(--oro);letter-spacing:.14em;text-transform:uppercase;display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.hero h1{font-size:clamp(44px,8.5vw,108px);font-weight:700;max-width:13ch}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero p{font-size:clamp(17px,2vw,21px);color:var(--dim);max-width:680px;margin-top:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.chip{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--line);border-radius:3px;padding:6px 10px;color:var(--cream);background:rgba(18,22,31,.7)}
+
+section{padding:84px 0;border-bottom:1px solid var(--line)}
+.rotulo{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--oro)}
+.rotulo .n{color:var(--glow)}
+section h2{font-size:clamp(32px,5vw,54px);margin-bottom:14px}
+.intro{color:var(--dim);font-size:17px;max-width:760px;margin-bottom:34px}
+.intro b{color:var(--cream)}
+
+.panel{background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:22px}
+.campo{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.campo label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--oro)}
+input[type=text],input[type=number],select,textarea{background:#07080C;color:var(--cream);border:1px solid var(--line);border-radius:5px;padding:11px 12px;font-size:15px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--glow);outline-offset:1px}
+textarea{font-family:var(--mono);font-size:12.5px;line-height:1.55;resize:vertical}
+.btn{background:var(--glow);color:var(--ink);border:0;border-radius:4px;padding:11px 16px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;cursor:pointer}
+.btn.sec{background:transparent;color:var(--cream);border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.08)}
+
+/* 1 · fuentes */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
+.tab.on{background:var(--oro);color:var(--ink);border-color:var(--oro);font-weight:700}
+.busca{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:22px}
+.fuentes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.fuente{background:#0E1118;border:1px solid var(--line);border-radius:7px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.fuente h3{font-size:19px}
+.fuente p{font-size:13.5px;color:var(--dim);flex:1}
+.lic{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;padding:3px 7px;border-radius:3px;align-self:flex-start}
+.lic.ok{background:rgba(123,216,143,.14);color:var(--verde)}
+.lic.ojo{background:rgba(242,184,75,.14);color:var(--ambar)}
+.lic.no{background:rgba(255,90,79,.14);color:var(--rojo)}
+.fuente a.ir{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;border-top:1px solid var(--line);padding-top:10px}
+.truco{margin-top:22px;border-left:3px solid var(--glow);padding:12px 16px;background:rgba(242,106,46,.07);color:var(--dim);font-size:15px}
+.truco b{color:var(--cream)}
+
+/* 2 · revisión */
+.rev{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+.preg{border-top:1px solid var(--line);padding:14px 0}
+.preg:first-of-type{border-top:0;padding-top:0}
+.preg .q{font-family:var(--oswald);font-size:19px;text-transform:uppercase;margin-bottom:8px}
+.preg .ayuda{font-size:13px;color:var(--dim);margin-bottom:8px}
+.opc{display:flex;gap:8px;flex-wrap:wrap}
+.opc label{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:5px;padding:8px 11px;font-size:14px;cursor:pointer}
+.opc input{accent-color:var(--glow)}
+.zoom{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:8px}
+.zoom b{font-family:var(--oswald);font-size:30px;color:var(--oro);font-weight:600}
+.veredicto{position:sticky;top:76px;border-radius:8px;padding:24px;border:2px solid var(--line);background:#0E1118}
+.veredicto .estado{font-family:var(--oswald);font-size:clamp(30px,4vw,44px);text-transform:uppercase;line-height:1}
+.veredicto.ok{border-color:var(--verde)} .veredicto.ok .estado{color:var(--verde)}
+.veredicto.ojo{border-color:var(--ambar)} .veredicto.ojo .estado{color:var(--ambar)}
+.veredicto.no{border-color:var(--rojo)} .veredicto.no .estado{color:var(--rojo)}
+.veredicto ul{margin-top:14px;padding-left:18px;color:var(--dim);font-size:14.5px}
+.veredicto li{margin-bottom:6px}
+.veredicto .pie{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+
+/* 3 · créditos */
+.filas{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.fila{display:grid;grid-template-columns:1.3fr 1fr .9fr auto;gap:8px;align-items:center}
+.fila .x{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:4px;width:40px;height:44px;cursor:pointer;font-size:18px}
+.acciones{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
+.salida{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+.medidor{background:#0E1118;border:1px solid var(--line);border-radius:8px;padding:18px}
+.medidor .cifra{font-family:var(--oswald);font-size:40px;line-height:1}
+.medidor .barra5k{height:10px;border-radius:5px;background:rgba(245,243,239,.08);overflow:hidden;margin:12px 0}
+.medidor .barra5k i{display:block;height:100%;background:var(--verde);transition:width .2s}
+.medidor.lleno .barra5k i{background:var(--rojo)}
+.medidor.cerca .barra5k i{background:var(--ambar)}
+.medidor p{font-size:13px;color:var(--dim)}
+.aviso{margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--rojo);display:none}
+.medidor.lleno .aviso{display:block}
+
+footer{padding:40px 0 60px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .rev,.salida{grid-template-columns:1fr}
+  .veredicto{position:static}
+  .fila{grid-template-columns:1fr 1fr}
+  .fila .x{grid-column:2;justify-self:end}
+  .busca{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="filo"></div>
+  <nav>
+    <span class="marca">PROMPT <b>ARCHIVO</b></span>
+    <a href="#fuentes">1 · Dónde buscar</a>
+    <a href="#revision">2 · Revisar cada imagen</a>
+    <a href="#creditos">3 · Créditos</a>
+  </nav>
+</header>
+
+<section class="hero" style="padding:0">
+  <div class="fondo" role="img" aria-label="El triunfo de la Muerte, Pieter Bruegel el Viejo, escaneo de dominio público"><video autoplay muted loop playsinline poster="img/obra.jpg" src="img/portada.mp4"></video></div>
+  <div class="wrap">
+    <div class="meta"><span>Clase SEN6</span><span>Canal documental de archivo</span><span>Arte · Historia · Guerras · Biografías</span></div>
+    <h1>Imágenes de <em>archivo</em> sin errores</h1>
+    <p>Tres herramientas para la parte donde se rompen casi todos los canales documentales: encontrar el material, decidir si se puede usar y acreditarlo bien en la descripción.</p>
+    <div class="chips"><span class="chip">Fuentes por tema</span><span class="chip">Resolución y licencia</span><span class="chip">Créditos · máx. 5.000 caracteres</span></div>
+  </div>
+</section>
+
+<!-- 1 · FUENTES -->
+<section id="fuentes">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">01</span> Dónde buscar</div>
+    <h2>Las fuentes, según tu tema</h2>
+    <p class="intro">Elegí el tipo de canal, escribí el tema <b>en inglés</b> (los archivos están mayormente en inglés) y abrí cada fuente con la búsqueda ya hecha. La etiqueta de color te dice qué podés esperar de las licencias.</p>
+
+    <div class="panel">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="busca">
+        <div class="campo" style="margin:0">
+          <label for="tema">Tema a buscar (en inglés)</label>
+          <input type="text" id="tema" placeholder="Ej.: Triumph of Death Bruegel · Battle of the Somme · Napoleon portrait">
+        </div>
+        <button class="btn" id="actualizar">Armar búsquedas</button>
+      </div>
+      <div class="fuentes" id="lista"></div>
+      <div class="truco"><b>Truco que más tiempo ahorra:</b> en Wikimedia Commons no uses el buscador de imágenes: entrá por la <b>categoría</b> de la obra, la batalla o el personaje. El buscador mezcla cualquier cosa (en nuestro caso, 3.980 resultados); la categoría te da los escaneos buenos y sus subcategorías de detalles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · REVISIÓN -->
+<section id="revision">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">02</span> Revisar cada imagen</div>
+    <h2>¿La podés usar?</h2>
+    <p class="intro">Antes de meter una imagen en el montaje, respondé esto. Entre un <b>13 % y un 27 %</b> de lo que se descarga de los archivos se cae en este control: obras con el mismo nombre, ampliadas o coloreadas con IA, repetidas o sin licencia clara.</p>
+
+    <div class="rev">
+      <div class="panel" id="formRev">
+        <div class="preg">
+          <div class="q">1 · Resolución</div>
+          <div class="ayuda">El ancho original de la imagen, en píxeles (en Commons figura en "Original file"). Tu video mide 1920 de ancho; en 4K, 3840.</div>
+          <div class="campo" style="margin-bottom:6px"><input type="number" id="ancho" min="0" placeholder="Ej.: 5200" inputmode="numeric"></div>
+          <div class="opc"><label><input type="radio" name="sal" value="1920" checked> Video 1080p</label><label><input type="radio" name="sal" value="3840"> Video 4K</label></div>
+          <div class="zoom" id="zoomTxt">Zoom máximo: <b>—</b></div>
+        </div>
+        <div class="preg">
+          <div class="q">2 · ¿Es lo que dice ser?</div>
+          <div class="ayuda">Miralá de verdad. No confíes en el título del archivo.</div>
+          <div class="opc">
+            <label><input type="checkbox" class="riesgo" value="homonimo"> Otra obra o lugar con el mismo nombre</label>
+            <label><input type="checkbox" class="riesgo" value="ampliada"> Parece ampliada con IA (bordes plásticos, detalles inventados)</label>
+            <label><input type="checkbox" class="riesgo" value="coloreada"> Foto vieja coloreada con IA</label>
+            <label><input type="checkbox" class="riesgo" value="repetida"> Ya la tengo (otro archivo, misma imagen)</label>
+          </div>
+        </div>
+        <div class="preg">
+          <div class="q">3 · ¿Coincide con la historia?</div>
+          <div class="ayuda">El clásico de los canales de guerra: hablar de una batalla y mostrar un tanque de otra guerra.</div>
+          <div class="opc">
+            <label><input type="radio" name="coincide" value="si" checked> Sí: mismo lugar, época y hecho</label>
+            <label><input type="radio" name="coincide" value="parcial"> Parecida (otra versión, copia, otro año)</label>
+            <label><input type="radio" name="coincide" value="no"> No: es de otro hecho</label>
+          </div>
+        </div>
+        <div class="preg">
+          <div class="q">4 · Licencia</div>
+          <div class="ayuda">La de la FOTO, no la de la obra: una pintura de hace 400 años puede estar en una foto con dueño. Un canal monetizado es uso comercial.</div>
+          <select id="licencia">
+            <option value="pd">Dominio público (Public domain / PD-Mark)</option>
+            <option value="cc0">CC0</option>
+            <option value="by">CC BY</option>
+            <option value="bysa">CC BY-SA</option>
+            <option value="nc">Cualquier licencia con NC (no comercial)</option>
+            <option value="nd">Cualquier licencia con ND (sin obras derivadas)</option>
+            <option value="reservados">Derechos reservados / agencia / no encuentro la licencia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="veredicto ok" id="veredicto" aria-live="polite">
+        <div class="estado" id="estado">Usala</div>
+        <ul id="motivos"></ul>
+        <div class="pie">Guía práctica, no asesoría legal. Ante la duda, no la uses.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CRÉDITOS -->
+<section id="creditos">
+  <div class="wrap">
+    <div class="rotulo"><span class="n">03</span> Créditos</div>
+    <h2>El bloque de créditos, armado</h2>
+    <p class="intro">Cargá cada imagen que <b>pide crédito</b> (CC BY, CC BY-SA). Las de dominio público y CC0 van en una sola línea general. La descripción de YouTube admite <b>5.000 caracteres en total</b>: el medidor te dice cuánto ocupan los créditos y cuánto te queda para el resto.</p>
+
+    <div class="panel">
+      <div class="filas" id="filas"></div>
+      <div class="acciones">
+        <button class="btn sec" id="agregar">+ Agregar imagen</button>
+        <button class="btn sec" id="ejemplo">Cargar ejemplo de la clase</button>
+        <button class="btn sec" id="vaciar">Vaciar</button>
+      </div>
+
+      <div class="campo">
+        <label for="generales">Línea general (dominio público y CC0)</label>
+        <input type="text" id="generales" value="Obras de arte e imágenes de archivo de dominio público o CC0 vía Wikimedia Commons.">
+      </div>
+      <div class="campo">
+        <label for="musica">Música (opcional)</label>
+        <input type="text" id="musica" placeholder="Ej.: Debussy, Clair de lune (U.S. Air Force Band). Grabación de dominio público vía Wikimedia Commons.">
+      </div>
+
+      <div class="salida">
+        <div class="campo" style="margin:0">
+          <label for="bloque">Tu bloque de créditos (listo para pegar)</label>
+          <textarea id="bloque" rows="13" readonly></textarea>
+          <div class="acciones" style="margin:10px 0 0"><button class="btn" id="copiar">Copiar créditos</button></div>
+        </div>
+        <div class="medidor" id="medidor">
+          <div class="campo">
+            <label for="resto">Caracteres del resto de tu descripción</label>
+            <input type="number" id="resto" min="0" value="0" inputmode="numeric">
+          </div>
+          <div class="cifra" id="total">0 / 5.000</div>
+          <div class="barra5k"><i id="barraFill" style="width:0"></i></div>
+          <p id="quedan">Te quedan 5.000 caracteres.</p>
+          <p class="aviso" id="aviso">Te pasaste: acortá los títulos, agrupá las fotos de un mismo autor o pasá los créditos largos a un comentario fijado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>Prompt Archivo · SEN6 · material de la clase "Canal documental de archivo, paso a paso".</span><span>Imagen: El triunfo de la Muerte, Pieter Bruegel el Viejo, dominio público.</span></div></footer>
+
+<script>
+const FUENTES = {
+  arte: [
+    {n:'Wikimedia Commons · categorías', d:'Entrá por la categoría de la obra o del pintor: ahí están los escaneos buenos y los detalles.', l:'ok', lt:'Mayormente dominio público', u:'https://commons.wikimedia.org/w/index.php?search={q}&ns14=1&fulltext=1'},
+    {n:'Wikimedia Commons · imágenes', d:'Búsqueda directa de imágenes. Útil para contexto; revisá cada ficha.', l:'ojo', lt:'Mezcla: mirá cada licencia', u:'https://commons.wikimedia.org/w/index.php?search={q}&title=Special:MediaSearch&type=image'},
+    {n:'The Met · Open Access', d:'Metropolitan Museum: obras con imagen libre marcadas como Open Access.', l:'ok', lt:'Open Access: CC0', u:'https://www.metmuseum.org/art/collection/search?q={q}&showOnly=openAccess'},
+    {n:'Rijksmuseum', d:'Museo de Ámsterdam con gran parte de su colección en alta resolución y libre.', l:'ok', lt:'Mayormente CC0', u:'https://www.rijksmuseum.nl/en/collection/search?query={q}'},
+    {n:'Art Institute of Chicago', d:'Filtro de dominio público ya aplicado.', l:'ok', lt:'Filtrado: dominio público', u:'https://www.artic.edu/collection?q={q}&is_public_domain=1'},
+    {n:'Google Arts & Culture', d:'Gigapíxeles de museos socios. Sirve para ENCONTRAR la obra; la licencia depende de cada museo.', l:'ojo', lt:'Para encontrar, no para bajar', u:'https://artsandculture.google.com/search?q={q}'},
+  ],
+  guerra: [
+    {n:'Wikimedia Commons · categorías', d:'Buscá la categoría de la batalla o la guerra: tiene subcategorías por tema (mapas, armas, fotos, lugares).', l:'ok', lt:'Mayormente dominio público', u:'https://commons.wikimedia.org/w/index.php?search={q}&ns14=1&fulltext=1'},
+    {n:'National Archives (EE. UU.)', d:'Catálogo de los Archivos Nacionales. Las obras del gobierno federal de EE. UU. son de dominio público.', l:'ok', lt:'Federales: dominio público', u:'https://catalog.archives.gov/search?q={q}'},
+    {n:'Library of Congress · fotos', d:'Millones de fotos históricas. Muchas dicen "No known restrictions"; leé cada ficha.', l:'ojo', lt:'Leé cada ficha', u:'https://www.loc.gov/photos/?q={q}'},
+    {n:'Europeana · reutilizables', d:'Archivos europeos con el filtro de reutilización libre ya aplicado.', l:'ok', lt:'Filtrado: uso libre', u:'https://www.europeana.eu/es/search?query={q}&reusability=open'},
+    {n:'Imperial War Museums', d:'Enorme archivo de guerra británico. Muchas imágenes tienen licencia NO comercial.', l:'no', lt:'Ojo: muchas no comerciales', u:'https://www.iwm.org.uk/collections/search?query={q}'},
+    {n:'Agencias (Getty, AP…)', d:'Las fotos de agencia tienen dueño y cobran licencia, aunque sean de hace 80 años. No las uses sin pagar.', l:'no', lt:'Con dueño', u:'https://www.gettyimages.com/search/2/image?phrase={q}'},
+  ],
+  bio: [
+    {n:'Wikimedia Commons · categorías', d:'La categoría del personaje junta retratos, firmas, lugares y documentos.', l:'ok', lt:'Mayormente dominio público', u:'https://commons.wikimedia.org/w/index.php?search={q}&ns14=1&fulltext=1'},
+    {n:'Library of Congress · fotos', d:'Retratos y fotos de época. Leé la ficha de derechos de cada una.', l:'ojo', lt:'Leé cada ficha', u:'https://www.loc.gov/photos/?q={q}'},
+    {n:'Europeana · reutilizables', d:'Retratos, cartas y documentos de archivos europeos, filtrados por uso libre.', l:'ok', lt:'Filtrado: uso libre', u:'https://www.europeana.eu/es/search?query={q}&reusability=open'},
+    {n:'The Met · Open Access', d:'Retratos pintados y fotografías antiguas con imagen libre.', l:'ok', lt:'Open Access: CC0', u:'https://www.metmuseum.org/art/collection/search?q={q}&showOnly=openAccess'},
+    {n:'Wellcome Collection', d:'Grabados, retratos y material de medicina e historia. Revisá la licencia de cada imagen.', l:'ojo', lt:'CC BY y dominio público', u:'https://wellcomecollection.org/search/images?query={q}'},
+  ],
+  historia: [
+    {n:'Wikimedia Commons · categorías', d:'La categoría del hecho, la ciudad o el siglo. Siempre empezá por acá.', l:'ok', lt:'Mayormente dominio público', u:'https://commons.wikimedia.org/w/index.php?search={q}&ns14=1&fulltext=1'},
+    {n:'Europeana · reutilizables', d:'Grabados, mapas y documentos de archivos europeos con uso libre.', l:'ok', lt:'Filtrado: uso libre', u:'https://www.europeana.eu/es/search?query={q}&reusability=open'},
+    {n:'Library of Congress · fotos', d:'Fotos, mapas y grabados históricos. Leé cada ficha.', l:'ojo', lt:'Leé cada ficha', u:'https://www.loc.gov/photos/?q={q}'},
+    {n:'Biblioteca Digital Hispánica', d:'Biblioteca Nacional de España: grabados, mapas y libros antiguos digitalizados.', l:'ok', lt:'Antiguos: dominio público', u:'https://bdh.bne.es/bnesearch/Search.do?text={q}'},
+    {n:'Wellcome Collection', d:'Grabados y material sobre medicina, pestes y ciencia. Revisá cada licencia.', l:'ojo', lt:'CC BY y dominio público', u:'https://wellcomecollection.org/search/images?query={q}'},
+    {n:'NASA · Images', d:'Para temas de ciencia y espacio: el material de la NASA en general es de uso libre.', l:'ok', lt:'En general uso libre', u:'https://images.nasa.gov/search?q={q}'},
+  ],
+};
+const TABS = [['arte','Arte'],['guerra','Guerras'],['bio','Biografías'],['historia','Historia general']];
+let tabAct = 'arte';
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function pintarTabs(){
+  $('#tabs').innerHTML = TABS.map(([k,t]) => `<button class="tab ${k===tabAct?'on':''}" role="tab" aria-selected="${k===tabAct}" data-k="${k}">${t}</button>`).join('');
+  document.querySelectorAll('.tab').forEach((b) => b.onclick = () => { tabAct = b.dataset.k; pintarTabs(); pintarFuentes(); });
+}
+function pintarFuentes(){
+  const q = encodeURIComponent($('#tema').value.trim() || ({arte:'Triumph of Death Bruegel',guerra:'Battle of the Somme',bio:'Napoleon portrait',historia:'Black Death'})[tabAct]);
+  $('#lista').innerHTML = FUENTES[tabAct].map((f) => `
+    <div class="fuente">
+      <h3>${esc(f.n)}</h3>
+      <span class="lic ${f.l}">${esc(f.lt)}</span>
+      <p>${esc(f.d)}</p>
+      <a class="ir" href="${f.u.replace('{q}', q)}" target="_blank" rel="noopener">Abrir búsqueda →</a>
+    </div>`).join('');
+}
+$('#actualizar').onclick = pintarFuentes;
+$('#tema').addEventListener('keydown', (e) => { if (e.key === 'Enter') pintarFuentes(); });
+pintarTabs(); pintarFuentes();
+
+/* 2 · revisión */
+function revisar(){
+  const ancho = parseFloat($('#ancho').value);
+  const sal = parseFloat(document.querySelector('input[name=sal]:checked').value);
+  const mot = []; let nivel = 0; // 0 ok · 1 ojo · 2 no
+  const sube = (n) => { nivel = Math.max(nivel, n); };
+  if (ancho > 0){
+    const z = ancho / sal;
+    $('#zoomTxt').innerHTML = `Zoom máximo: <b>${z.toFixed(1).replace('.', ',')}×</b> · más que eso se pixela`;
+    if (z < 1){ sube(1); mot.push(`Es más chica que tu video (${ancho} px contra ${sal}): se va a ver blanda. Usala chica, enmarcada, o buscá otro escaneo.`); }
+    else if (z < 1.3){ sube(1); mot.push('Casi no admite zoom: usala entera, sin acercarte a los detalles.'); }
+    else mot.push(`Podés acercarte hasta ${z.toFixed(1).replace('.', ',')}×. Si el guion promete un primer plano más cerrado, recortá antes de escribir.`);
+  } else $('#zoomTxt').innerHTML = 'Zoom máximo: <b>—</b>';
+
+  const r = [...document.querySelectorAll('.riesgo:checked')].map((x) => x.value);
+  if (r.includes('homonimo')){ sube(2); mot.push('No es la obra o el lugar que buscás: descartala.'); }
+  if (r.includes('ampliada')){ sube(2); mot.push('Ampliada con IA: tiene detalles inventados. Buscá el escaneo original.'); }
+  if (r.includes('coloreada')){ sube(1); mot.push('Coloreada con IA: si la usás, rotulala como coloreada; mejor buscá la original.'); }
+  if (r.includes('repetida')){ sube(2); mot.push('Repetida: ya la tenés, no la sumes otra vez.'); }
+
+  const c = document.querySelector('input[name=coincide]:checked').value;
+  if (c === 'parcial'){ sube(1); mot.push('Es parecida, no la misma: rotulala (por ejemplo "copia", "versión de 1890") para no hacerla pasar por otra cosa.'); }
+  if (c === 'no'){ sube(2); mot.push('Es de otro hecho: el público de estos canales lo detecta y te lo marca en los comentarios.'); }
+
+  const L = $('#licencia').value;
+  const lic = {
+    pd:   [0, 'Dominio público: libre. Dar el crédito igual es gratis y suma.'],
+    cc0:  [0, 'CC0: libre, sin obligación de crédito.'],
+    by:   [1, 'CC BY: se puede, con crédito obligatorio (autor y licencia). Sumala a tu bloque de créditos.'],
+    bysa: [1, 'CC BY-SA: se puede, con crédito obligatorio. Si la modificás (recorte, color), la versión modificada queda con la misma licencia.'],
+    nc:   [2, 'NC = no comercial. Un canal monetizado es uso comercial: no la uses.'],
+    nd:   [2, 'ND = sin obras derivadas. Zoom, recorte y color son modificarla: mejor no la uses.'],
+    reservados: [2, 'Con dueño o sin licencia clara: no la uses. Si no encontrás la licencia, la respuesta es no.'],
+  }[L];
+  sube(lic[0]); mot.push(lic[1]);
+
+  const v = $('#veredicto');
+  v.className = 'veredicto ' + ['ok','ojo','no'][nivel];
+  $('#estado').textContent = ['Usala','Usala con cuidado','Descartala'][nivel];
+  $('#motivos').innerHTML = mot.map((m) => `<li>${esc(m)}</li>`).join('');
+}
+document.querySelectorAll('#formRev input, #formRev select').forEach((el) => el.addEventListener('input', revisar));
+revisar();
+
+/* 3 · créditos */
+const LICS = ['CC BY 4.0','CC BY 3.0','CC BY 2.5','CC BY 2.0','CC BY-SA 4.0','CC BY-SA 3.0','CC BY-SA 2.5','CC BY-SA 2.0'];
+const CLAVE = 'promptArchivo.creditos.v1';
+let filas = [];
+try { filas = JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch (e) { filas = []; }
+if (!Array.isArray(filas) || !filas.length) filas = [{t:'', a:'', l:'CC BY 4.0'}];
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(filas)); } catch (e) {} };
+
+function pintarFilas(){
+  $('#filas').innerHTML = filas.map((f, i) => `
+    <div class="fila" data-i="${i}">
+      <input type="text" aria-label="Qué es" placeholder="Qué es (ej.: Sala del Prado con el cuadro)" value="${esc(f.t)}" data-k="t">
+      <input type="text" aria-label="Autor" placeholder="Autor (ej.: Priscila Costa)" value="${esc(f.a)}" data-k="a">
+      <select aria-label="Licencia" data-k="l">${LICS.map((l) => `<option ${l===f.l?'selected':''}>${l}</option>`).join('')}</select>
+      <button class="x" aria-label="Quitar">×</button>
+    </div>`).join('');
+  document.querySelectorAll('.fila').forEach((row) => {
+    const i = +row.dataset.i;
+    row.querySelectorAll('[data-k]').forEach((el) => el.addEventListener('input', () => { filas[i][el.dataset.k] = el.value; guardar(); armar(); }));
+    row.querySelector('.x').onclick = () => { filas.splice(i, 1); if (!filas.length) filas.push({t:'', a:'', l:'CC BY 4.0'}); guardar(); pintarFilas(); armar(); };
+  });
+}
+function armar(){
+  const conCredito = filas.filter((f) => f.t.trim() || f.a.trim());
+  const lineas = ['CRÉDITOS'];
+  if ($('#generales').value.trim()) lineas.push($('#generales').value.trim());
+  if (conCredito.length){
+    lineas.push('Con licencia Creative Commons:');
+    conCredito.forEach((f) => lineas.push(`· ${f.t.trim() || 'Imagen'} — ${f.a.trim() || 'Autor desconocido'}, ${f.l}`));
+  }
+  if ($('#musica').value.trim()) lineas.push('Música: ' + $('#musica').value.trim().replace(/^Música:\s*/i, ''));
+  const txt = lineas.join('\n');
+  $('#bloque').value = txt;
+  const resto = Math.max(0, parseInt($('#resto').value || '0', 10) || 0);
+  const total = [...txt].length + resto + (resto ? 2 : 0);
+  $('#total').textContent = `${total.toLocaleString('es-AR')} / 5.000`;
+  $('#barraFill').style.width = Math.min(100, total / 50) + '%';
+  const m = $('#medidor');
+  m.className = 'medidor' + (total > 5000 ? ' lleno' : total > 4500 ? ' cerca' : '');
+  $('#quedan').textContent = total > 5000 ? `Te pasaste por ${(total - 5000).toLocaleString('es-AR')} caracteres.` : `Te quedan ${(5000 - total).toLocaleString('es-AR')} caracteres. Los créditos ocupan ${[...txt].length.toLocaleString('es-AR')}.`;
+}
+$('#agregar').onclick = () => { filas.push({t:'', a:'', l:'CC BY 4.0'}); guardar(); pintarFilas(); armar(); };
+$('#vaciar').onclick = () => { filas = [{t:'', a:'', l:'CC BY 4.0'}]; guardar(); pintarFilas(); armar(); };
+$('#ejemplo').onclick = () => {
+  filas = [
+    {t:'Sala del Prado con el cuadro', a:'Priscila Costa (Ministério da Cultura)', l:'CC BY 2.0'},
+    {t:'Detalle del cuadro, foto de archivo', a:'Wellcome Collection', l:'CC BY 4.0'},
+    {t:'Copia de Graz', a:'Isiwal', l:'CC BY-SA 4.0'},
+    {t:'Dulle Griet', a:'Dosseman', l:'CC BY-SA 4.0'},
+    {t:'Palacio de La Granja', a:'Américo Toledano', l:'CC BY-SA 4.0'},
+    {t:'Trionfo della Morte, Pisa', a:'Sailko', l:'CC BY 2.5'},
+    {t:'Catedral de Amberes', a:'Julien Grandgagnage', l:'CC BY-SA 4.0'},
+  ];
+  $('#musica').value = 'Debussy, Clair de lune (U.S. Air Force Band of Flight, Wright Brass) y Chopin, Nocturnos op. 27 n.º 1 y op. 72 n.º 1 (Luke Faulkner, Musopen). Grabaciones de dominio público vía Wikimedia Commons.';
+  guardar(); pintarFilas(); armar();
+};
+['#generales', '#musica', '#resto'].forEach((s) => $(s).addEventListener('input', armar));
+$('#copiar').onclick = async () => {
+  const b = $('#copiar');
+  try { await navigator.clipboard.writeText($('#bloque').value); b.textContent = '¡Copiado!'; }
+  catch (e) { $('#bloque').select(); document.execCommand('copy'); b.textContent = '¡Copiado!'; }
+  setTimeout(() => b.textContent = 'Copiar créditos', 1600);
+};
+pintarFilas(); armar();
+</script>
+</body>
+</html>

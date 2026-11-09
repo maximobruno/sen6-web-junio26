@@ -95,6 +95,11 @@
     X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
+  for = "/prompt-archivo-a00fd4f7/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
   for = "/prompt-stick-dabc8755/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
