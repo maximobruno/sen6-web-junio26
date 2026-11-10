@@ -1,5 +1,43 @@
 [
  {
+  "titulo": "YouTube Hype con Jewels: los fans ya pueden pagar para impulsar tus videos",
+  "bajada": "Desde el 6 de noviembre, en Estados Unidos, España y otros siete países, los fans pueden canjear Jewels para darle Hype a un video, y el canal cobra en Rubies.",
+  "fecha": "2026-11-09",
+  "categoria": "Monetización",
+  "url": "https://sen6.online/blog/youtube-hype-jewels-ingresos-rubies-canales-pequenos/",
+  "hechos": [
+   "TeamYouTube anunció que desde el 6 de noviembre de 2026 la opción de dar Hype con Jewels llega a Estados Unidos, Canadá, Alemania, Irlanda, Italia, Polonia, España, Turquía y el Reino Unido. Hasta ahora solo existía en Brasil, Corea del Sur, Taiwán y Japón.",
+   "Hype es la función que deja a los espectadores impulsar un video durante sus primeros 7 días para que suba en el ranking del país. Cada persona tiene tres Hypes gratis por semana. Lo nuevo es que, pasado ese límite, los fans pueden canjear Jewels (la moneda virtual que se compra dentro de YouTube) desde el celular para seguir dándole Hype a tus videos.",
+   "Cuando alguien usa Jewels para impulsar un video tuyo, ganás Rubies. Esos ingresos aparecen en YouTube Analytics y se cobran por AdSense para YouTube junto con el resto de lo que genera el canal. Además, quienes le den Hype con Jewels en la primera semana aparecen nombrados en una sección de reconocimiento dentro de la descripción del video.",
+   "Es solo para canales del Programa de Socios con entre 500 y 500.000 suscriptores en esos nueve países. Para empezar a cobrar hay que firmar el Módulo de Artículos Virtuales, completar la verificación de identidad y tener activada la opción que permite a los espectadores dar Hype en YouTube Studio. YouTube no informó cuánto vale cada Hype en Jewels ni cuánto cobra el creador por cada uno."
+  ],
+  "mirada": [
+   "Hype nació como una herramienta de descubrimiento para canales chicos y medianos. Con este cambio se vuelve también una fuente de ingreso, y eso dice mucho: YouTube quiere que el apoyo de la comunidad se pueda medir en plata, no solo en vistas.",
+   "Para la mayoría de los canales en español todavía no aplica: de Latinoamérica no entró ningún país y de habla hispana solo España. Pero si tu canal está registrado en Estados Unidos o en alguno de los otros mercados, y sobre todo si publicás en inglés, vale la pena revisar que tengas todo firmado y activado en Studio.",
+   "No hay que esperar que esto sostenga un canal. Depende de que haya fans dispuestos a gastar en impulsar videos, algo que se da más donde hay una comunidad fuerte que donde hay solo espectadores de paso. Es un ingreso extra, y además una señal de qué tan comprometida está tu audiencia."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/476738871"
+ },
+ {
+  "titulo": "YouTube Studio crea música con IA para sacarte reclamos de copyright",
+  "bajada": "La herramienta Reemplazar canción ahora genera pistas instrumentales libres de regalías para limpiar reclamos de Content ID, y llega a más países fuera de Estados Unidos.",
+  "fecha": "2026-11-09",
+  "categoria": "Herramientas",
+  "url": "https://sen6.online/blog/youtube-musica-ia-reclamos-copyright-reemplazar-cancion/",
+  "hechos": [
+   "TeamYouTube anunció el 3 de noviembre de 2026, en el blog oficial de la Comunidad de Ayuda de YouTube, que la función de creación de música dentro de la herramienta Reemplazar canción de YouTube Studio deja de ser exclusiva de Estados Unidos. Ahora está disponible para creadores de la mayoría de los países fuera del Espacio Económico Europeo.",
+   "Funciona así: cuando un video tiene un reclamo de audio, entrás a Reemplazar canción en Studio y, en la pestaña de sugerencias, aparece un botón nuevo para crear música. Con un clic, YouTube genera cuatro pistas instrumentales distintas, libres de regalías, de tres minutos cada una. Las podés poner en la línea de tiempo, repetirlas en bucle, ajustarles el volumen o descargarlas.",
+   "Cuando el audio con derechos queda reemplazado por completo con la pista generada, el reclamo de Content ID se levanta solo, sin volver a subir el video.",
+   "Hay límites claros. Por ahora solo genera música instrumental de fondo, no canciones con voz. No está en la app de Studio para celular: es solo en la versión de escritorio, aunque YouTube adelantó que prepara un editor de copyright para móvil. Y la música generada es para usar en contenido que hagas en YouTube: no es una licencia para llevarla a otras plataformas."
+  ],
+  "mirada": [
+   "Un reclamo de música no siempre tumba un video, pero sí puede dejarlo sin ingresos o bloqueado en algunos países. Hasta ahora, la salida era silenciar el tramo, cortar o buscar a mano un tema de reemplazo. Que Studio te dé cuatro opciones en el momento achica mucho ese costo.",
+   "Para un canal faceless, donde la música de fondo sostiene buena parte del ritmo del video, es una red de seguridad útil. Pero conviene verla así, como red: es música genérica, sin elegir estilo, pensada para tapar un problema y no para construir la identidad sonora de un canal.",
+   "Ojo también con el detalle de la licencia. Si reutilizás tus videos en Instagram o TikTok, esa pista no viaja con ellos. Lo más sano sigue siendo trabajar desde el principio con música cuyos derechos tengas claros, y dejar esta herramienta para cuando algo se escapa."
+  ],
+  "fuente": "https://support.google.com/youtube/thread/476172346"
+ },
+ {
   "titulo": "YouTube Shopping: Studio ahora te recomienda qué productos etiquetar",
   "bajada": "Los afiliados de YouTube Shopping suman en Studio una sección de productos recomendados para su canal, con la comisión estimada de cada uno a la vista.",
   "fecha": "2026-11-06",
