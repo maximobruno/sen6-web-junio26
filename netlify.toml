@@ -122,3 +122,8 @@
   for = "/manual-marca-4c969a01/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/fondos-a92d68f5/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
