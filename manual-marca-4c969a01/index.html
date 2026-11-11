@@ -3663,6 +3663,72 @@ SL.reg('s9-check',{init(el){el.querySelectorAll('.chk').forEach(c=>c.addEventLis
   <aside class="notas">Nadie diagrama a mano: se pide con la skill sen6-presentacion (está en la sección 14), Claude escribe las diapos y el motor las arma en un HTML que se abre con doble clic. Para presentar: flechas, F para pantalla completa, I para el índice y N para estas notas.</aside>
 </section>
 
+<!-- ============ 11.5 ICONOGRAFÍA ============ -->
+<style>
+[data-id="s10-iconos"] .rej{position:absolute;left:720px;top:110px;width:1070px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+[data-id="s10-iconos"] .ic{background:var(--crema);height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;--a:var(--tinta);--b:var(--crema);--n:var(--naranja)}
+[data-id="s10-iconos"] .ic svg{width:68px;height:68px}
+[data-id="s10-iconos"] .ic span{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+[data-id="s10-iconos"] .ic b{color:var(--naranja);margin-right:7px}
+[data-id="s10-iconos"] .tam{display:flex;align-items:flex-end;gap:22px;margin-top:34px}
+[data-id="s10-iconos"] .tam div{display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;letter-spacing:.1em}
+[data-id="s10-iconos"] .tam svg{--a:var(--tinta);--b:var(--papel);--n:var(--naranja)}
+[data-id="s10-iconos"] .tam .os{background:var(--tinta);padding:14px;--a:var(--crema);--b:var(--tinta)}
+[data-id="s10-iconos"] .tam .os svg{--a:var(--crema);--b:var(--tinta)}
+</style>
+<section class="slide s10" data-sec="11" data-nom="Presentaciones" data-tema="papel" data-3d="oculto" data-id="s10-iconos">
+  <div class="abs" style="left:130px;top:110px;width:540px">
+    <div class="kicker in">11.5 · Iconografía</div>
+    <h2 class="in" style="--d:1;font-size:74px;margin-top:18px">30 íconos,<br><em>tres formas</em></h2>
+    <ul class="lista in" style="--d:2;margin-top:34px;gap:14px">
+      <li data-n="01" style="font-size:21px"><b>Círculo, cuadrado y líneas.</b> El único triángulo es el play, punta a la derecha.</li>
+      <li data-n="02" style="font-size:21px"><b>Grilla de 48,</b> líneas de 4, ángulos de 0°, 45° y 90°.</li>
+      <li data-n="03" style="font-size:21px"><b>Silueta plana, como Isotype.</b> Cantidad = repetir al mismo tamaño.</li>
+      <li data-n="04" style="font-size:21px"><b>Tinta + un acento naranja.</b> Sobre oscuro, la tinta pasa a crema.</li>
+    </ul>
+    <div class="tam in" style="--d:3">
+      <div><svg viewBox="0 0 48 48" style="width:24px;height:24px"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><polygon points="19,16 32,24 19,32" fill="var(--n)"/></svg></svg>24</div>
+      <div><svg viewBox="0 0 48 48" style="width:48px;height:48px"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><polygon points="19,16 32,24 19,32" fill="var(--n)"/></svg></svg>48</div>
+      <div><svg viewBox="0 0 48 48" style="width:96px;height:96px"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><polygon points="19,16 32,24 19,32" fill="var(--n)"/></svg></svg>96 PX</div>
+      <div class="os"><svg viewBox="0 0 48 48" style="width:68px;height:68px"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><polygon points="19,16 32,24 19,32" fill="var(--n)"/></svg></svg></div>
+    </div>
+    <div style="margin-top:40px;display:flex;gap:14px"><a class="btn in" style="--d:4" href="descargas/iconos/sen6-iconos-positivo.zip" download>Positivos · SVG</a><a class="btn in" style="--d:5;background:var(--tinta);color:var(--crema);border-color:var(--tinta)" href="descargas/iconos/sen6-iconos-negativo.zip" download>Negativos · SVG</a></div>
+  </div>
+  <div class="rej in-s" style="--d:2">
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><polygon points="19,16 32,24 19,32" fill="var(--n)"/></svg><span><b>01</b>Video</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="10" y="5" width="28" height="4" fill="var(--a)"/><rect x="4" y="13" width="40" height="29" fill="var(--a)"/><polygon points="20,21 31,27.5 20,34" fill="var(--n)"/></svg><span><b>02</b>Canal</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="9" y="4" width="30" height="40" fill="var(--a)"/><rect x="15" y="12" width="18" height="4" fill="var(--b)"/><rect x="15" y="20" width="18" height="4" fill="var(--b)"/><rect x="15" y="28" width="11" height="4" fill="var(--n)"/></svg><span><b>03</b>Guion</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="17" y="4" width="14" height="24" rx="7" fill="var(--n)"/><path d="M11 21a13 13 0 0 0 26 0" fill="none" stroke="var(--a)" stroke-width="4"/><rect x="22" y="34" width="4" height="6" fill="var(--a)"/><rect x="14" y="40" width="20" height="4" fill="var(--a)"/></svg><span><b>04</b>Voz</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><path d="M10 10L38 38M38 10L10 38" fill="none" stroke="var(--a)" stroke-width="3"/><circle cx="10" cy="10" r="5" fill="var(--a)"/><circle cx="38" cy="10" r="5" fill="var(--a)"/><circle cx="10" cy="38" r="5" fill="var(--a)"/><circle cx="38" cy="38" r="5" fill="var(--a)"/><circle cx="24" cy="24" r="9" fill="var(--n)"/></svg><span><b>05</b>IA</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(0 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(45 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(90 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(135 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(180 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(225 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(270 24 24)"/><rect x="21" y="3" width="6" height="8" fill="var(--a)" transform="rotate(315 24 24)"/><circle cx="24" cy="24" r="13" fill="var(--a)"/><circle cx="24" cy="24" r="5.5" fill="var(--n)"/></svg><span><b>06</b>Automatización</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="14" fill="var(--n)"/><rect x="17" y="35" width="14" height="4" fill="var(--a)"/><rect x="19" y="41" width="10" height="3" fill="var(--a)"/></svg><span><b>07</b>Idea</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="var(--a)" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="var(--a)" stroke-width="4"/><circle cx="24" cy="24" r="4" fill="var(--n)"/></svg><span><b>08</b>Nicho</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="32" width="11" height="12" fill="var(--a)"/><rect x="18.5" y="20" width="11" height="24" fill="var(--a)"/><rect x="33" y="6" width="11" height="38" fill="var(--n)"/></svg><span><b>09</b>Crecimiento</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><path d="M3 24A27 27 0 0 1 45 24A27 27 0 0 1 3 24Z" fill="var(--a)"/><circle cx="24" cy="24" r="8" fill="var(--b)"/><circle cx="24" cy="24" r="4" fill="var(--n)"/></svg><span><b>10</b>Vistas</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="13" r="9" fill="var(--n)"/><path d="M7 44A17 17 0 0 1 41 44Z" fill="var(--a)"/></svg><span><b>11</b>Suscriptor</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="11" cy="17" r="5" fill="var(--a)"/><path d="M2 36A9 9 0 0 1 20 36Z" fill="var(--a)"/><circle cx="37" cy="17" r="5" fill="var(--a)"/><path d="M28 36A9 9 0 0 1 46 36Z" fill="var(--a)"/><circle cx="24" cy="15" r="7" fill="var(--n)"/><path d="M11 42A13 13 0 0 1 37 42Z" fill="var(--a)"/></svg><span><b>12</b>Comunidad</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="7" width="40" height="29" fill="var(--a)"/><circle cx="11" cy="14" r="3" fill="var(--n)"/><circle cx="24" cy="19" r="5" fill="var(--b)"/><path d="M15 36A9 9 0 0 1 33 36Z" fill="var(--b)"/><rect x="16" y="40" width="16" height="4" fill="var(--a)"/></svg><span><b>13</b>Clase en vivo</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="38" height="35" fill="var(--a)"/><rect x="5" y="9" width="38" height="9" fill="var(--n)"/><rect x="13" y="4" width="4" height="9" fill="var(--a)"/><rect x="31" y="4" width="4" height="9" fill="var(--a)"/><rect x="11" y="23" width="5" height="5" fill="var(--b)"/><rect x="21.5" y="23" width="5" height="5" fill="var(--b)"/><rect x="32" y="23" width="5" height="5" fill="var(--b)"/><rect x="11" y="33" width="5" height="5" fill="var(--b)"/><rect x="21.5" y="33" width="5" height="5" fill="var(--b)"/><rect x="32" y="33" width="5" height="5" fill="var(--n)"/></svg><span><b>14</b>Calendario</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--a)"/><rect x="22" y="10" width="4" height="16" fill="var(--b)"/><rect x="22" y="22" width="13" height="4" fill="var(--n)"/></svg><span><b>15</b>Tiempo</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="8" y="38" width="32" height="6" fill="var(--a)"/><rect x="8" y="30" width="32" height="6" fill="var(--a)"/><rect x="8" y="22" width="32" height="6" fill="var(--a)"/><circle cx="24" cy="11" r="7" fill="var(--n)"/></svg><span><b>16</b>Ingresos</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" fill="var(--a)"/><circle cx="34" cy="18" r="4" fill="var(--n)"/><path d="M9 39A13 13 0 0 1 35 39Z" fill="var(--b)"/></svg><span><b>17</b>Miniatura</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><path d="M15 33L40 8M33 33L8 8" fill="none" stroke="var(--a)" stroke-width="4"/><path d="M15 33L24 24" fill="none" stroke="var(--n)" stroke-width="4"/><circle cx="11" cy="37" r="6" fill="none" stroke="var(--a)" stroke-width="4"/><circle cx="37" cy="37" r="6" fill="none" stroke="var(--a)" stroke-width="4"/></svg><span><b>18</b>Edición</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="13" fill="none" stroke="var(--a)" stroke-width="5"/><path d="M30 30L43 43" fill="none" stroke="var(--n)" stroke-width="6"/></svg><span><b>19</b>Buscar</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="17" cy="24" r="12" fill="none" stroke="var(--a)" stroke-width="4"/><circle cx="31" cy="24" r="12" fill="none" stroke="var(--n)" stroke-width="4"/></svg><span><b>20</b>Conectar</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="22" y="4" width="4" height="26" fill="var(--a)"/><path d="M12 19L24 31L36 19" fill="none" stroke="var(--a)" stroke-width="4"/><rect x="6" y="39" width="36" height="5" fill="var(--n)"/></svg><span><b>21</b>Descargar</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--n)"/><path d="M14 24L21 31L35 17" fill="none" stroke="var(--b)" stroke-width="5"/></svg><span><b>22</b>Sí</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--a)"/><path d="M16 16L32 32M32 16L16 32" fill="none" stroke="var(--b)" stroke-width="5"/></svg><span><b>23</b>No</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" fill="var(--a)" transform="rotate(45 24 24)"/><rect x="22" y="13" width="4" height="15" fill="var(--n)"/><rect x="22" y="32" width="4" height="4" fill="var(--n)"/></svg><span><b>24</b>Importante</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="28" fill="var(--a)"/><rect x="10" y="34" width="9" height="9" fill="var(--a)"/><rect x="11" y="14" width="26" height="4" fill="var(--b)"/><rect x="11" y="22" width="16" height="4" fill="var(--n)"/></svg><span><b>25</b>Comentario</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="15" cy="36" r="8" fill="var(--a)"/><rect x="19" y="5" width="4" height="31" fill="var(--a)"/><rect x="19" y="5" width="18" height="8" fill="var(--n)"/></svg><span><b>26</b>Música</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="19" height="31" fill="var(--a)"/><rect x="25" y="9" width="19" height="31" fill="var(--n)"/><rect x="8" y="16" width="11" height="3" fill="var(--b)"/><rect x="8" y="23" width="11" height="3" fill="var(--b)"/></svg><span><b>27</b>Recurso</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><path d="M10 38V24H38V10" fill="none" stroke="var(--a)" stroke-width="4"/><circle cx="10" cy="38" r="6" fill="var(--a)"/><circle cx="24" cy="24" r="4" fill="var(--a)"/><circle cx="38" cy="10" r="6" fill="var(--n)"/></svg><span><b>28</b>Proceso</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="none" stroke="var(--a)" stroke-width="4"/><ellipse cx="24" cy="24" rx="8" ry="19" fill="none" stroke="var(--a)" stroke-width="3"/><rect x="5" y="22" width="38" height="4" fill="var(--n)"/></svg><span><b>29</b>Idiomas</span></div>
+      <div class="ic"><svg viewBox="0 0 48 48"><rect x="21" y="16" width="6" height="28" fill="var(--a)"/><circle cx="24" cy="12" r="9" fill="var(--n)"/><rect x="21" y="2" width="6" height="10" fill="var(--b)"/></svg><span><b>30</b>Herramienta</span></div>
+  </div>
+  <aside class="notas">Set oficial de íconos para clases y presentaciones, dibujado de cero sobre la lógica de Isotype y la Bauhaus. Si falta un ícono, se dibuja con estas mismas reglas; nunca se mezclan sets de afuera.</aside>
+</section>
+
 <!-- ===== 12-fondos.html ===== -->
 <style>
 .fdo .prev{border:3px solid var(--fg);overflow:hidden;background:#0002}
@@ -4078,7 +4144,7 @@ SL.reg('s9-check',{init(el){el.querySelectorAll('.chk').forEach(c=>c.addEventLis
   <div class="kicker in">14.4 · Descargas</div>
   <h2 class="in" style="--d:1">Todo en un <em>lugar</em></h2>
   <div class="dsc-grid">
-    <div class="d kit in-s" style="--d:2"><span class="mono" style="font-size:16px;letter-spacing:.14em;color:var(--naranja)">KIT COMPLETO</span><h3>Kit de marca SEN6</h3><p>Logos, paleta para código, tipografías y las ocho skills en un solo archivo. Los fondos se bajan aparte por su peso.</p><div class="fila"><a class="btn" href="descargas/sen6-kit-marca.zip" download>Descargar kit</a></div></div>
+    <div class="d kit in-s" style="--d:2"><span class="mono" style="font-size:16px;letter-spacing:.14em;color:var(--naranja)">KIT COMPLETO</span><h3>Kit de marca SEN6</h3><p>Logos, paleta para código, tipografías, los 30 íconos (positivos y negativos) y las ocho skills en un solo archivo. Los fondos se bajan aparte por su peso.</p><div class="fila"><a class="btn" href="descargas/sen6-kit-marca.zip" download>Descargar kit</a><a class="btn" href="descargas/sen6-manual-de-marca.pdf" download>Manual en PDF</a></div></div>
     <div class="d in" style="--d:3"><h3>Logo</h3><p>Isotipo tech y crema en PNG 2048 y SVG, y el símbolo solo.</p><div class="fila"><a class="btn" href="descargas/logo/sen6-isotipo-tech-vector.svg" download>Tech SVG</a><a class="btn" href="descargas/logo/sen6-isotipo-crema-vector.svg" download>Crema SVG</a></div></div>
     <div class="d in" style="--d:4"><h3>Color</h3><p>Variables CSS y JSON con los valores exactos.</p><div class="fila"><a class="btn" href="descargas/paleta/sen6-colores.css" download>CSS</a><a class="btn" href="descargas/paleta/sen6-colores.json" download>JSON</a></div></div>
     <div class="d in" style="--d:5"><h3>Tipografía</h3><p>Las tres fuentes en .ttf, gratis (licencia OFL).</p><div class="fila"><a class="btn" href="descargas/tipografias/sen6-tipografias.zip" download>Descargar ZIP</a><a class="btn" href="https://fonts.google.com/specimen/Jost" target="_blank">Jost</a><a class="btn" href="https://fonts.google.com/specimen/Instrument+Serif" target="_blank">Instrument Serif</a><a class="btn" href="https://fonts.google.com/specimen/Space+Mono" target="_blank">Space Mono</a></div></div>
