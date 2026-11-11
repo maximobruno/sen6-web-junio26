@@ -117,3 +117,8 @@
   to = "/"
   status = 302
   force = true
+
+[[headers]]
+  for = "/manual-marca-4c969a01/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

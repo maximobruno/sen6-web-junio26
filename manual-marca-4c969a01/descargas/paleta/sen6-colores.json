@@ -1,0 +1,16 @@
+{
+  "marca": "SEN6",
+  "nota": "CMYK: conversión aproximada calculada desde RGB, sin perfil de color. Pedir prueba de imprenta. No hay Pantone oficial.",
+  "principales": {
+    "naranja": {"hex": "#D06224", "rgb": [208, 98, 36],   "cmyk_aprox": [0, 53, 83, 18], "rol": "primario, acción, el play", "proporcion": "20 %"},
+    "tinta":   {"hex": "#191919", "rgb": [25, 25, 25],    "cmyk_aprox": [0, 0, 0, 90],   "rol": "texto, líneas, fondos oscuros", "proporcion": "25 %"},
+    "crema":   {"hex": "#E8D8BA", "rgb": [232, 216, 186], "cmyk_aprox": [0, 7, 20, 9],   "rol": "fondo de marca", "proporcion": "30 %"},
+    "papel":   {"hex": "#F0E9E3", "rgb": [240, 233, 227], "cmyk_aprox": [0, 3, 5, 6],    "rol": "fondo claro, documentos", "proporcion": "15 %"},
+    "blanco":  {"hex": "#FFFFFF", "rgb": [255, 255, 255], "cmyk_aprox": [0, 0, 0, 0],    "rol": "respiro, texto sobre oscuro o naranja", "proporcion": "5 %"},
+    "oliva":   {"hex": "#8A8635", "rgb": [138, 134, 53],  "cmyk_aprox": [0, 3, 62, 46],  "rol": "acento mínimo, nunca protagonista", "proporcion": "≤ 5 %"}
+  },
+  "apoyo": {
+    "chile":  {"hex": "#AE431E", "rgb": [174, 67, 30],   "cmyk_aprox": [0, 61, 83, 32], "uso": "solo sombras y volumen 3D"},
+    "sunset": {"hex": "#EAC891", "rgb": [234, 200, 145], "cmyk_aprox": [0, 15, 38, 8],  "uso": "solo luz cálida y volumen 3D"}
+  }
+}

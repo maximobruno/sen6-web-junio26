@@ -1,0 +1,14 @@
+/* SEN6 · tokens de color · Manual de marca (sección 03)
+   CMYK y conversiones de imprenta: ver sen6-colores.json (aproximadas) */
+:root{
+  /* principales */
+  --sen6-naranja:#D06224; /* primario, acción, el play · 20 % */
+  --sen6-tinta:#191919;   /* texto, líneas, fondos oscuros · 25 % */
+  --sen6-crema:#E8D8BA;   /* fondo de marca · 30 % */
+  --sen6-papel:#F0E9E3;   /* fondo claro, documentos · 15 % */
+  --sen6-blanco:#FFFFFF;  /* respiro, texto sobre oscuro · 5 % */
+  --sen6-oliva:#8A8635;   /* acento mínimo, nunca protagonista · ≤ 5 % */
+  /* apoyo: solo sombras, volumen 3D y luz. Nunca como color de marca */
+  --sen6-chile:#AE431E;
+  --sen6-sunset:#EAC891;
+}
