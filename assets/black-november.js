@@ -1,4 +1,4 @@
-/* Black November 2026 · pop-up (home) y franja inferior (resto de páginas).
+/* Black November 2026 · banner fijo arriba + pop-up (home) y franja inferior (resto de páginas).
    Se apaga solo al cierre: 27 nov 2026, 23:59 hora de Monterrey (UTC-6).
    Vista previa sin esperar ni recordar el cierre: agregar ?bn=1 a la URL. */
 (function () {
@@ -7,6 +7,54 @@
   var PAUSA = 3 * 24 * 3600 * 1000; // vuelve a aparecer a los 3 días
   var forzar = /[?&]bn=1\b/.test(location.search);
   if (Date.now() > FIN && !forzar) return;
+
+  /* Banner fijo arriba de todo (solo home): no se cierra, se apaga con la promo. */
+  (function banner() {
+    var ruta = location.pathname;
+    if (ruta !== '/' && ruta !== '/index.html') return;
+    var css = '' +
+      '.bn-top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:center;gap:14px;padding:8px 16px;background:#0B0D12;color:#F5F3EF;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.86rem;line-height:1.3;box-shadow:inset 0 -1px 0 rgba(244,199,107,.35)}' +
+      '.bn-top-in{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;min-width:0}' +
+      '.bn-top b{font-family:"Space Mono",ui-monospace,monospace;font-weight:700;font-size:.7rem;letter-spacing:.24em;color:#F4C76B;white-space:nowrap}' +
+      '.bn-top-t{font-variant-numeric:tabular-nums;color:#a9a39a;white-space:nowrap}' +
+      '.bn-top-corto{display:none}' +
+      '.bn-top a{flex:none;display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:9px;background:#D4450A;color:#fff;font-weight:800;font-size:.8rem;text-decoration:none;white-space:nowrap}' +
+      '.bn-top a:hover{background:#F26A2E}' +
+      'header.top{top:var(--bn-alto,0px)!important}' +
+      'body{padding-top:var(--bn-alto,0px)}' +
+      'html{scroll-padding-top:calc(72px + var(--bn-alto,0px))!important}' +
+      '@media (max-width:1020px){.bn-top-largo{display:none}}' +
+      '@media (max-width:900px){.bn-top-medio{display:none}.bn-top-corto{display:inline}}' +
+      '@media (max-width:560px){.bn-top{justify-content:space-between;gap:10px;padding:7px 12px;font-size:.8rem}.bn-top-in{flex-direction:column;align-items:flex-start;gap:1px}.bn-top b{font-size:.62rem;letter-spacing:.2em}.bn-top-corto .bn-top-t{font-size:.72rem;display:block}.bn-top-sep{display:none}}';
+    function poner() {
+      if (document.getElementById('bn-top')) return;
+      var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+      var el = document.createElement('div');
+      el.id = 'bn-top'; el.className = 'bn-top';
+      el.setAttribute('role', 'region'); el.setAttribute('aria-label', 'Promo Black November');
+      el.innerHTML = '<div class="bn-top-in"><b>BLACK NOVEMBER</b>' +
+        '<span class="bn-top-medio">Entrá antes del 27 y participá por un <strong>plan ETHER de por vida</strong><span class="bn-top-largo"> · sorteo el 28 de diciembre</span></span>' +
+        '<span class="bn-top-corto">Sorteo de <strong>ETHER de por vida</strong><span class="bn-top-sep"> · </span><span class="bn-top-t"></span></span>' +
+        '<span class="bn-top-t bn-top-medio"></span></div>' +
+        '<a href="#quiz">Ver mi plan</a>';
+      document.body.insertBefore(el, document.body.firstChild);
+      var ts = el.querySelectorAll('.bn-top-t');
+      function tic() {
+        var s = Math.max(0, Math.floor((FIN - Date.now()) / 1000));
+        if (!s && !forzar) { el.remove(); document.documentElement.style.removeProperty('--bn-alto'); return; }
+        var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+        var txt = 'cierra en ' + d + 'd ' + (h < 10 ? '0' : '') + h + 'h ' + (m < 10 ? '0' : '') + m + 'm';
+        for (var i = 0; i < ts.length; i++) ts[i].textContent = txt;
+      }
+      tic(); setInterval(tic, 30000);
+      function alto() { document.documentElement.style.setProperty('--bn-alto', el.offsetHeight + 'px'); }
+      alto(); window.addEventListener('resize', alto);
+      el.querySelector('a').addEventListener('click', function () {
+        try { if (window.gtag) window.gtag('event', 'bn_banner', { promo: 'black_november_2026' }); } catch (e) {}
+      });
+    }
+    if (document.body) poner(); else document.addEventListener('DOMContentLoaded', poner);
+  })();
 
   function leer() { try { return +localStorage.getItem(CLAVE) || 0; } catch (e) { return 0; } }
   function guardar() { try { localStorage.setItem(CLAVE, String(Date.now())); } catch (e) {} }
