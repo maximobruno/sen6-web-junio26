@@ -1,5 +1,25 @@
 [
  {
+  "titulo": "YouTube suma a las vistas públicas a la gente que mira junta en la tele",
+  "bajada": "Desde noviembre de 2026, el contador de vistas incluye una estimación de cuántas personas miran el mismo video juntas en un televisor. No cambia lo que cobrás.",
+  "fecha": "2026-11-18",
+  "categoria": "Algoritmo",
+  "url": "https://sen6.online/blog/youtube-vistas-publicas-co-views-tv/",
+  "hechos": [
+   "YouTube anunció el 16 de noviembre, en un Short del canal Creator Insider, que el contador público de vistas ahora incorpora los co-views: una estimación de cuántas personas están mirando el mismo video juntas frente a una pantalla de televisión. El Centro de Ayuda lo confirma con la fecha \"a partir de noviembre de 2026\".",
+   "La estimación se aplica al número de vistas que aparece en la página de cada video, al tiempo de visualización, a los espectadores simultáneos de los directos y a las vistas públicas que generan los anuncios. Es un cálculo de YouTube, no un conteo de dispositivos: si el modelo estima que tres personas vieron tu video en el living, puede sumar más de una vista por esa reproducción.",
+   "Hay métricas que quedan afuera. Las vistas comprometidas y los espectadores únicos no incluyen co-views. Para separar una cosa de la otra, Analytics suma una tasa de co-visualización: si dividís tus vistas totales por esa tasa, te queda la cifra sin la gente que miraba acompañada. La métrica Vistas (co-visualizadas), que ya existía en el modo avanzado, sigue disponible hasta mayo de 2027.",
+   "Lo que no cambia: la plata. YouTube aclara que la actualización no afecta los ingresos ni la elegibilidad del Programa de Socios. Los pagos siguen saliendo de las vistas comprometidas de Shorts y las horas de visualización comprometidas, y la elegibilidad, de las vistas y horas válidas. Tampoco cambian las vistas facturables de los anunciantes.",
+   "El Centro de Ayuda no dice si los videos viejos se recalculan ni explica cómo hace la estimación."
+  ],
+  "mirada": [
+   "Es el segundo cambio en el contador de vistas en tres meses: en agosto YouTube empezó a contarlas desde el primer segundo y ahora les suma una estimación de la tele. La lectura es clara: YouTube quiere que su número público se parezca al de la televisión, donde siempre se midió audiencia y no reproducciones. Es un mensaje para los anunciantes más que para los creadores.",
+   "Para tu canal, la consecuencia práctica es que el número grande se infla, sobre todo en temas que se miran en familia o en grupo en el televisor. Ese número sirve para mostrar alcance, pero no para tomar decisiones: si querés saber si un video funciona de verdad, mirá las vistas comprometidas y la tasa de co-visualización, que son las que no tienen estimación encima.",
+   "Y ojo al compararte con otros canales: dos videos con el mismo contador pueden tener audiencias muy distintas según cuánto se vean en la tele. El contador público ya no es una medida pareja entre canales."
+  ],
+  "fuente": "https://support.google.com/youtube/answer/12220281?hl=en"
+ },
+ {
   "titulo": "YouTube Hype con Jewels: los fans ya pueden pagar para impulsar tus videos",
   "bajada": "Desde el 6 de noviembre, en Estados Unidos, España y otros siete países, los fans pueden canjear Jewels para darle Hype a un video, y el canal cobra en Rubies.",
   "fecha": "2026-11-09",
